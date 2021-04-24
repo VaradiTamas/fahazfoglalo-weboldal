@@ -11,21 +11,18 @@ import {LoginComponent} from "./auth/login/login.component";
 import {AdminLayoutComponent} from "../layout/admin-layout/admin-layout.component";
 
 const adminRoutes: Routes =
-  [{
-    path: '', component: AdminLayoutComponent, children: [
-      {
-        path: 'admin', component: AdminComponent, children: [
-          {path: 'bookings', component: BookingsComponent, canActivate: [AuthGuard]},
-          {path: 'vouchers', component: CouponsComponent, canActivate: [AuthGuard]},
-          {path: 'bookings/new', component: NewBookingComponent, canActivate: [AuthGuard]},
-          {path: 'bookings/edit/:id', component: NewBookingComponent, canActivate: [AuthGuard]},
-          {path: 'vouchers/new', component: NewCouponComponent, canActivate: [AuthGuard]},
-          {path: 'vouchers/edit/:id', component: NewCouponComponent, canActivate: [AuthGuard]},
-          {path: 'login', component: LoginComponent}
-        ]
-      }
-    ]
-  }];
+  [
+    {path: 'admin', redirectTo: 'admin/login'},
+    {path: 'admin', component: AdminLayoutComponent, children: [
+      {path: 'bookings', component: BookingsComponent, canActivate: [AuthGuard]},
+      {path: 'vouchers', component: CouponsComponent, canActivate: [AuthGuard]},
+      {path: 'bookings/new', component: NewBookingComponent, canActivate: [AuthGuard]},
+      {path: 'bookings/edit/:id', component: NewBookingComponent, canActivate: [AuthGuard]},
+      {path: 'vouchers/new', component: NewCouponComponent, canActivate: [AuthGuard]},
+      {path: 'vouchers/edit/:id', component: NewCouponComponent, canActivate: [AuthGuard]},
+      {path: 'login', component: LoginComponent}
+      ]}
+  ];
 
 @NgModule({
   imports: [RouterModule.forChild(adminRoutes)],
