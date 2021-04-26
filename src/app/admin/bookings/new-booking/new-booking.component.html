@@ -154,7 +154,7 @@
       cols="120">
     </textarea>
   </div>
-  <div class="col-3 form-check mt-5" >
+  <div class="col-3 form-check mt-3" >
     <input
       name="isPaid"
       class="form-check-input"
@@ -163,6 +163,8 @@
       id="isPaid">
     <label class="form-check-label" for="isPaid">Fizetve</label>
   </div>
-  <a mat-raised-button color="primary" class="btn-cancel" [routerLink]="'/admin/bookings'">Vissza</a>
-  <button mat-raised-button color="primary" type="submit" class="btn-save" [disabled]="!f.valid">Megerősítés</button>
+  <div class="row d-flex justify-content-between align-items-end mt-4">
+    <a mat-raised-button color="primary" class="col-1" [routerLink]="'/admin/bookings'">Vissza</a>
+    <button mat-raised-button color="primary" type="submit" class="col-1 mr-5" [disabled]="!f.valid">Megerősítés</button>
+  </div>
 </form>

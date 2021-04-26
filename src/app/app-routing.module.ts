@@ -9,10 +9,11 @@ import {QuestionsComponent} from "./questions/questions.component";
 import {AboutusComponent} from "./aboutus/aboutus.component";
 import {ReservationComponent} from "./reservation/reservation.component";
 import {AppLayoutComponent} from "./layout/app-layout/app-layout.component";
+import {HomeComponent} from "./home/home.component";
 
 const appRoutes: Routes = [
   { path: '', /*redirectTo: '/gallery' pathMatch: 'full'*/ component: AppLayoutComponent, children: [
-      { path: '', component: GalleryComponent, pathMatch: 'full'},
+      { path: '', component: HomeComponent, pathMatch: 'full'},
       { path: 'gallery', component: GalleryComponent },
       { path: 'offers', component: OffersComponent },
       { path: 'voucher', component: VoucherComponent },

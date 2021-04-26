@@ -5,7 +5,6 @@ import {NgbModule} from "@ng-bootstrap/ng-bootstrap";
 import {MaterialModule} from "../material.module";
 import {HTTP_INTERCEPTORS, HttpClientModule} from "@angular/common/http";
 import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
-import {AdminComponent} from "./admin.component";
 import {BookingsComponent} from "./bookings/bookings.component";
 import {NavbarComponent} from "../layout/admin-header/navbar.component";
 import {CouponsComponent} from "./coupons/coupons.component";
@@ -30,7 +29,6 @@ import {AdminLayoutComponent} from "../layout/admin-layout/admin-layout.componen
     BrowserAnimationsModule
   ],
   declarations: [
-    AdminComponent,
     BookingsComponent,
     NavbarComponent,
     CouponsComponent,
@@ -41,7 +39,6 @@ import {AdminLayoutComponent} from "../layout/admin-layout/admin-layout.componen
     AdminLayoutComponent
   ],
   exports: [
-    AdminComponent,
     BookingsComponent,
     NavbarComponent,
     CouponsComponent,
