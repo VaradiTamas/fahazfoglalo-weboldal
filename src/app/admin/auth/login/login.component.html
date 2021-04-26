@@ -1,5 +1,5 @@
-<img src="assets/icon/admin.svg">
-<mat-card>
+<img class="mb-4 pt-3" src="assets/icon/admin.svg">
+<mat-card class="ml-5 mr-5">
   <mat-spinner *ngIf="isLoading"></mat-spinner>
   <form (submit)="onLogin(loginForm)" #loginForm="ngForm" *ngIf="!isLoading">
     <mat-form-field>

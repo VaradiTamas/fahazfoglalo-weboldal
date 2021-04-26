@@ -5,3 +5,11 @@ mat-form-field {
 mat-spinner {
   margin: auto;
 }
+
+img{
+  width: 30%;
+  height: 30%;
+  margin-left: auto;
+  margin-right: auto;
+  display: block;
+}
