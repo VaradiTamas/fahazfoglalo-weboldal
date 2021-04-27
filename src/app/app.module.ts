@@ -30,6 +30,7 @@ import { GalleryLayoutComponent } from './layout/gallery-layout/gallery-layout.c
 import { GalleryHeaderComponent } from './layout/gallery-header/gallery-header.component';
 import { VoucherCardComponent } from './voucher/voucher-card/voucher-card.component';
 import { VoucherLayoutComponent } from './layout/voucher-layout/voucher-layout.component';
+import { AgmCoreModule} from "@agm/core";
 
 @NgModule({
   imports: [
@@ -41,7 +42,10 @@ import { VoucherLayoutComponent } from './layout/voucher-layout/voucher-layout.c
     AppRoutingModule,
     HttpClientModule,
     BrowserAnimationsModule,
-    AdminModule
+    AdminModule,
+    AgmCoreModule.forRoot({
+      apiKey: 'AIzaSyApe9j6D7YzsQmdmpPOI5zuMO1NS4KCbCA'
+    })
   ],
   declarations: [
     AppComponent,
