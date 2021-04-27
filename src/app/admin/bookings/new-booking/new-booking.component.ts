@@ -2,7 +2,7 @@ import {Component, OnDestroy, OnInit, ViewChild} from '@angular/core';
 import {NgForm} from "@angular/forms";
 import {BookingService} from "../../../services/booking.service";
 import {Booking} from "../../../model/booking.model";
-import {ActivatedRoute, ParamMap} from "@angular/router";
+import {ActivatedRoute, ParamMap, Router} from "@angular/router";
 import {Voucher} from "../../../model/voucher.model";
 import {VoucherService} from "../../../services/voucher.service";
 import {AuthService} from "../../auth/auth.service";
@@ -26,7 +26,8 @@ export class NewBookingComponent implements OnInit, OnDestroy{
   constructor(private bookingService: BookingService,
               private voucherService: VoucherService,
               public route: ActivatedRoute,
-              private authService: AuthService) {}
+              private authService: AuthService,
+              private router: Router) {}
 
   ngOnInit() {
     this.authSubscription = this.authService
@@ -100,8 +101,8 @@ export class NewBookingComponent implements OnInit, OnDestroy{
     else{
       this.bookingService.updateBooking(formBooking);
     }
-
     form.reset();
+    this.router.navigate(["/admin/bookings"]);
   }
 
   onCheckVoucher(form : NgForm){
@@ -136,8 +137,4 @@ export class NewBookingComponent implements OnInit, OnDestroy{
   ngOnDestroy() {
     this.authSubscription.unsubscribe();
   }
-
-  /*onClear() {
-    this.newBookingForm.reset();
-  }*/
 }

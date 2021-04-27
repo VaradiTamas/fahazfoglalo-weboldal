@@ -2,9 +2,10 @@ const express = require("express");
 const router = express.Router();
 const Voucher = require('../models/voucher');
 const mongoose = require("mongoose");
-const checkAuth = require("../middleware/check-auth")
+const checkAuth = require("../middleware/check-auth");
+const controlPaidVoucher = require("../middleware/checkIsPaidState")
 
-router.post('', checkAuth, (req,res,next) => {
+router.post('', controlPaidVoucher, (req,res,next) => {
   const voucher = new Voucher({
     firstName: req.body.firstName,
     lastName: req.body.lastName,
@@ -18,7 +19,7 @@ router.post('', checkAuth, (req,res,next) => {
     postcode: req.body.postcode,
     city: req.body.city,
     address: req.body.address,
-    isPaid: req.body.isPaid
+    isPaid: res.locals.isPaid
   });
   voucher.save().then(createdVoucher => {
     res.status(201).json({

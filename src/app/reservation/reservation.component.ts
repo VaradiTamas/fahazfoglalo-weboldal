@@ -1,4 +1,10 @@
 import { Component, OnInit } from '@angular/core';
+import {Booking} from "../model/booking.model";
+import {Voucher} from "../model/voucher.model";
+import {BookingService} from "../services/booking.service";
+import {VoucherService} from "../services/voucher.service";
+import {ActivatedRoute, ParamMap, Router} from "@angular/router";
+import {NgForm} from "@angular/forms";
 
 @Component({
   selector: 'app-reservation',
@@ -6,10 +12,77 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./reservation.component.css']
 })
 export class ReservationComponent implements OnInit {
+  booking: Booking;
+  voucher: Voucher;
+  isVoucherValid = false;
+  alreadyCheckedVoucher = false;
+  private bookingId: string = null;
 
-  constructor() { }
+  constructor(private bookingService: BookingService,
+              private voucherService: VoucherService,
+              public route: ActivatedRoute,
+              public router: Router) {}
 
-  ngOnInit(): void {
+  ngOnInit() {}
+
+  onSubmit(form : NgForm){
+    if(form.invalid) {
+      return;
+    }
+    const value = form.value;
+    var offerName: string;
+    if(this.isVoucherValid){
+      offerName = "voucher";
+    }else{
+      offerName = "általános";
+    }
+    const formBooking = {
+      id: this.bookingId,
+      firstName: value.firstName,
+      lastName: value.lastName,
+      email: value.email,
+      tel: value.tel,
+      numOfChildren: value.numOfChildren,
+      numOfAdults: value.numOfAdults,
+      numOfBedrooms: value.numOfBedrooms,
+      comment: value.comment,
+      isPaid: false,
+      voucherId: this.voucher?.id,
+      from: value.from,
+      to: value.to,
+      offerName: offerName
+    };
+    this.bookingService.addBooking(formBooking);
+    form.reset();
+    this.router.navigate(["/home"]);
   }
 
+  onCheckVoucher(form : NgForm){
+    const value = form.value;
+    this.voucherService.getVoucher(value.voucherId).subscribe(voucherData => {
+      this.voucher = {
+        id: voucherData._id,
+        firstName: voucherData.firstName,
+        lastName: voucherData.lastName,
+        tel: voucherData.tel,
+        email: voucherData.email,
+        numOfNights: voucherData.numOfNights,
+        numOfChildren: voucherData.numOfChildren,
+        numOfAdults: voucherData.numOfAdults,
+        numOfBedrooms: voucherData.numOfBedrooms,
+        country: voucherData.country,
+        postcode: voucherData.postcode,
+        city: voucherData.city,
+        address: voucherData.address,
+        isPaid: voucherData.isPaid
+      };
+      if(this.voucher.id == value.voucherId){
+        this.isVoucherValid = true;
+      }
+      else{
+        this.isVoucherValid = false;
+      }
+      this.alreadyCheckedVoucher = true;
+    });
+  }
 }

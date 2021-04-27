@@ -1,5 +1,5 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
-import {ActivatedRoute, ParamMap} from "@angular/router";
+import {ActivatedRoute, ParamMap, Router} from "@angular/router";
 import {NgForm} from "@angular/forms";
 import {Voucher} from "../../../model/voucher.model";
 import {VoucherService} from "../../../services/voucher.service";
@@ -18,7 +18,7 @@ export class NewCouponComponent implements OnInit, OnDestroy {
   private mode = 'create';
   private voucherId: string;
 
-  constructor(private voucherService: VoucherService, public route: ActivatedRoute, private authService: AuthService) {}
+  constructor(private voucherService: VoucherService, public route: ActivatedRoute, private authService: AuthService, private router: Router) {}
 
   ngOnInit() {
     this.authSubscription = this.authService
@@ -87,6 +87,7 @@ export class NewCouponComponent implements OnInit, OnDestroy {
       this.voucherService.updateVoucher(formVoucher);
     }
     form.reset();
+    this.router.navigate(["/admin/vouchers"]);
   }
 
   ngOnDestroy() {

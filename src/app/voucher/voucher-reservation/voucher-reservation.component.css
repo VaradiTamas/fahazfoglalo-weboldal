@@ -6,3 +6,9 @@ button{
   margin: 10px;
 }
 
+.btn-save{
+  position: fixed;
+  bottom: 0;
+  right: 0;
+  margin: 30px;
+}

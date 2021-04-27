@@ -2,8 +2,9 @@ const express = require("express");
 const router = express.Router();
 const checkAuth = require("../middleware/check-auth");
 const Booking = require('../models/booking');
+const controlPaidBooking = require("../middleware/checkIsPaidState")
 
-router.post('', checkAuth, (req,res,next) => {
+router.post('', controlPaidBooking, (req,res,next) => {
   const booking = new Booking({
     firstName: req.body.firstName,
     lastName: req.body.lastName,

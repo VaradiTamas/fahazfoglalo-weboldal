@@ -8,9 +8,10 @@ img{
 }
 
 .container{
-  border: black;
-  border-style: dashed;
+  border: 3px solid darkolivegreen;
+  border-radius: 25px;
   padding: 20px;
+  margin-bottom: 30px;
 }
 
 h2{

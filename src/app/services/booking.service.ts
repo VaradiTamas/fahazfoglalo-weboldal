@@ -47,7 +47,7 @@ export class BookingService{
   addBooking(booking: Booking){
     this.http.post<{message: string, bookingId: string}>('http://localhost:3000/admin/bookings', booking)
       .subscribe((responseData)=>{
-        this.router.navigate(["/admin/bookings"]);
+        //this.router.navigate(["/admin/bookings"]);
       });
   }
 

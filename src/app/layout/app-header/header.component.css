@@ -7,6 +7,22 @@
   margin-bottom: 40rem;
 }
 
-.nav-link{
+.nav-item{
+  font-weight: bold;
+}
+
+.res{
   color: white;
+}
+
+.reservation{
+  background: darkolivegreen;
+  border-radius: 25px;
+  margin-left: 25px;
+  color: white;
+}
+
+.active-link{
+  background-color: rgba(137,133,131,0.5);
+  border-radius: 25px;
 }

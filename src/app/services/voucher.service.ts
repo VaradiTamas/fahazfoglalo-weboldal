@@ -48,7 +48,7 @@ export class VoucherService{
   addVoucher(voucher: Voucher){
     this.http.post<{message: string, voucherId: string}>('http://localhost:3000/admin/vouchers', voucher)
       .subscribe((responseData)=>{
-        this.router.navigate(["/admin/vouchers"]);
+        //this.router.navigate(["/admin/vouchers"]);
       });
   }
 

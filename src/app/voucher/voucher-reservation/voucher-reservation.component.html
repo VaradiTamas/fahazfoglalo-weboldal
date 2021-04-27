@@ -1,68 +1,173 @@
-<div class="container">
+<br>
+<mat-spinner *ngIf="isLoading"></mat-spinner>
+<br>
+
+<div class="container" *ngIf="!isLoading">
   <div class="row mb-3">
     <div class="col-2">
-      <button class="btn btn-primary">Vissza</button>
+      <a class="btn btn-primary" [routerLink]="'/voucher/information'">Vissza</a>
     </div>
     <div class="col-10">
       <p>Random hosszú szöveg a foglalás menetéről és hogy hova utalják a pénzt ndlknfs jr ilsfflsjlkfj sjl jlkdjkj lkj dsslajd
       sdaklsdlkaj aldksjlkjkdlakd alkdkjsldjlal apo űpwoei cékk a isadkjkljsd</p>
     </div>
   </div>
+</div>
 
-  <form>
-    <div class="form-group row mb-5">
-      <label class="col-sm-2 col-form-label" for="lastName">Vezetéknév: </label>
-      <div class="col-6">
-        <input type="text" class="form-control" id="lastName" placeholder="Nagy">
-      </div>
-      <label class="col-sm-2 col-form-label ml-4" for="numOfNights">Éjszakák száma:</label>
-      <div class="col-1">
-        <input type="number" min="1" step="1" class="form-control" value="2" id="numOfNights">
-      </div>
+<form (ngSubmit)="onSubmit(f)" #f="ngForm" class="ml-5 mb-5" *ngIf="!isLoading">
+  <div class="form-group row mb-5">
+    <label class="col-sm-2 col-form-label" for="lastName">Vezetéknév: </label>
+    <div class="col-6">
+      <input type="text"
+             name="lastName"
+             class="form-control"
+             id="lastName"
+             [ngModel] = "voucher?.lastName"
+             required
+             placeholder="Nagy">
     </div>
 
-    <div class="form-group row mb-5">
-      <label class="col-sm-2 col-form-label" for="firstName">Keresztnév: </label>
-      <div class="col-6">
-        <input type="text" class="form-control" id="firstName" placeholder="János">
-      </div>
-      <label class="col-sm-2 col-form-label ml-4" for="numOfAdults">Felnőttek száma:</label>
-      <div class="col-1">
-        <input type="number" min="1" max="6" step="1" class="form-control" value="2" id="numOfAdults">
-      </div>
-    </div>
-
-    <div class="form-group row mb-5">
-      <label class="col-sm-2 col-form-label" for="mobileNum">Vezetéknév: </label>
-      <div class="col-6">
-        <input type="text" class="form-control" id="mobileNum" placeholder="06201236547">
-      </div>
-      <label class="col-sm-2 col-form-label ml-4" for="numOfChildren">Gyerekek száma:</label>
-      <div class="col-1">
-        <input type="number" min="0" step="1" max="4" class="form-control" value="0" id="numOfChildren">
-      </div>
-    </div>
-
-    <div class="form-group row mb-5">
-      <label class="col-sm-2 col-form-label" for="email">E-mail cím: </label>
-      <div class="col-6">
-        <input type="text" class="form-control" id="email" placeholder="example@gmail.com">
-      </div>
-      <label class="col-sm-2 col-form-label ml-4" for="numOfBedrooms">Hálószobák száma:</label>
-      <div class="col-1">
-        <input type="number" min="1" max="2" step="1" class="form-control" value="1" id="numOfBedRooms">
-      </div>
-    </div>
-  </form>
-
-  <div class="row">
-    <div class="col-6"></div>
-    <div class="col-4">
-      <span>Átutalandó összeg:</span>
-      <span></span>
-    </div>
-    <div class="col-2">
-      <button class="btn btn-primary">Megerősítés</button>
+    <label class="col-sm-2 col-form-label ml-4" for="numOfNights">Éjszakák száma:</label>
+    <div class="col-1">
+      <input
+        type="number"
+        name="numOfNights"
+        min="1"
+        step="1"
+        class="form-control"
+        [ngModel] = "voucher == null ? 2 : voucher.numOfNights"
+        id="numOfNights"
+        required>
     </div>
   </div>
-</div>
+
+  <div class="form-group row mb-5">
+    <label class="col-sm-2 col-form-label" for="firstName">Keresztnév: </label>
+    <div class="col-6">
+      <input
+        name="firstName"
+        type="text"
+        class="form-control"
+        id="firstName"
+        placeholder="János"
+        [ngModel]="voucher?.firstName"
+        required>
+    </div>
+
+    <label class="col-sm-2 col-form-label ml-4" for="numOfAdults">Felnőttek száma:</label>
+    <div class="col-1">
+      <input
+        name="numOfAdults"
+        type="number"
+        min="1"
+        max="6"
+        step="1"
+        class="form-control"
+        id="numOfAdults"
+        [ngModel]="voucher == null ? 2 : voucher.numOfAdults"
+        required>
+    </div>
+  </div>
+
+  <div class="form-group row mb-5">
+    <label class="col-sm-2 col-form-label" for="tel">Telefonszám: </label>
+    <div class="col-6">
+      <input
+        name="tel"
+        type="text"
+        class="form-control"
+        id="tel"
+        [ngModel]="voucher?.tel"
+        placeholder="06201236547"
+        required>
+    </div>
+
+    <label class="col-sm-2 col-form-label ml-4" for="numOfChildren">Gyerekek száma:</label>
+    <div class="col-1">
+      <input
+        name="numOfChildren"
+        type="number"
+        min="0"
+        step="1"
+        max="4"
+        class="form-control"
+        id="numOfChildren"
+        [ngModel]="voucher == null ? 0 : voucher.numOfChildren"
+        required>
+    </div>
+  </div>
+
+  <div class="form-group row mb-5">
+    <label class="col-sm-2 col-form-label" for="email">E-mail cím: </label>
+    <div class="col-6">
+      <input
+        name="email"
+        type="text"
+        class="form-control"
+        id="email"
+        placeholder="example@gmail.com"
+        [ngModel]="voucher?.email"
+        required>
+    </div>
+    <label class="col-sm-2 col-form-label ml-4" for="numOfBedrooms">Hálószobák száma:</label>
+    <div class="col-1">
+      <input
+        name="numOfBedrooms"
+        type="number"
+        min="1"
+        max="2"
+        step="1"
+        class="form-control"
+        id="numOfBedRooms"
+        [ngModel]="voucher == null ? 1 : voucher.numOfBedrooms"
+        required>
+    </div>
+  </div>
+  <div class="form-group row mb-5">
+    <label class="col-1 col-form-label" for="country">Ország: </label>
+    <div class="col-2">
+      <input
+        name="country"
+        type="text"
+        class="form-control"
+        id="country"
+        placeholder="Magyarország"
+        [ngModel]="voucher?.country"
+        required>
+    </div>
+    <label class="col-1 col-form-label" for="postcode">Irányítószám:</label>
+    <div class="col-1">
+      <input
+        name="postcode"
+        type="number"
+        min="1"
+        step="1"
+        class="form-control"
+        id="postcode"
+        [ngModel]="voucher?.postcode"
+        required>
+    </div>
+    <label class="col-1 col-form-label" for="city">Település neve:</label>
+    <div class="col-2">
+      <input
+        name="city"
+        type="text"
+        class="form-control"
+        id="city"
+        [ngModel]="voucher?.city"
+        required>
+    </div>
+    <label class="col-1 col-form-label pl-5" for="address">Cím:</label>
+    <div class="col-3 pr-5">
+      <input
+        name="address"
+        type="text"
+        class="form-control"
+        id="address"
+        [ngModel]="voucher?.address"
+        required>
+    </div>
+  </div>
+  <button mat-raised-button color="primary" type="submit" class="btn-save" [disabled]="!f.valid">Megerősítés</button>
+</form>
+
