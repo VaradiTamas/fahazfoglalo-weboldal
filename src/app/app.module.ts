@@ -4,7 +4,6 @@ import { BrowserModule } from '@angular/platform-browser';
 import { AppComponent } from './app.component';
 import { HeaderComponent } from './layout/app-header/header.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
-import { GalleryComponent } from './gallery/gallery.component';
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import { OffersComponent } from './offers/offers.component';
 import { VoucherComponent } from './voucher/voucher.component';
@@ -25,6 +24,12 @@ import {AdminModule} from "./admin/admin.module";
 import { AppLayoutComponent } from './layout/app-layout/app-layout.component';
 import { ErrorComponent } from './error/error.component';
 import {ErrorInterceptor} from "./error/error-interceptor";
+import { AppPageTitleComponent } from './layout/app-page-title/app-page-title.component';
+import { HouseComponent } from './gallery/house/house.component';
+import { SaunaComponent } from './gallery/sauna/sauna.component';
+import { ParkComponent } from './gallery/park/park.component';
+import { GalleryLayoutComponent } from './layout/gallery-layout/gallery-layout.component';
+import { GalleryHeaderComponent } from './layout/gallery-header/gallery-header.component';
 
 @NgModule({
   imports: [
@@ -41,7 +46,6 @@ import {ErrorInterceptor} from "./error/error-interceptor";
   declarations: [
     AppComponent,
     HeaderComponent,
-    GalleryComponent,
     OffersComponent,
     VoucherComponent,
     VoucherReservationComponent,
@@ -53,7 +57,13 @@ import {ErrorInterceptor} from "./error/error-interceptor";
     DatePickerComponent,
     HomeComponent,
     AppLayoutComponent,
-    ErrorComponent
+    ErrorComponent,
+    AppPageTitleComponent,
+    HouseComponent,
+    SaunaComponent,
+    ParkComponent,
+    GalleryLayoutComponent,
+    GalleryHeaderComponent
   ],
   providers: [
     {provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true},
