@@ -1,28 +1,11 @@
-<div>
-  <h2>Mikortól lehet elfoglalni a szállást?</h2>
-  <p>Amikor el lehet már foglalni a szállást akkor el lehet foglalni a szállást.</p>
-</div>
+<app-app-page-title [title]="'Gyakori kérdések'" [imgPath]="'assets/icon/fah.jpg'"></app-app-page-title>
 
-<div>
-  <h2>Mikortól lehet elfoglalni a szállást?</h2>
-  <p>Amikor el a szállást akkor el lehet foglalni a szállást.</p>
+<div *ngFor="let faq of FAQs">
+  <mat-expansion-panel>
+    <mat-expansion-panel-header>
+      {{faq.question}}
+    </mat-expansion-panel-header>
+      {{faq.answer}}
+  </mat-expansion-panel>
 </div>
-
-<div>
-  <h2>Mikortól lehet elfosadsdsdads asdd adglalni a szállást?</h2>
-  <p>Amikor el lehet már foglsdasda alni a szállást akkor el lehet foglalni a szállást.</p>
-</div>
-
-<div>
-  <h2>Mikortól lehet elfoglalni a szállást?</h2>
-  <p>Amikor el lehet már foglalni a szállást akkor   kakasléskKAS É KAÉSaks
-    kakl éskl éalk éslkskalklkakdléklésd klé klséd a sld  ld a éldklék sadlé kadlk
-    éal kdésalk é el lehet foglalni a szállást dsadsandlknlkdnsadandlk
-    dsdsadasd  dsa ds s das sdasdasdsdsdsadas sf fgfgfd h hffg fdg dfgf gfgdfgd
-    dg dg dgfd fd fdgdf dfs f.</p>
-</div>
-
-<div>
-  <h2>Mikortól lehet elfoglalni a szállást?</h2>
-  <p>Amikor el lehet már foglalni a szállást akkor el lehet foglalni dlkasdlksalddlk dlk  jjlks l ds djlakl jadj j klda ksljjksjk djk askj j kdlal kjdjk ladkjl askjlda szállást.</p>
-</div>
+<br>

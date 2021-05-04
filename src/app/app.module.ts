@@ -5,7 +5,6 @@ import { AppComponent } from './app.component';
 import { HeaderComponent } from './layout/app-header/header.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
-import { OffersComponent } from './offers/offers.component';
 import { VoucherReservationComponent } from './voucher/voucher-reservation/voucher-reservation.component';
 import { PricesComponent } from './prices/prices.component';
 import { QuestionsComponent } from './questions/questions.component';
@@ -31,6 +30,9 @@ import { GalleryHeaderComponent } from './layout/gallery-header/gallery-header.c
 import { VoucherCardComponent } from './voucher/voucher-card/voucher-card.component';
 import { VoucherLayoutComponent } from './layout/voucher-layout/voucher-layout.component';
 import { AgmCoreModule} from "@agm/core";
+import { OffersLayoutComponent } from './layout/offers-layout/offers-layout.component';
+import {OfferCardComponent} from "./offers/offer-card/offer-card.component";
+import {OfferReservationComponent} from "./offers/offer-reservation/offer-reservation.component";
 
 @NgModule({
   imports: [
@@ -50,7 +52,6 @@ import { AgmCoreModule} from "@agm/core";
   declarations: [
     AppComponent,
     HeaderComponent,
-    OffersComponent,
     VoucherReservationComponent,
     PricesComponent,
     QuestionsComponent,
@@ -67,7 +68,10 @@ import { AgmCoreModule} from "@agm/core";
     GalleryLayoutComponent,
     GalleryHeaderComponent,
     VoucherCardComponent,
-    VoucherLayoutComponent
+    VoucherLayoutComponent,
+    OffersLayoutComponent,
+    OfferCardComponent,
+    OfferReservationComponent
   ],
   providers: [
     {provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true},

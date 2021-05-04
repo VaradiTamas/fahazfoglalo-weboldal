@@ -2,7 +2,6 @@ import { NgModule } from '@angular/core';
 
 import { Routes, RouterModule } from '@angular/router';
 import {PricesComponent} from "./prices/prices.component";
-import {OffersComponent} from "./offers/offers.component";
 import {QuestionsComponent} from "./questions/questions.component";
 import {AboutusComponent} from "./aboutus/aboutus.component";
 import {ReservationComponent} from "./reservation/reservation.component";
@@ -15,6 +14,9 @@ import {GalleryLayoutComponent} from "./layout/gallery-layout/gallery-layout.com
 import {VoucherReservationComponent} from "./voucher/voucher-reservation/voucher-reservation.component";
 import {VoucherCardComponent} from "./voucher/voucher-card/voucher-card.component";
 import {VoucherLayoutComponent} from "./layout/voucher-layout/voucher-layout.component";
+import {OffersLayoutComponent} from "./layout/offers-layout/offers-layout.component";
+import {OfferCardComponent} from "./offers/offer-card/offer-card.component";
+import {OfferReservationComponent} from "./offers/offer-reservation/offer-reservation.component";
 
 const appRoutes: Routes = [
   { path: '', /*redirectTo: '/gallery' pathMatch: 'full'*/ component: AppLayoutComponent, children:
@@ -28,7 +30,13 @@ const appRoutes: Routes = [
               { path: 'park', component: ParkComponent }
             ]
         },
-        { path: 'offers', component: OffersComponent },
+        { path: 'offers', redirectTo: 'offers/information'},
+        { path: 'offers', component: OffersLayoutComponent, children:
+            [
+              { path: 'information', component: OfferCardComponent },
+              { path: 'reservation', component: OfferReservationComponent }
+            ]
+        },
         { path: 'voucher', redirectTo: 'voucher/information'},
         { path: 'voucher', component: VoucherLayoutComponent, children:
           [
