@@ -1,6 +1,12 @@
+<div *ngIf="isLoading">
 <mat-form-field class="example-full-width" appearance="fill">
   <mat-label>Choose a date</mat-label>
   <input matInput [matDatepicker]="picker">
   <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-  <mat-datepicker [dateClass]="dateClass" #picker></mat-datepicker>
+  <mat-datepicker
+    #picker
+    [dateClass]="dateClass"
+    [opened]="true">
+  </mat-datepicker>
 </mat-form-field>
+</div>
