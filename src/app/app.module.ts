@@ -33,6 +33,7 @@ import { AgmCoreModule} from "@agm/core";
 import { OffersLayoutComponent } from './layout/offers-layout/offers-layout.component';
 import {OfferCardComponent} from "./offers/offer-card/offer-card.component";
 import {OfferReservationComponent} from "./offers/offer-reservation/offer-reservation.component";
+import { DatepickerHeaderComponent } from './datepicker/datepicker-header/datepicker-header.component';
 
 @NgModule({
   imports: [
@@ -71,7 +72,8 @@ import {OfferReservationComponent} from "./offers/offer-reservation/offer-reserv
     VoucherLayoutComponent,
     OffersLayoutComponent,
     OfferCardComponent,
-    OfferReservationComponent
+    OfferReservationComponent,
+    DatepickerHeaderComponent
   ],
   providers: [
     {provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true},

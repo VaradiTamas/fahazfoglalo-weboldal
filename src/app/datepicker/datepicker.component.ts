@@ -1,9 +1,8 @@
 import {Component, OnDestroy, OnInit, ViewEncapsulation} from '@angular/core';
 import {MatCalendarCellClassFunction} from "@angular/material/datepicker";
-import {Booking} from "../model/booking.model";
 import {Subscription} from "rxjs";
-import {BookingService} from "../services/booking.service";
 import {DateService} from "./date-service";
+import {DatepickerHeaderComponent} from "./datepicker-header/datepicker-header.component";
 
 @Component({
   selector: 'app-datepicker',
@@ -12,46 +11,63 @@ import {DateService} from "./date-service";
   encapsulation: ViewEncapsulation.None
 })
 export class DatepickerComponent implements OnInit, OnDestroy{
-  isLoading = false;
+  isLoaded = false;
   reservedDays: number[] = [];
   month = 5;
   year = 2021;
+  dateFilter = (d: Date | null): boolean => true;
+  dateClass: MatCalendarCellClassFunction<Date> = (cellDate, view) => '';
+  header = DatepickerHeaderComponent;
   private dateSubscription: Subscription;
 
   constructor(public dateService: DateService) { }
 
   ngOnInit(): void {
-    this.dateService.getReservedDays(this.year, this.month);
+    this.dateService.getReservedDays(this.year, 4);
     this.dateSubscription = this.dateService.getReservedDaysUpdateListener()
       .subscribe((subData) => {
         this.reservedDays = subData.reservedDays;
-        this.isLoading = true;
-      });
-  }
+        this.isLoaded = true;
+        this.dateFilter = (d: Date | null): boolean => {
+          const date = (d || new Date()).getDate();
 
-  dateClass: MatCalendarCellClassFunction<Date> = (cellDate, view) => {
-    // Only highlight dates inside the month view.
-    if (view === 'month') {
+          let isFree = true;
 
-      const date = cellDate.getDate();
+          this.reservedDays.forEach((day) => {
+            if(date === day){
+              isFree = false;
+            }
+          });
+          return isFree;
+        }
 
-      var isReserved = false;
+        this.dateClass = (cellDate, view) => {
+          if (view === 'month') {
 
-      this.reservedDays.forEach((day) => {
-        if(date === day){
-          isReserved = true;
+            const date = cellDate.getDate();
+
+            let isReserved = false;
+
+            this.reservedDays.forEach((day) => {
+              if (date === day) {
+                isReserved = true;
+              }
+            });
+
+            if (isReserved) {
+              return 'reserved-dates';
+            } else {
+              return 'free-dates';
+            }
+          }
+
+          return '';
         }
       });
-
-      if(isReserved){
-        return 'example-custom-date-class';
-      }
-    }
-
-    return '';
   }
 
   ngOnDestroy(): void {
     this.dateSubscription.unsubscribe();
   }
 }
+

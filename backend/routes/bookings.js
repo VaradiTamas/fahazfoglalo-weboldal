@@ -113,26 +113,29 @@ router.get('/reserved-days', (req,res,next) => {
   }else{
     toDate.setFullYear(year, month +1, 1);
   }
-  console.log(fromDate);
-  console.log(toDate);
 
-  Booking.find( { $and: [ { from: { $gte: fromDate } }, { from: { $lte: toDate } } ] } )
+  Booking.find( { $and: [ { from: { $gte: fromDate } }, { from: { $lt: toDate } } ] } )
     .then(bookings => {
       if(bookings){
         res.status(200).json(bookings.map(booking => {
-          //const firstDay = booking.from.getDate(); //TODO number tömböt ad vissza
-          //const lastDay = booking.to.getDate();
-          return {date: booking.from.getDate()};
+          var reservedDays = [];
+          const firstDay = booking.from.getDate();
+          const lastDay = booking.to.getDate();
+          for(let i = firstDay; i < lastDay; i++){
+            if(i <= 31 && i >= firstDay){
+              reservedDays.push(i);
+            }
+          }
+          return {days: reservedDays};
         }));
       } else {
-        res.status(200).json();
+        res.status(200).json({days: []});
       }
     }).catch(error => {
       res.status(500).json({
         message: "Finding reserved dates failed!"
       });
     });
-  //res.status(200).json([{date: 2}, {date: 3}]);
 });
 
 router.get('/:id', checkAuth, (req,res,next) => {

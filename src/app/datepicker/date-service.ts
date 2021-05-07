@@ -9,15 +9,16 @@ export class DateService {
   private reservedDays: number[] = [];
   private reservedDaysUpdated = new Subject<{ reservedDays: number[] }>()
 
-  constructor(private http: HttpClient, private router: Router) {}
+  constructor(private http: HttpClient) {}
 
   getReservedDays(year: number, month: number) {
     const queryParams = `?year=${year}&month=${month}`;
-    this.http.get<{date: number}[]>('http://localhost:3000/admin/bookings/reserved-days' + queryParams)
+    this.http.get<{days: number[]}[]>('http://localhost:3000/admin/bookings/reserved-days' + queryParams)
       .subscribe((reservedDays)=> {
-        this.reservedDays = reservedDays.map(dates => {
-          return dates.date;
+        const reservedPeriods = reservedDays.map(reservedPeriod => {
+          return reservedPeriod.days;
         });
+        this.reservedDays = [].concat.apply([], reservedPeriods);
         this.reservedDaysUpdated.next({
           reservedDays: [...this.reservedDays],
         });

@@ -1,4 +1,9 @@
-.example-custom-date-class {
-  background: orange;
+.reserved-dates {
+  background: red;
+  border-radius: 100%;
+}
+
+.free-dates {
+  background: green;
   border-radius: 100%;
 }
