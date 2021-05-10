@@ -1,5 +1,5 @@
-import {Component, OnDestroy, OnInit, ViewEncapsulation} from '@angular/core';
-import {MatCalendarCellClassFunction} from "@angular/material/datepicker";
+import {Component, OnDestroy, OnInit, ViewEncapsulation, EventEmitter, Output} from '@angular/core';
+import {MatCalendarCellClassFunction, MatDatepickerInputEvent} from "@angular/material/datepicker";
 import {Subscription} from "rxjs";
 import {DateService} from "./date-service";
 import {DatepickerHeaderComponent} from "./datepicker-header/datepicker-header.component";
@@ -19,6 +19,7 @@ export class DatepickerComponent implements OnInit, OnDestroy{
   dateClass: MatCalendarCellClassFunction<Date> = (cellDate, view) => '';
   header = DatepickerHeaderComponent;
   private dateSubscription: Subscription;
+  @Output() dateChosen = new EventEmitter<{date: Date}>();
 
   constructor(public dateService: DateService) { }
 
@@ -64,6 +65,10 @@ export class DatepickerComponent implements OnInit, OnDestroy{
           return '';
         }
       });
+  }
+
+  addEvent(event: MatDatepickerInputEvent<Date>) {
+    this.dateChosen.emit({date: event.value});
   }
 
   ngOnDestroy(): void {

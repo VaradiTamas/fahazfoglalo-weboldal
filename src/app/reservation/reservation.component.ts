@@ -17,6 +17,8 @@ export class ReservationComponent implements OnInit {
   isVoucherValid = false;
   alreadyCheckedVoucher = false;
   private bookingId: string = null;
+  fromDate: Date = new Date();
+  toDate: Date = new Date();
 
   constructor(private bookingService: BookingService,
               private voucherService: VoucherService,
@@ -24,6 +26,14 @@ export class ReservationComponent implements OnInit {
               public router: Router) {}
 
   ngOnInit() {}
+
+  onFromDateChosen(chosenDate: {date: Date}){
+    this.fromDate = chosenDate.date;
+  }
+
+  onToDateChosen(chosenDate: {date: Date}){
+    this.toDate = chosenDate.date;
+  }
 
   onSubmit(form : NgForm){
     if(form.invalid) {
@@ -48,7 +58,7 @@ export class ReservationComponent implements OnInit {
       comment: value.comment,
       isPaid: false,
       voucherId: this.voucher?.id,
-      from: value.from,
+      from: this.fromDate.toDateString(),
       to: value.to,
       offerName: offerName
     };

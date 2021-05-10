@@ -102,7 +102,7 @@ router.put('/edit/:id', checkAuth, (req,res,next) => {
 
 router.get('/reserved-days', (req,res,next) => {
   const year = +req.query.year;
-  const month = +req.query.month-1;
+  const month = +req.query.month;
 
   const fromDate = new Date();
   fromDate.setFullYear(year, month, 1);

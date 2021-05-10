@@ -21,7 +21,8 @@ import {OfferReservationComponent} from "./offers/offer-reservation/offer-reserv
 const appRoutes: Routes = [
   { path: '', /*redirectTo: '/gallery' pathMatch: 'full'*/ component: AppLayoutComponent, children:
       [
-        { path: '', component: HomeComponent, pathMatch: 'full'},
+        { path: '', component: HomeComponent, pathMatch: 'full' },
+        { path: 'home', component: HomeComponent },
         { path: 'gallery', redirectTo: 'gallery/house'},
         { path: 'gallery', component: GalleryLayoutComponent, children:
             [

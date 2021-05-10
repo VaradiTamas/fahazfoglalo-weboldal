@@ -23,13 +23,7 @@
       </div>
       <div class="row mb-5">
         <div class="col-4">
-          <label for="from">Mettől:</label>
-          <input
-            name="from"
-            type="date"
-            id="from"
-            [ngModel] = "booking?.from |  date:'yyyy-MM-dd'"
-            required>
+          <app-datepicker (dateChosen)="onFromDateChosen($event)"></app-datepicker>
         </div>
         <div class="col-4">
           <label for="to">Meddig:</label>
