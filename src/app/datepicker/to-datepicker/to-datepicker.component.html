@@ -3,8 +3,8 @@
   <input matInput
          [matDatepickerFilter]="dateFilter"
          [matDatepicker]="picker"
-         (dateChange)="addEvent($event)"
-         (dateInput)="addEvent($event)"
+         (dateChange)="aDateHasBeenChosen($event)"
+         (dateInput)="aDateHasBeenChosen($event)"
   >
   <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
   <mat-datepicker

@@ -25,7 +25,7 @@ export class ToDatepickerComponent implements OnInit, OnDestroy {
     this.setMonthView();
   }
 
-  addEvent(event: MatDatepickerInputEvent<Date>) {
+  aDateHasBeenChosen(event: MatDatepickerInputEvent<Date>) {
     this.dateChosen.emit({date: event.value});
   }
 

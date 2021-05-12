@@ -5,6 +5,7 @@ import {BookingService} from "../services/booking.service";
 import {VoucherService} from "../services/voucher.service";
 import {ActivatedRoute, ParamMap, Router} from "@angular/router";
 import {NgForm} from "@angular/forms";
+import {ToDateService} from "../datepicker/to-datepicker/to-date-service";
 
 @Component({
   selector: 'app-reservation',
@@ -22,6 +23,7 @@ export class ReservationComponent implements OnInit {
 
   constructor(private bookingService: BookingService,
               private voucherService: VoucherService,
+              private toDateService: ToDateService,
               public route: ActivatedRoute,
               public router: Router) {}
 
@@ -29,6 +31,7 @@ export class ReservationComponent implements OnInit {
 
   onFromDateChosen(chosenDate: {date: Date}){
     this.fromDate = chosenDate.date;
+    this.toDateService.getFreeDatesFromChosenDate(chosenDate.date.getFullYear(), chosenDate.date.getMonth(), chosenDate.date.getDate());
   }
 
   onToDateChosen(chosenDate: {date: Date}){

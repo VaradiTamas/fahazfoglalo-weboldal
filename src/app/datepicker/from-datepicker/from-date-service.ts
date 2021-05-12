@@ -11,7 +11,7 @@ export class FromDateService {
 
   getReservedDays(year: number, month: number) {
     const queryParams = `?year=${year}&month=${month}`;
-    return this.http.get<{days: number[]}[]>('http://localhost:3000/admin/bookings/reserved-days' + queryParams)
+    this.http.get<{days: number[]}[]>('http://localhost:3000/admin/bookings/reserved-days' + queryParams)
      .subscribe((reservedDays)=> {
         const reservedPeriods = reservedDays.map(reservedPeriod => {
           return reservedPeriod.days;
