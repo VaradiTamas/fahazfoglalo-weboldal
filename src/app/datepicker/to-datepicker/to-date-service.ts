@@ -1,11 +1,9 @@
 import {Injectable} from "@angular/core";
-import {Booking} from "../model/booking.model";
 import {Subject} from "rxjs";
 import {HttpClient} from "@angular/common/http";
-import {Router} from "@angular/router";
 
 @Injectable({providedIn: 'root'})
-export class DateService {
+export class ToDateService {
   private reservedDays: number[] = [];
   private reservedDaysUpdated = new Subject<{ reservedDays: number[] }>()
 
@@ -13,8 +11,8 @@ export class DateService {
 
   getReservedDays(year: number, month: number) {
     const queryParams = `?year=${year}&month=${month}`;
-    this.http.get<{days: number[]}[]>('http://localhost:3000/admin/bookings/reserved-days' + queryParams)
-      .subscribe((reservedDays)=> {
+    return this.http.get<{days: number[]}[]>('http://localhost:3000/admin/bookings/reserved-days' + queryParams)
+     .subscribe((reservedDays)=> {
         const reservedPeriods = reservedDays.map(reservedPeriod => {
           return reservedPeriod.days;
         });
@@ -22,7 +20,7 @@ export class DateService {
         this.reservedDaysUpdated.next({
           reservedDays: [...this.reservedDays],
         });
-      });
+     });
   }
 
   getReservedDaysUpdateListener(){

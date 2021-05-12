@@ -4,7 +4,7 @@
 
 .navbar{
   border-bottom: 2px solid white;
-  margin-bottom: 40rem;
+  margin-bottom: 26rem;
 }
 
 .nav-item{
@@ -25,4 +25,8 @@
 .active-link{
   background-color: rgba(137,133,131,0.5);
   border-radius: 25px;
+}
+
+#gallery, #offers, #voucher, #prices, #faq, #aboutus, #reservation, #name {
+  color: rgba(255, 255, 255, 1);
 }

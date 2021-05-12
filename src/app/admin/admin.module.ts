@@ -10,7 +10,6 @@ import {NavbarComponent} from "../layout/admin-header/navbar.component";
 import {CouponsComponent} from "./coupons/coupons.component";
 import {NewBookingComponent} from "./bookings/new-booking/new-booking.component";
 import {NewCouponComponent} from "./coupons/new-coupon/new-coupon.component";
-import {DatepickerComponent} from "../datepicker/datepicker.component";
 import {LoginComponent} from "./auth/login/login.component";
 import {AuthInterceptor} from "./auth/auth-interceptor";
 import {CommonModule} from "@angular/common";
@@ -34,9 +33,8 @@ import {AdminLayoutComponent} from "../layout/admin-layout/admin-layout.componen
     CouponsComponent,
     NewBookingComponent,
     NewCouponComponent,
-    DatepickerComponent,
     LoginComponent,
-    AdminLayoutComponent
+    AdminLayoutComponent,
   ],
   exports: [
     BookingsComponent,
@@ -44,8 +42,7 @@ import {AdminLayoutComponent} from "../layout/admin-layout/admin-layout.componen
     CouponsComponent,
     NewBookingComponent,
     NewCouponComponent,
-    DatepickerComponent,
-    LoginComponent,
+    LoginComponent
   ]
 })
 export class AdminModule { }

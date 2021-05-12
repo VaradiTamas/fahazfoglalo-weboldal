@@ -1,20 +1,20 @@
-import {ChangeDetectorRef, Component, Inject, OnDestroy, OnInit} from '@angular/core';
+import {ChangeDetectorRef, Component, Inject, OnDestroy} from '@angular/core';
 import {Subject} from "rxjs";
 import {MatCalendar} from "@angular/material/datepicker";
 import {DateAdapter, MAT_DATE_FORMATS, MatDateFormats} from "@angular/material/core";
 import {takeUntil} from "rxjs/operators";
-import {DateService} from "../date-service";
+import {FromDateService} from "../from-date-service";
 
 @Component({
-  selector: 'app-datepicker-header',
-  templateUrl: './datepicker-header.component.html',
-  styleUrls: ['./datepicker-header.component.css']
+  selector: 'app-from-datepicker-header',
+  templateUrl: './from-datepicker-header.component.html',
+  styleUrls: ['./from-datepicker-header.component.css']
 })
-export class DatepickerHeaderComponent<D> implements OnDestroy {
+export class FromDatepickerHeaderComponent<D> implements OnDestroy {
   private _destroyed = new Subject<void>();
 
   constructor(
-    private dateService: DateService,
+    private fromDateService: FromDateService,
     private _calendar: MatCalendar<D>, private _dateAdapter: DateAdapter<D>,
     @Inject(MAT_DATE_FORMATS) private _dateFormats: MatDateFormats, cdr: ChangeDetectorRef) {
     _calendar.stateChanges
@@ -37,13 +37,13 @@ export class DatepickerHeaderComponent<D> implements OnDestroy {
     this._calendar.activeDate = mode === 'month' ?
       this._dateAdapter.addCalendarMonths(this._calendar.activeDate, -1) :
       this._dateAdapter.addCalendarYears(this._calendar.activeDate, -1);
-    this.dateService.getReservedDays(this._dateAdapter.getYear(this._calendar.activeDate), this._dateAdapter.getMonth(this._calendar.activeDate));
+    this.fromDateService.getReservedDays(this._dateAdapter.getYear(this._calendar.activeDate), this._dateAdapter.getMonth(this._calendar.activeDate));
   }
 
   nextClicked(mode: 'month' | 'year') {
     this._calendar.activeDate = mode === 'month' ?
       this._dateAdapter.addCalendarMonths(this._calendar.activeDate, 1) :
       this._dateAdapter.addCalendarYears(this._calendar.activeDate, 1);
-    this.dateService.getReservedDays(this._dateAdapter.getYear(this._calendar.activeDate), this._dateAdapter.getMonth(this._calendar.activeDate));
+    this.fromDateService.getReservedDays(this._dateAdapter.getYear(this._calendar.activeDate), this._dateAdapter.getMonth(this._calendar.activeDate));
   }
 }

@@ -33,7 +33,10 @@ import { AgmCoreModule} from "@agm/core";
 import { OffersLayoutComponent } from './layout/offers-layout/offers-layout.component';
 import {OfferCardComponent} from "./offers/offer-card/offer-card.component";
 import {OfferReservationComponent} from "./offers/offer-reservation/offer-reservation.component";
-import { DatepickerHeaderComponent } from './datepicker/datepicker-header/datepicker-header.component';
+import { FromDatepickerHeaderComponent } from './datepicker/from-datepicker/from-datepicker-header/from-datepicker-header.component';
+import { FromDatepickerComponent } from './datepicker/from-datepicker/from-datepicker.component';
+import { ToDatepickerComponent } from './datepicker/to-datepicker/to-datepicker.component';
+import {ToDatepickerHeaderComponent} from "./datepicker/to-datepicker/to-datepicker-header/to-datepicker-header.component";
 
 @NgModule({
   imports: [
@@ -73,7 +76,10 @@ import { DatepickerHeaderComponent } from './datepicker/datepicker-header/datepi
     OffersLayoutComponent,
     OfferCardComponent,
     OfferReservationComponent,
-    DatepickerHeaderComponent
+    FromDatepickerHeaderComponent,
+    FromDatepickerComponent,
+    ToDatepickerComponent,
+    ToDatepickerHeaderComponent
   ],
   providers: [
     {provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true},

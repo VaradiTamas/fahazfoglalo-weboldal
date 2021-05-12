@@ -1,31 +1,37 @@
-import {Component, OnDestroy, OnInit, ViewEncapsulation, EventEmitter, Output} from '@angular/core';
+import {Component, EventEmitter, OnDestroy, OnInit, Output} from '@angular/core';
 import {MatCalendarCellClassFunction, MatDatepickerInputEvent} from "@angular/material/datepicker";
 import {Subscription} from "rxjs";
-import {DateService} from "./date-service";
-import {DatepickerHeaderComponent} from "./datepicker-header/datepicker-header.component";
+import {ToDateService} from "./to-date-service";
+import {ToDatepickerHeaderComponent} from "./to-datepicker-header/to-datepicker-header.component";
 
 @Component({
-  selector: 'app-datepicker',
-  templateUrl: './datepicker.component.html',
-  styleUrls: ['./datepicker.component.css'],
-  encapsulation: ViewEncapsulation.None
+  selector: 'app-to-datepicker',
+  templateUrl: './to-datepicker.component.html',
+  styleUrls: ['./to-datepicker.component.css']
 })
-export class DatepickerComponent implements OnInit, OnDestroy{
+export class ToDatepickerComponent implements OnInit, OnDestroy {
   isLoaded = false;
   reservedDays: number[] = [];
-  month = 5;
-  year = 2021;
+  selectedDate: Date = new Date();
   dateFilter = (d: Date | null): boolean => true;
   dateClass: MatCalendarCellClassFunction<Date> = (cellDate, view) => '';
-  header = DatepickerHeaderComponent;
+  header = ToDatepickerHeaderComponent;
   private dateSubscription: Subscription;
   @Output() dateChosen = new EventEmitter<{date: Date}>();
 
-  constructor(public dateService: DateService) { }
+  constructor(public toDateService: ToDateService) { }
 
   ngOnInit(): void {
-    this.dateService.getReservedDays(this.year, 4);
-    this.dateSubscription = this.dateService.getReservedDaysUpdateListener()
+    this.setMonthView();
+  }
+
+  addEvent(event: MatDatepickerInputEvent<Date>) {
+    this.dateChosen.emit({date: event.value});
+  }
+
+  setMonthView(){
+    this.toDateService.getReservedDays(this.selectedDate.getFullYear(), this.selectedDate.getMonth());
+    this.dateSubscription = this.toDateService.getReservedDaysUpdateListener()
       .subscribe((subData) => {
         this.reservedDays = subData.reservedDays;
         this.isLoaded = true;
@@ -35,7 +41,7 @@ export class DatepickerComponent implements OnInit, OnDestroy{
           let isFree = true;
 
           this.reservedDays.forEach((day) => {
-            if(date === day){
+            if (date === day) {
               isFree = false;
             }
           });
@@ -67,12 +73,7 @@ export class DatepickerComponent implements OnInit, OnDestroy{
       });
   }
 
-  addEvent(event: MatDatepickerInputEvent<Date>) {
-    this.dateChosen.emit({date: event.value});
-  }
-
   ngOnDestroy(): void {
     this.dateSubscription.unsubscribe();
   }
 }
-
