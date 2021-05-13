@@ -15,6 +15,7 @@ import {ToDateService} from "../datepicker/to-datepicker/to-date-service";
 export class ReservationComponent implements OnInit {
   booking: Booking;
   voucher: Voucher;
+  possessVoucher: boolean = false;
   isVoucherValid = false;
   alreadyCheckedVoucher = false;
   private bookingId: string = null;
@@ -35,7 +36,12 @@ export class ReservationComponent implements OnInit {
   }
 
   onToDateChosen(chosenDate: {date: Date}){
+    console.log(chosenDate.date);
     this.toDate = chosenDate.date;
+  }
+
+  onVoucherClick(){
+    this.possessVoucher=!this.possessVoucher;
   }
 
   onSubmit(form : NgForm){
@@ -62,7 +68,7 @@ export class ReservationComponent implements OnInit {
       isPaid: false,
       voucherId: this.voucher?.id,
       from: this.fromDate.toDateString(),
-      to: value.to,
+      to: this.toDate.toDateString(),
       offerName: offerName
     };
     this.bookingService.addBooking(formBooking);

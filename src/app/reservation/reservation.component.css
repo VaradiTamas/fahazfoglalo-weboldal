@@ -1,3 +1,11 @@
-mat-tab-group{
-  height: 400px;
+.voucher-checkbox{
+  transform: scale(2);
+}
+
+.label{
+  font-size: large;
+}
+
+.bedroom-question{
+  font-size: x-large;
 }

@@ -80,7 +80,7 @@ export class ToDateService {
             this.reservedDays.push(i);
           }
         }
-        
+
         this.reservedDaysUpdated.next({
           reservedDays: [...this.reservedDays]
         });
