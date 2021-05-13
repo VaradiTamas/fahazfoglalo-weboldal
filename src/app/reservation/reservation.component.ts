@@ -36,7 +36,6 @@ export class ReservationComponent implements OnInit {
   }
 
   onToDateChosen(chosenDate: {date: Date}){
-    console.log(chosenDate.date);
     this.toDate = chosenDate.date;
   }
 

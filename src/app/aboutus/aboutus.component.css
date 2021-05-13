@@ -13,3 +13,8 @@ h1{
 agm-map{
   height: 400px;
 }
+
+.label{
+  font-family: "Arial Rounded MT Bold";
+  font-size: large;
+}

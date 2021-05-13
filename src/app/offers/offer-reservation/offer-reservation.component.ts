@@ -5,6 +5,7 @@ import {BookingService} from "../../services/booking.service";
 import {VoucherService} from "../../services/voucher.service";
 import {ActivatedRoute, Router} from "@angular/router";
 import {NgForm} from "@angular/forms";
+import {ToDateService} from "../../datepicker/to-datepicker/to-date-service";
 
 @Component({
   selector: 'app-offer-reservation',
@@ -13,13 +14,25 @@ import {NgForm} from "@angular/forms";
 })
 export class OfferReservationComponent implements OnInit {
   booking: Booking;
+  fromDate: Date = new Date();
+  toDate: Date = new Date();
   private bookingId: string = null;
 
   constructor(private bookingService: BookingService,
               public route: ActivatedRoute,
-              public router: Router) {}
+              public router: Router,
+              private toDateService: ToDateService) {}
 
   ngOnInit() {}
+
+  onFromDateChosen(chosenDate: {date: Date}){
+    this.fromDate = chosenDate.date;
+    this.toDateService.getFreeDatesFromChosenDate(chosenDate.date.getFullYear(), chosenDate.date.getMonth(), chosenDate.date.getDate());
+  }
+
+  onToDateChosen(chosenDate: {date: Date}){
+    this.toDate = chosenDate.date;
+  }
 
   onSubmit(form : NgForm){
     if(form.invalid) {
@@ -39,8 +52,8 @@ export class OfferReservationComponent implements OnInit {
       comment: value.comment,
       isPaid: false,
       voucherId: null,
-      from: value.from,
-      to: value.to,
+      from: this.fromDate.toDateString(),
+      to: this.toDate.toDateString(),
       offerName: "hétköznapi"
     };
     this.bookingService.addBooking(formBooking);

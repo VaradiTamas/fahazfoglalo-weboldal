@@ -1,25 +1,13 @@
-<form (ngSubmit)="onSubmit(f)" #f="ngForm" class="ml-5 mb-5">
+<form (ngSubmit)="onSubmit(f)" #f="ngForm" class="mb-5">
   <mat-tab-group mat-align-tabs="center" animationDuration="1500ms">
     <mat-tab label="First">
       <div class="container mt-4">
         <div class="row mb-5">
           <div class="col-4">
-            <label for="from">Mettől:</label>
-            <input
-              name="from"
-              type="date"
-              id="from"
-              [ngModel] = "booking?.from |  date:'yyyy-MM-dd'"
-              required>
+            <app-from-datepicker (dateChosen)="onFromDateChosen($event)"></app-from-datepicker>
           </div>
           <div class="col-4">
-            <label for="to">Meddig:</label>
-            <input
-              name="to"
-              type="date"
-              id="to"
-              [ngModel] = "booking?.to |  date:'yyyy-MM-dd'"
-              required>
+            <app-to-datepicker (dateChosen)="onToDateChosen($event)"></app-to-datepicker>
           </div>
           <div class="col-4">
             <div class="row mb-5">
@@ -57,25 +45,88 @@
       </div>
     </mat-tab>
     <mat-tab label="Second">
-      <div class="container mt-4">
-        <label class="col-sm-2 col-form-label ml-4" for="numOfBedrooms">Hálószobák száma:</label>
-        <div class="col-1">
-          <input
-            name="numOfBedrooms"
-            type="number"
-            min="1"
-            max="2"
-            step="1"
-            class="form-control"
-            id="numOfBedRooms"
-            [ngModel]="booking == null ? 1 : booking.numOfBedrooms"
-            required>
+      <div class="container pt-4">
+        <div class="row">
+          <div class="col-8 mb-5">
+            <span class="bedroom-question">Hány hálószobával szeretné kérni a faházat?</span>
+          </div>
+          <div class="col-6">
+            <div class="card" style="width: 24rem; height: 24rem;">
+              <div class="card-body">
+                <h5 class="card-title">
+                  <!--ide jöhet majd a leírás, cím stb -->
+                </h5>
+              </div>
+              <img src="assets/house/house3.jpg" class="card-img-top">
+              <ul class="list-group list-group-flush">
+                <li class="list-group-item">
+                  <div class="row">
+                    <div class="form-check">
+                      <input
+                        class="form-check-input"
+                        type="radio"
+                        name="numOfBedrooms"
+                        id="oneBedroom"
+                        [ngModel] = "booking?.numOfBedrooms"
+                        value="1">
+                      <label class="form-check-label" for="oneBedroom">
+                        Egy hálószobával kérem
+                      </label>
+                    </div>
+                  </div>
+                </li>
+              </ul>
+            </div>
+          </div>
+
+          <div class="col-6">
+            <div class="card" style="width: 24rem; height: 24rem;">
+              <div class="card-body">
+                <h5 class="card-title">
+                  <!--ide jöhet majd a leírás, cím stb -->
+                </h5>
+              </div>
+              <img src="assets/house/house1.png" class="card-img-top">
+              <ul class="list-group list-group-flush">
+                <li class="list-group-item">
+                  <div class="row">
+                    <div class="form-check">
+                      <input
+                        class="form-check-input"
+                        type="radio"
+                        name="numOfBedrooms"
+                        id="twoBedrooms"
+                        value="2"
+                        [ngModel] = "booking?.numOfBedrooms">
+                      <label class="form-check-label" for="twoBedrooms">
+                        Két hálószobával kérem
+                      </label>
+                    </div>
+                  </div>
+                </li>
+              </ul>
+            </div>
+          </div>
         </div>
+
+        <!--   <label class="col-sm-2 col-form-label ml-4" for="numOfBedrooms">Hálószobák száma:</label>
+           <div class="col-1">
+             <input
+               name="numOfBedrooms"
+               type="number"
+               min="1"
+               max="2"
+               step="1"
+               class="form-control"
+               id="numOfBedRooms"
+               [ngModel]="booking == null ? 1 : booking.numOfBedrooms"
+               required>
+           </div>-->
       </div>
     </mat-tab>
     <mat-tab label="Third">
       <div class="container mt-4">
-        <div class="form-group row mb-5">
+        <div class="form-group row">
           <label class="col-sm-2 col-form-label" for="lastName">Vezetéknév: </label>
           <div class="col-4">
             <input type="text"
@@ -122,18 +173,23 @@
               required>
           </div>
         </div>
-        <div class="col-6">
-          <label for="comment" class="col-form-label">Megjegyzés:</label>
+        <div class="form-group row mb-5">
+          <label for="comment" class="col-sm-2 col-form-label">Megjegyzés:</label>
           <textarea
             name="comment"
             id="comment"
+            class="form-control col-10"
             [ngModel]="booking?.comment"
-            rows="4"
-            cols="120">
+            rows="4">
         </textarea>
         </div>
       </div>
     </mat-tab>
   </mat-tab-group>
-  <button mat-raised-button color="primary" type="submit" class="col-1 mr-5 mb-5" [disabled]="!f.valid">Megerősítés</button>
+  <div class="container mb-4">
+    <div class="row mb-4">
+      <div class="col-10"></div>
+      <button mat-raised-button color="primary" type="submit" class="col-2 mb-4" [disabled]="!f.valid">Megerősítés</button>
+    </div>
+  </div>
 </form>
