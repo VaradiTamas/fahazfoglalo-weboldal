@@ -3,73 +3,74 @@
   <br>
   <br>
   <div *ngFor="let booking of bookings">
-    <div class="row mb-4 ml-2">
-      <div class="col-11">
-        <mat-expansion-panel>
-          <mat-expansion-panel-header>
-            <div class="col-1 date">
-              {{booking.from.substring(0,10)}}
-            </div>
-            <div>-</div>
-            <div class="col-1 date">
-              {{booking.to.substring(0,10)}}
-            </div>
-            <div class="col-3">
-              <b>Név:</b>
-              {{booking.lastName}} {{booking.firstName}}
-            </div>
-            <div class="col-2">
-              <b>E-mail:</b>
-              {{booking.email}}
-            </div>
-            <div class="col-2">
-              <b>Tel:</b>
-              {{booking.tel}}
-            </div>
-            <div class="col-2">
-              {{booking.offerName}}
-              <div *ngIf="booking.offerName == 'voucher'">
-                <b>Id:</b>
-                {{booking.voucherId}}
+    <div class="container">
+      <div class="row mb-4 ml-2">
+        <div class="col-11">
+          <mat-expansion-panel>
+            <mat-expansion-panel-header>
+              <div class="col-1 date">
+                {{booking.from.substring(0,10)}}
+              </div>
+              <div>-</div>
+              <div class="col-1 date">
+                {{booking.to.substring(0,10)}}
+              </div>
+              <div class="col-3">
+                <b>Név:</b>
+                {{booking.lastName}} {{booking.firstName}}
+              </div>
+              <div class="col-2">
+                <b>E-mail:</b>
+                {{booking.email}}
+              </div>
+              <div class="col-2">
+                <b>Tel:</b>
+                {{booking.tel}}
+              </div>
+              <div class="col-2">
+                {{booking.offerName}}
+                <div *ngIf="booking.offerName == 'voucher'">
+                  <b>Id:</b>
+                  {{booking.voucherId}}
+                </div>
+              </div>
+              <div class="col-1">
+                <div *ngIf="booking.isPaid" class="paid">Fizetve</div>
+                <div *ngIf="!booking.isPaid" class="notPaid">Nincs fizetve</div>
+              </div>
+            </mat-expansion-panel-header>
+            <div class="row mt-3">
+              <div class="col-2">
+                <b>Felnőttek száma:</b>
+                {{booking.numOfAdults}}
+              </div>
+              <div class="col-2">
+                <b>Gyerekek száma:</b>
+                {{booking.numOfChildren}}
+              </div>
+              <div class="col-2">
+                <b>Hálószobák száma:</b>
+                {{booking.numOfBedrooms}}
+              </div>
+              <div class="col-5">
+                <b>Megjegyzés:</b>
+                {{booking.comment}}
               </div>
             </div>
-            <div class="col-1">
-              <div *ngIf="booking.isPaid" class="paid">Fizetve</div>
-              <div *ngIf="!booking.isPaid" class="notPaid">Nincs fizetve</div>
-            </div>
-          </mat-expansion-panel-header>
-          <div class="row mt-3">
-            <div class="col-2">
-              <b>Felnőttek száma:</b>
-              {{booking.numOfAdults}}
-            </div>
-            <div class="col-2">
-              <b>Gyerekek száma:</b>
-              {{booking.numOfChildren}}
-            </div>
-            <div class="col-2">
-              <b>Hálószobák száma:</b>
-              {{booking.numOfBedrooms}}
-            </div>
-            <div class="col-5">
-              <b>Megjegyzés:</b>
-              {{booking.comment}}
-            </div>
-          </div>
-        </mat-expansion-panel>
-      </div>
+          </mat-expansion-panel>
+        </div>
 
-      <div class="col-1 d-flex justify-content-center align-items-center justify-content-around">
-        <a [routerLink]="['/admin/bookings/edit', booking.id]">
-          <img class="edit_icon" src="assets/icon/edit.svg">
-        </a>
-        <a (click)="onDelete(booking.id)" class="icon">
-          <img class="delete_icon" src="assets/icon/delete.svg">
-        </a>
+        <div class="col-1 d-flex justify-content-center align-items-center justify-content-around">
+          <a [routerLink]="['/admin/bookings/edit', booking.id]">
+            <img class="edit_icon" src="assets/icon/edit.svg">
+          </a>
+          <a (click)="onDelete(booking.id)" class="icon">
+            <img class="delete_icon" src="assets/icon/delete.svg">
+          </a>
+        </div>
       </div>
     </div>
   </div>
-
   <a mat-raised-button color="primary" class="mt-5 add-reservation-button" href="/admin/bookings/new">Foglalás hozzáadása</a>
 </div>
 

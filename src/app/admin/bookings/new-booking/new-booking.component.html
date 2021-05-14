@@ -1,170 +1,173 @@
 <br>
 <mat-spinner *ngIf="isLoading"></mat-spinner>
 <br>
-<form (ngSubmit)="onSubmit(f)" #f="ngForm" class="ml-5 mb-5" *ngIf="!isLoading">
-  <div class="row mb-5">
-    <div class="col-4">
-      <label for="from">Mettől:</label>
-      <input
-        name="from"
-        type="date"
-        id="from"
-        [ngModel] = "booking?.from |  date:'yyyy-MM-dd'"
-        required>
+<form (ngSubmit)="onSubmit(f)" #f="ngForm" *ngIf="!isLoading">
+  <div class="container">
+    <div class="row mb-5">
+      <div class="col-4">
+        <label for="from">Mettől:</label>
+        <input
+          name="from"
+          type="date"
+          id="from"
+          [ngModel] = "booking?.from |  date:'yyyy-MM-dd'"
+          required>
+      </div>
+      <div class="col-4">
+        <label for="to">Meddig:</label>
+        <input
+          name="to"
+          type="date"
+          id="to"
+          [ngModel] = "booking?.to |  date:'yyyy-MM-dd'"
+          required>
+      </div>
     </div>
-    <div class="col-4">
-      <label for="to">Meddig:</label>
-      <input
-        name="to"
-        type="date"
-        id="to"
-        [ngModel] = "booking?.to |  date:'yyyy-MM-dd'"
-        required>
-    </div>
-  </div>
-  <div class="row mb-5">
-    <label class="col-2" for="voucherId">Sorszám:</label>
-    <div class="col-6">
-      <input
-        name="voucherId"
-        id="voucherId"
-        class="form-control"
-        type="text"
-        [ngModel]="booking?.voucherId">
-    </div>
-    <span *ngIf="alreadyCheckedVoucher && isVoucherValid">
+    <div class="row mb-5">
+      <label class="col-2" for="voucherId">Sorszám:</label>
+      <div class="col-6">
+        <input
+          name="voucherId"
+          id="voucherId"
+          class="form-control"
+          type="text"
+          [ngModel]="booking?.voucherId">
+      </div>
+      <span *ngIf="alreadyCheckedVoucher && isVoucherValid">
       <img src="assets/icon/done.svg">
     </span>
-    <span *ngIf="alreadyCheckedVoucher && !isVoucherValid">
+      <span *ngIf="alreadyCheckedVoucher && !isVoucherValid">
       <img src="assets/icon/wrong.svg">
     </span>
-    <a mat-raised-button color="primary" class="ml-4" (click)="onCheckVoucher(f)">Ellenőrzés</a>
-  </div>
-  <div class="form-group row mb-5">
-    <label class="col-sm-2 col-form-label" for="lastName">Vezetéknév: </label>
-    <div class="col-6">
-      <input type="text"
-             name="lastName"
-             class="form-control"
-             id="lastName"
-             [ngModel] = "booking?.lastName"
-             required
-             placeholder="Nagy">
+      <a mat-raised-button color="primary" class="ml-4" (click)="onCheckVoucher(f)">Ellenőrzés</a>
+    </div>
+    <div class="form-group row mb-5">
+      <label class="col-sm-2 col-form-label" for="lastName">Vezetéknév: </label>
+      <div class="col-6">
+        <input type="text"
+               name="lastName"
+               class="form-control"
+               id="lastName"
+               [ngModel] = "booking?.lastName"
+               required
+               placeholder="Nagy">
+      </div>
+
+      <label class="col-sm-1 col-form-label ml-4" for="offerName">Csomagnév:</label>
+      <div class="col-2">
+        <input
+          name="offerName"
+          type="text"
+          class="form-control"
+          id="offerName"
+          [ngModel] = "(booking == null && isVoucherValid) ? 'voucher' : booking?.offerName"
+        >
+      </div>
     </div>
 
-    <label class="col-sm-1 col-form-label ml-4" for="offerName">Csomagnév:</label>
-    <div class="col-2">
-      <input
-        name="offerName"
-        type="text"
-        class="form-control"
-        id="offerName"
-        [ngModel] = "(booking == null && isVoucherValid) ? 'voucher' : booking?.offerName"
-      >
+    <div class="form-group row mb-5">
+      <label class="col-sm-2 col-form-label" for="firstName">Keresztnév: </label>
+      <div class="col-6">
+        <input
+          name="firstName"
+          type="text"
+          class="form-control"
+          id="firstName"
+          placeholder="János"
+          [ngModel]="booking?.firstName"
+          required>
+      </div>
+      <label class="col-sm-2 col-form-label ml-4" for="numOfAdults">Felnőttek száma:</label>
+      <div class="col-1">
+        <input
+          name="numOfAdults"
+          type="number"
+          min="1"
+          max="6"
+          step="1"
+          class="form-control"
+          id="numOfAdults"
+          [ngModel]="booking == null ? 2 : booking.numOfAdults"
+          required>
+      </div>
     </div>
-  </div>
 
-  <div class="form-group row mb-5">
-    <label class="col-sm-2 col-form-label" for="firstName">Keresztnév: </label>
-    <div class="col-6">
-      <input
-        name="firstName"
-        type="text"
-        class="form-control"
-        id="firstName"
-        placeholder="János"
-        [ngModel]="booking?.firstName"
-        required>
+    <div class="form-group row mb-5">
+      <label class="col-sm-2 col-form-label" for="tel">Telefonszám: </label>
+      <div class="col-6">
+        <input
+          name="tel"
+          type="text"
+          class="form-control"
+          id="tel"
+          [ngModel]="booking?.tel"
+          placeholder="06201236547"
+          required>
+      </div>
+      <label class="col-sm-2 col-form-label ml-4" for="numOfChildren">Gyerekek száma:</label>
+      <div class="col-1">
+        <input
+          name="numOfChildren"
+          type="number"
+          min="0"
+          step="1"
+          max="4"
+          class="form-control"
+          id="numOfChildren"
+          [ngModel]="booking == null ? 0 : booking.numOfChildren"
+          required>
+      </div>
     </div>
-    <label class="col-sm-2 col-form-label ml-4" for="numOfAdults">Felnőttek száma:</label>
-    <div class="col-1">
-      <input
-        name="numOfAdults"
-        type="number"
-        min="1"
-        max="6"
-        step="1"
-        class="form-control"
-        id="numOfAdults"
-        [ngModel]="booking == null ? 2 : booking.numOfAdults"
-        required>
-    </div>
-  </div>
 
-  <div class="form-group row mb-5">
-    <label class="col-sm-2 col-form-label" for="tel">Telefonszám: </label>
+    <div class="form-group row mb-5">
+      <label class="col-sm-2 col-form-label" for="email">E-mail cím: </label>
+      <div class="col-6">
+        <input
+          name="email"
+          type="email"
+          class="form-control"
+          id="email"
+          [ngModel]="booking?.email"
+          placeholder="example@gmail.com"
+          required>
+      </div>
+      <label class="col-sm-2 col-form-label ml-4" for="numOfBedrooms">Hálószobák száma:</label>
+      <div class="col-1">
+        <input
+          name="numOfBedrooms"
+          type="number"
+          min="1"
+          max="2"
+          step="1"
+          class="form-control"
+          id="numOfBedRooms"
+          [ngModel]="booking == null ? 1 : booking.numOfBedrooms"
+          required>
+      </div>
+    </div>
     <div class="col-6">
-      <input
-        name="tel"
-        type="text"
-        class="form-control"
-        id="tel"
-        [ngModel]="booking?.tel"
-        placeholder="06201236547"
-        required>
-    </div>
-    <label class="col-sm-2 col-form-label ml-4" for="numOfChildren">Gyerekek száma:</label>
-    <div class="col-1">
-      <input
-        name="numOfChildren"
-        type="number"
-        min="0"
-        step="1"
-        max="4"
-        class="form-control"
-        id="numOfChildren"
-        [ngModel]="booking == null ? 0 : booking.numOfChildren"
-        required>
-    </div>
-  </div>
-
-  <div class="form-group row mb-5">
-    <label class="col-sm-2 col-form-label" for="email">E-mail cím: </label>
-    <div class="col-6">
-      <input
-        name="email"
-        type="email"
-        class="form-control"
-        id="email"
-        [ngModel]="booking?.email"
-        placeholder="example@gmail.com"
-        required>
-    </div>
-    <label class="col-sm-2 col-form-label ml-4" for="numOfBedrooms">Hálószobák száma:</label>
-    <div class="col-1">
-      <input
-        name="numOfBedrooms"
-        type="number"
-        min="1"
-        max="2"
-        step="1"
-        class="form-control"
-        id="numOfBedRooms"
-        [ngModel]="booking == null ? 1 : booking.numOfBedrooms"
-        required>
-    </div>
-  </div>
-  <div class="col-6">
-    <label for="comment" class="col-form-label">Megjegyzés:</label>
-    <textarea
-      name="comment"
-      id="comment"
-      [ngModel]="booking?.comment"
-      rows="4"
-      cols="120">
+      <label for="comment" class="col-form-label">Megjegyzés:</label>
+      <textarea
+        name="comment"
+        id="comment"
+        [ngModel]="booking?.comment"
+        rows="4"
+        cols="120">
     </textarea>
-  </div>
-  <div class="col-3 form-check mt-3" >
-    <input
-      name="isPaid"
-      class="form-check-input"
-      type="checkbox"
-      [ngModel]="booking?.isPaid"
-      id="isPaid">
-    <label class="form-check-label" for="isPaid">Fizetve</label>
-  </div>
-  <div class="row d-flex justify-content-between align-items-end mt-4">
-    <a mat-raised-button color="primary" class="col-1" [routerLink]="'/admin/bookings'">Vissza</a>
-    <button mat-raised-button color="primary" type="submit" class="col-1 mr-5" [disabled]="!f.valid">Megerősítés</button>
+    </div>
+    <div class="col-3 form-check mt-3" >
+      <input
+        name="isPaid"
+        class="form-check-input"
+        type="checkbox"
+        [ngModel]="booking?.isPaid"
+        id="isPaid">
+      <label class="form-check-label" for="isPaid">Fizetve</label>
+    </div>
+    <div class="row mt-4">
+      <a mat-raised-button color="primary" class="col-1" [routerLink]="'/admin/bookings'">Vissza</a>
+      <div class="col-10"></div>
+      <button mat-raised-button color="primary" type="submit" class="col-1" [disabled]="!f.valid">Megerősítés</button>
+    </div>
   </div>
 </form>

@@ -102,7 +102,7 @@ router.put('/edit/:id', checkAuth,(req,res,next) => {
   });
 });
 
-router.get('/:id', checkAuth,(req,res,next) => {
+router.get('/:id',(req,res,next) => {
   Voucher.findById(mongoose.Types.ObjectId(req.params.id)).then(voucher => {
     if(voucher){
       res.status(200).json(voucher);

@@ -11,7 +11,7 @@
       placeholder="Írd be a sorszámot a kereséshez...">
   </nav>
 
-  <div *ngFor="let voucher of vouchers">
+  <div class="container" *ngFor="let voucher of vouchers">
     <div class="row mt-4 ml-2">
       <div class="col-11">
         <mat-expansion-panel>
@@ -20,7 +20,7 @@
               <b>Sorszám:</b>
               {{voucher.id}}
             </div>
-            <div class="col-3">
+            <div class="col-2">
               <b>Név:</b>
               {{voucher.firstName}} {{voucher.lastName}}
             </div>
@@ -28,7 +28,7 @@
               <b>Tel:</b>
               {{voucher.tel}}
             </div>
-            <div class="col-2">
+            <div class="col-3">
               <b>E-mail:</b>
               {{voucher.email}}
             </div>
