@@ -2,3 +2,15 @@
 
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+.telephone-dialog-container .mat-dialog-container {
+  width: 16rem;
+  height: 6rem;
+  text-align: right;
+  background: transparent;
+  color: white;
+  font-weight: bold;
+  position: absolute;
+  right: 1rem;
+  top: 4rem;
+}

@@ -37,6 +37,7 @@ import { FromDatepickerHeaderComponent } from './datepicker/from-datepicker/from
 import { FromDatepickerComponent } from './datepicker/from-datepicker/from-datepicker.component';
 import { ToDatepickerComponent } from './datepicker/to-datepicker/to-datepicker.component';
 import {ToDatepickerHeaderComponent} from "./datepicker/to-datepicker/to-datepicker-header/to-datepicker-header.component";
+import { PopupTelephoneDialogComponent } from './layout/app-header/popup-telephone-dialog/popup-telephone-dialog.component';
 
 @NgModule({
   imports: [
@@ -79,7 +80,8 @@ import {ToDatepickerHeaderComponent} from "./datepicker/to-datepicker/to-datepic
     FromDatepickerHeaderComponent,
     FromDatepickerComponent,
     ToDatepickerComponent,
-    ToDatepickerHeaderComponent
+    ToDatepickerHeaderComponent,
+    PopupTelephoneDialogComponent
   ],
   providers: [
     {provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true},
