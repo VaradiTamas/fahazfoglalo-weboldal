@@ -1,15 +1,27 @@
 .headerpic {
   width: 100%;
+  object-fit:cover;
+  height: 100%;
+}
+
+.prev-picture{
+  transform: scale(1.2);
+  width: 100%;
+  object-fit:cover;
   height: 100%;
 }
 
 .page-title-container{
+  display: inline-block;
   position: absolute;
   top: 0;
   left: 0;
   text-align: center;
   height: 40rem;
   width: 100%;
+  overflow: hidden;
+  transition: all .2s ease;
+  vertical-align: middle;
 }
 
 .headerText{
