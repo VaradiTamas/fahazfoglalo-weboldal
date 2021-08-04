@@ -1,23 +1,14 @@
-<!--<div class="page-title-container">-->
-<!--  <img class="headerpic" src="assets/icon/fah.jpg">-->
-<!--  <div class="headerText">elso</div>-->
-<!--</div>-->
-
-<!--<div class="page-title-container" [@secondState]="secondState">-->
-<!--  <img class="headerpic" src="assets/icon/fah.jpg">-->
-<!--  <div class="headerText">masodik</div>-->
-<!--</div>-->
-
 <div class="page-title-container">
   <img class="prev-picture" [src]="previousImageSource"/>
 </div>
 
 <div class="page-title-container">
   <img class="headerpic" [src]="imageSource" [@fade]="state" (@fade.done)="onDone($event)"/>
-  <div class="headerText" [@titleChange]="titleState">{{headerText}}</div>
 </div>
 
-<!--<div-->
-<!--  style="width: 100px; height: 100px"-->
-<!--  [@divState]="state">-->
-<!--</div>-->
+<div class="page-title-container">
+  <div class="headerText" [@titleChange]="state">
+    <span *ngIf="!isLogoVisible">{{headerText}}</span>
+    <img class="logo" *ngIf="isLogoVisible" src="assets/logo.png">
+  </div>
+</div>
