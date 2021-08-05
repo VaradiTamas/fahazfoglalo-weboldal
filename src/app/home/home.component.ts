@@ -189,7 +189,7 @@ import {state, style, trigger, transition, animate, keyframes, group} from "@ang
         animate(2000, style({
           background: 'black'
         })),
-        animate(999, style({
+        animate(1000, style({
           background: 'black'
         }))
       ])
@@ -199,7 +199,7 @@ import {state, style, trigger, transition, animate, keyframes, group} from "@ang
       state('fourth', style({ })),
       transition('third => fourth', [
         animate(3500),
-        animate(999, style({
+        animate(1000, style({
           background: 'black'
         }))
       ])
@@ -228,7 +228,6 @@ export class HomeComponent implements OnInit {
     switch(this.counter){
       case 0: {
         this.isLogoVisible = false;
-        this.previousImageSource = this.imgBlack;
         this.imageSource = this.imgSrc1;
         this.state = 'first';
         this.headerText = 'ELSO';
@@ -251,6 +250,8 @@ export class HomeComponent implements OnInit {
       case 3: {
         this.isLogoVisible = true;
         this.state = 'fourth';
+        this.previousImageSource = this.imgBlack;
+        break;
       }
     }
   }
