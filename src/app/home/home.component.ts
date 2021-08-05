@@ -6,7 +6,7 @@ import {state, style, trigger, transition, animate, keyframes, group} from "@ang
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.css'],
   animations: [
-    trigger('fade', [
+    trigger('imageAnimation', [
       state('first', style({ })),
       state('second', style({ })),
       state('third', style({ })),
@@ -104,7 +104,7 @@ import {state, style, trigger, transition, animate, keyframes, group} from "@ang
         }))
       ]),
     ]),
-    trigger('titleChange', [
+    trigger('titleAnimation', [
       state('first', style({ })),
       state('second', style({ })),
       state('third', style({ })),
@@ -181,7 +181,7 @@ import {state, style, trigger, transition, animate, keyframes, group} from "@ang
         }))
       ])
     ]),
-    trigger('darken', [
+    trigger('darkImageAnimation', [
       state('third', style({ })),
       state('fourth', style({ })),
       transition('third => fourth', [
@@ -194,7 +194,7 @@ import {state, style, trigger, transition, animate, keyframes, group} from "@ang
         }))
       ])
     ]),
-    trigger('darkening', [
+    trigger('darkTitleAnimation', [
       state('third', style({ })),
       state('fourth', style({ })),
       transition('third => fourth', [
@@ -212,7 +212,7 @@ export class HomeComponent implements OnInit {
   isLogoVisible = false;
   headerText = 'ELSO';
   counter = 0;
-  imageSource = '';
+  currentImageSource = '';
   previousImageSource = '';
   imgSrc1 = 'assets/icon/fah.jpg';
   imgSrc2 = 'assets/house/headerpic2.jpg';
@@ -220,7 +220,7 @@ export class HomeComponent implements OnInit {
   imgBlack = 'assets/house/black.jpg';
 
   ngOnInit() {
-    this.imageSource = this.imgSrc1;
+    this.currentImageSource = this.imgSrc1;
     this.previousImageSource = this.imgSrc1;
   }
 
@@ -228,21 +228,21 @@ export class HomeComponent implements OnInit {
     switch(this.counter){
       case 0: {
         this.isLogoVisible = false;
-        this.imageSource = this.imgSrc1;
+        this.currentImageSource = this.imgSrc1;
         this.state = 'first';
         this.headerText = 'ELSO';
         break;
       }
       case 1: {
         this.previousImageSource = this.imgSrc1;
-        this.imageSource = this.imgSrc2;
+        this.currentImageSource = this.imgSrc2;
         this.state = 'second';
         this.headerText = 'MASODIK';
         break;
       }
       case 2: {
         this.previousImageSource = this.imgSrc2;
-        this.imageSource = this.imgSrc3;
+        this.currentImageSource = this.imgSrc3;
         this.state = 'third';
         this.headerText = 'HARMADIK';
         break;

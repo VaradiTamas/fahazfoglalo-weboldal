@@ -1,7 +1,13 @@
-.headerpic {
+.animation-container{
+  display: inline-block;
+  position: absolute;
+  top: 0;
+  left: 0;
+  text-align: center;
+  height: 40rem;
   width: 100%;
-  object-fit:cover;
-  height: 100%;
+  overflow: hidden;
+  vertical-align: middle;
 }
 
 .prev-picture{
@@ -11,24 +17,16 @@
   height: 100%;
 }
 
-.page-title-container{
-  display: inline-block;
-  position: absolute;
-  top: 0;
-  left: 0;
-  text-align: center;
-  height: 40rem;
+.current-picture {
   width: 100%;
-  overflow: hidden;
-  transition: all .2s ease;
-  vertical-align: middle;
+  object-fit:cover;
+  height: 100%;
 }
 
-.innerDiv{
+.inner-container{
   text-align: center;
   display: inline-block;
   overflow: hidden;
-  transition: all .2s ease;
   vertical-align: middle;
   position: absolute;
   top: 0;
@@ -37,7 +35,7 @@
   height: 100%;
 }
 
-.dark{
+.dark-div{
   position: absolute;
   top: 0;
   left: 0;
@@ -45,7 +43,7 @@
   height: 100%;
 }
 
-.headerText {
+.title-div {
   position: absolute;
   top: 0;
   left: 0;
