@@ -1,14 +1,28 @@
 <div class="page-title-container">
-  <img class="prev-picture" [src]="previousImageSource"/>
+  <div class="innerDiv">
+    <img class="prev-picture" [src]="previousImageSource"/>
+  </div>
 </div>
 
 <div class="page-title-container">
-  <img class="headerpic" [src]="imageSource" [@fade]="state" (@fade.done)="onDone($event)"/>
+  <div class="innerDiv">
+    <img class="headerpic" [src]="imageSource" [@fade]="state" (@fade.done)="onDone($event)"/>
+  </div>
+</div>
+
+<div class="page-title-container">
+  <div class="dark" [@darken]="state">
+  </div>
 </div>
 
 <div class="page-title-container">
   <div class="headerText" [@titleChange]="state">
     <span *ngIf="!isLogoVisible">{{headerText}}</span>
     <img class="logo" *ngIf="isLogoVisible" src="assets/logo.png">
+  </div>
+</div>
+
+<div class="page-title-container">
+  <div class="dark" [@darkening]="state">
   </div>
 </div>

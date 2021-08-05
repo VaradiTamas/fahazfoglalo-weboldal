@@ -78,8 +78,9 @@ import {state, style, trigger, transition, animate, keyframes, group} from "@ang
         animate(2000, style({
           transform: 'scale(1.3)'
         })),
-        animate(1000, style({
-          transform: 'scale(1.3)',
+        animate(2500, style({
+          transform: 'scale(1.4)',
+          opacity: 0
         }))
       ]),
       transition('fourth => first', [
@@ -119,7 +120,7 @@ import {state, style, trigger, transition, animate, keyframes, group} from "@ang
         animate(600, style({
           transform: 'scale(1.2)',
         })),
-        animate(1199, style({
+        animate(1198, style({
           transform: 'scale(1.2)'
         }))
       ]),
@@ -134,7 +135,7 @@ import {state, style, trigger, transition, animate, keyframes, group} from "@ang
         animate(600, style({
           transform: 'scale(1.2)',
         })),
-        animate(1199, style({
+        animate(1198, style({
           transform: 'scale(1.2)'
         }))
       ]),
@@ -149,7 +150,7 @@ import {state, style, trigger, transition, animate, keyframes, group} from "@ang
         animate(600, style({
           transform: 'scale(1.2)',
         })),
-        animate(1199, style({
+        animate(1198, style({
           transform: 'scale(1.2)'
         }))
       ]),
@@ -157,8 +158,11 @@ import {state, style, trigger, transition, animate, keyframes, group} from "@ang
         style({
           transform: 'scale(1.2)'
         }),
-        animate(2999, style({
-          transform: 'scale(1.4)',
+        animate(3000, style({
+          transform: 'scale(1.6)',
+        })),
+        animate(1498, style({
+          transform: 'scale(1.8)',
         })),
       ]),
       transition('fourth => first', [
@@ -172,8 +176,31 @@ import {state, style, trigger, transition, animate, keyframes, group} from "@ang
         animate(600, style({
           transform: 'scale(1.2)',
         })),
-        animate(1199, style({
+        animate(1198, style({
           transform: 'scale(1.2)'
+        }))
+      ])
+    ]),
+    trigger('darken', [
+      state('third', style({ })),
+      state('fourth', style({ })),
+      transition('third => fourth', [
+        animate(1500),
+        animate(2000, style({
+          background: 'black'
+        })),
+        animate(999, style({
+          background: 'black'
+        }))
+      ])
+    ]),
+    trigger('darkening', [
+      state('third', style({ })),
+      state('fourth', style({ })),
+      transition('third => fourth', [
+        animate(3500),
+        animate(999, style({
+          background: 'black'
         }))
       ])
     ])
@@ -190,6 +217,7 @@ export class HomeComponent implements OnInit {
   imgSrc1 = 'assets/icon/fah.jpg';
   imgSrc2 = 'assets/house/house2.jpg';
   imgSrc3 = 'assets/house/house3.jpg';
+  imgBlack = 'assets/house/black.jpg';
 
   ngOnInit() {
     this.imageSource = this.imgSrc1;
@@ -200,7 +228,7 @@ export class HomeComponent implements OnInit {
     switch(this.counter){
       case 0: {
         this.isLogoVisible = false;
-        this.previousImageSource = this.imgSrc3;
+        this.previousImageSource = this.imgBlack;
         this.imageSource = this.imgSrc1;
         this.state = 'first';
         this.headerText = 'ELSO';
