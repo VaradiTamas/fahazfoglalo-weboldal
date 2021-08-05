@@ -141,7 +141,7 @@ import {state, style, trigger, transition, animate, keyframes, group} from "@ang
       ]),
       transition('second => third', [
         style({
-          transform: 'translateX(2000px)'
+          transform: 'translateX(2000px)',
         }),
         animate(600, style({
           transform: 'translateX(0px)'
@@ -150,7 +150,7 @@ import {state, style, trigger, transition, animate, keyframes, group} from "@ang
         animate(600, style({
           transform: 'scale(1.2)',
         })),
-        animate(1198, style({
+        animate(1200, style({
           transform: 'scale(1.2)'
         }))
       ]),
@@ -215,8 +215,8 @@ export class HomeComponent implements OnInit {
   imageSource = '';
   previousImageSource = '';
   imgSrc1 = 'assets/icon/fah.jpg';
-  imgSrc2 = 'assets/house/house2.jpg';
-  imgSrc3 = 'assets/house/house3.jpg';
+  imgSrc2 = 'assets/house/headerpic2.jpg';
+  imgSrc3 = 'assets/icon/fah.jpg';
   imgBlack = 'assets/house/black.jpg';
 
   ngOnInit() {
