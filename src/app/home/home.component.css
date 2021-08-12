@@ -1,22 +1,60 @@
-.headerpic {
-  width: 100%;
-  height: 100%;
-}
-
-.page-title-container{
+.animation-container{
+  display: inline-block;
   position: absolute;
   top: 0;
   left: 0;
   text-align: center;
   height: 40rem;
   width: 100%;
+  overflow: hidden;
+  vertical-align: middle;
 }
 
-.headerText{
+.prev-picture{
+  transform: scale(1.2);
+  width: 100%;
+  object-fit:cover;
+  height: 100%;
+}
+
+.current-picture {
+  width: 100%;
+  object-fit:cover;
+  height: 100%;
+}
+
+.inner-container{
+  text-align: center;
+  display: inline-block;
+  overflow: hidden;
+  vertical-align: middle;
   position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.dark-div{
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.title-div {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 10rem;
+  margin-top: 20rem;
   color: aliceblue;
+  text-align: center;
   font-size: 50px;
+}
+
+.logo{
+  height: 100%;
 }
