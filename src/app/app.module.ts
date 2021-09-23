@@ -22,7 +22,7 @@ import { AppLayoutComponent } from './layout/app-layout/app-layout.component';
 import { ErrorComponent } from './error/error.component';
 import {ErrorInterceptor} from "./error/error-interceptor";
 import { AppPageTitleComponent } from './layout/app-page-title/app-page-title.component';
-import { HouseComponent } from './gallery/house/house.component';
+import { ImagesComponent } from './gallery/images/images.component';
 import { SaunaComponent } from './gallery/sauna/sauna.component';
 import { ParkComponent } from './gallery/park/park.component';
 import { GalleryLayoutComponent } from './layout/gallery-layout/gallery-layout.component';
@@ -39,6 +39,7 @@ import { ToDatepickerComponent } from './datepicker/to-datepicker/to-datepicker.
 import {ToDatepickerHeaderComponent} from "./datepicker/to-datepicker/to-datepicker-header/to-datepicker-header.component";
 import { PopupTelephoneDialogComponent } from './layout/app-header/popup-telephone-dialog/popup-telephone-dialog.component';
 import { HouseCarouselComponent } from './gallery/house-carousel/house-carousel.component';
+import { HouseComponent } from './gallery/house/house.component';
 
 @NgModule({
   imports: [
@@ -68,7 +69,7 @@ import { HouseCarouselComponent } from './gallery/house-carousel/house-carousel.
     AppLayoutComponent,
     ErrorComponent,
     AppPageTitleComponent,
-    HouseComponent,
+    ImagesComponent,
     SaunaComponent,
     ParkComponent,
     GalleryLayoutComponent,
@@ -83,7 +84,8 @@ import { HouseCarouselComponent } from './gallery/house-carousel/house-carousel.
     ToDatepickerComponent,
     ToDatepickerHeaderComponent,
     PopupTelephoneDialogComponent,
-    HouseCarouselComponent
+    HouseCarouselComponent,
+    HouseComponent
   ],
   providers: [
     {provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true},

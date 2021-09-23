@@ -7,7 +7,7 @@ import {AboutusComponent} from "./aboutus/aboutus.component";
 import {ReservationComponent} from "./reservation/reservation.component";
 import {AppLayoutComponent} from "./layout/app-layout/app-layout.component";
 import {HomeComponent} from "./home/home.component";
-import {HouseComponent} from "./gallery/house/house.component";
+import {ImagesComponent} from "./gallery/images/images.component";
 import {SaunaComponent} from "./gallery/sauna/sauna.component";
 import {ParkComponent} from "./gallery/park/park.component";
 import {GalleryLayoutComponent} from "./layout/gallery-layout/gallery-layout.component";
@@ -17,13 +17,14 @@ import {VoucherLayoutComponent} from "./layout/voucher-layout/voucher-layout.com
 import {OffersLayoutComponent} from "./layout/offers-layout/offers-layout.component";
 import {OfferCardComponent} from "./offers/offer-card/offer-card.component";
 import {OfferReservationComponent} from "./offers/offer-reservation/offer-reservation.component";
+import {HouseComponent} from "./gallery/house/house.component";
 
 const appRoutes: Routes = [
   { path: '', /*redirectTo: '/gallery' pathMatch: 'full'*/ component: AppLayoutComponent, children:
       [
         { path: '', component: HomeComponent, pathMatch: 'full' },
         { path: 'home', component: HomeComponent },
-        { path: 'gallery', redirectTo: 'gallery/house'},
+        { path: 'gallery', redirectTo: 'gallery/images'},
         { path: 'gallery', component: GalleryLayoutComponent, children:
             [
               { path: 'house', component: HouseComponent },

@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Image } from '../image.interface';
+import {Image} from '../image.interface';
 
 @Component({
   selector: 'app-house',
@@ -7,8 +7,6 @@ import { Image } from '../image.interface';
   styleUrls: ['./house.component.css']
 })
 export class HouseComponent implements OnInit {
-
-  public selectedImage?: number = null;
 
   public images = [
     {url: 'assets/park/park1.jpg'},
