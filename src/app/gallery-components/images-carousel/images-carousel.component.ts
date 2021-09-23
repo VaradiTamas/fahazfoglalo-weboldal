@@ -3,9 +3,9 @@ import {state, style, trigger, transition, animate} from '@angular/animations';
 import {Image} from '../image.interface';
 
 @Component({
-  selector: 'app-house-carousel',
-  templateUrl: './house-carousel.component.html',
-  styleUrls: ['./house-carousel.component.css'],
+  selector: 'app-images-carousel',
+  templateUrl: './images-carousel.component.html',
+  styleUrls: ['./images-carousel.component.css'],
   animations: [
     trigger('slide-in', [
       state('left', style({
@@ -40,7 +40,7 @@ import {Image} from '../image.interface';
     ])
   ]
 })
-export class HouseCarouselComponent implements OnInit {
+export class ImagesCarouselComponent implements OnInit {
   @Input() images: Array<Image>;
   @Input() selectedImage: number;
   @Output() closeCarousel = new EventEmitter<void>();

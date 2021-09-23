@@ -7,7 +7,6 @@ import {AboutusComponent} from "./aboutus/aboutus.component";
 import {ReservationComponent} from "./reservation/reservation.component";
 import {AppLayoutComponent} from "./layout/app-layout/app-layout.component";
 import {HomeComponent} from "./home/home.component";
-import {ImagesComponent} from "./gallery/images/images.component";
 import {SaunaComponent} from "./gallery/sauna/sauna.component";
 import {ParkComponent} from "./gallery/park/park.component";
 import {GalleryLayoutComponent} from "./layout/gallery-layout/gallery-layout.component";
@@ -24,7 +23,7 @@ const appRoutes: Routes = [
       [
         { path: '', component: HomeComponent, pathMatch: 'full' },
         { path: 'home', component: HomeComponent },
-        { path: 'gallery', redirectTo: 'gallery/images'},
+        { path: 'gallery', redirectTo: 'gallery/images-layout'},
         { path: 'gallery', component: GalleryLayoutComponent, children:
             [
               { path: 'house', component: HouseComponent },

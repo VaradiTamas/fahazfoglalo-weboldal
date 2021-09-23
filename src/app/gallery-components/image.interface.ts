@@ -1,5 +1,5 @@
 export interface Image{
-  url: string;
+  path: string;
   row: string;
   col: string;
 }
