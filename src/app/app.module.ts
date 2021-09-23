@@ -4,40 +4,42 @@ import { BrowserModule } from '@angular/platform-browser';
 import { AppComponent } from './app.component';
 import { HeaderComponent } from './layout/app-header/header.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
-import {FormsModule, ReactiveFormsModule} from "@angular/forms";
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import { VoucherReservationComponent } from './voucher/voucher-reservation/voucher-reservation.component';
 import { PricesComponent } from './prices/prices.component';
 import { QuestionsComponent } from './questions/questions.component';
 import { AboutusComponent } from './aboutus/aboutus.component';
 import { ReservationComponent } from './reservation/reservation.component';
 import { VoucherManagingComponent } from './reservation/voucher-managing/voucher-managing.component';
-import {MaterialModule} from "./material.module";
-import {AppRoutingModule} from "./app-routing.module";
+import {MaterialModule} from './material.module';
+import {AppRoutingModule} from './app-routing.module';
 import { HomeComponent } from './home/home.component';
-import {HTTP_INTERCEPTORS, HttpClientModule} from "@angular/common/http";
+import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import {AuthInterceptor} from "./admin/auth/auth-interceptor";
-import {AdminModule} from "./admin/admin.module";
+import {AuthInterceptor} from './admin/auth/auth-interceptor';
+import {AdminModule} from './admin/admin.module';
 import { AppLayoutComponent } from './layout/app-layout/app-layout.component';
 import { ErrorComponent } from './error/error.component';
-import {ErrorInterceptor} from "./error/error-interceptor";
+import {ErrorInterceptor} from './error/error-interceptor';
 import { AppPageTitleComponent } from './layout/app-page-title/app-page-title.component';
-import { HouseComponent } from './gallery/house/house.component';
+import { ImagesLayoutComponent } from './gallery-components/images-layout/images-layout.component';
 import { SaunaComponent } from './gallery/sauna/sauna.component';
 import { ParkComponent } from './gallery/park/park.component';
 import { GalleryLayoutComponent } from './layout/gallery-layout/gallery-layout.component';
 import { GalleryHeaderComponent } from './layout/gallery-header/gallery-header.component';
 import { VoucherCardComponent } from './voucher/voucher-card/voucher-card.component';
 import { VoucherLayoutComponent } from './layout/voucher-layout/voucher-layout.component';
-import { AgmCoreModule} from "@agm/core";
+import { AgmCoreModule} from '@agm/core';
 import { OffersLayoutComponent } from './layout/offers-layout/offers-layout.component';
-import {OfferCardComponent} from "./offers/offer-card/offer-card.component";
-import {OfferReservationComponent} from "./offers/offer-reservation/offer-reservation.component";
+import {OfferCardComponent} from './offers/offer-card/offer-card.component';
+import {OfferReservationComponent} from './offers/offer-reservation/offer-reservation.component';
 import { FromDatepickerHeaderComponent } from './datepicker/from-datepicker/from-datepicker-header/from-datepicker-header.component';
 import { FromDatepickerComponent } from './datepicker/from-datepicker/from-datepicker.component';
 import { ToDatepickerComponent } from './datepicker/to-datepicker/to-datepicker.component';
-import {ToDatepickerHeaderComponent} from "./datepicker/to-datepicker/to-datepicker-header/to-datepicker-header.component";
+import {ToDatepickerHeaderComponent} from './datepicker/to-datepicker/to-datepicker-header/to-datepicker-header.component';
 import { PopupTelephoneDialogComponent } from './layout/app-header/popup-telephone-dialog/popup-telephone-dialog.component';
+import { ImagesCarouselComponent } from './gallery-components/images-carousel/images-carousel.component';
+import { HouseComponent } from './gallery/house/house.component';
 
 @NgModule({
   imports: [
@@ -67,7 +69,7 @@ import { PopupTelephoneDialogComponent } from './layout/app-header/popup-telepho
     AppLayoutComponent,
     ErrorComponent,
     AppPageTitleComponent,
-    HouseComponent,
+    ImagesLayoutComponent,
     SaunaComponent,
     ParkComponent,
     GalleryLayoutComponent,
@@ -81,7 +83,9 @@ import { PopupTelephoneDialogComponent } from './layout/app-header/popup-telepho
     FromDatepickerComponent,
     ToDatepickerComponent,
     ToDatepickerHeaderComponent,
-    PopupTelephoneDialogComponent
+    PopupTelephoneDialogComponent,
+    ImagesCarouselComponent,
+    HouseComponent
   ],
   providers: [
     {provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true},
