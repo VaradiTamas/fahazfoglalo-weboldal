@@ -1,0 +1,9 @@
+::ng-deep.reserved-dates {
+  background: red;
+  border-radius: 100%;
+}
+
+::ng-deep.free-dates {
+  background: green;
+  border-radius: 100%;
+}

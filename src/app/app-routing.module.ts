@@ -23,7 +23,7 @@ const appRoutes: Routes = [
       [
         { path: '', component: HomeComponent, pathMatch: 'full' },
         { path: 'home', component: HomeComponent },
-        { path: 'gallery', redirectTo: 'gallery/images-layout'},
+        { path: 'gallery', redirectTo: 'gallery/house'},
         { path: 'gallery', component: GalleryLayoutComponent, children:
             [
               { path: 'house', component: HouseComponent },

@@ -40,6 +40,7 @@ import {ToDatepickerHeaderComponent} from './datepicker/to-datepicker/to-datepic
 import { PopupTelephoneDialogComponent } from './layout/app-header/popup-telephone-dialog/popup-telephone-dialog.component';
 import { ImagesCarouselComponent } from './gallery-components/images-carousel/images-carousel.component';
 import { HouseComponent } from './gallery/house/house.component';
+import { FromCalendarComponent } from './calendar/from-calendar/from-calendar.component';
 
 @NgModule({
   imports: [
@@ -85,7 +86,8 @@ import { HouseComponent } from './gallery/house/house.component';
     ToDatepickerHeaderComponent,
     PopupTelephoneDialogComponent,
     ImagesCarouselComponent,
-    HouseComponent
+    HouseComponent,
+    FromCalendarComponent
   ],
   providers: [
     {provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true},
