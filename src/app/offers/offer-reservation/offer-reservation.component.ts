@@ -5,7 +5,7 @@ import {BookingService} from "../../services/booking.service";
 import {VoucherService} from "../../services/voucher.service";
 import {ActivatedRoute, Router} from "@angular/router";
 import {NgForm} from "@angular/forms";
-import {ToDateService} from "../../datepicker/to-datepicker/to-date-service";
+import {ToCalendarService} from "../../calendar/to-calendar/to-calendar-service";
 
 @Component({
   selector: 'app-offer-reservation',
@@ -21,7 +21,7 @@ export class OfferReservationComponent implements OnInit {
   constructor(private bookingService: BookingService,
               public route: ActivatedRoute,
               public router: Router,
-              private toDateService: ToDateService) {}
+              private toDateService: ToCalendarService) {}
 
   ngOnInit() {}
 

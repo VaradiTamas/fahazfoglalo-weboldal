@@ -1,28 +1,25 @@
 import {Component, EventEmitter, OnDestroy, OnInit, Output} from '@angular/core';
-import {
-  MatCalendarCellClassFunction,
-  MatDatepickerInputEvent
-} from '@angular/material/datepicker';
-import {FromDatepickerHeaderComponent} from "../../datepicker/from-datepicker/from-datepicker-header/from-datepicker-header.component";
-import {Subscription} from "rxjs";
-import {FromDateService} from "../../datepicker/from-datepicker/from-date-service";
+import {MatCalendarCellClassFunction} from '@angular/material/datepicker';
+import {FromCalendarHeaderComponent} from '../from-calendar-header/from-calendar-header.component';
+import {Subscription} from 'rxjs';
+import {FromCalendarService} from '../from-calendar-service';
 
 @Component({
   selector: 'app-from-calendar',
-  templateUrl: './from-calendar.component.html',
-  styleUrls: ['./from-calendar.component.css']
+  templateUrl: './from-calendar-view.component.html',
+  styleUrls: ['./from-calendar-view.component.css']
 })
-export class FromCalendarComponent implements OnInit, OnDestroy{
+export class FromCalendarViewComponent implements OnInit, OnDestroy{
   @Output() dateChosen = new EventEmitter<{date: Date}>();
   isLoaded = false;
   reservedDays: number[] = [];
   selectedDate: Date = new Date();
-  header = FromDatepickerHeaderComponent;
+  header = FromCalendarHeaderComponent;
   private dateSubscription: Subscription;
   dateFilter = (d: Date | null): boolean => true;
   dateClass: MatCalendarCellClassFunction<Date> = (cellDate, view) => '';
 
-  constructor(public fromDateService: FromDateService) { }
+  constructor(public fromDateService: FromCalendarService) { }
 
   ngOnInit(): void {
     this.setMonthView();
@@ -73,7 +70,7 @@ export class FromCalendarComponent implements OnInit, OnDestroy{
           }
 
           return '';
-        }
+        };
       });
   }
 

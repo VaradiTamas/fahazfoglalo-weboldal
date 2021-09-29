@@ -3,7 +3,7 @@ import {Subject} from "rxjs";
 import {HttpClient} from "@angular/common/http";
 
 @Injectable({providedIn: 'root'})
-export class FromDateService {
+export class FromCalendarService {
   private reservedDays: number[] = [];
   private reservedDaysUpdated = new Subject<{ reservedDays: number[] }>()
 

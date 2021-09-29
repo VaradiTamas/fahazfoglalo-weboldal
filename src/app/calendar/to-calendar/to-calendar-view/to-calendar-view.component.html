@@ -1,0 +1,10 @@
+<div *ngIf="isLoaded">
+  <mat-label class="mr-2">Meddig:</mat-label>
+  <mat-calendar
+    [dateClass]="dateClass"
+    [dateFilter]="dateFilter"
+    [headerComponent]="header"
+    [selected]="selectedDate"
+    (selectedChange)="addEvent($event)">
+  </mat-calendar>
+</div>

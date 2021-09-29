@@ -3,7 +3,7 @@ import {Subject} from "rxjs";
 import {HttpClient} from "@angular/common/http";
 
 @Injectable({providedIn: 'root'})
-export class ToDateService {
+export class ToCalendarService {
   private reservedDays: number[] = [];
   private fromDateHasBeenChosen = false;
   private chosenFromDate = new Date();

@@ -1,38 +1,38 @@
-import {Component, OnDestroy, OnInit, ViewEncapsulation, EventEmitter, Output} from '@angular/core';
-import {MatCalendarCellClassFunction, MatDatepickerInputEvent} from "@angular/material/datepicker";
-import {FromDatepickerHeaderComponent} from "./from-datepicker-header/from-datepicker-header.component";
-import {FromDateService} from "./from-date-service";
-import {Subscription} from "rxjs";
+import {Component, EventEmitter, OnDestroy, OnInit, Output} from '@angular/core';
+import {MatCalendarCellClassFunction} from '@angular/material/datepicker';
+import {Subscription} from 'rxjs';
+import {ToCalendarService} from '../to-calendar-service';
+import {ToCalendarHeaderComponent} from '../to-calendar-header/to-calendar-header.component';
 
 @Component({
-  selector: 'app-from-datepicker',
-  templateUrl: './from-datepicker.component.html',
-  styleUrls: ['./from-datepicker.component.css'],
-  encapsulation: ViewEncapsulation.None
+  selector: 'app-to-calendar',
+  templateUrl: './to-calendar-view.component.html',
+  styleUrls: ['./to-calendar-view.component.css']
 })
-export class FromDatepickerComponent implements OnInit, OnDestroy{
+export class ToCalendarViewComponent implements OnInit, OnDestroy {
+  @Output() dateChosen = new EventEmitter<{date: Date}>();
   isLoaded = false;
   reservedDays: number[] = [];
   selectedDate: Date = new Date();
+  header = ToCalendarHeaderComponent;
+  private dateSubscription: Subscription;
   dateFilter = (d: Date | null): boolean => true;
   dateClass: MatCalendarCellClassFunction<Date> = (cellDate, view) => '';
-  header = FromDatepickerHeaderComponent;
-  private dateSubscription: Subscription;
-  @Output() dateChosen = new EventEmitter<{date: Date}>();
 
-  constructor(public fromDateService: FromDateService) { }
+  constructor(public toDateService: ToCalendarService) { }
 
   ngOnInit(): void {
     this.setMonthView();
   }
 
-  addEvent(event: MatDatepickerInputEvent<Date>) {
-    this.dateChosen.emit({date: event.value});
+  addEvent(chosenDate: Date): void {
+    this.selectedDate = chosenDate;
+    this.dateChosen.emit({date: chosenDate});
   }
 
-  setMonthView(){
-    this.fromDateService.getReservedDays(this.selectedDate.getFullYear(), this.selectedDate.getMonth());
-    this.dateSubscription = this.fromDateService.getReservedDaysUpdateListener()
+  setMonthView(): void{
+    this.toDateService.getReservedDays(this.selectedDate.getFullYear(), this.selectedDate.getMonth());
+    this.dateSubscription = this.toDateService.getReservedDaysUpdateListener()
       .subscribe((subData) => {
         this.reservedDays = subData.reservedDays;
         this.isLoaded = true;
@@ -47,7 +47,7 @@ export class FromDatepickerComponent implements OnInit, OnDestroy{
             }
           });
           return isFree;
-        }
+        };
 
         this.dateClass = (cellDate, view) => {
           if (view === 'month') {
@@ -70,7 +70,7 @@ export class FromDatepickerComponent implements OnInit, OnDestroy{
           }
 
           return '';
-        }
+        };
       });
   }
 
