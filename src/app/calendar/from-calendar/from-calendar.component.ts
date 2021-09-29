@@ -13,14 +13,14 @@ import {FromDateService} from "../../datepicker/from-datepicker/from-date-servic
   styleUrls: ['./from-calendar.component.css']
 })
 export class FromCalendarComponent implements OnInit, OnDestroy{
+  @Output() dateChosen = new EventEmitter<{date: Date}>();
   isLoaded = false;
   reservedDays: number[] = [];
   selectedDate: Date = new Date();
-  dateFilter = (d: Date | null): boolean => true;
-  dateClass: MatCalendarCellClassFunction<Date> = (cellDate, view) => '';
   header = FromDatepickerHeaderComponent;
   private dateSubscription: Subscription;
-  @Output() dateChosen = new EventEmitter<{date: Date}>();
+  dateFilter = (d: Date | null): boolean => true;
+  dateClass: MatCalendarCellClassFunction<Date> = (cellDate, view) => '';
 
   constructor(public fromDateService: FromDateService) { }
 
@@ -28,11 +28,12 @@ export class FromCalendarComponent implements OnInit, OnDestroy{
     this.setMonthView();
   }
 
-  addEvent(event: MatDatepickerInputEvent<Date>) {
-    this.dateChosen.emit({date: event.value});
+  addEvent(chosenDate: Date): void {
+    this.selectedDate = chosenDate;
+    this.dateChosen.emit({date: chosenDate});
   }
 
-  setMonthView(){
+  setMonthView(): void{
     this.fromDateService.getReservedDays(this.selectedDate.getFullYear(), this.selectedDate.getMonth());
     this.dateSubscription = this.fromDateService.getReservedDaysUpdateListener()
       .subscribe((subData) => {
@@ -49,7 +50,7 @@ export class FromCalendarComponent implements OnInit, OnDestroy{
             }
           });
           return isFree;
-        }
+        };
 
         this.dateClass = (cellDate, view) => {
           if (view === 'month') {

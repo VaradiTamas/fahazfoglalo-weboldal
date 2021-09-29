@@ -48,10 +48,11 @@ export class ToDateService {
     }
   }
 
-  getFreeDatesFromChosenDate(year: number, month: number, date: number) {
+  getFreeDatesFromChosenDate(year: number, month: number, date: number): void{
     const queryParams = `?year=${year}&month=${month}&date=${date}`;
-    this.http.get<{year: number, month: number, date: number}>('http://localhost:3000/admin/bookings/free-dates-from-chosen-date' + queryParams)
-      .subscribe((nearestBookingStartingDate)=> {
+    this.http.get<{year: number, month: number, date: number}>
+    ('http://localhost:3000/admin/bookings/free-dates-from-chosen-date' + queryParams)
+      .subscribe((nearestBookingStartingDate) => {
         this.reservedDays = [];
         this.nearestBookingStartingDate.setFullYear(
           nearestBookingStartingDate.year,

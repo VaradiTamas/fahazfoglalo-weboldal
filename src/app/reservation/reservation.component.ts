@@ -15,7 +15,7 @@ import {ToDateService} from "../datepicker/to-datepicker/to-date-service";
 export class ReservationComponent implements OnInit {
   booking: Booking;
   voucher: Voucher;
-  possessVoucher: boolean = false;
+  possessVoucher = false;
   isVoucherValid = false;
   alreadyCheckedVoucher = false;
   private bookingId: string = null;
@@ -30,7 +30,7 @@ export class ReservationComponent implements OnInit {
 
   ngOnInit() {}
 
-  onFromDateChosen(chosenDate: {date: Date}){
+  onFromDateChosen(chosenDate: {date: Date}): void{
     this.fromDate = chosenDate.date;
     this.toDateService.getFreeDatesFromChosenDate(chosenDate.date.getFullYear(), chosenDate.date.getMonth(), chosenDate.date.getDate());
   }
