@@ -7,3 +7,8 @@
   background: green;
   border-radius: 100%;
 }
+
+::ng-deep.pending-dates {
+  background: orange;
+  border-radius: 100%;
+}

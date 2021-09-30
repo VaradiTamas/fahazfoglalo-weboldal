@@ -33,17 +33,13 @@ export class FromCalendarHeaderComponent<D> implements OnDestroy {
       .toLocaleUpperCase();
   }
 
-  previousClicked(mode: 'month' | 'year') {
-    this._calendar.activeDate = mode === 'month' ?
-      this._dateAdapter.addCalendarMonths(this._calendar.activeDate, -1) :
-      this._dateAdapter.addCalendarYears(this._calendar.activeDate, -1);
+  previousClicked(): void {
+    this._calendar.activeDate = this._dateAdapter.addCalendarMonths(this._calendar.activeDate, -1);
     this.fromDateService.getReservedDays(this._dateAdapter.getYear(this._calendar.activeDate), this._dateAdapter.getMonth(this._calendar.activeDate));
   }
 
-  nextClicked(mode: 'month' | 'year') {
-    this._calendar.activeDate = mode === 'month' ?
-      this._dateAdapter.addCalendarMonths(this._calendar.activeDate, 1) :
-      this._dateAdapter.addCalendarYears(this._calendar.activeDate, 1);
+  nextClicked(): void {
+    this._calendar.activeDate = this._dateAdapter.addCalendarMonths(this._calendar.activeDate, 1);
     this.fromDateService.getReservedDays(this._dateAdapter.getYear(this._calendar.activeDate), this._dateAdapter.getMonth(this._calendar.activeDate));
   }
 }

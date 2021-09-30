@@ -13,7 +13,7 @@ export class FromCalendarViewComponent implements OnInit, OnDestroy{
   @Output() dateChosen = new EventEmitter<{date: Date}>();
   isLoaded = false;
   reservedDays: number[] = [];
-  selectedDate: Date = new Date();
+  selectedDate: Date = null;
   header = FromCalendarHeaderComponent;
   private dateSubscription: Subscription;
   dateFilter = (d: Date | null): boolean => true;
@@ -26,16 +26,86 @@ export class FromCalendarViewComponent implements OnInit, OnDestroy{
   }
 
   addEvent(chosenDate: Date): void {
-    this.selectedDate = chosenDate;
-    this.dateChosen.emit({date: chosenDate});
+    if (this.selectedDate != null){
+      if (chosenDate.getFullYear() === this.selectedDate.getFullYear() && chosenDate.getMonth() === this.selectedDate.getMonth() && chosenDate.getDate() === this.selectedDate.getDate()){
+        this.selectedDate = null;
+      } else {
+        this.selectedDate = chosenDate;
+        this.fromDateService.getReservedDays(chosenDate.getFullYear(), chosenDate.getMonth());
+        this.dateChosen.emit({date: chosenDate});
+      }
+    } else {
+      this.selectedDate = chosenDate;
+      this.fromDateService.getReservedDays(chosenDate.getFullYear(), chosenDate.getMonth());
+      this.dateChosen.emit({date: chosenDate});
+    }
   }
 
   setMonthView(): void{
-    this.fromDateService.getReservedDays(this.selectedDate.getFullYear(), this.selectedDate.getMonth());
+    const today: Date = new Date();
+    this.fromDateService.getReservedDays(today.getFullYear(), today.getMonth());
     this.dateSubscription = this.fromDateService.getReservedDaysUpdateListener()
       .subscribe((subData) => {
         this.reservedDays = subData.reservedDays;
-        this.isLoaded = true;
+        this.isLoaded = false;
+
+        this.dateClass = (cellDate, view) => {
+          if (view === 'month') {
+            const date = cellDate.getDate();
+
+            let isReserved = false;
+            let isPending = false;
+            const pendingDates: number[] = [];
+
+            this.reservedDays.forEach((day) => {
+              if (date === day) {
+                isReserved = true;
+              }
+            });
+
+            if (this.selectedDate != null){
+              const dayOfSelectedDate = this.selectedDate.getDate();
+              const reservedDatesBiggerThanSelectedDate: number[] = [];
+              this.reservedDays.forEach((reservedDay) => {
+                if (dayOfSelectedDate < reservedDay) {
+                  reservedDatesBiggerThanSelectedDate.push(reservedDay);
+                }
+              });
+              if (reservedDatesBiggerThanSelectedDate === []){
+               for (let i = dayOfSelectedDate + 1; i <= 31; i++){
+                 pendingDates.push(i);
+               }
+             } else {
+                let smallestOfReservedDatesBiggerThanSelectedDate = 31;
+                reservedDatesBiggerThanSelectedDate.forEach((reservedDay) => {
+                  if (reservedDay < smallestOfReservedDatesBiggerThanSelectedDate) {
+                    smallestOfReservedDatesBiggerThanSelectedDate = reservedDay;
+                  }
+                });
+                for (let i = dayOfSelectedDate + 1; i <= smallestOfReservedDatesBiggerThanSelectedDate; i++){
+                  pendingDates.push(i);
+                }
+              }
+            }
+
+            pendingDates.forEach((day) => {
+              if (date === day) {
+                isPending = true;
+              }
+            });
+
+            if (isReserved) {
+              return 'reserved-dates';
+            } else if (isPending) {
+              return 'pending-dates';
+            } else {
+              return 'free-dates';
+            }
+          }
+
+          return '';
+        };
+
         this.dateFilter = (d: Date | null): boolean => {
           const date = (d || new Date()).getDate();
 
@@ -49,28 +119,7 @@ export class FromCalendarViewComponent implements OnInit, OnDestroy{
           return isFree;
         };
 
-        this.dateClass = (cellDate, view) => {
-          if (view === 'month') {
-
-            const date = cellDate.getDate();
-
-            let isReserved = false;
-
-            this.reservedDays.forEach((day) => {
-              if (date === day) {
-                isReserved = true;
-              }
-            });
-
-            if (isReserved) {
-              return 'reserved-dates';
-            } else {
-              return 'free-dates';
-            }
-          }
-
-          return '';
-        };
+        this.isLoaded = true;
       });
   }
 
