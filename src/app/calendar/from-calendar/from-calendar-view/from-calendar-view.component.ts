@@ -13,7 +13,8 @@ export class FromCalendarViewComponent implements OnInit, OnDestroy{
   @Output() dateChosen = new EventEmitter<{date: Date}>();
   isLoaded = false;
   reservedDays: number[] = [];
-  selectedDate: Date = null;
+  selectedStartDate: Date = null;
+  selectedEndDate: Date = null;
   header = FromCalendarHeaderComponent;
   private dateSubscription: Subscription;
   dateFilter = (d: Date | null): boolean => true;
@@ -26,18 +27,19 @@ export class FromCalendarViewComponent implements OnInit, OnDestroy{
   }
 
   addEvent(chosenDate: Date): void {
-    if (this.selectedDate != null){
-      if (chosenDate.getFullYear() === this.selectedDate.getFullYear() && chosenDate.getMonth() === this.selectedDate.getMonth() && chosenDate.getDate() === this.selectedDate.getDate()){
-        this.selectedDate = null;
-      } else {
-        this.selectedDate = chosenDate;
-        this.fromDateService.getReservedDays(chosenDate.getFullYear(), chosenDate.getMonth());
-        this.dateChosen.emit({date: chosenDate});
-      }
-    } else {
-      this.selectedDate = chosenDate;
+    if (this.selectedStartDate == null){
+      this.selectedStartDate = chosenDate;
       this.fromDateService.getReservedDays(chosenDate.getFullYear(), chosenDate.getMonth());
-      this.dateChosen.emit({date: chosenDate});
+    } else if (chosenDate.getFullYear() === this.selectedStartDate.getFullYear() && chosenDate.getMonth() === this.selectedStartDate.getMonth() && chosenDate.getDate() === this.selectedStartDate.getDate()) {
+      this.selectedStartDate = null;
+    } else if (this.selectedEndDate == null){
+      this.selectedEndDate = chosenDate;
+      this.fromDateService.getReservedDays(chosenDate.getFullYear(), chosenDate.getMonth());
+    } else if (chosenDate.getFullYear() === this.selectedEndDate.getFullYear() && chosenDate.getMonth() === this.selectedEndDate.getMonth() && chosenDate.getDate() === this.selectedEndDate.getDate()){
+      this.selectedEndDate = null;
+    } else if ((this.selectedEndDate != null)){
+      this.selectedEndDate = chosenDate;
+      this.fromDateService.getReservedDays(chosenDate.getFullYear(), chosenDate.getMonth());
     }
   }
 
