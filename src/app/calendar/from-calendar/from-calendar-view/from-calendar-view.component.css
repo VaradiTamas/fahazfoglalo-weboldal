@@ -12,3 +12,8 @@
   background: orange;
   border-radius: 100%;
 }
+
+::ng-deep.chosen-dates {
+  background: purple;
+  border-radius: 100%;
+}

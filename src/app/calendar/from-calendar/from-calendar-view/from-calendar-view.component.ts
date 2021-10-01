@@ -16,6 +16,8 @@ export class FromCalendarViewComponent implements OnInit, OnDestroy{
   selectedStartDate: Date = null;
   selectedEndDate: Date = null;
   header = FromCalendarHeaderComponent;
+  private currentYear: number;
+  private currentMonth: number;
   private dateSubscription: Subscription;
   dateFilter = (d: Date | null): boolean => true;
   dateClass: MatCalendarCellClassFunction<Date> = (cellDate, view) => '';
@@ -32,12 +34,15 @@ export class FromCalendarViewComponent implements OnInit, OnDestroy{
       this.fromDateService.getReservedDays(chosenDate.getFullYear(), chosenDate.getMonth());
     } else if (chosenDate.getFullYear() === this.selectedStartDate.getFullYear() && chosenDate.getMonth() === this.selectedStartDate.getMonth() && chosenDate.getDate() === this.selectedStartDate.getDate()) {
       this.selectedStartDate = null;
-    } else if (this.selectedEndDate == null){
+      this.selectedEndDate = null;
+      this.fromDateService.getReservedDays(chosenDate.getFullYear(), chosenDate.getMonth());
+    } else if (this.selectedStartDate != null && this.selectedEndDate != null && this.selectedStartDate.getDate() > chosenDate.getDate()) {
+      this.selectedStartDate = chosenDate;
+      this.fromDateService.getReservedDays(chosenDate.getFullYear(), chosenDate.getMonth());
+    } else if (this.selectedEndDate == null && chosenDate.getDate() > this.selectedStartDate.getDate()){
       this.selectedEndDate = chosenDate;
       this.fromDateService.getReservedDays(chosenDate.getFullYear(), chosenDate.getMonth());
-    } else if (chosenDate.getFullYear() === this.selectedEndDate.getFullYear() && chosenDate.getMonth() === this.selectedEndDate.getMonth() && chosenDate.getDate() === this.selectedEndDate.getDate()){
-      this.selectedEndDate = null;
-    } else if ((this.selectedEndDate != null)){
+    } else if (this.selectedEndDate != null && chosenDate.getDate() > this.selectedStartDate.getDate()){
       this.selectedEndDate = chosenDate;
       this.fromDateService.getReservedDays(chosenDate.getFullYear(), chosenDate.getMonth());
     }
@@ -48,6 +53,8 @@ export class FromCalendarViewComponent implements OnInit, OnDestroy{
     this.fromDateService.getReservedDays(today.getFullYear(), today.getMonth());
     this.dateSubscription = this.fromDateService.getReservedDaysUpdateListener()
       .subscribe((subData) => {
+        //this.currentYear = subData.currentYear;
+        //this.currentMonth = subData.currentMonth;
         this.reservedDays = subData.reservedDays;
         this.isLoaded = false;
 
@@ -57,16 +64,13 @@ export class FromCalendarViewComponent implements OnInit, OnDestroy{
 
             let isReserved = false;
             let isPending = false;
+            let isChosen = false;
+
             const pendingDates: number[] = [];
+            const chosenDates: number[] = [];
 
-            this.reservedDays.forEach((day) => {
-              if (date === day) {
-                isReserved = true;
-              }
-            });
-
-            if (this.selectedDate != null){
-              const dayOfSelectedDate = this.selectedDate.getDate();
+            if (this.selectedStartDate != null && this.selectedEndDate == null){
+              const dayOfSelectedDate = this.selectedStartDate.getDate();
               const reservedDatesBiggerThanSelectedDate: number[] = [];
               this.reservedDays.forEach((reservedDay) => {
                 if (dayOfSelectedDate < reservedDay) {
@@ -88,7 +92,20 @@ export class FromCalendarViewComponent implements OnInit, OnDestroy{
                   pendingDates.push(i);
                 }
               }
+              chosenDates.push(this.selectedStartDate.getDate());
             }
+
+            if (this.selectedStartDate != null && this.selectedEndDate != null){
+              for (let i = this.selectedStartDate.getDate(); i <= this.selectedEndDate.getDate(); i++){
+                chosenDates.push(i);
+              }
+            }
+
+            this.reservedDays.forEach((day) => {
+              if (date === day) {
+                isReserved = true;
+              }
+            });
 
             pendingDates.forEach((day) => {
               if (date === day) {
@@ -96,10 +113,18 @@ export class FromCalendarViewComponent implements OnInit, OnDestroy{
               }
             });
 
+            chosenDates.forEach((day) => {
+              if (date === day) {
+                isChosen = true;
+              }
+            });
+
             if (isReserved) {
               return 'reserved-dates';
             } else if (isPending) {
               return 'pending-dates';
+            } else if (isChosen){
+              return 'chosen-dates';
             } else {
               return 'free-dates';
             }
