@@ -6,6 +6,7 @@ import {VoucherService} from "../services/voucher.service";
 import {ActivatedRoute, ParamMap, Router} from "@angular/router";
 import {NgForm} from "@angular/forms";
 import {ToCalendarService} from "../calendar/to-calendar/to-calendar-service";
+import {FromCalendarService} from "../calendar/from-calendar/from-calendar-service";
 
 @Component({
   selector: 'app-reservation',
@@ -25,17 +26,31 @@ export class ReservationComponent implements OnInit {
   constructor(private bookingService: BookingService,
               private voucherService: VoucherService,
               private toDateService: ToCalendarService,
+              private fromDateService: FromCalendarService,
               public route: ActivatedRoute,
               public router: Router) {}
 
   ngOnInit() {}
 
-  onFromDateChosen(chosenDate: {date: Date}): void{
+  onFromDateChosenFromCalendar(chosenDate: {date: Date}): void{
     this.fromDate = chosenDate.date;
-    this.toDateService.getFreeDatesFromChosenDate(chosenDate.date.getFullYear(), chosenDate.date.getMonth(), chosenDate.date.getDate());
+    this.toDateService.getStartDate(chosenDate.date);
+    // this.toDateService.getFreeDatesFromChosenDate(chosenDate.date.getFullYear(), chosenDate.date.getMonth(), chosenDate.date.getDate());
   }
 
-  onToDateChosen(chosenDate: {date: Date}){
+  onToDateChosenFromCalendar(chosenDate: {date: Date}): void{
+    this.toDateService.getEndDate(chosenDate.date);
+    this.toDate = chosenDate.date;
+  }
+
+  onFromDateChosenToCalendar(chosenDate: {date: Date}): void{
+    this.fromDate = chosenDate.date;
+    this.fromDateService.getStartDate(chosenDate.date);
+    // this.toDateService.getFreeDatesFromChosenDate(chosenDate.date.getFullYear(), chosenDate.date.getMonth(), chosenDate.date.getDate());
+  }
+
+  onToDateChosenToCalendar(chosenDate: {date: Date}): void{
+    this.fromDateService.getEndDate(chosenDate.date);
     this.toDate = chosenDate.date;
   }
 

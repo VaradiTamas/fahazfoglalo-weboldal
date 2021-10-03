@@ -10,7 +10,8 @@ import {FromCalendarService} from '../from-calendar-service';
   styleUrls: ['./from-calendar-view.component.css']
 })
 export class FromCalendarViewComponent implements OnInit, OnDestroy{
-  @Output() dateChosen = new EventEmitter<{date: Date}>();
+  @Output() fromDateChosen = new EventEmitter<{date: Date}>();
+  @Output() toDateChosen = new EventEmitter<{date: Date}>();
   isLoaded = false;
   reservedDays: number[] = [];
   selectedStartDate: Date = null;
@@ -19,6 +20,8 @@ export class FromCalendarViewComponent implements OnInit, OnDestroy{
   private currentYear: number;
   private currentMonth: number;
   private dateSubscription: Subscription;
+  private fromDateSelectedSubscription: Subscription;
+  private toDateSelectedSubscription: Subscription;
   dateFilter = (d: Date | null): boolean => true;
   dateClass: MatCalendarCellClassFunction<Date> = (cellDate, view) => '';
 
@@ -28,29 +31,88 @@ export class FromCalendarViewComponent implements OnInit, OnDestroy{
     this.setMonthView();
   }
 
+  private getFirstDayOfNextReservedDays(selectedDate: Date): number{
+    const dayOfSelectedDate = selectedDate.getDate();
+    const reservedDatesBiggerThanSelectedDate: number[] = [];
+    this.reservedDays.forEach((reservedDay) => {
+      if (dayOfSelectedDate < reservedDay) {
+        reservedDatesBiggerThanSelectedDate.push(reservedDay);
+      }
+    });
+    if (reservedDatesBiggerThanSelectedDate === []){
+      return 32;
+    } else {
+      let smallestOfReservedDatesBiggerThanSelectedDate = 31;
+      reservedDatesBiggerThanSelectedDate.forEach((reservedDay) => {
+        if (reservedDay < smallestOfReservedDatesBiggerThanSelectedDate) {
+          smallestOfReservedDatesBiggerThanSelectedDate = reservedDay;
+        }
+      });
+      return smallestOfReservedDatesBiggerThanSelectedDate;
+    }
+  }
+
+  private getLastDayOfPreviousReservedDays(selectedDate: Date): number{
+    const dayOfSelectedDate = selectedDate.getDate();
+    const reservedDatesSmallerThanSelectedDate: number[] = [];
+    this.reservedDays.forEach((reservedDay) => {
+      if (dayOfSelectedDate > reservedDay) {
+        reservedDatesSmallerThanSelectedDate.push(reservedDay);
+      }
+    });
+    if (reservedDatesSmallerThanSelectedDate === []){
+      return -1;
+    } else {
+      let biggestOfReservedDatesSmallerThanSelectedDate = -1;
+      reservedDatesSmallerThanSelectedDate.forEach((reservedDay) => {
+        if (reservedDay > biggestOfReservedDatesSmallerThanSelectedDate) {
+          biggestOfReservedDatesSmallerThanSelectedDate = reservedDay;
+        }
+      });
+      return biggestOfReservedDatesSmallerThanSelectedDate;
+    }
+  }
+
   addEvent(chosenDate: Date): void {
     if (this.selectedStartDate == null){
       this.selectedStartDate = chosenDate;
-      this.fromDateService.getReservedDays(chosenDate.getFullYear(), chosenDate.getMonth());
-    } else if (chosenDate.getFullYear() === this.selectedStartDate.getFullYear() && chosenDate.getMonth() === this.selectedStartDate.getMonth() && chosenDate.getDate() === this.selectedStartDate.getDate()) {
-      this.selectedStartDate = null;
-      this.selectedEndDate = null;
-      this.fromDateService.getReservedDays(chosenDate.getFullYear(), chosenDate.getMonth());
-    } else if (this.selectedStartDate != null && this.selectedEndDate != null && this.selectedStartDate.getDate() > chosenDate.getDate()) {
+      this.fromDateChosen.emit({date: chosenDate});
+    } else if (this.selectedStartDate.getMonth() === chosenDate.getMonth() && this.selectedStartDate.getFullYear() === chosenDate.getFullYear()){
+      if (chosenDate.getDate() === this.selectedStartDate.getDate()) {
+        this.selectedStartDate = null;
+        this.selectedEndDate = null;
+        this.fromDateChosen.emit({date: null});
+        this.toDateChosen.emit({date: null});
+      } else if (this.selectedStartDate != null && this.selectedEndDate != null && this.selectedStartDate.getDate() > chosenDate.getDate() && chosenDate.getDate() > this.getLastDayOfPreviousReservedDays(this.selectedStartDate)) {
+        this.selectedStartDate = chosenDate;
+        this.fromDateChosen.emit({date: chosenDate});
+      } else if (this.selectedEndDate == null && chosenDate.getDate() > this.selectedStartDate.getDate() && chosenDate.getDate() < this.getFirstDayOfNextReservedDays(this.selectedStartDate)){
+        this.selectedEndDate = chosenDate;
+        this.toDateChosen.emit({date: chosenDate});
+      } else if (this.selectedEndDate != null && chosenDate.getDate() > this.selectedStartDate.getDate() && chosenDate.getDate() < this.getFirstDayOfNextReservedDays(this.selectedStartDate)){
+        this.selectedEndDate = chosenDate;
+        this.toDateChosen.emit({date: chosenDate});
+      }
+    } else {
       this.selectedStartDate = chosenDate;
-      this.fromDateService.getReservedDays(chosenDate.getFullYear(), chosenDate.getMonth());
-    } else if (this.selectedEndDate == null && chosenDate.getDate() > this.selectedStartDate.getDate()){
-      this.selectedEndDate = chosenDate;
-      this.fromDateService.getReservedDays(chosenDate.getFullYear(), chosenDate.getMonth());
-    } else if (this.selectedEndDate != null && chosenDate.getDate() > this.selectedStartDate.getDate()){
-      this.selectedEndDate = chosenDate;
-      this.fromDateService.getReservedDays(chosenDate.getFullYear(), chosenDate.getMonth());
+      this.fromDateChosen.emit({date: chosenDate});
     }
+    this.fromDateService.getReservedDays(chosenDate.getFullYear(), chosenDate.getMonth());
   }
 
   setMonthView(): void{
     const today: Date = new Date();
     this.fromDateService.getReservedDays(today.getFullYear(), today.getMonth());
+    this.fromDateSelectedSubscription = this.fromDateService.getStartDateUpdateListener()
+      .subscribe((subData) => {
+        this.selectedStartDate = subData.startDate;
+        this.fromDateService.getReservedDays(this.selectedStartDate.getFullYear(), this.selectedStartDate.getMonth());
+      });
+    this.toDateSelectedSubscription = this.fromDateService.getEndDateUpdateListener()
+      .subscribe((subData) => {
+        this.selectedEndDate = subData.endDate;
+        this.fromDateService.getReservedDays(this.selectedEndDate.getFullYear(), this.selectedEndDate.getMonth());
+      });
     this.dateSubscription = this.fromDateService.getReservedDaysUpdateListener()
       .subscribe((subData) => {
         //this.currentYear = subData.currentYear;

@@ -5,18 +5,22 @@ import {HttpClient} from "@angular/common/http";
 @Injectable({providedIn: 'root'})
 export class ToCalendarService {
   private reservedDays: number[] = [];
+  private startDate: Date = null;
+  private endDate: Date = null;
   private fromDateHasBeenChosen = false;
   private chosenFromDate = new Date();
   private nearestBookingStartingDate = new Date();
-  private reservedDaysUpdated = new Subject<{ reservedDays: number[] }>()
+  private reservedDaysUpdated = new Subject<{ reservedDays: number[] }>();
+  private startDateUpdated = new Subject<{ startDate: Date }>();
+  private endDateUpdated = new Subject<{ endDate: Date }>();
 
   constructor(private http: HttpClient) {}
 
   getReservedDays(year: number, month: number) {
-    if(!this.fromDateHasBeenChosen){
+    if (!this.fromDateHasBeenChosen){
       const queryParams = `?year=${year}&month=${month}`;
       this.http.get<{days: number[]}[]>('http://localhost:3000/admin/bookings/reserved-days' + queryParams)
-        .subscribe((reservedDays)=> {
+        .subscribe((reservedDays) => {
           const reservedPeriods = reservedDays.map(reservedPeriod => {
             return reservedPeriod.days;
           });
@@ -88,7 +92,25 @@ export class ToCalendarService {
       });
   }
 
+  getStartDate(selectedDate: Date): void{
+    this.startDate = selectedDate;
+    this.startDateUpdated.next({startDate: this.startDate});
+  }
+
+  getEndDate(selectedDate: Date): void{
+    this.endDate = selectedDate;
+    this.endDateUpdated.next({endDate: this.endDate});
+  }
+
   getReservedDaysUpdateListener(){
     return this.reservedDaysUpdated.asObservable();
+  }
+
+  getStartDateUpdateListener(){
+    return this.startDateUpdated.asObservable();
+  }
+
+  getEndDateUpdateListener(){
+    return this.endDateUpdated.asObservable();
   }
 }

@@ -10,7 +10,8 @@ import {ToCalendarHeaderComponent} from '../to-calendar-header/to-calendar-heade
   styleUrls: ['./to-calendar-view.component.css']
 })
 export class ToCalendarViewComponent implements OnInit, OnDestroy {
-  @Output() dateChosen = new EventEmitter<{date: Date}>();
+  @Output() fromDateChosen = new EventEmitter<{date: Date}>();
+  @Output() toDateChosen = new EventEmitter<{date: Date}>();
   isLoaded = false;
   reservedDays: number[] = [];
   selectedDate: Date = new Date();
@@ -27,7 +28,8 @@ export class ToCalendarViewComponent implements OnInit, OnDestroy {
 
   addEvent(chosenDate: Date): void {
     this.selectedDate = chosenDate;
-    this.dateChosen.emit({date: chosenDate});
+    this.toDateChosen.emit({date: chosenDate});
+    this.fromDateChosen.emit({date: chosenDate});
   }
 
   setMonthView(): void{
