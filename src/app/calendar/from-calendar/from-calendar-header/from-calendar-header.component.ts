@@ -1,20 +1,24 @@
-import {ChangeDetectorRef, Component, Inject, OnDestroy} from '@angular/core';
-import {Subject} from "rxjs";
+import {ChangeDetectorRef, Component, Inject, OnDestroy, OnInit} from '@angular/core';
+import {Subject, Subscription} from "rxjs";
 import {MatCalendar} from "@angular/material/datepicker";
 import {DateAdapter, MAT_DATE_FORMATS, MatDateFormats} from "@angular/material/core";
 import {takeUntil} from "rxjs/operators";
 import {FromCalendarService} from "../from-calendar-service";
+import {ToCalendarService} from "../../to-calendar/to-calendar-service";
 
 @Component({
   selector: 'app-from-datepicker-header',
   templateUrl: './from-calendar-header.component.html',
   styleUrls: ['./from-calendar-header.component.css']
 })
-export class FromCalendarHeaderComponent<D> implements OnDestroy {
+export class FromCalendarHeaderComponent<D> implements OnInit, OnDestroy {
   private _destroyed = new Subject<void>();
+  private previousClickedSubscription: Subscription;
+  private nextClickedSubscription: Subscription;
 
   constructor(
     private fromDateService: FromCalendarService,
+    private toDateService: ToCalendarService,
     private _calendar: MatCalendar<D>, private _dateAdapter: DateAdapter<D>,
     @Inject(MAT_DATE_FORMATS) private _dateFormats: MatDateFormats, cdr: ChangeDetectorRef) {
     _calendar.stateChanges
@@ -22,7 +26,21 @@ export class FromCalendarHeaderComponent<D> implements OnDestroy {
       .subscribe(() => cdr.markForCheck());
   }
 
-  ngOnDestroy() {
+  ngOnInit(): void {
+    this.previousClickedSubscription = this.toDateService.getPreviousClickedListener()
+      .subscribe(() => {
+        this._calendar.activeDate = this._dateAdapter.addCalendarMonths(this._calendar.activeDate, -1);
+      });
+
+    this.nextClickedSubscription = this.toDateService.getNextClickedListener()
+      .subscribe(() => {
+        this._calendar.activeDate = this._dateAdapter.addCalendarMonths(this._calendar.activeDate, 1);
+      });
+  }
+
+  ngOnDestroy(): void {
+    this.previousClickedSubscription.unsubscribe();
+    this.nextClickedSubscription.unsubscribe();
     this._destroyed.next();
     this._destroyed.complete();
   }
@@ -36,10 +54,12 @@ export class FromCalendarHeaderComponent<D> implements OnDestroy {
   previousClicked(): void {
     this._calendar.activeDate = this._dateAdapter.addCalendarMonths(this._calendar.activeDate, -1);
     this.fromDateService.getReservedDays(this._dateAdapter.getYear(this._calendar.activeDate), this._dateAdapter.getMonth(this._calendar.activeDate));
+    this.fromDateService.onPreviousClicked();
   }
 
   nextClicked(): void {
     this._calendar.activeDate = this._dateAdapter.addCalendarMonths(this._calendar.activeDate, 1);
     this.fromDateService.getReservedDays(this._dateAdapter.getYear(this._calendar.activeDate), this._dateAdapter.getMonth(this._calendar.activeDate));
+    this.fromDateService.onNextClicked();
   }
 }

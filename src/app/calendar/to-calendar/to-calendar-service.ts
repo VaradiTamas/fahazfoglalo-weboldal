@@ -11,6 +11,8 @@ export class ToCalendarService {
   private nearestBookingStartingDate = new Date();
   private currentYear: number;
   private currentMonth: number;
+  private previousClicked = new Subject();
+  private nextClicked = new Subject();
   private reservedDaysUpdated = new Subject<{ reservedDays: number[], currentYear: number, currentMonth: number }>();
   private selectedDateUpdated = new Subject<{ selectedDate: Date }>();
 
@@ -103,11 +105,27 @@ export class ToCalendarService {
     this.selectedDateUpdated.next({selectedDate: this.selectedDate});
   }
 
+  onPreviousClicked(): void {
+    this.previousClicked.next();
+  }
+
+  onNextClicked(): void{
+    this.nextClicked.next();
+  }
+
   getReservedDaysUpdateListener(){
     return this.reservedDaysUpdated.asObservable();
   }
 
   getSelectedDateUpdateListener(){
     return this.selectedDateUpdated.asObservable();
+  }
+
+  getPreviousClickedListener(){
+    return this.previousClicked.asObservable();
+  }
+
+  getNextClickedListener(){
+    return this.nextClicked.asObservable();
   }
 }
