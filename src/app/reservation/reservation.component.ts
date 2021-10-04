@@ -32,26 +32,18 @@ export class ReservationComponent implements OnInit {
 
   ngOnInit() {}
 
-  onFromDateChosenFromCalendar(chosenDate: {date: Date}): void{
+  onDateSelectedChangeFromCalendar(chosenDate: {date: Date}): void{
     this.fromDate = chosenDate.date;
-    this.toDateService.getStartDate(chosenDate.date);
+    this.toDateService.getSelectedDate(chosenDate.date);
+    console.log('from calendar date selected');
     // this.toDateService.getFreeDatesFromChosenDate(chosenDate.date.getFullYear(), chosenDate.date.getMonth(), chosenDate.date.getDate());
   }
 
-  onToDateChosenFromCalendar(chosenDate: {date: Date}): void{
-    this.toDateService.getEndDate(chosenDate.date);
-    this.toDate = chosenDate.date;
-  }
-
-  onFromDateChosenToCalendar(chosenDate: {date: Date}): void{
+  onDateSelectedChangeToCalendar(chosenDate: {date: Date}): void{
     this.fromDate = chosenDate.date;
-    this.fromDateService.getStartDate(chosenDate.date);
+    this.fromDateService.getSelectedDate(chosenDate.date);
+    console.log('to calendar date selected');
     // this.toDateService.getFreeDatesFromChosenDate(chosenDate.date.getFullYear(), chosenDate.date.getMonth(), chosenDate.date.getDate());
-  }
-
-  onToDateChosenToCalendar(chosenDate: {date: Date}): void{
-    this.fromDateService.getEndDate(chosenDate.date);
-    this.toDate = chosenDate.date;
   }
 
   onVoucherClick(){
