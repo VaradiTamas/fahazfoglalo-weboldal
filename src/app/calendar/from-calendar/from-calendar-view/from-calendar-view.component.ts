@@ -12,7 +12,18 @@ import {FromCalendarService} from '../from-calendar-service';
 export class FromCalendarViewComponent implements OnInit, OnDestroy{
   @Output() selectedDateChange = new EventEmitter<{date: Date}>();
   isLoaded = false;
-  reservedDays: number[] = [];
+  private onlySecondHalfOfTheDayIsReservedPreviousMonth: number[];
+  private fullyReservedDatesPreviousMonth: number[];
+  private onlyFirstHalfOfTheDayIsReservedPreviousMonth: number[];
+  private onlySecondHalfOfTheDayIsReservedCurrentMonth: number[];
+  private fullyReservedDatesCurrentMonth: number[];
+  private onlyFirstHalfOfTheDayIsReservedCurrentMonth: number[];
+  private onlySecondHalfOfTheDayIsReservedNextMonth: number[];
+  private fullyReservedDatesNextMonth: number[];
+  private onlyFirstHalfOfTheDayIsReservedNextMonth: number[];
+  private lastDayOfPreviousMonth: number;
+  private lastDayOfCurrentMonth: number;
+  private lastDayOfNextMonth: number;
   selectedStartDate: Date = null;
   selectedEndDate: Date = null;
   header = FromCalendarHeaderComponent;
@@ -26,6 +37,8 @@ export class FromCalendarViewComponent implements OnInit, OnDestroy{
   constructor(public fromDateService: FromCalendarService) { }
 
   ngOnInit(): void {
+    const today: Date = new Date();
+    this.fromDateService.getReservedDays(today.getFullYear(), today.getMonth());
     this.setMonthView();
   }
 
@@ -112,8 +125,6 @@ export class FromCalendarViewComponent implements OnInit, OnDestroy{
   }
 
   setMonthView(): void{
-    const today: Date = new Date();
-    this.fromDateService.getReservedDays(today.getFullYear(), today.getMonth());
     this.selectedDateSubscription = this.fromDateService.getSelectedDateUpdateListener()
       .subscribe((subData) => {
         this.setSelectedDates(subData.selectedDate);
@@ -121,10 +132,81 @@ export class FromCalendarViewComponent implements OnInit, OnDestroy{
       });
     this.reservedDaysSubscription = this.fromDateService.getReservedDaysUpdateListener()
       .subscribe((subData) => {
+        this.isLoaded = false;
         this.currentYear = subData.currentYear;
         this.currentMonth = subData.currentMonth;
-        this.reservedDays = subData.reservedDays;
-        this.isLoaded = false;
+        this.lastDayOfPreviousMonth = subData.lastDayOfPreviousMonth;
+        this.lastDayOfCurrentMonth = subData.lastDayOfCurrentMonth;
+        this.lastDayOfNextMonth = subData.lastDayOfNextMonth;
+
+        if (subData.reservedDatesPreviousMonth !== []){
+          if (subData.reservedDatesPreviousMonth[0] !== 0){
+            this.onlySecondHalfOfTheDayIsReservedPreviousMonth.push(subData.reservedDatesPreviousMonth[0]);
+          }
+          if (subData.reservedDatesPreviousMonth[0] === 0){
+            this.fullyReservedDatesPreviousMonth.push(1);
+          }
+          if (subData.reservedDatesPreviousMonth[subData.reservedDatesPreviousMonth.length - 1] !== this.lastDayOfPreviousMonth + 1){
+            this.onlyFirstHalfOfTheDayIsReservedPreviousMonth.push(subData.reservedDatesPreviousMonth[subData.reservedDatesPreviousMonth.length - 1]);
+          }
+          if (subData.reservedDatesPreviousMonth[subData.reservedDatesPreviousMonth.length - 1] === this.lastDayOfPreviousMonth + 1){
+            this.fullyReservedDatesPreviousMonth.push(this.lastDayOfPreviousMonth);
+          }
+          for (let i = 1; i < subData.reservedDatesPreviousMonth.length - 1; i++){
+            if ((subData.reservedDatesPreviousMonth[i] === subData.reservedDatesPreviousMonth[i + 1] - 1) && (subData.reservedDatesPreviousMonth[i] === subData.reservedDatesPreviousMonth[i - 1] + 1)) {
+              this.fullyReservedDatesPreviousMonth.push(subData.reservedDatesPreviousMonth[i]);
+            }
+          }
+          this.onlySecondHalfOfTheDayIsReservedPreviousMonth.filter((v, i, a) => a.indexOf(v) === i);
+          this.fullyReservedDatesPreviousMonth.filter((v, i, a) => a.indexOf(v) === i);
+          this.onlyFirstHalfOfTheDayIsReservedPreviousMonth.filter((v, i, a) => a.indexOf(v) === i);
+        }
+
+        if (subData.reservedDatesCurrentMonth !== []){
+          if (subData.reservedDatesCurrentMonth[0] !== 0){
+            this.onlySecondHalfOfTheDayIsReservedCurrentMonth.push(subData.reservedDatesCurrentMonth[0]);
+          }
+          if (subData.reservedDatesCurrentMonth[0] === 0){
+            this.fullyReservedDatesCurrentMonth.push(1);
+          }
+          if (subData.reservedDatesCurrentMonth[subData.reservedDatesCurrentMonth.length - 1] !== this.lastDayOfCurrentMonth + 1){
+            this.onlyFirstHalfOfTheDayIsReservedCurrentMonth.push(subData.reservedDatesCurrentMonth[subData.reservedDatesCurrentMonth.length - 1]);
+          }
+          if (subData.reservedDatesCurrentMonth[subData.reservedDatesCurrentMonth.length - 1] === this.lastDayOfCurrentMonth + 1){
+            this.fullyReservedDatesCurrentMonth.push(this.lastDayOfCurrentMonth);
+          }
+          for (let i = 1; i < subData.reservedDatesCurrentMonth.length - 1; i++){
+            if ((subData.reservedDatesCurrentMonth[i] === subData.reservedDatesCurrentMonth[i + 1] - 1) && (subData.reservedDatesCurrentMonth[i] === subData.reservedDatesCurrentMonth[i - 1] + 1)) {
+              this.fullyReservedDatesCurrentMonth.push(subData.reservedDatesCurrentMonth[i]);
+            }
+          }
+          this.onlySecondHalfOfTheDayIsReservedCurrentMonth.filter((v, i, a) => a.indexOf(v) === i);
+          this.fullyReservedDatesCurrentMonth.filter((v, i, a) => a.indexOf(v) === i);
+          this.onlyFirstHalfOfTheDayIsReservedCurrentMonth.filter((v, i, a) => a.indexOf(v) === i);
+        }
+
+        if (subData.reservedDatesNextMonth !== []){
+          if (subData.reservedDatesNextMonth[0] !== 0){
+            this.onlySecondHalfOfTheDayIsReservedNextMonth.push(subData.reservedDatesNextMonth[0]);
+          }
+          if (subData.reservedDatesNextMonth[0] === 0){
+            this.fullyReservedDatesNextMonth.push(1);
+          }
+          if (subData.reservedDatesNextMonth[subData.reservedDatesNextMonth.length - 1] !== this.lastDayOfNextMonth + 1){
+            this.onlyFirstHalfOfTheDayIsReservedNextMonth.push(subData.reservedDatesNextMonth[subData.reservedDatesNextMonth.length - 1]);
+          }
+          if (subData.reservedDatesNextMonth[subData.reservedDatesNextMonth.length - 1] === this.lastDayOfNextMonth + 1){
+            this.fullyReservedDatesNextMonth.push(this.lastDayOfNextMonth);
+          }
+          for (let i = 1; i < subData.reservedDatesNextMonth.length - 1; i++){
+            if ((subData.reservedDatesNextMonth[i] === subData.reservedDatesNextMonth[i + 1] - 1) && (subData.reservedDatesNextMonth[i] === subData.reservedDatesNextMonth[i - 1] + 1)) {
+              this.fullyReservedDatesNextMonth.push(subData.reservedDatesNextMonth[i]);
+            }
+          }
+          this.onlySecondHalfOfTheDayIsReservedNextMonth.filter((v, i, a) => a.indexOf(v) === i);
+          this.fullyReservedDatesNextMonth.filter((v, i, a) => a.indexOf(v) === i);
+          this.onlyFirstHalfOfTheDayIsReservedNextMonth.filter((v, i, a) => a.indexOf(v) === i);
+        }
 
         this.dateClass = (cellDate, view) => {
           if (view === 'month') {

@@ -101,35 +101,51 @@ router.put('/edit/:id', checkAuth, (req,res,next) => {
 });
 
 router.get('/reserved-days', (req,res,next) => {
-  const year = +req.query.year;
-  const month = +req.query.month;
+  const currentYear = +req.query.year;
+  const currentMonth = +req.query.month;
+
+  let fromYear;
+  let fromMonth;
+
+  let toYear;
+  let toMonth;
+
+  if(currentMonth == 0){
+    fromYear = currentYear - 1;
+    fromMonth = 10;
+  } else if (currentMonth == 1){
+    fromYear = currentYear - 1;
+    fromMonth = 11;
+  } else {
+    fromYear = currentYear;
+    fromMonth = currentMonth - 2;
+  }
+
+  if(currentMonth == 10){
+    toYear = currentYear + 1;
+    toMonth = 0;
+  } else if (currentMonth == 11){
+    toYear = currentYear + 1;
+    toMonth = 1;
+  } else{
+    toYear = currentYear;
+    toMonth = currentMonth + 2;
+  }
 
   const fromDate = new Date();
-  fromDate.setFullYear(year, month, 1);
-
   const toDate = new Date();
-  if(month == 11){
-    toDate.setFullYear(year + 1,1,1);
-  }else{
-    toDate.setFullYear(year, month +1, 1);
-  }
+
+  fromDate.setFullYear(fromYear, fromMonth,1);
+  toDate.setFullYear(toYear, toMonth,1);
 
   Booking.find( { $and: [ { from: { $gte: fromDate } }, { from: { $lt: toDate } } ] } )
     .then(bookings => {
       if(bookings){
         res.status(200).json(bookings.map(booking => {
-          var reservedDays = [];
-          const firstDay = booking.from.getDate();
-          const lastDay = booking.to.getDate();
-          for(let i = firstDay; i < lastDay; i++){
-            if(i <= 31 && i >= firstDay){
-              reservedDays.push(i);
-            }
-          }
-          return {days: reservedDays};
+          return {from: booking.from, to: booking.to};
         }));
       } else {
-        res.status(200).json({days: []});
+        res.status(200).json({ from : null, to: null });
       }
     }).catch(error => {
       res.status(500).json({
