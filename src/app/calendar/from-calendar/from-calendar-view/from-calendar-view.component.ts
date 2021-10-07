@@ -436,17 +436,29 @@ export class FromCalendarViewComponent implements OnInit, OnDestroy{
             });
 
             if (isFullyReserved) {
-              return 'reserved-dates';
+              return 'fully-reserved-dates';
             } else if (isFullyPending) {
-              return 'pending-dates';
+              return 'fully-pending-dates';
             } else if (isFullyChosen){
-              return 'chosen-dates';
+              return 'fully-chosen-dates';
+            } else if (isFirstHalfPendingSecondHalfReserved){
+              return 'first-half-pending-second-half-reserved';
+            } else if (isFirstHalfReservedSecondHalfChosen){
+              return 'first-half-reserved-second-half-chosen';
+            } else if (isFirstHalfChosenSecondHalfReserved){
+              return 'first-half-chosen-second-half-reserved';
+            } else if (isFirstHalfFreeSecondHalfChosen){
+              return 'first-half-free-second-half-chosen';
+            } else if (isFirstHalfFreeSecondHalfReserved){
+              return 'first-half-free-second-half-reserved';
+            } else if (isFirstHalfReservedSecondHalfFree){
+              return 'first-half-reserved-second-half-free';
+            } else if (isFirstHalfChosenSecondHalfFree){
+              return 'first-half-chosen-second-half-free';
             } else {
-              return 'free-dates';
+              return 'fully-free-dates';
             }
           }
-
-          return '';
         };
 
         this.dateFilter = (d: Date | null): boolean => {
