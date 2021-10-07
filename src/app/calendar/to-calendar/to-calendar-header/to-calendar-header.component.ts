@@ -17,8 +17,8 @@ export class ToCalendarHeaderComponent<D> implements OnInit, OnDestroy {
   private nextClickedSubscription: Subscription;
 
   constructor(
-    private toDateService: ToCalendarService,
     private fromDateService: FromCalendarService,
+    private toDateService: ToCalendarService,
     private _calendar: MatCalendar<D>, private _dateAdapter: DateAdapter<D>,
     @Inject(MAT_DATE_FORMATS) private _dateFormats: MatDateFormats, cdr: ChangeDetectorRef) {
     _calendar.stateChanges
@@ -30,11 +30,6 @@ export class ToCalendarHeaderComponent<D> implements OnInit, OnDestroy {
     this.previousClickedSubscription = this.fromDateService.getPreviousClickedListener()
       .subscribe(() => {
         this._calendar.activeDate = this._dateAdapter.addCalendarMonths(this._calendar.activeDate, -1);
-      });
-
-    this.nextClickedSubscription = this.fromDateService.getNextClickedListener()
-      .subscribe(() => {
-        this._calendar.activeDate = this._dateAdapter.addCalendarMonths(this._calendar.activeDate, 1);
       });
   }
 
@@ -51,18 +46,9 @@ export class ToCalendarHeaderComponent<D> implements OnInit, OnDestroy {
       .toLocaleUpperCase();
   }
 
-  previousClicked(mode: 'month' | 'year') {
-    this._calendar.activeDate = mode === 'month' ?
-      this._dateAdapter.addCalendarMonths(this._calendar.activeDate, -1) :
-      this._dateAdapter.addCalendarYears(this._calendar.activeDate, -1);
-    this.toDateService.getReservedDays(this._dateAdapter.getYear(this._calendar.activeDate), this._dateAdapter.getMonth(this._calendar.activeDate));
-    this.toDateService.onPreviousClicked();
-  }
-
-  nextClicked(mode: 'month' | 'year') {
-    this._calendar.activeDate = mode === 'month' ?
-      this._dateAdapter.addCalendarMonths(this._calendar.activeDate, 1) :
-      this._dateAdapter.addCalendarYears(this._calendar.activeDate, 1);
+  nextClicked(): void {
+    this.fromDateService.getReservedDays(this._dateAdapter.getYear(this._calendar.activeDate), this._dateAdapter.getMonth(this._calendar.activeDate));
+    this._calendar.activeDate = this._dateAdapter.addCalendarMonths(this._calendar.activeDate, 1);
     this.toDateService.getReservedDays(this._dateAdapter.getYear(this._calendar.activeDate), this._dateAdapter.getMonth(this._calendar.activeDate));
     this.toDateService.onNextClicked();
   }

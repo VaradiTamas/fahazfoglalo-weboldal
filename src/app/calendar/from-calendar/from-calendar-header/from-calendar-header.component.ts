@@ -27,11 +27,6 @@ export class FromCalendarHeaderComponent<D> implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
-    this.previousClickedSubscription = this.toDateService.getPreviousClickedListener()
-      .subscribe(() => {
-        this._calendar.activeDate = this._dateAdapter.addCalendarMonths(this._calendar.activeDate, -1);
-      });
-
     this.nextClickedSubscription = this.toDateService.getNextClickedListener()
       .subscribe(() => {
         this._calendar.activeDate = this._dateAdapter.addCalendarMonths(this._calendar.activeDate, 1);
@@ -52,14 +47,9 @@ export class FromCalendarHeaderComponent<D> implements OnInit, OnDestroy {
   }
 
   previousClicked(): void {
+    this.toDateService.getReservedDays(this._dateAdapter.getYear(this._calendar.activeDate), this._dateAdapter.getMonth(this._calendar.activeDate));
     this._calendar.activeDate = this._dateAdapter.addCalendarMonths(this._calendar.activeDate, -1);
     this.fromDateService.getReservedDays(this._dateAdapter.getYear(this._calendar.activeDate), this._dateAdapter.getMonth(this._calendar.activeDate));
     this.fromDateService.onPreviousClicked();
-  }
-
-  nextClicked(): void {
-    this._calendar.activeDate = this._dateAdapter.addCalendarMonths(this._calendar.activeDate, 1);
-    this.fromDateService.getReservedDays(this._dateAdapter.getYear(this._calendar.activeDate), this._dateAdapter.getMonth(this._calendar.activeDate));
-    this.fromDateService.onNextClicked();
   }
 }

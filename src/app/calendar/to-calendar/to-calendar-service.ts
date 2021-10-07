@@ -4,98 +4,159 @@ import {HttpClient} from "@angular/common/http";
 
 @Injectable({providedIn: 'root'})
 export class ToCalendarService {
-  private reservedDays: number[] = [];
   private selectedDate: Date = null;
-  private fromDateHasBeenChosen = false;
-  private chosenFromDate = new Date();
-  private nearestBookingStartingDate = new Date();
+  private reservedDatesPreviousMonth: number[];
+  private reservedDatesCurrentMonth: number[];
+  private reservedDatesNextMonth: number[];
   private currentYear: number;
+  private previousMonthYear: number;
+  private nextMonthYear: number;
   private currentMonth: number;
+  private previousMonth: number;
+  private nextMonth: number;
+  private lastDayOfPreviousMonth: number;
+  private lastDayOfCurrentMonth: number;
+  private lastDayOfNextMonth: number;
   private previousClicked = new Subject();
   private nextClicked = new Subject();
-  private reservedDaysUpdated = new Subject<{ reservedDays: number[], currentYear: number, currentMonth: number }>();
   private selectedDateUpdated = new Subject<{ selectedDate: Date }>();
+  private reservedDaysUpdated = new Subject<{
+    reservedDatesPreviousMonth: number[],
+    reservedDatesCurrentMonth: number[],
+    reservedDatesNextMonth: number[],
+    currentYear: number,
+    currentMonth: number,
+    nextMonthYear: number,
+    nextMonth: number,
+    previousMonthYear: number,
+    previousMonth: number,
+    lastDayOfPreviousMonth: number,
+    lastDayOfCurrentMonth: number,
+    lastDayOfNextMonth: number
+  }>();
 
   constructor(private http: HttpClient) {}
 
-  getReservedDays(year: number, month: number) {
-    if (!this.fromDateHasBeenChosen){
-      const queryParams = `?year=${year}&month=${month}`;
-      this.http.get<{days: number[]}[]>('http://localhost:3000/admin/bookings/reserved-days' + queryParams)
-        .subscribe((reservedDays) => {
-          const reservedPeriods = reservedDays.map(reservedPeriod => {
-            return reservedPeriod.days;
-          });
-          this.reservedDays = [].concat.apply([], reservedPeriods);
-          this.reservedDaysUpdated.next({
-            reservedDays: [...this.reservedDays],
-            currentYear: this.currentYear,
-            currentMonth: this.currentMonth
-          });
-        });
-    }else{
-      if(this.chosenFromDate.getMonth() == month){
-        this.getFreeDatesFromChosenDate(this.chosenFromDate.getFullYear(), this.chosenFromDate.getMonth(), this.chosenFromDate.getDate());
-      }else if(this.nearestBookingStartingDate.getMonth() == month) {
-        this.reservedDays = [];
-        for (let i = this.nearestBookingStartingDate.getDate(); i <= 31; i++) {
-          this.reservedDays.push(i);
-        }
-      }else if((this.nearestBookingStartingDate.getMonth() > month && this.chosenFromDate.getMonth() < month)
-        || (this.nearestBookingStartingDate.getFullYear() > year && this.chosenFromDate.getFullYear() < year)){
-        this.reservedDays = [];
-      }else {
-        this.reservedDays = [];
-        for(let i = 0; i <= 31; i++){
-          this.reservedDays.push(i);
-        }
-      }
-      this.reservedDaysUpdated.next({
-        reservedDays: [...this.reservedDays],
-        currentYear: this.currentYear,
-        currentMonth: this.currentMonth
-      });
-    }
-  }
+  getReservedDays(year: number, month: number): void {
+    const queryParams = `?year=${year}&month=${month}`;
+    this.http.get<{ from: {year: number, month: number, day: number}, to: {year: number, month: number, day: number} }[]>('http://localhost:3000/admin/bookings/reserved-days' + queryParams)
+      .subscribe((reservedDates) => {
+        this.currentYear = year;
+        this.currentMonth = month;
+        let beforePreviousMonth: number;
+        let afterNextMonth: number;
 
-  getFreeDatesFromChosenDate(year: number, month: number, date: number): void{
-    const queryParams = `?year=${year}&month=${month}&date=${date}`;
-    this.http.get<{year: number, month: number, date: number}>
-    ('http://localhost:3000/admin/bookings/free-dates-from-chosen-date' + queryParams)
-      .subscribe((nearestBookingStartingDate) => {
-        this.reservedDays = [];
-        this.nearestBookingStartingDate.setFullYear(
-          nearestBookingStartingDate.year,
-          nearestBookingStartingDate.month,
-          nearestBookingStartingDate.date
-        );
-        this.fromDateHasBeenChosen = true;
-        this.chosenFromDate.setFullYear(year, month, date);
+        if (this.currentMonth === 0) {
+          this.previousMonth = 11;
+          beforePreviousMonth = 10;
+          this.nextMonth = 1;
+          afterNextMonth = 2;
+          this.previousMonthYear = this.currentYear - 1;
+          this.nextMonthYear = this.currentYear;
+        } else if (this.currentMonth === 1) {
+          this.previousMonth = 0;
+          beforePreviousMonth = 11;
+          this.nextMonth = 2;
+          afterNextMonth = 3;
+          this.previousMonthYear = this.currentYear;
+          this.nextMonthYear = this.currentYear;
+        } else if (this.currentMonth === 10) {
+          this.previousMonth = 9;
+          beforePreviousMonth = 8;
+          this.nextMonth = 11;
+          afterNextMonth = 0;
+          this.previousMonthYear = this.currentYear;
+          this.nextMonthYear = this.currentYear;
+        } else if ( this.currentMonth === 11) {
+          this.previousMonth = 10;
+          beforePreviousMonth = 9;
+          this.nextMonth = 0;
+          afterNextMonth = 1;
+          this.previousMonthYear = this.currentYear;
+          this.nextMonthYear = this.currentYear + 1;
+        } else {
+          this.previousMonth = this.currentMonth - 1;
+          beforePreviousMonth = this.currentMonth - 2;
+          this.nextMonth = this.currentMonth + 1;
+          afterNextMonth = this.currentMonth + 2;
+          this.previousMonthYear = this.currentYear;
+          this.nextMonthYear = this.currentYear;
+        }
 
-        var freeDates = [];
-        for(let i = date; i < this.nearestBookingStartingDate.getDate(); i++){
-          if(i <= 31 && i >= date){
-            freeDates.push(i);
+        const previousMonthDate = new Date();
+        const currentMonthDate = new Date();
+        const nextMonthDate = new Date();
+
+        previousMonthDate.setFullYear(this.previousMonthYear, this.previousMonth + 1, 0);
+        currentMonthDate.setFullYear(this.currentYear, this.currentMonth + 1, 0);
+        nextMonthDate.setFullYear(this.nextMonthYear, this.nextMonth + 1, 0);
+
+        this.lastDayOfPreviousMonth = previousMonthDate.getDate();
+        this.lastDayOfCurrentMonth = currentMonthDate.getDate();
+        this.lastDayOfNextMonth = nextMonthDate.getDate();
+
+        this.reservedDatesPreviousMonth = [];
+        this.reservedDatesCurrentMonth = [];
+        this.reservedDatesNextMonth = [];
+
+        if (reservedDates.length > 0){
+          console.log(reservedDates);
+          for (let i = 0; i < reservedDates.length; i++){
+            if (reservedDates[i].from.month === beforePreviousMonth && reservedDates[i].to.month === this.previousMonth){
+              for (let x = 0; x < reservedDates[i].to.day; x++){
+                this.reservedDatesPreviousMonth.push(x);
+              }
+            } else if (reservedDates[i].from.month === this.previousMonth && reservedDates[i].to.month === this.previousMonth){
+              for (let x = reservedDates[i].from.day; x < reservedDates[i].to.day; x++){
+                this.reservedDatesPreviousMonth.push(x);
+              }
+            } else if (reservedDates[i].from.month === this.previousMonth && reservedDates[i].to.month === this.currentMonth){
+              for (let x = reservedDates[i].from.day; x <= this.lastDayOfPreviousMonth; x++){
+                this.reservedDatesPreviousMonth.push(x);
+              }
+              for (let x = 0; x <= reservedDates[i].to.day; x++){
+                this.reservedDatesCurrentMonth.push(x);
+              }
+            } else if (reservedDates[i].from.month === this.currentMonth && reservedDates[i].to.month === this.currentMonth){
+              for (let x = reservedDates[i].from.day; x < reservedDates[i].to.day; x++){
+                this.reservedDatesCurrentMonth.push(x);
+              }
+            } else if (reservedDates[i].from.month === this.currentMonth && reservedDates[i].to.month === this.nextMonth){
+              for (let x = reservedDates[i].from.day; x <= this.lastDayOfCurrentMonth; x++){
+                this.reservedDatesCurrentMonth.push(x);
+              }
+              for (let x = 0; x <= reservedDates[i].to.day; x++){
+                this.reservedDatesNextMonth.push(x);
+              }
+            } else if (reservedDates[i].from.month === this.nextMonth && reservedDates[i].to.month === this.nextMonth){
+              for (let x = reservedDates[i].from.day; x < reservedDates[i].to.day; x++){
+                this.reservedDatesNextMonth.push(x);
+              }
+            } else if (reservedDates[i].from.month === this.nextMonth && reservedDates[i].to.month === afterNextMonth){
+              for (let x = reservedDates[i].from.day; x <= this.lastDayOfNextMonth; x++){
+                this.reservedDatesNextMonth.push(x);
+              }
+            }
           }
         }
 
-        for(let i = 0; i<=31; i++){
-          if(!freeDates.includes(i)){
-            this.reservedDays.push(i);
-          }
-        }
-
-        if(this.chosenFromDate.getMonth() != this.nearestBookingStartingDate.getMonth()){
-          this.reservedDays = [];
-          for(let i = 0; i <= this.chosenFromDate.getDate(); i++){
-            this.reservedDays.push(i);
-          }
-        }
+        this.reservedDatesPreviousMonth = this.reservedDatesPreviousMonth.sort((n1, n2) => n1 - n2);
+        this.reservedDatesCurrentMonth = this.reservedDatesCurrentMonth.sort((n1, n2) => n1 - n2);
+        this.reservedDatesNextMonth = this.reservedDatesNextMonth.sort((n1, n2) => n1 - n2);
 
         this.reservedDaysUpdated.next({
-          reservedDays: [...this.reservedDays],
+          reservedDatesPreviousMonth: [...this.reservedDatesPreviousMonth],
+          reservedDatesCurrentMonth: [...this.reservedDatesCurrentMonth],
+          reservedDatesNextMonth: [...this.reservedDatesNextMonth],
           currentYear: this.currentYear,
-          currentMonth: this.currentMonth
+          currentMonth: this.currentMonth,
+          nextMonthYear: this.nextMonthYear,
+          nextMonth: this.nextMonth,
+          previousMonthYear: this.previousMonthYear,
+          previousMonth: this.previousMonth,
+          lastDayOfPreviousMonth: this.lastDayOfPreviousMonth,
+          lastDayOfCurrentMonth: this.lastDayOfCurrentMonth,
+          lastDayOfNextMonth: this.lastDayOfNextMonth
         });
       });
   }

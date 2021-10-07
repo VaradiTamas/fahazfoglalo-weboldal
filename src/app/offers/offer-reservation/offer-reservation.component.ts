@@ -27,7 +27,8 @@ export class OfferReservationComponent implements OnInit {
 
   onFromDateChosen(chosenDate: {date: Date}){
     this.fromDate = chosenDate.date;
-    this.toDateService.getFreeDatesFromChosenDate(chosenDate.date.getFullYear(), chosenDate.date.getMonth(), chosenDate.date.getDate());
+    // 2 calendar egyesítésénél kommenteztem ki, vigyázni vel!!!
+    // this.toDateService.getFreeDatesFromChosenDate(chosenDate.date.getFullYear(), chosenDate.date.getMonth(), chosenDate.date.getDate());
   }
 
   onToDateChosen(chosenDate: {date: Date}){
