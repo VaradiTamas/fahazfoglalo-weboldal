@@ -39,7 +39,7 @@ export class FromCalendarService {
 
   getReservedDays(year: number, month: number): void {
     const queryParams = `?year=${year}&month=${month}`;
-    this.http.get<{ from: Date, to: Date }[]>('http://localhost:3000/admin/bookings/reserved-days' + queryParams)
+    this.http.get<{ from: {year: number, month: number, day: number}, to: {year: number, month: number, day: number} }[]>('http://localhost:3000/admin/bookings/reserved-days' + queryParams)
      .subscribe((reservedDates) => {
         this.currentYear = year;
         this.currentMonth = month;
@@ -99,40 +99,41 @@ export class FromCalendarService {
         this.reservedDatesCurrentMonth = [];
         this.reservedDatesNextMonth = [];
 
-        if (reservedDates[0].from != null){
+        if (reservedDates.length > 0){
+          console.log(reservedDates[0].from);
           for (let i = 0; i < reservedDates.length; i++){
-            if (reservedDates[i].from.getMonth() === beforePreviousMonth && reservedDates[i].to.getMonth() === this.previousMonth){
-              for (let x = 0; x < reservedDates[i].to.getDate(); x++){
+            if (reservedDates[i].from.month === beforePreviousMonth && reservedDates[i].to.month === this.previousMonth){
+              for (let x = 0; x < reservedDates[i].to.day; x++){
                 this.reservedDatesPreviousMonth.push(x);
               }
-            } else if (reservedDates[i].from.getMonth() === this.previousMonth && reservedDates[i].to.getMonth() === this.previousMonth){
-              for (let x = reservedDates[i].from.getDate(); x < reservedDates[i].to.getDate(); x++){
+            } else if (reservedDates[i].from.month === this.previousMonth && reservedDates[i].to.month === this.previousMonth){
+              for (let x = reservedDates[i].from.day; x < reservedDates[i].to.day; x++){
                 this.reservedDatesPreviousMonth.push(x);
               }
-            } else if (reservedDates[i].from.getMonth() === this.previousMonth && reservedDates[i].to.getMonth() === this.currentMonth){
-              for (let x = reservedDates[i].from.getDate(); x <= this.lastDayOfPreviousMonth; x++){
+            } else if (reservedDates[i].from.month === this.previousMonth && reservedDates[i].to.month === this.currentMonth){
+              for (let x = reservedDates[i].from.day; x <= this.lastDayOfPreviousMonth; x++){
                 this.reservedDatesPreviousMonth.push(x);
               }
-              for (let x = 0; x <= reservedDates[i].to.getDate(); x++){
+              for (let x = 0; x <= reservedDates[i].to.day; x++){
                 this.reservedDatesCurrentMonth.push(x);
               }
-            } else if (reservedDates[i].from.getMonth() === this.currentMonth && reservedDates[i].to.getMonth() === this.currentMonth){
-              for (let x = reservedDates[i].from.getDate(); x < reservedDates[i].to.getDate(); x++){
+            } else if (reservedDates[i].from.month === this.currentMonth && reservedDates[i].to.month === this.currentMonth){
+              for (let x = reservedDates[i].from.day; x < reservedDates[i].to.day; x++){
                 this.reservedDatesCurrentMonth.push(x);
               }
-            } else if (reservedDates[i].from.getMonth() === this.currentMonth && reservedDates[i].to.getMonth() === this.nextMonth){
-              for (let x = reservedDates[i].from.getDate(); x <= this.lastDayOfCurrentMonth; x++){
+            } else if (reservedDates[i].from.month === this.currentMonth && reservedDates[i].to.month === this.nextMonth){
+              for (let x = reservedDates[i].from.day; x <= this.lastDayOfCurrentMonth; x++){
                 this.reservedDatesCurrentMonth.push(x);
               }
-              for (let x = 0; x <= reservedDates[i].to.getDate(); x++){
+              for (let x = 0; x <= reservedDates[i].to.day; x++){
                 this.reservedDatesNextMonth.push(x);
               }
-            } else if (reservedDates[i].from.getMonth() === this.nextMonth && reservedDates[i].to.getMonth() === this.nextMonth){
-              for (let x = reservedDates[i].from.getDate(); x < reservedDates[i].to.getDate(); x++){
+            } else if (reservedDates[i].from.month === this.nextMonth && reservedDates[i].to.month === this.nextMonth){
+              for (let x = reservedDates[i].from.day; x < reservedDates[i].to.day; x++){
                 this.reservedDatesNextMonth.push(x);
               }
-            } else if (reservedDates[i].from.getMonth() === this.nextMonth && reservedDates[i].to.getMonth() === afterNextMonth){
-              for (let x = reservedDates[i].from.getDate(); x <= this.lastDayOfNextMonth; x++){
+            } else if (reservedDates[i].from.month === this.nextMonth && reservedDates[i].to.month === afterNextMonth){
+              for (let x = reservedDates[i].from.day; x <= this.lastDayOfNextMonth; x++){
                 this.reservedDatesNextMonth.push(x);
               }
             }

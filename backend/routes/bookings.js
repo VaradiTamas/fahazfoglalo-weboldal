@@ -142,7 +142,9 @@ router.get('/reserved-days', (req,res,next) => {
     .then(bookings => {
       if(bookings){
         res.status(200).json(bookings.map(booking => {
-          return {from: booking.from, to: booking.to};
+          fromDates = {year: booking.from.getFullYear(), month: booking.from.getMonth(), day: booking.from.getDate()}
+          toDates = {year: booking.to.getFullYear(), month: booking.to.getMonth(), day: booking.to.getDate()}
+          return {from: fromDates, to: toDates};
         }));
       } else {
         res.status(200).json({ from : null, to: null });

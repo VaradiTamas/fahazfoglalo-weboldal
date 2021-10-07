@@ -259,9 +259,16 @@ export class FromCalendarViewComponent implements OnInit, OnDestroy{
           if (view === 'month') {
             const date = cellDate.getDate();
 
-            let isReserved = false;
-            let isPending = false;
-            let isChosen = false;
+            let isFullyReserved = false;
+            let isFirstHalfPendingSecondHalfReserved = false;
+            let isFirstHalfReservedSecondHalfChosen = false;
+            let isFirstHalfChosenSecondHalfReserved = false;
+            let isFullyPending = false;
+            let isFullyChosen = false;
+            let isFirstHalfFreeSecondHalfChosen = false;
+            let isFirstHalfFreeSecondHalfReserved = false;
+            let isFirstHalfReservedSecondHalfFree = false;
+            let isFirstHalfChosenSecondHalfFree = false;
 
             const fullyPending: number[] = [];
             const firstHalfPendingSecondHalfReserved: number[] = [];
@@ -270,8 +277,8 @@ export class FromCalendarViewComponent implements OnInit, OnDestroy{
             const fullyChosenDates: number[] = [];
             const firstHalfFreeSecondHalfChosen: number[] = [];
             const firstHalfFreeSecondHalfReserved: number[] = [];
+            const firstHalfReservedSecondHalfFree: number[] = [];
             const firstHalfChosenSecondHalfFree: number[] = [];
-            const fullyFree: number[] = [];
 
             // if the view is in the same month as the selectedStartDate
             if (this.selectedStartDate != null && this.selectedEndDate == null && this.currentYear === this.selectedStartDate.getFullYear() && this.currentMonth === this.selectedStartDate.getMonth()){
@@ -308,47 +315,121 @@ export class FromCalendarViewComponent implements OnInit, OnDestroy{
               }
             }
 
-            if (this.selectedStartDate != null && this.selectedEndDate != null && this.currentYear === this.selectedStartDate.getFullYear() && this.currentMonth === this.selectedStartDate.getMonth() && this.currentYear === this.selectedEndDate.getFullYear() && this.currentMonth === this.selectedEndDate.getMonth()){
-              for (let i = this.selectedStartDate.getDate(); i <= this.selectedEndDate.getDate(); i++){
-                chosenDates.push(i);
-              }
-              // selectedStartDate is in the previous month but the selectedEndDate is in the current month
-            } else if (this.selectedStartDate != null && this.selectedEndDate != null && ((this.currentMonth - 1 === this.selectedStartDate.getMonth() && this.selectedStartDate.getFullYear() === this.currentYear)
-              || (this.currentMonth === 1 && this.selectedStartDate.getMonth() === 12 && this.selectedStartDate.getFullYear() === this.currentYear - 1)) && this.currentYear === this.selectedEndDate.getFullYear() && this.currentMonth === this.selectedEndDate.getMonth()) {
-              for (let i = 1; i <= this.selectedEndDate.getDate(); i++){
-                chosenDates.push(i);
-              }
-              // selectedStartDate is in the current month but selectedEndDate is in the next month
-            } else if (this.selectedStartDate != null && this.selectedEndDate != null && ((this.currentMonth + 1 === this.selectedEndDate.getMonth() && this.selectedEndDate.getFullYear() === this.currentYear)
-              || (this.currentMonth === 12 && this.selectedEndDate.getMonth() === 1 && this.selectedEndDate.getFullYear() === this.currentYear + 1)) && this.currentYear === this.selectedStartDate.getFullYear() && this.currentMonth === this.selectedStartDate.getMonth()){
-              for (let i = this.selectedStartDate.getDate(); i <= 31; i++){
-                chosenDates.push(i);
+            if (this.selectedStartDate != null && this.selectedEndDate != null){
+              if (this.currentYear === this.selectedStartDate.getFullYear() && this.currentMonth === this.selectedStartDate.getMonth() && this.currentYear === this.selectedEndDate.getFullYear() && this.currentMonth === this.selectedEndDate.getMonth()){
+                for (let i = this.selectedStartDate.getDate() + 1; i < this.selectedEndDate.getDate(); i++){
+                  fullyChosenDates.push(i);
+                }
+                if (this.onlyFirstHalfOfTheDayIsReservedCurrentMonth.includes(this.selectedStartDate.getDate())){
+                  firstHalfReservedSecondHalfChosen.push(this.selectedStartDate.getDate());
+                } else {
+                  firstHalfFreeSecondHalfChosen.push(this.selectedStartDate.getDate());
+                }
+                if (this.onlySecondHalfOfTheDayIsReservedCurrentMonth.includes(this.selectedEndDate.getDate())){
+                  firstHalfChosenSecondHalfReserved.push(this.selectedEndDate.getDate());
+                } else {
+                  firstHalfChosenSecondHalfFree.push(this.selectedEndDate.getDate());
+                }
+                // selectedStartDate is in the previous month but the selectedEndDate is in the current month
+              } else if (this.previousMonthYear === this.selectedStartDate.getFullYear() && this.previousMonth === this.selectedStartDate.getMonth() && this.currentYear === this.selectedEndDate.getFullYear() && this.currentMonth === this.selectedEndDate.getMonth()) {
+                for (let i = 1; i < this.selectedEndDate.getDate(); i++){
+                  fullyChosenDates.push(i);
+                }
+                if (this.onlySecondHalfOfTheDayIsReservedCurrentMonth.includes(this.selectedEndDate.getDate())){
+                  firstHalfChosenSecondHalfReserved.push(this.selectedEndDate.getDate());
+                } else {
+                  firstHalfChosenSecondHalfFree.push(this.selectedEndDate.getDate());
+                }
+                // selectedStartDate is in the current month but selectedEndDate is in the next month
+              } else if (this.currentYear === this.selectedStartDate.getFullYear() && this.currentMonth === this.selectedStartDate.getMonth() && this.selectedEndDate.getFullYear() === this.nextMonthYear && this.selectedEndDate.getMonth() === this.nextMonth){
+                for (let i = this.selectedStartDate.getDate() + 1; i <= this.lastDayOfCurrentMonth; i++){
+                  fullyChosenDates.push(i);
+                }
+                if (this.onlyFirstHalfOfTheDayIsReservedCurrentMonth.includes(this.selectedStartDate.getDate())){
+                  firstHalfReservedSecondHalfChosen.push(this.selectedStartDate.getDate());
+                } else {
+                  firstHalfFreeSecondHalfChosen.push(this.selectedStartDate.getDate());
+                }
               }
             }
 
-            this.reservedDays.forEach((day) => {
-              if (date === day) {
-                isReserved = true;
+            this.onlyFirstHalfOfTheDayIsReservedCurrentMonth.forEach(reservedDay => {
+              if (!firstHalfReservedSecondHalfChosen.includes(reservedDay)){
+                firstHalfReservedSecondHalfFree.push(reservedDay);
               }
             });
 
-            pendingDates.forEach((day) => {
-              if (date === day) {
-                isPending = true;
+            this.onlySecondHalfOfTheDayIsReservedCurrentMonth.forEach(reservedDay => {
+              if (!firstHalfChosenSecondHalfReserved.includes(reservedDay) && !firstHalfPendingSecondHalfReserved.includes(reservedDay)){
+                firstHalfFreeSecondHalfReserved.push(reservedDay);
               }
             });
 
-            chosenDates.forEach((day) => {
+            this.fullyReservedDatesCurrentMonth.forEach((day) => {
               if (date === day) {
-                isChosen = true;
+                isFullyReserved = true;
               }
             });
 
-            if (isReserved) {
+            fullyPending.forEach((day) => {
+              if (date === day) {
+                isFullyPending = true;
+              }
+            });
+
+            firstHalfPendingSecondHalfReserved.forEach((day) => {
+              if (date === day) {
+                isFirstHalfPendingSecondHalfReserved = true;
+              }
+            });
+
+            firstHalfReservedSecondHalfChosen.forEach((day) => {
+              if (date === day) {
+                isFirstHalfReservedSecondHalfChosen = true;
+              }
+            });
+
+            firstHalfChosenSecondHalfReserved.forEach((day) => {
+              if (date === day) {
+                isFirstHalfChosenSecondHalfReserved = true;
+              }
+            });
+
+            firstHalfFreeSecondHalfChosen.forEach((day) => {
+              if (date === day) {
+                isFirstHalfFreeSecondHalfChosen = true;
+              }
+            });
+
+            firstHalfFreeSecondHalfReserved.forEach((day) => {
+              if (date === day) {
+                isFirstHalfFreeSecondHalfReserved = true;
+              }
+            });
+
+            firstHalfReservedSecondHalfFree.forEach((day) => {
+              if (date === day) {
+                isFirstHalfReservedSecondHalfFree = true;
+              }
+            });
+
+            firstHalfChosenSecondHalfFree.forEach((day) => {
+              if (date === day) {
+                isFirstHalfChosenSecondHalfFree = true;
+              }
+            });
+
+            fullyChosenDates.forEach((day) => {
+              if (date === day) {
+                isFullyChosen = true;
+              }
+            });
+
+            if (isFullyReserved) {
               return 'reserved-dates';
-            } else if (isPending) {
+            } else if (isFullyPending) {
               return 'pending-dates';
-            } else if (isChosen){
+            } else if (isFullyChosen){
               return 'chosen-dates';
             } else {
               return 'free-dates';
@@ -363,7 +444,7 @@ export class FromCalendarViewComponent implements OnInit, OnDestroy{
 
           let isFree = true;
 
-          this.reservedDays.forEach((day) => {
+          this.fullyReservedDatesCurrentMonth.forEach((day) => {
             if (date === day) {
               isFree = false;
             }
