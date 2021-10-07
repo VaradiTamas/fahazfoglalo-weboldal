@@ -12,15 +12,15 @@ import {FromCalendarService} from '../from-calendar-service';
 export class FromCalendarViewComponent implements OnInit, OnDestroy{
   @Output() selectedDateChange = new EventEmitter<{date: Date}>();
   isLoaded = false;
-  private onlySecondHalfOfTheDayIsReservedPreviousMonth: number[];
-  private fullyReservedDatesPreviousMonth: number[];
-  private onlyFirstHalfOfTheDayIsReservedPreviousMonth: number[];
-  private onlySecondHalfOfTheDayIsReservedCurrentMonth: number[];
-  private fullyReservedDatesCurrentMonth: number[];
-  private onlyFirstHalfOfTheDayIsReservedCurrentMonth: number[];
-  private onlySecondHalfOfTheDayIsReservedNextMonth: number[];
-  private fullyReservedDatesNextMonth: number[];
-  private onlyFirstHalfOfTheDayIsReservedNextMonth: number[];
+  private onlySecondHalfOfTheDayIsReservedPreviousMonth: number[] = [];
+  private fullyReservedDatesPreviousMonth: number[] = [];
+  private onlyFirstHalfOfTheDayIsReservedPreviousMonth: number[] = [];
+  private onlySecondHalfOfTheDayIsReservedCurrentMonth: number[] = [];
+  private fullyReservedDatesCurrentMonth: number[] = [];
+  private onlyFirstHalfOfTheDayIsReservedCurrentMonth: number[] = [];
+  private onlySecondHalfOfTheDayIsReservedNextMonth: number[] = [];
+  private fullyReservedDatesNextMonth: number[] = [];
+  private onlyFirstHalfOfTheDayIsReservedNextMonth: number[] = [];
   private lastDayOfPreviousMonth: number;
   private lastDayOfCurrentMonth: number;
   private lastDayOfNextMonth: number;
@@ -188,7 +188,12 @@ export class FromCalendarViewComponent implements OnInit, OnDestroy{
         }
       }
       if (reservedDates[reservedDates.length - 1] !== lastDayOfMonth){
-        onlyFirstHalfOfTheDayIsReserved.push(reservedDates[reservedDates.length - 1]);
+        if ((reservedDates[reservedDates.length - 1] === reservedDates[reservedDates.length - 2] + 1)) {
+          fullyReservedDates.push(reservedDates[reservedDates.length - 1]);
+        } else {
+          onlySecondHalfOfTheDayIsReserved.push(reservedDates[reservedDates.length - 1]);
+        }
+        onlyFirstHalfOfTheDayIsReserved.push(reservedDates[reservedDates.length - 1] + 1);
       }
       if (reservedDates[reservedDates.length - 1] === lastDayOfMonth){
         if (reservedDates[reservedDates.length - 2] === lastDayOfMonth - 1){
@@ -252,8 +257,13 @@ export class FromCalendarViewComponent implements OnInit, OnDestroy{
         this.lastDayOfNextMonth = subData.lastDayOfNextMonth;
 
         this.setReservedDates(subData.reservedDatesPreviousMonth, 'previous');
-        this.setReservedDates(subData.reservedDatesPreviousMonth, 'current');
-        this.setReservedDates(subData.reservedDatesPreviousMonth, 'next');
+        this.setReservedDates(subData.reservedDatesCurrentMonth, 'current');
+        this.setReservedDates(subData.reservedDatesNextMonth, 'next');
+
+
+        console.log(this.onlySecondHalfOfTheDayIsReservedCurrentMonth);
+        console.log(this.fullyReservedDatesCurrentMonth);
+        console.log(this.onlyFirstHalfOfTheDayIsReservedCurrentMonth);
 
         this.dateClass = (cellDate, view) => {
           if (view === 'month') {
