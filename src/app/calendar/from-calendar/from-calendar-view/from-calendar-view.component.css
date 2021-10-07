@@ -14,7 +14,7 @@
 }
 
 ::ng-deep.fully-chosen-dates {
-  background: darksalmon;
+  background: purple;
   border-radius: 100%;
 }
 
@@ -24,17 +24,17 @@
 }
 
 ::ng-deep.first-half-reserved-second-half-chosen {
-  background: linear-gradient(90deg, red 50%, darksalmon 50%);
+  background: linear-gradient(90deg, red 50%, purple 50%);
   border-radius: 100%;
 }
 
 ::ng-deep.first-half-chosen-second-half-reserved {
-  background: linear-gradient(90deg, darksalmon 50%, red 50%);
+  background: linear-gradient(90deg, purple 50%, red 50%);
   border-radius: 100%;
 }
 
 ::ng-deep.first-half-free-second-half-chosen {
-  background: linear-gradient(90deg, green 50%, darksalmon 50%);
+  background: linear-gradient(90deg, green 50%, purple 50%);
   border-radius: 100%;
 }
 
@@ -49,6 +49,6 @@
 }
 
 ::ng-deep.first-half-chosen-second-half-free {
-  background: linear-gradient(90deg, darksalmon 50%, green 50%);
+  background: linear-gradient(90deg, purple 50%, green 50%);
   border-radius: 100%;
 }

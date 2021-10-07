@@ -268,11 +268,6 @@ export class FromCalendarViewComponent implements OnInit, OnDestroy{
     this.setReservedDates(subData.reservedDatesCurrentMonth, 'current');
     this.setReservedDates(subData.reservedDatesNextMonth, 'next');
 
-
-    console.log(this.onlySecondHalfOfTheDayIsReservedCurrentMonth);
-    console.log(this.fullyReservedDatesCurrentMonth);
-    console.log(this.onlyFirstHalfOfTheDayIsReservedCurrentMonth);
-
     this.dateClass = (cellDate, view) => {
       if (view === 'month') {
         const date = cellDate.getDate();
@@ -489,7 +484,7 @@ export class FromCalendarViewComponent implements OnInit, OnDestroy{
     this.selectedDateSubscription = this.fromDateService.getSelectedDateUpdateListener()
       .subscribe((subData) => {
         this.setSelectedDates(subData.selectedDate);
-        // this.fromDateService.getReservedDays(this.currentYear, this.currentMonth);
+        this.fromDateService.getReservedDays(this.currentYear, this.currentMonth);
       });
     this.reservedDaysSubscription = this.fromDateService.getReservedDaysUpdateListener()
       .subscribe((subData) => {
@@ -501,7 +496,7 @@ export class FromCalendarViewComponent implements OnInit, OnDestroy{
     this.selectedDateSubscription = this.toDateService.getSelectedDateUpdateListener()
       .subscribe((subData) => {
         this.setSelectedDates(subData.selectedDate);
-        // this.toDateService.getReservedDays(this.currentYear, this.currentMonth);
+        this.toDateService.getReservedDays(this.currentYear, this.currentMonth);
       });
     this.reservedDaysSubscription = this.toDateService.getReservedDaysUpdateListener()
       .subscribe((subData) => {
