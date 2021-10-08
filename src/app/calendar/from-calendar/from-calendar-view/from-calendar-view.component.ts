@@ -57,15 +57,27 @@ export class FromCalendarViewComponent implements OnInit, OnDestroy{
     }
   }
 
-  private getFirstDayOfNextReservedDays(selectedDate: Date): number{
+  private getFirstDayOfNextReservedDays(selectedDate: Date, month: string): number{
+    let onlySecondHalfIsReserved: number[] = [];
+    let lastDayOfMonth: number;
+    if (month === 'current'){
+      onlySecondHalfIsReserved = [...this.onlySecondHalfOfTheDayIsReservedCurrentMonth];
+      lastDayOfMonth = this.lastDayOfCurrentMonth;
+    } else if (month === 'previous'){
+      onlySecondHalfIsReserved = [...this.onlySecondHalfOfTheDayIsReservedPreviousMonth];
+      lastDayOfMonth = this.lastDayOfPreviousMonth;
+    } else if (month === 'next'){
+      onlySecondHalfIsReserved = [...this.onlySecondHalfOfTheDayIsReservedNextMonth];
+      lastDayOfMonth = this.lastDayOfNextMonth;
+    }
     const dayOfSelectedDate = selectedDate.getDate();
     const reservedDatesBiggerThanSelectedDate: number[] = [];
-    this.onlySecondHalfOfTheDayIsReservedCurrentMonth.forEach((reservedDay) => {
+    onlySecondHalfIsReserved.forEach((reservedDay) => {
       if (dayOfSelectedDate < reservedDay) {
         reservedDatesBiggerThanSelectedDate.push(reservedDay);
       }
     });
-    let smallestOfReservedDatesBiggerThanSelectedDate = this.lastDayOfCurrentMonth + 1;
+    let smallestOfReservedDatesBiggerThanSelectedDate = lastDayOfMonth + 1;
     reservedDatesBiggerThanSelectedDate.forEach((reservedDay) => {
       if (reservedDay < smallestOfReservedDatesBiggerThanSelectedDate) {
         smallestOfReservedDatesBiggerThanSelectedDate = reservedDay;
@@ -74,10 +86,18 @@ export class FromCalendarViewComponent implements OnInit, OnDestroy{
     return smallestOfReservedDatesBiggerThanSelectedDate;
   }
 
-  private getLastDayOfPreviousReservedDays(selectedDate: Date): number{
+  private getLastDayOfPreviousReservedDays(selectedDate: Date, month: string): number{
+    let onlyFirstHalfIsReserved: number[] = [];
+    if (month === 'current'){
+      onlyFirstHalfIsReserved = [...this.onlyFirstHalfOfTheDayIsReservedCurrentMonth];
+    } else if (month === 'previous'){
+      onlyFirstHalfIsReserved = [...this.onlyFirstHalfOfTheDayIsReservedPreviousMonth];
+    } else if (month === 'next'){
+      onlyFirstHalfIsReserved = [...this.onlyFirstHalfOfTheDayIsReservedNextMonth];
+    }
     const dayOfSelectedDate = selectedDate.getDate();
     const reservedDatesSmallerThanSelectedDate: number[] = [];
-    this.onlyFirstHalfOfTheDayIsReservedCurrentMonth.forEach((reservedDay) => {
+    onlyFirstHalfIsReserved.forEach((reservedDay) => {
       if (dayOfSelectedDate > reservedDay) {
         reservedDatesSmallerThanSelectedDate.push(reservedDay);
       }
@@ -92,25 +112,39 @@ export class FromCalendarViewComponent implements OnInit, OnDestroy{
   }
 
   setSelectedDates(chosenDate: Date): void{
-    if (this.selectedStartDate == null && !this.onlySecondHalfOfTheDayIsReservedCurrentMonth.includes(chosenDate.getDate()) && !this.fullyReservedDatesCurrentMonth.includes(chosenDate.getDate())){
-      this.selectedStartDate = chosenDate;
-      // selectedStartDate is in the same month as the newly chosen date
-    } else if (this.selectedStartDate.getMonth() === chosenDate.getMonth() && this.selectedStartDate.getFullYear() === chosenDate.getFullYear()){
+    // selectedStartDate is null
+    if (this.selectedStartDate == null){
+      if (chosenDate.getMonth() === this.currentMonth && chosenDate.getFullYear() === this.currentYear){
+        if (!this.onlySecondHalfOfTheDayIsReservedCurrentMonth.includes(chosenDate.getDate()) && !this.fullyReservedDatesCurrentMonth.includes(chosenDate.getDate())){
+          this.selectedStartDate = chosenDate;
+        }
+      } else if (chosenDate.getMonth() === this.previousMonth && chosenDate.getFullYear() === this.previousMonthYear){
+        if (!this.onlySecondHalfOfTheDayIsReservedPreviousMonth.includes(chosenDate.getDate()) && !this.fullyReservedDatesPreviousMonth.includes(chosenDate.getDate())){
+          this.selectedStartDate = chosenDate;
+        }
+      } else if (chosenDate.getMonth() === this.nextMonth && chosenDate.getFullYear() === this.nextMonthYear){
+        if (!this.onlySecondHalfOfTheDayIsReservedNextMonth.includes(chosenDate.getDate()) && !this.fullyReservedDatesNextMonth.includes(chosenDate.getDate())){
+          this.selectedStartDate = chosenDate;
+        }
+      }
+      // selectedStartDate and the newly chosen date are in the current month
+    } else if (this.selectedStartDate.getMonth() === chosenDate.getMonth() && this.selectedStartDate.getFullYear() === chosenDate.getFullYear() && this.selectedStartDate.getFullYear() === this.currentYear && this.selectedStartDate.getMonth() === this.currentMonth){
       if (chosenDate.getDate() === this.selectedStartDate.getDate()) {
         this.selectedStartDate = null;
         this.selectedEndDate = null;
-      } else if (this.selectedEndDate != null && this.selectedStartDate.getDate() > chosenDate.getDate() && chosenDate.getDate() >= this.getLastDayOfPreviousReservedDays(this.selectedEndDate)) {
+        // ITT A HIBA -------------------------------------------------------------------------------------------------------
+      } else if (this.selectedEndDate != null && this.selectedStartDate.getDate() > chosenDate.getDate() && chosenDate.getDate() >= this.getLastDayOfPreviousReservedDays(this.selectedEndDate, 'current')) {
         this.selectedStartDate = chosenDate;
-      } else if (chosenDate.getDate() > this.selectedStartDate.getDate() && chosenDate.getDate() <= this.getFirstDayOfNextReservedDays(this.selectedStartDate)){
+      } else if (chosenDate.getDate() > this.selectedStartDate.getDate() && chosenDate.getDate() <= this.getFirstDayOfNextReservedDays(this.selectedStartDate, 'current')){
         this.selectedEndDate = chosenDate;
-      } else if (this.selectedEndDate == null && chosenDate.getDate() < this.selectedStartDate.getDate() && chosenDate.getDate() >= this.getLastDayOfPreviousReservedDays(this.selectedStartDate)){
+      } else if (this.selectedEndDate == null && chosenDate.getDate() < this.selectedStartDate.getDate() && chosenDate.getDate() >= this.getLastDayOfPreviousReservedDays(this.selectedStartDate, 'current')){
         this.selectedEndDate = this.selectedStartDate;
         this.selectedStartDate = chosenDate;
       }
-      // newly chosen date is in the previous month as the selectedStartDate
-    } else if (this.nextMonth === this.selectedStartDate.getMonth() && this.selectedStartDate.getFullYear() === this.nextMonthYear){
+      // selectedStartDate is in the next month as the newly chosen date and current month
+    } else if (this.nextMonth === this.selectedStartDate.getMonth() && this.selectedStartDate.getFullYear() === this.nextMonthYear && chosenDate.getMonth() === this.currentMonth && chosenDate.getFullYear() === this.currentYear){
       if (!this.fullyReservedDatesCurrentMonth.includes(chosenDate.getDate()) && !this.onlySecondHalfOfTheDayIsReservedCurrentMonth.includes(chosenDate.getDate())){
-        if (!this.isThereReservedDateBetween(chosenDate, this.selectedStartDate)){
+        if (!this.isThereReservedDateBetween(chosenDate, this.selectedStartDate, 'first')){
           if (this.selectedEndDate === null){
             this.selectedEndDate = this.selectedStartDate;
             this.selectedStartDate = chosenDate;
@@ -119,29 +153,100 @@ export class FromCalendarViewComponent implements OnInit, OnDestroy{
           }
         }
       }
-      // newly chosen date is in the next month as the selectedStartDate
-    } else if (this.previousMonth === this.selectedStartDate.getMonth() && this.selectedStartDate.getFullYear() === this.previousMonthYear){
-      if (!this.isThereReservedDateBetween(this.selectedStartDate, chosenDate)){
-        this.selectedEndDate = chosenDate;
+      // selectedStartDate is in the previous month as the newly selected date and current month
+    } else if (this.previousMonth === this.selectedStartDate.getMonth() && this.selectedStartDate.getFullYear() === this.previousMonthYear && chosenDate.getMonth() === this.currentMonth && chosenDate.getFullYear() === this.currentYear){
+      if (!this.fullyReservedDatesCurrentMonth.includes(chosenDate.getDate()) && !this.onlySecondHalfOfTheDayIsReservedCurrentMonth.includes(chosenDate.getDate())) {
+        if (!this.isThereReservedDateBetween(this.selectedStartDate, chosenDate, 'second')) {
+          this.selectedEndDate = chosenDate;
+        }
       }
-    } else if (!this.onlySecondHalfOfTheDayIsReservedCurrentMonth.includes(chosenDate.getDate()) && !this.fullyReservedDatesCurrentMonth.includes(chosenDate.getDate())){
-      this.selectedStartDate = chosenDate;
-      this.selectedEndDate = null;
+      // selectedStartDate and the newly selected date is in the previous month as the current month
+    } else if (chosenDate.getMonth() === this.previousMonth && chosenDate.getFullYear() === this.previousMonthYear && this.selectedStartDate.getMonth() === this.previousMonth && this.selectedStartDate.getFullYear() === this.previousMonthYear) {
+      if (chosenDate.getDate() === this.selectedStartDate.getDate()) {
+        this.selectedStartDate = null;
+        this.selectedEndDate = null;
+      } else if (this.selectedEndDate != null && this.selectedStartDate.getDate() > chosenDate.getDate() && chosenDate.getDate() >= this.getLastDayOfPreviousReservedDays(this.selectedEndDate, 'previous')) {
+        this.selectedStartDate = chosenDate;
+      } else if (chosenDate.getDate() > this.selectedStartDate.getDate() && chosenDate.getDate() <= this.getFirstDayOfNextReservedDays(this.selectedStartDate, 'previous')){
+        this.selectedEndDate = chosenDate;
+      } else if (this.selectedEndDate == null && chosenDate.getDate() < this.selectedStartDate.getDate() && chosenDate.getDate() >= this.getLastDayOfPreviousReservedDays(this.selectedStartDate, 'previous')){
+        this.selectedEndDate = this.selectedStartDate;
+        this.selectedStartDate = chosenDate;
+      }
+      // selectedStartDate and the newly selected date is in the next month as the current month
+    } else if (chosenDate.getMonth() === this.nextMonth && chosenDate.getFullYear() === this.nextMonthYear && this.selectedStartDate.getMonth() === this.nextMonth && this.selectedStartDate.getFullYear() === this.nextMonthYear) {
+      if (chosenDate.getDate() === this.selectedStartDate.getDate()) {
+        this.selectedStartDate = null;
+        this.selectedEndDate = null;
+      } else if (this.selectedEndDate != null && this.selectedStartDate.getDate() > chosenDate.getDate() && chosenDate.getDate() >= this.getLastDayOfPreviousReservedDays(this.selectedEndDate, 'next')) {
+        this.selectedStartDate = chosenDate;
+      } else if (chosenDate.getDate() > this.selectedStartDate.getDate() && chosenDate.getDate() <= this.getFirstDayOfNextReservedDays(this.selectedStartDate, 'next')){
+        this.selectedEndDate = chosenDate;
+      } else if (this.selectedEndDate == null && chosenDate.getDate() < this.selectedStartDate.getDate() && chosenDate.getDate() >= this.getLastDayOfPreviousReservedDays(this.selectedStartDate, 'next')){
+        this.selectedEndDate = this.selectedStartDate;
+        this.selectedStartDate = chosenDate;
+      }
+      // newly chosen date is in the next month as the current month and selectedStartDate
+    } else if (chosenDate.getMonth() === this.nextMonth && chosenDate.getFullYear() === this.nextMonthYear && this.selectedStartDate.getMonth() === this.currentMonth && this.selectedStartDate.getFullYear() === this.currentYear) {
+      if (!this.fullyReservedDatesNextMonth.includes(chosenDate.getDate()) && !this.onlyFirstHalfOfTheDayIsReservedNextMonth.includes(chosenDate.getDate())){
+        if (!this.isThereReservedDateBetween(this.selectedStartDate, chosenDate, 'first')){
+          console.log(this.selectedStartDate.getDate());
+          console.log(this.onlySecondHalfOfTheDayIsReservedCurrentMonth);
+          this.selectedEndDate = chosenDate;
+        }
+      }
+      // newly chosen date is in the previous month as the current month and selectedStartDate
+    } else if (chosenDate.getMonth() === this.previousMonth && chosenDate.getFullYear() === this.previousMonthYear && this.selectedStartDate.getMonth() === this.currentMonth && this.selectedStartDate.getFullYear() === this.currentYear) {
+      if (!this.fullyReservedDatesPreviousMonth.includes(chosenDate.getDate()) && !this.onlySecondHalfOfTheDayIsReservedPreviousMonth.includes(chosenDate.getDate())){
+        if (!this.isThereReservedDateBetween(chosenDate, this.selectedStartDate, 'second')){
+          if (this.selectedEndDate === null){
+            this.selectedEndDate = this.selectedStartDate;
+            this.selectedStartDate = chosenDate;
+          } else {
+            this.selectedStartDate = chosenDate;
+          }
+        }
+      }
+    } else if (chosenDate.getMonth() === this.currentMonth && chosenDate.getFullYear() === this.currentYear) {
+      if (!this.onlySecondHalfOfTheDayIsReservedCurrentMonth.includes(chosenDate.getDate()) && !this.fullyReservedDatesCurrentMonth.includes(chosenDate.getDate())) {
+        this.selectedStartDate = chosenDate;
+        this.selectedEndDate = null;
+      }
+    } else if (chosenDate.getMonth() === this.previousMonth && chosenDate.getFullYear() === this.previousMonthYear) {
+      if (!this.onlySecondHalfOfTheDayIsReservedPreviousMonth.includes(chosenDate.getDate()) && !this.fullyReservedDatesPreviousMonth.includes(chosenDate.getDate())) {
+        this.selectedStartDate = chosenDate;
+        this.selectedEndDate = null;
+      }
+    } else if (chosenDate.getMonth() === this.nextMonth && chosenDate.getFullYear() === this.nextMonthYear) {
+      if (!this.onlySecondHalfOfTheDayIsReservedNextMonth.includes(chosenDate.getDate()) && !this.fullyReservedDatesNextMonth.includes(chosenDate.getDate())){
+        this.selectedStartDate = chosenDate;
+        this.selectedEndDate = null;
+      }
     }
   }
 
-  private isThereReservedDateBetween(from: Date, to: Date): boolean{
-    this.onlySecondHalfOfTheDayIsReservedCurrentMonth.forEach(reservedDay => {
+  private isThereReservedDateBetween(from: Date, to: Date, calendar: string): boolean{
+    let onlySecondHalfOfTheDayIsReservedFrom: number[] = [];
+    let onlySecondHalfOfTheDayIsReservedTo: number[] = [];
+    if (calendar === 'first'){
+      onlySecondHalfOfTheDayIsReservedFrom = [...this.onlySecondHalfOfTheDayIsReservedCurrentMonth];
+      onlySecondHalfOfTheDayIsReservedTo = [...this.onlySecondHalfOfTheDayIsReservedNextMonth];
+    } else if (calendar === 'second'){
+      onlySecondHalfOfTheDayIsReservedFrom = [...this.onlySecondHalfOfTheDayIsReservedPreviousMonth];
+      onlySecondHalfOfTheDayIsReservedTo = [...this.onlySecondHalfOfTheDayIsReservedCurrentMonth];
+    }
+    let isThere = false;
+    onlySecondHalfOfTheDayIsReservedFrom.forEach(reservedDay => {
       if (reservedDay > from.getDate()){
-        return true;
+        isThere = true;
       }
     });
-    this.onlySecondHalfOfTheDayIsReservedNextMonth.forEach(reservedDay => {
+    onlySecondHalfOfTheDayIsReservedTo.forEach(reservedDay => {
       if (reservedDay < to.getDate()){
-        return true;
+        isThere = true;
       }
     });
-    return false;
+    return isThere;
   }
 
   addEvent(chosenDate: Date): void {
@@ -296,7 +401,7 @@ export class FromCalendarViewComponent implements OnInit, OnDestroy{
         // if the view is in the same month as the selectedStartDate
         if (this.selectedStartDate != null && this.selectedEndDate == null && this.currentYear === this.selectedStartDate.getFullYear() && this.currentMonth === this.selectedStartDate.getMonth()){
           const dayOfSelectedStartDate = this.selectedStartDate.getDate();
-          const firstDayOfReservedDate = this.getFirstDayOfNextReservedDays(this.selectedStartDate);
+          const firstDayOfReservedDate = this.getFirstDayOfNextReservedDays(this.selectedStartDate, 'current');
 
           for (let i = dayOfSelectedStartDate + 1; i < firstDayOfReservedDate; i++){
             fullyPending.push(i);
@@ -315,8 +420,8 @@ export class FromCalendarViewComponent implements OnInit, OnDestroy{
           }
         } // if the view is in the next month as the selectedStartDate
         else if (this.selectedStartDate != null && this.selectedEndDate == null && this.selectedStartDate.getMonth() === this.previousMonth && this.selectedStartDate. getFullYear() === this.previousMonthYear){
-          if (this.getFirstDayOfNextReservedDays(this.selectedStartDate) === this.lastDayOfCurrentMonth + 1){
-            const firstDayOfReservedDate = this.getFirstDayOfNextReservedDays(this.selectedStartDate);
+          if (this.getFirstDayOfNextReservedDays(this.selectedStartDate, 'current') === this.lastDayOfCurrentMonth + 1){
+            const firstDayOfReservedDate = this.getFirstDayOfNextReservedDays(this.selectedStartDate, 'current');
             for (let i = this.selectedStartDate.getDate() + 1; i < firstDayOfReservedDate; i++){
               fullyPending.push(i);
             }

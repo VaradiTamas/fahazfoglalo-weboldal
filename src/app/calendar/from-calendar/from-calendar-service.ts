@@ -100,7 +100,6 @@ export class FromCalendarService {
         this.reservedDatesNextMonth = [];
 
         if (reservedDates.length > 0){
-          console.log(reservedDates);
           for (let i = 0; i < reservedDates.length; i++){
             if (reservedDates[i].from.month === beforePreviousMonth && reservedDates[i].to.month === this.previousMonth){
               for (let x = 0; x < reservedDates[i].to.day; x++){
