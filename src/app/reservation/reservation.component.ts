@@ -33,13 +33,19 @@ export class ReservationComponent implements OnInit {
   ngOnInit() {}
 
   onDateSelectedChangeFromCalendar(chosenDate: {date: Date}): void{
-    this.fromDate = chosenDate.date;
-    this.toDateService.getSelectedDate(chosenDate.date);
+    this.toDateService.selectedDateChanged(chosenDate.date);
   }
 
   onDateSelectedChangeToCalendar(chosenDate: {date: Date}): void{
+    this.fromDateService.selectedDateChanged(chosenDate.date);
+  }
+
+  onSelectedStartDateChanged(chosenDate: {date: Date}): void{
     this.fromDate = chosenDate.date;
-    this.fromDateService.getSelectedDate(chosenDate.date);
+  }
+
+  onSelectedEndDateChanged(chosenDate: {date: Date}): void{
+    this.toDate = chosenDate.date;
   }
 
   onVoucherClick(){
@@ -75,7 +81,7 @@ export class ReservationComponent implements OnInit {
     };
     this.bookingService.addBooking(formBooking);
     form.reset();
-    this.router.navigate(["/home"]);
+    this.router.navigate(['/home']);
   }
 
   onCheckVoucher(form : NgForm){

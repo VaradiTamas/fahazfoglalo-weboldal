@@ -160,7 +160,7 @@ export class FromCalendarService {
       });
   }
 
-  getSelectedDate(selectedDate: Date): void{
+  selectedDateChanged(selectedDate: Date): void{
     this.selectedDate = selectedDate;
     this.selectedDateUpdated.next({selectedDate: this.selectedDate});
   }

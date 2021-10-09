@@ -13,7 +13,6 @@ import {ToCalendarService} from "../../to-calendar/to-calendar-service";
 })
 export class FromCalendarHeaderComponent<D> implements OnInit, OnDestroy {
   private _destroyed = new Subject<void>();
-  private previousClickedSubscription: Subscription;
   private nextClickedSubscription: Subscription;
 
   constructor(
@@ -34,7 +33,6 @@ export class FromCalendarHeaderComponent<D> implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    this.previousClickedSubscription.unsubscribe();
     this.nextClickedSubscription.unsubscribe();
     this._destroyed.next();
     this._destroyed.complete();

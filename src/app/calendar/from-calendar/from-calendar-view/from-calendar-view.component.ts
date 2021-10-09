@@ -13,6 +13,8 @@ import {ToCalendarService} from "../../to-calendar/to-calendar-service";
 })
 export class FromCalendarViewComponent implements OnInit, OnDestroy{
   @Output() selectedDateChange = new EventEmitter<{date: Date}>();
+  @Output() selectedStartDateChange = new EventEmitter<{date: Date}>();
+  @Output() selectedEndDateChange = new EventEmitter<{date: Date}>();
   @Input() calendarType: string;
   isLoaded = false;
   private onlySecondHalfOfTheDayIsReservedPreviousMonth: number[] = [];
@@ -254,12 +256,14 @@ export class FromCalendarViewComponent implements OnInit, OnDestroy{
 
   addEvent(chosenDate: Date): void {
     this.setSelectedDates(chosenDate);
-    this.selectedDateChange.emit({date: chosenDate});
     if (this.calendarType === 'from'){
       this.fromDateService.getReservedDays(chosenDate.getFullYear(), chosenDate.getMonth());
     } else if (this.calendarType === 'to'){
       this.toDateService.getReservedDays(chosenDate.getFullYear(), chosenDate.getMonth());
     }
+    this.selectedDateChange.emit({date: chosenDate});
+    this.selectedStartDateChange.emit({date: this.selectedStartDate});
+    this.selectedEndDateChange.emit({date: this.selectedEndDate});
   }
 
   private setReservedDates(reservedDates: number[], month: string): void{
@@ -423,9 +427,11 @@ export class FromCalendarViewComponent implements OnInit, OnDestroy{
           }
         } // if the view is in the next month as the selectedStartDate
         else if (this.selectedStartDate != null && this.selectedEndDate == null && this.selectedStartDate.getMonth() === this.previousMonth && this.selectedStartDate. getFullYear() === this.previousMonthYear){
-          if (this.getFirstDayOfNextReservedDays(this.selectedStartDate, 'current') === this.lastDayOfCurrentMonth + 1){
-            const firstDayOfReservedDate = this.getFirstDayOfNextReservedDays(this.selectedStartDate, 'current');
-            for (let i = this.selectedStartDate.getDate() + 1; i < firstDayOfReservedDate; i++){
+          const firstDayOfCurrentMonth: Date = new Date();
+          firstDayOfCurrentMonth.setFullYear(this.currentYear, this.currentMonth, 1);
+          const firstDayOfReservedDate = this.getFirstDayOfNextReservedDays(firstDayOfCurrentMonth, 'current');
+          if (!this.isThereReservedDateBetween(this.selectedStartDate, firstDayOfCurrentMonth, 'second')){
+            for (let i = 1; i < firstDayOfReservedDate; i++){
               fullyPending.push(i);
             }
             if (firstDayOfReservedDate === this.lastDayOfCurrentMonth + 1){
