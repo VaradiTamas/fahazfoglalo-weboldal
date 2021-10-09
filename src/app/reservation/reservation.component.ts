@@ -35,13 +35,11 @@ export class ReservationComponent implements OnInit {
   onDateSelectedChangeFromCalendar(chosenDate: {date: Date}): void{
     this.fromDate = chosenDate.date;
     this.toDateService.getSelectedDate(chosenDate.date);
-    console.log('from calendar date selected');
   }
 
   onDateSelectedChangeToCalendar(chosenDate: {date: Date}): void{
     this.fromDate = chosenDate.date;
     this.fromDateService.getSelectedDate(chosenDate.date);
-    console.log('to calendar date selected');
   }
 
   onVoucherClick(){

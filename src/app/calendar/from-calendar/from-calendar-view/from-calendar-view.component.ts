@@ -132,8 +132,7 @@ export class FromCalendarViewComponent implements OnInit, OnDestroy{
       if (chosenDate.getDate() === this.selectedStartDate.getDate()) {
         this.selectedStartDate = null;
         this.selectedEndDate = null;
-        // ITT A HIBA -------------------------------------------------------------------------------------------------------
-      } else if (this.selectedEndDate != null && this.selectedStartDate.getDate() > chosenDate.getDate() && chosenDate.getDate() >= this.getLastDayOfPreviousReservedDays(this.selectedEndDate, 'current')) {
+      } else if (this.selectedEndDate != null && this.selectedStartDate.getDate() > chosenDate.getDate() && !this.onlyFirstHalfOfTheDayIsReservedCurrentMonth.includes(this.selectedStartDate.getDate()) && chosenDate.getDate() >= this.getLastDayOfPreviousReservedDays(this.selectedStartDate, 'current')) {
         this.selectedStartDate = chosenDate;
       } else if (chosenDate.getDate() > this.selectedStartDate.getDate() && chosenDate.getDate() <= this.getFirstDayOfNextReservedDays(this.selectedStartDate, 'current')){
         this.selectedEndDate = chosenDate;
@@ -148,14 +147,17 @@ export class FromCalendarViewComponent implements OnInit, OnDestroy{
           if (this.selectedEndDate === null){
             this.selectedEndDate = this.selectedStartDate;
             this.selectedStartDate = chosenDate;
+          } else if (this.selectedEndDate.getMonth() === this.nextMonth && this.selectedEndDate.getFullYear() === this.nextMonthYear) {
+            this.selectedStartDate = chosenDate;
           } else {
             this.selectedStartDate = chosenDate;
+            this.selectedEndDate = null;
           }
         }
       }
       // selectedStartDate is in the previous month as the newly selected date and current month
     } else if (this.previousMonth === this.selectedStartDate.getMonth() && this.selectedStartDate.getFullYear() === this.previousMonthYear && chosenDate.getMonth() === this.currentMonth && chosenDate.getFullYear() === this.currentYear){
-      if (!this.fullyReservedDatesCurrentMonth.includes(chosenDate.getDate()) && !this.onlySecondHalfOfTheDayIsReservedCurrentMonth.includes(chosenDate.getDate())) {
+      if (!this.fullyReservedDatesCurrentMonth.includes(chosenDate.getDate()) && !this.onlyFirstHalfOfTheDayIsReservedCurrentMonth.includes(chosenDate.getDate())) {
         if (!this.isThereReservedDateBetween(this.selectedStartDate, chosenDate, 'second')) {
           this.selectedEndDate = chosenDate;
         }
@@ -165,7 +167,7 @@ export class FromCalendarViewComponent implements OnInit, OnDestroy{
       if (chosenDate.getDate() === this.selectedStartDate.getDate()) {
         this.selectedStartDate = null;
         this.selectedEndDate = null;
-      } else if (this.selectedEndDate != null && this.selectedStartDate.getDate() > chosenDate.getDate() && chosenDate.getDate() >= this.getLastDayOfPreviousReservedDays(this.selectedEndDate, 'previous')) {
+      } else if (this.selectedEndDate != null && this.selectedStartDate.getDate() > chosenDate.getDate() && !this.onlyFirstHalfOfTheDayIsReservedPreviousMonth.includes(this.selectedStartDate.getDate()) && chosenDate.getDate() >= this.getLastDayOfPreviousReservedDays(this.selectedStartDate, 'previous')) {
         this.selectedStartDate = chosenDate;
       } else if (chosenDate.getDate() > this.selectedStartDate.getDate() && chosenDate.getDate() <= this.getFirstDayOfNextReservedDays(this.selectedStartDate, 'previous')){
         this.selectedEndDate = chosenDate;
@@ -190,8 +192,6 @@ export class FromCalendarViewComponent implements OnInit, OnDestroy{
     } else if (chosenDate.getMonth() === this.nextMonth && chosenDate.getFullYear() === this.nextMonthYear && this.selectedStartDate.getMonth() === this.currentMonth && this.selectedStartDate.getFullYear() === this.currentYear) {
       if (!this.fullyReservedDatesNextMonth.includes(chosenDate.getDate()) && !this.onlyFirstHalfOfTheDayIsReservedNextMonth.includes(chosenDate.getDate())){
         if (!this.isThereReservedDateBetween(this.selectedStartDate, chosenDate, 'first')){
-          console.log(this.selectedStartDate.getDate());
-          console.log(this.onlySecondHalfOfTheDayIsReservedCurrentMonth);
           this.selectedEndDate = chosenDate;
         }
       }
@@ -202,8 +202,11 @@ export class FromCalendarViewComponent implements OnInit, OnDestroy{
           if (this.selectedEndDate === null){
             this.selectedEndDate = this.selectedStartDate;
             this.selectedStartDate = chosenDate;
+          } else if (this.selectedEndDate.getMonth() === this.currentMonth && this.selectedEndDate.getFullYear() === this.currentYear) {
+            this.selectedStartDate = chosenDate;
           } else {
             this.selectedStartDate = chosenDate;
+            this.selectedEndDate = null;
           }
         }
       }
