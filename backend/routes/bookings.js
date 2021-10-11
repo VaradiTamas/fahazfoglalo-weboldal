@@ -156,42 +156,6 @@ router.get('/reserved-days', (req,res,next) => {
     });
 });
 
-router.get('/free-dates-from-chosen-date', (req,res,next) => {
-  const year = +req.query.year;
-  const month = +req.query.month;
-  const date = +req.query.date;
-
-  const chosenFromDate = new Date();
-  chosenFromDate.setFullYear(year, month, date);
-
-  Booking.find(  { from: { $gte: chosenFromDate } }, { from: 1 } ).sort({from: 1}).limit(1)
-    .then(bookingStartingDate => {
-      if(bookingStartingDate){
-        res.status(200).json({
-          year: bookingStartingDate[0].from.getFullYear(),
-          month: bookingStartingDate[0].from.getMonth(),
-          date: bookingStartingDate[0].from.getDate()
-        });
-          /*booking.map(b => {
-          var freeDates = [];
-          const reservedFromThis = b.from.getDate();
-          for(let i = date; i < reservedFromThis; i++){
-            if(i <= 31 && i >= date){
-              freeDates.push(i);
-            }
-          }
-          return {dates: freeDates};
-        }));*/
-      } else {
-        res.status(200).json({date: 1});
-      }
-    }).catch(error => {
-    res.status(500).json({
-      message: "Finding free dates from a chosen date failed!"
-    });
-  });
-});
-
 router.get('/:id', checkAuth, (req,res,next) => {
   Booking.findById(req.params.id).then(booking => {
     if(booking){

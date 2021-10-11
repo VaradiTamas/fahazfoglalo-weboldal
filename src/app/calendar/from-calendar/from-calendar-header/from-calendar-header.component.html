@@ -1,6 +1,7 @@
 <div class="example-header">
-  <button mat-icon-button (click)="previousClicked()">
+  <button *ngIf="!isPreviousArrowDisabled" mat-icon-button (click)="previousClicked()">
     <mat-icon>keyboard_arrow_left</mat-icon>
   </button>
+  <button *ngIf="isPreviousArrowDisabled" mat-icon-button></button>
   <span class="example-header-label">{{periodLabel}}</span>
 </div>

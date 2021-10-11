@@ -9,46 +9,48 @@
 }
 
 ::ng-deep.fully-pending-dates {
-  background: navajowhite;
+  background: green;
+  opacity: 0.7;
   border-radius: 100%;
 }
 
 ::ng-deep.fully-chosen-dates {
-  background: purple;
+  background: rgb(100,50,237);
+  opacity: 0.7;
   border-radius: 100%;
 }
 
 ::ng-deep.first-half-pending-second-half-reserved {
-  background: linear-gradient(90deg, lightsalmon 50%, red 50%);
+  background: linear-gradient(90deg, rgba(0, 128, 0, 0.7) 42%, red 58%);
   border-radius: 100%;
 }
 
 ::ng-deep.first-half-reserved-second-half-chosen {
-  background: linear-gradient(90deg, red 50%, purple 50%);
+  background: linear-gradient(90deg, red 42%, purple 58%, rgba(100,50,237,0.7) 98%);
   border-radius: 100%;
 }
 
 ::ng-deep.first-half-chosen-second-half-reserved {
-  background: linear-gradient(90deg, purple 50%, red 50%);
+  background: linear-gradient(90deg, rgba(100,50,237,0.7) 2%, purple 42%, red 58%);
   border-radius: 100%;
 }
 
 ::ng-deep.first-half-free-second-half-chosen {
-  background: linear-gradient(90deg, green 50%, purple 50%);
+  background: linear-gradient(90deg, green 42%, purple 58%, rgba(100,50,237,0.7) 98%);
   border-radius: 100%;
 }
 
 ::ng-deep.first-half-free-second-half-reserved {
-  background: linear-gradient(90deg, green 50%, red 50%);
+  background: linear-gradient(90deg, green 42%, red 58%);
   border-radius: 100%;
 }
 
 ::ng-deep.first-half-reserved-second-half-free {
-  background: linear-gradient(90deg, red 50%, green 50%);
+  background: linear-gradient(90deg, red 42%, green 58%);
   border-radius: 100%;
 }
 
 ::ng-deep.first-half-chosen-second-half-free {
-  background: linear-gradient(90deg, purple 50%, green 50%);
+  background: linear-gradient(90deg, rgba(100,50,237,0.7) 2%, purple 42%, green 58%);
   border-radius: 100%;
 }

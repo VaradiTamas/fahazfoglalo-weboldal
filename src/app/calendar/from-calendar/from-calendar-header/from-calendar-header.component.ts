@@ -14,6 +14,8 @@ import {ToCalendarService} from "../../to-calendar/to-calendar-service";
 export class FromCalendarHeaderComponent<D> implements OnInit, OnDestroy {
   private _destroyed = new Subject<void>();
   private nextClickedSubscription: Subscription;
+  private today = new Date();
+  public isPreviousArrowDisabled = true;
 
   constructor(
     private fromDateService: FromCalendarService,
@@ -29,6 +31,11 @@ export class FromCalendarHeaderComponent<D> implements OnInit, OnDestroy {
     this.nextClickedSubscription = this.toDateService.getNextClickedListener()
       .subscribe(() => {
         this._calendar.activeDate = this._dateAdapter.addCalendarMonths(this._calendar.activeDate, 1);
+        if (this.today.getMonth() === this._dateAdapter.getMonth(this._calendar.activeDate) && this.today.getFullYear() === this._dateAdapter.getYear(this._calendar.activeDate)){
+          this.isPreviousArrowDisabled = true;
+        } else {
+          this.isPreviousArrowDisabled = false;
+        }
       });
   }
 
@@ -49,5 +56,10 @@ export class FromCalendarHeaderComponent<D> implements OnInit, OnDestroy {
     this._calendar.activeDate = this._dateAdapter.addCalendarMonths(this._calendar.activeDate, -1);
     this.fromDateService.getReservedDays(this._dateAdapter.getYear(this._calendar.activeDate), this._dateAdapter.getMonth(this._calendar.activeDate));
     this.fromDateService.onPreviousClicked();
+    if (this.today.getMonth() === this._dateAdapter.getMonth(this._calendar.activeDate) && this.today.getFullYear() === this._dateAdapter.getYear(this._calendar.activeDate)){
+      this.isPreviousArrowDisabled = true;
+    } else {
+      this.isPreviousArrowDisabled = false;
+    }
   }
 }

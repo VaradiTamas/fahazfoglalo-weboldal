@@ -294,6 +294,9 @@ export class FromCalendarViewComponent implements OnInit, OnDestroy{
     } else if (reservedDates.length > 2) {
       if (reservedDates[0] !== 0){
         onlySecondHalfOfTheDayIsReserved.push(reservedDates[0]);
+        if (reservedDates[0] !== reservedDates[1] - 1){
+          onlyFirstHalfOfTheDayIsReserved.push(reservedDates[0] + 1);
+        }
       }
       if (reservedDates[0] === 0){
         if (reservedDates[1] === 1){
@@ -568,15 +571,18 @@ export class FromCalendarViewComponent implements OnInit, OnDestroy{
 
     this.dateFilter = (d: Date | null): boolean => {
       const date = (d || new Date()).getDate();
+      const today = new Date();
+      let isSelectable = true;
 
-      let isFree = true;
-
-      this.fullyReservedDatesCurrentMonth.forEach((day) => {
-        if (date === day) {
-          isFree = false;
+      if (this.currentMonth === today.getMonth() && this.currentYear === today.getFullYear()) {
+        for (let i = 1; i < this.lastDayOfCurrentMonth; i++){
+          if (date === i && i < today.getDate()) {
+            isSelectable = false;
+          }
         }
-      });
-      return isFree;
+      }
+
+      return isSelectable;
     };
 
     this.isLoaded = true;
