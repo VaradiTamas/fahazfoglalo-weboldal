@@ -32,14 +32,6 @@ export class ReservationComponent implements OnInit {
 
   ngOnInit() {}
 
-  onDateSelectedChangeFromCalendar(chosenDate: {date: Date}): void{
-    this.toDateService.selectedDateChanged(chosenDate.date);
-  }
-
-  onDateSelectedChangeToCalendar(chosenDate: {date: Date}): void{
-    this.fromDateService.selectedDateChanged(chosenDate.date);
-  }
-
   onSelectedStartDateChanged(chosenDate: {date: Date}): void{
     this.fromDate = chosenDate.date;
   }

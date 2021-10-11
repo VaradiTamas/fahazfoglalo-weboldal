@@ -34,7 +34,6 @@ import { OffersLayoutComponent } from './layout/offers-layout/offers-layout.comp
 import {OfferCardComponent} from './offers/offer-card/offer-card.component';
 import {OfferReservationComponent} from './offers/offer-reservation/offer-reservation.component';
 import { FromCalendarHeaderComponent } from './calendar/from-calendar/from-calendar-header/from-calendar-header.component';
-import { ToCalendarViewComponent } from './calendar/to-calendar/to-calendar-view/to-calendar-view.component';
 import {ToCalendarHeaderComponent} from './calendar/to-calendar/to-calendar-header/to-calendar-header.component';
 import { PopupTelephoneDialogComponent } from './layout/app-header/popup-telephone-dialog/popup-telephone-dialog.component';
 import { ImagesCarouselComponent } from './gallery-components/images-carousel/images-carousel.component';
@@ -80,7 +79,6 @@ import { FromCalendarViewComponent } from './calendar/from-calendar/from-calenda
     OfferCardComponent,
     OfferReservationComponent,
     FromCalendarHeaderComponent,
-    ToCalendarViewComponent,
     ToCalendarHeaderComponent,
     PopupTelephoneDialogComponent,
     ImagesCarouselComponent,

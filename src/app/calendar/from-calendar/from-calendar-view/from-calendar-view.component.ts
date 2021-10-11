@@ -12,7 +12,6 @@ import {ToCalendarService} from "../../to-calendar/to-calendar-service";
   styleUrls: ['./from-calendar-view.component.css']
 })
 export class FromCalendarViewComponent implements OnInit, OnDestroy{
-  @Output() selectedDateChange = new EventEmitter<{date: Date}>();
   @Output() selectedStartDateChange = new EventEmitter<{date: Date}>();
   @Output() selectedEndDateChange = new EventEmitter<{date: Date}>();
   @Input() calendarType: string;
@@ -246,10 +245,11 @@ export class FromCalendarViewComponent implements OnInit, OnDestroy{
     this.setSelectedDates(chosenDate);
     if (this.calendarType === 'from'){
       this.fromDateService.getReservedDays(chosenDate.getFullYear(), chosenDate.getMonth());
+      this.toDateService.selectedDateChanged(chosenDate);
     } else if (this.calendarType === 'to'){
       this.toDateService.getReservedDays(chosenDate.getFullYear(), chosenDate.getMonth());
+      this.fromDateService.selectedDateChanged(chosenDate);
     }
-    this.selectedDateChange.emit({date: chosenDate});
     this.selectedStartDateChange.emit({date: this.selectedStartDate});
     this.selectedEndDateChange.emit({date: this.selectedEndDate});
   }
