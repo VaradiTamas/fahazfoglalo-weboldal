@@ -5,7 +5,8 @@ import {BookingService} from "../services/booking.service";
 import {VoucherService} from "../services/voucher.service";
 import {ActivatedRoute, ParamMap, Router} from "@angular/router";
 import {NgForm} from "@angular/forms";
-import {ToDateService} from "../datepicker/to-datepicker/to-date-service";
+import {ToCalendarService} from "../calendar/to-calendar/to-calendar-service";
+import {FromCalendarService} from "../calendar/from-calendar/from-calendar-service";
 
 @Component({
   selector: 'app-reservation',
@@ -15,7 +16,7 @@ import {ToDateService} from "../datepicker/to-datepicker/to-date-service";
 export class ReservationComponent implements OnInit {
   booking: Booking;
   voucher: Voucher;
-  possessVoucher: boolean = false;
+  possessVoucher = false;
   isVoucherValid = false;
   alreadyCheckedVoucher = false;
   private bookingId: string = null;
@@ -24,18 +25,18 @@ export class ReservationComponent implements OnInit {
 
   constructor(private bookingService: BookingService,
               private voucherService: VoucherService,
-              private toDateService: ToDateService,
+              private toDateService: ToCalendarService,
+              private fromDateService: FromCalendarService,
               public route: ActivatedRoute,
               public router: Router) {}
 
   ngOnInit() {}
 
-  onFromDateChosen(chosenDate: {date: Date}){
+  onSelectedStartDateChanged(chosenDate: {date: Date}): void{
     this.fromDate = chosenDate.date;
-    this.toDateService.getFreeDatesFromChosenDate(chosenDate.date.getFullYear(), chosenDate.date.getMonth(), chosenDate.date.getDate());
   }
 
-  onToDateChosen(chosenDate: {date: Date}){
+  onSelectedEndDateChanged(chosenDate: {date: Date}): void{
     this.toDate = chosenDate.date;
   }
 
@@ -72,7 +73,7 @@ export class ReservationComponent implements OnInit {
     };
     this.bookingService.addBooking(formBooking);
     form.reset();
-    this.router.navigate(["/home"]);
+    this.router.navigate(['/home']);
   }
 
   onCheckVoucher(form : NgForm){

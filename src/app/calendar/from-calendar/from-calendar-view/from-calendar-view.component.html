@@ -1,0 +1,9 @@
+<div *ngIf="isLoaded">
+  <mat-calendar
+    [dateClass]="dateClass"
+    [dateFilter]="dateFilter"
+    [headerComponent]="header"
+    [startAt]="initialDate"
+    (selectedChange)="addEvent($event)">
+  </mat-calendar>
+</div>

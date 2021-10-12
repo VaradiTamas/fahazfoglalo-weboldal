@@ -33,13 +33,12 @@ import { AgmCoreModule} from '@agm/core';
 import { OffersLayoutComponent } from './layout/offers-layout/offers-layout.component';
 import {OfferCardComponent} from './offers/offer-card/offer-card.component';
 import {OfferReservationComponent} from './offers/offer-reservation/offer-reservation.component';
-import { FromDatepickerHeaderComponent } from './datepicker/from-datepicker/from-datepicker-header/from-datepicker-header.component';
-import { FromDatepickerComponent } from './datepicker/from-datepicker/from-datepicker.component';
-import { ToDatepickerComponent } from './datepicker/to-datepicker/to-datepicker.component';
-import {ToDatepickerHeaderComponent} from './datepicker/to-datepicker/to-datepicker-header/to-datepicker-header.component';
+import { FromCalendarHeaderComponent } from './calendar/from-calendar/from-calendar-header/from-calendar-header.component';
+import {ToCalendarHeaderComponent} from './calendar/to-calendar/to-calendar-header/to-calendar-header.component';
 import { PopupTelephoneDialogComponent } from './layout/app-header/popup-telephone-dialog/popup-telephone-dialog.component';
 import { ImagesCarouselComponent } from './gallery-components/images-carousel/images-carousel.component';
 import { HouseComponent } from './gallery/house/house.component';
+import { FromCalendarViewComponent } from './calendar/from-calendar/from-calendar-view/from-calendar-view.component';
 
 @NgModule({
   imports: [
@@ -79,13 +78,12 @@ import { HouseComponent } from './gallery/house/house.component';
     OffersLayoutComponent,
     OfferCardComponent,
     OfferReservationComponent,
-    FromDatepickerHeaderComponent,
-    FromDatepickerComponent,
-    ToDatepickerComponent,
-    ToDatepickerHeaderComponent,
+    FromCalendarHeaderComponent,
+    ToCalendarHeaderComponent,
     PopupTelephoneDialogComponent,
     ImagesCarouselComponent,
-    HouseComponent
+    HouseComponent,
+    FromCalendarViewComponent
   ],
   providers: [
     {provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true},

@@ -5,7 +5,8 @@ import {BookingService} from "../../services/booking.service";
 import {VoucherService} from "../../services/voucher.service";
 import {ActivatedRoute, Router} from "@angular/router";
 import {NgForm} from "@angular/forms";
-import {ToDateService} from "../../datepicker/to-datepicker/to-date-service";
+import {ToCalendarService} from "../../calendar/to-calendar/to-calendar-service";
+import {FromCalendarService} from "../../calendar/from-calendar/from-calendar-service";
 
 @Component({
   selector: 'app-offer-reservation',
@@ -21,16 +22,24 @@ export class OfferReservationComponent implements OnInit {
   constructor(private bookingService: BookingService,
               public route: ActivatedRoute,
               public router: Router,
-              private toDateService: ToDateService) {}
+              private toDateService: ToCalendarService,
+              private fromDateService: FromCalendarService) {}
 
   ngOnInit() {}
 
-  onFromDateChosen(chosenDate: {date: Date}){
-    this.fromDate = chosenDate.date;
-    this.toDateService.getFreeDatesFromChosenDate(chosenDate.date.getFullYear(), chosenDate.date.getMonth(), chosenDate.date.getDate());
+  onDateSelectedChangeFromCalendar(chosenDate: {date: Date}): void{
+    this.toDateService.selectedDateChanged(chosenDate.date);
   }
 
-  onToDateChosen(chosenDate: {date: Date}){
+  onDateSelectedChangeToCalendar(chosenDate: {date: Date}): void{
+    this.fromDateService.selectedDateChanged(chosenDate.date);
+  }
+
+  onSelectedStartDateChanged(chosenDate: {date: Date}): void{
+    this.fromDate = chosenDate.date;
+  }
+
+  onSelectedEndDateChanged(chosenDate: {date: Date}): void{
     this.toDate = chosenDate.date;
   }
 
