@@ -2,7 +2,44 @@ const express = require("express");
 const router = express.Router();
 const checkAuth = require("../middleware/check-auth");
 const Booking = require('../models/booking');
-const controlPaidBooking = require("../middleware/checkIsPaidState")
+const controlPaidBooking = require("../middleware/checkIsPaidState");
+const nodemailer = require("nodemailer");
+
+router.post('/sendmail', (req, res) => {
+  console.log('email sending request came');
+  let bookingData = req.body;
+  sendMail(bookingData, (err, info) => {
+    if (err) {
+      console.log(err);
+      res.status(400);
+      res.send({ error: "Failed to send email" });
+    } else {
+      console.log("Email has been sent");
+      res.send(info);
+    }
+  });
+});
+
+const sendMail = (bookingData, callback) => {
+  const transporter = nodemailer.createTransport({
+    host: "smtp.gmail.com",
+    port: 587,
+    secure: false,
+    auth: {
+      user: "varadi.thomas@gmail.com",
+      pass: "98Ujjelszo89"
+    }
+  });
+
+  const mailOptions = {
+    from: `"Tamas Varadi", "varadi.thomas@gmail.com"`,
+    to: bookingData.email,
+    subject: "proba email",
+    html: "<h1>And here is the place for HTML</h1>"
+  };
+
+  transporter.sendMail(mailOptions, callback);
+}
 
 router.post('', controlPaidBooking, (req,res,next) => {
   const booking = new Booking({
