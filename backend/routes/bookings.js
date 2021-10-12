@@ -34,8 +34,8 @@ const sendMail = (bookingData, callback) => {
   const mailOptions = {
     from: `"Tamas Varadi", "varadi.thomas@gmail.com"`,
     to: bookingData.email,
-    subject: "proba email",
-    html: "<h1>And here is the place for HTML</h1>"
+    subject: "Foglalás visszaigazolás",
+    html: "<h1>Kedves 'bookingData.firstName'</h1>"
   };
 
   transporter.sendMail(mailOptions, callback);
