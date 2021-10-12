@@ -51,6 +51,11 @@ export class BookingService{
       });
   }
 
+  sendEmail(booking: Booking): void{
+    this.http.post('http://localhost:3000/admin/bookings/sendmail', booking)
+      .subscribe((responseData) => {});
+  }
+
   deleteBooking(bookingId: string){
     return this.http.delete('http://localhost:3000/admin/bookings/delete/' + bookingId);
   }
