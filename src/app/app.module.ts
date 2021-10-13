@@ -39,6 +39,7 @@ import { PopupTelephoneDialogComponent } from './layout/app-header/popup-telepho
 import { ImagesCarouselComponent } from './gallery-components/images-carousel/images-carousel.component';
 import { HouseComponent } from './gallery/house/house.component';
 import { FromCalendarViewComponent } from './calendar/from-calendar/from-calendar-view/from-calendar-view.component';
+import {NgxQRCodeModule} from '@techiediaries/ngx-qrcode';
 
 @NgModule({
   imports: [
@@ -51,6 +52,7 @@ import { FromCalendarViewComponent } from './calendar/from-calendar/from-calenda
     HttpClientModule,
     BrowserAnimationsModule,
     AdminModule,
+    NgxQRCodeModule,
     AgmCoreModule.forRoot({
       apiKey: 'AIzaSyApe9j6D7YzsQmdmpPOI5zuMO1NS4KCbCA'
     })

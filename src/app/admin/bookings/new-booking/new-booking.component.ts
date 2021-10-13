@@ -35,8 +35,8 @@ export class NewBookingComponent implements OnInit, OnDestroy{
       .subscribe(authStatus => {
         this.isLoading = false;
       });
-    this.route.paramMap.subscribe((paramMap:ParamMap) => {
-      if(paramMap.has('id')) {
+    this.route.paramMap.subscribe((paramMap: ParamMap) => {
+      if (paramMap.has('id')) {
         this.mode = 'edit';
         this.bookingId = paramMap.get('id');
         this.isLoading = true;
@@ -67,8 +67,8 @@ export class NewBookingComponent implements OnInit, OnDestroy{
     });
   }
 
-  onSubmit(form : NgForm){
-    if(form.invalid) {
+  onSubmit(form: NgForm){
+    if (form.invalid) {
       return;
     }
     this.isLoading = true;
