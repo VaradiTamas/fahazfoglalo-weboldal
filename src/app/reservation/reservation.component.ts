@@ -1,12 +1,10 @@
 import { Component, OnInit } from '@angular/core';
+import {Voucher} from '../model/voucher.model';
+import {BookingService} from '../services/booking.service';
+import {VoucherService} from '../services/voucher.service';
+import {ActivatedRoute, Router} from '@angular/router';
+import {NgForm} from '@angular/forms';
 import {Booking} from "../model/booking.model";
-import {Voucher} from "../model/voucher.model";
-import {BookingService} from "../services/booking.service";
-import {VoucherService} from "../services/voucher.service";
-import {ActivatedRoute, ParamMap, Router} from "@angular/router";
-import {NgForm} from "@angular/forms";
-import {ToCalendarService} from "../calendar/to-calendar/to-calendar-service";
-import {FromCalendarService} from "../calendar/from-calendar/from-calendar-service";
 
 @Component({
   selector: 'app-reservation',
@@ -20,17 +18,25 @@ export class ReservationComponent implements OnInit {
   isVoucherValid = false;
   alreadyCheckedVoucher = false;
   private bookingId: string = null;
-  fromDate: Date = new Date();
-  toDate: Date = new Date();
+  fromDate: Date = null;
+  toDate: Date = null;
+  public selectedTabIndex = 0;
+  private numberOfRadioButtonThatIsSelected: number = 1;
 
   constructor(private bookingService: BookingService,
               private voucherService: VoucherService,
-              private toDateService: ToCalendarService,
-              private fromDateService: FromCalendarService,
               public route: ActivatedRoute,
               public router: Router) {}
 
   ngOnInit() {}
+
+  onRadioButtonSelected(numOfRadioButton: number): void{
+    this.numberOfRadioButtonThatIsSelected = numOfRadioButton;
+  }
+
+  isRadioButtonSelected(numOfRadioButton: number): boolean{
+    return this.numberOfRadioButtonThatIsSelected === numOfRadioButton;
+  }
 
   onSelectedStartDateChanged(chosenDate: {date: Date}): void{
     this.fromDate = chosenDate.date;
@@ -40,20 +46,24 @@ export class ReservationComponent implements OnInit {
     this.toDate = chosenDate.date;
   }
 
-  onVoucherClick(){
-    this.possessVoucher=!this.possessVoucher;
+  onNavigationButtonClicked(index: number): void{
+    this.selectedTabIndex = index;
   }
 
-  onSubmit(form : NgForm){
-    if(form.invalid) {
+  onVoucherClick(): void{
+    this.possessVoucher = !this.possessVoucher;
+  }
+
+  onSubmit(form: NgForm): void{
+    if (form.invalid) {
       return;
     }
     const value = form.value;
-    var offerName: string;
-    if(this.isVoucherValid){
-      offerName = "voucher";
+    let offerName: string;
+    if (this.isVoucherValid){
+      offerName = 'voucher';
     }else{
-      offerName = "általános";
+      offerName = 'általános';
     }
     const formBooking = {
       id: this.bookingId,
@@ -63,7 +73,7 @@ export class ReservationComponent implements OnInit {
       tel: value.tel,
       numOfChildren: value.numOfChildren,
       numOfAdults: value.numOfAdults,
-      numOfBedrooms: value.numOfBedrooms,
+      numOfBedrooms: this.numberOfRadioButtonThatIsSelected,
       comment: value.comment,
       isPaid: false,
       voucherId: this.voucher?.id,
@@ -77,7 +87,7 @@ export class ReservationComponent implements OnInit {
     this.router.navigate(['/home']);
   }
 
-  onCheckVoucher(form : NgForm){
+  onCheckVoucher(form: NgForm): void{
     const value = form.value;
     this.voucherService.getVoucher(value.voucherId).subscribe(voucherData => {
       this.voucher = {
@@ -96,7 +106,7 @@ export class ReservationComponent implements OnInit {
         address: voucherData.address,
         isPaid: voucherData.isPaid
       };
-      if(this.voucher.id == value.voucherId){
+      if(this.voucher.id === value.voucherId){
         this.isVoucherValid = true;
       }
       else{
