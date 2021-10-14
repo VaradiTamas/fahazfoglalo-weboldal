@@ -72,7 +72,7 @@ export class ReservationComponent implements OnInit {
       offerName: offerName
     };
     this.bookingService.addBooking(formBooking);
-    this.bookingService.sendEmail(formBooking);
+    this.bookingService.sendBookingConfirmationEmail(formBooking);
     form.reset();
     this.router.navigate(['/home']);
   }

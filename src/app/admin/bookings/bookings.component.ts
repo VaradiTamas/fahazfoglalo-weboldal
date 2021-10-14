@@ -1,8 +1,8 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
-import {BookingService} from "../../services/booking.service";
-import {Booking} from "../../model/booking.model";
-import {Subscription} from "rxjs";
-import {PageEvent} from "@angular/material/paginator";
+import {BookingService} from '../../services/booking.service';
+import {Booking} from '../../model/booking.model';
+import {Subscription} from 'rxjs';
+import {PageEvent} from '@angular/material/paginator';
 
 @Component({
   selector: 'app-bookings',
@@ -16,14 +16,14 @@ export class BookingsComponent implements OnInit, OnDestroy {
   bookingsPerPage = 5;
   currentPage = 1;
   pageSizeOptions = [2, 5, 10];
-  private bookinsSubscription: Subscription;
+  private bookingsSubscription: Subscription;
 
   constructor(public bookingService: BookingService) { }
 
   ngOnInit(): void {
     this.isLoading = true;
     this.bookingService.getBookings(this.bookingsPerPage, this.currentPage);
-    this.bookinsSubscription = this.bookingService.getBookingUpdateListener()
+    this.bookingsSubscription = this.bookingService.getBookingUpdateListener()
       .subscribe((bookingData: {bookings: Booking[], bookingCount: number}) => {
         this.isLoading = false;
         this.totalBookings = bookingData.bookingCount;
@@ -31,23 +31,29 @@ export class BookingsComponent implements OnInit, OnDestroy {
     });
   }
 
-  onChangedPage(pageData: PageEvent){
+  onChangedPage(pageData: PageEvent): void{
     this.isLoading = true;
     this.currentPage = pageData.pageIndex + 1;
     this.bookingsPerPage = pageData.pageSize;
     this.bookingService.getBookings(this.bookingsPerPage, this.currentPage);
   }
 
-  onDelete(bookingId: string){
+  onConfirmBooking(booking: Booking): void{
+    booking.isPaid = true;
+    this.bookingService.updateBooking(booking);
+    this.bookingService.sendPaymentConfirmationEmail(booking);
+  }
+
+  onDelete(bookingId: string): void{
     this.isLoading = true;
     this.bookingService.deleteBooking(bookingId).subscribe(() => {
       this.bookingService.getBookings(this.bookingsPerPage, this.currentPage);
     }, () => {
       this.isLoading = false;
-    })
+    });
   }
 
   ngOnDestroy(): void {
-    this.bookinsSubscription.unsubscribe();
+    this.bookingsSubscription.unsubscribe();
   }
 }

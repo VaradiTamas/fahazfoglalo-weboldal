@@ -1,14 +1,17 @@
 const express = require("express");
 const router = express.Router();
 const checkAuth = require("../middleware/check-auth");
+const generateQRCode = require("../middleware/generate-qr-code");
 const Booking = require('../models/booking');
 const controlPaidBooking = require("../middleware/checkIsPaidState");
 const nodemailer = require("nodemailer");
+const fs = require("fs");
+const PDFDocument = require("pdfkit");
 
-router.post('/sendmail', (req, res) => {
+router.post('/sendBookingConfirmationEmail', (req, res) => {
   console.log('email sending request came');
   let bookingData = req.body;
-  sendMail(bookingData, (err, info) => {
+  sendBookingConfirmationEmail(bookingData, (err, info) => {
     if (err) {
       console.log(err);
       res.status(400);
@@ -20,7 +23,7 @@ router.post('/sendmail', (req, res) => {
   });
 });
 
-const sendMail = (bookingData, callback) => {
+const sendBookingConfirmationEmail = (bookingData, callback) => {
   const transporter = nodemailer.createTransport({
     host: "smtp.gmail.com",
     port: 587,
@@ -35,7 +38,59 @@ const sendMail = (bookingData, callback) => {
     from: `"Tamas Varadi", "varadi.thomas@gmail.com"`,
     to: bookingData.email,
     subject: "Foglalás visszaigazolás",
-    html: "<h1>Kedves 'bookingData.firstName'</h1>"
+    html: "<h1>Kedves foglalas megerositese</h1>"
+  };
+
+  transporter.sendMail(mailOptions, callback);
+}
+
+router.post('/sendPaymentConfirmationEmail', generateQRCode, (req, res) => {
+  console.log('email sending request came');
+  let bookingData = req.body;
+
+  const doc = new PDFDocument();
+  doc.pipe(fs.createWriteStream('booking_ticket.pdf'));
+  doc
+    .fontSize(27)
+    .text('This is the ticket1', 100, 100);
+  doc.image('booking_qr_code.png', {
+    fit: [250, 300],
+    align: 'center',
+    valign: 'center'
+  });
+  doc.end();
+
+  sendPaymentConfirmationEmail(bookingData, (err, info) => {
+    if (err) {
+      console.log(err);
+      res.status(400);
+      res.send({ error: "Failed to send email" });
+    } else {
+      res.send(info);
+      console.log("Email has been sent");
+    }
+  });
+});
+
+const sendPaymentConfirmationEmail = (bookingData, callback) => {
+  const transporter = nodemailer.createTransport({
+    host: "smtp.gmail.com",
+    port: 587,
+    secure: false,
+    auth: {
+      user: "varadi.thomas@gmail.com",
+      pass: "98Ujjelszo89"
+    }
+  });
+
+  const mailOptions = {
+    from: `"Tamas Varadi", "varadi.thomas@gmail.com"`,
+    to: bookingData.email,
+    subject: "Foglalás visszaigazolás",
+    html: "<h1>Kedves Benjaminom! Ez életed legfontosabb emailje!!</h1>",
+    attachments: [
+      {path: 'booking_ticket.pdf'}
+    ]
   };
 
   transporter.sendMail(mailOptions, callback);
@@ -175,7 +230,7 @@ router.get('/reserved-days', (req,res,next) => {
   fromDate.setFullYear(fromYear, fromMonth,1);
   toDate.setFullYear(toYear, toMonth,1);
 
-  Booking.find( { $and: [ { from: { $gte: fromDate } }, { from: { $lt: toDate } } ] } )
+  Booking.find( { $and: [ { from: { $gte: fromDate } }, { from: { $lt: toDate } }, {isPaid: "true"} ] } )
     .then(bookings => {
       if(bookings){
         res.status(200).json(bookings.map(booking => {

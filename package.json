@@ -28,6 +28,7 @@
     "@angular/router": "~11.2.5",
     "@fortawesome/angular-fontawesome": "^0.7.0",
     "@ng-bootstrap/ng-bootstrap": "^9.0.2",
+    "@techiediaries/ngx-qrcode": "^9.1.0",
     "bcrypt": "^5.0.1",
     "body-parser": "^1.19.0",
     "bootstrap": "^4.6.0",
@@ -41,6 +42,8 @@
     "mongoose": "^5.12.3",
     "mongoose-unique-validator": "^2.0.3",
     "nodemailer": "^6.7.0",
+    "pdfkit": "^0.12.3",
+    "qrcode": "^1.4.4",
     "rxjs": "~6.6.0",
     "tslib": "^2.0.0",
     "zone.js": "~0.11.3"
