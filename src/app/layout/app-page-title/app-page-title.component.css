@@ -8,13 +8,13 @@
   top: 0;
   left: 0;
   text-align: center;
-  height: 26rem;
+  height: 30vh;
   width: 100%;
 }
 
 .headerText{
   position: absolute;
-  top: 50%;
+  top: 65%;
   left: 50%;
   transform: translate(-50%, -50%);
   color: aliceblue;
