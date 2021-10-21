@@ -1,18 +1,18 @@
-import {Booking} from "../model/booking.model";
-import {Injectable} from "@angular/core";
-import {HttpClient} from "@angular/common/http";
-import {Subject} from "rxjs";
-import {map} from "rxjs/operators";
-import {Router} from "@angular/router";
+import {Booking} from '../model/booking.model';
+import {Injectable} from '@angular/core';
+import {HttpClient} from '@angular/common/http';
+import {Subject} from 'rxjs';
+import {map} from 'rxjs/operators';
+import {Router} from '@angular/router';
 
 @Injectable({providedIn: 'root'})
 export class BookingService{
   private bookings: Booking[] = [];
-  private bookingsUpdated = new Subject<{bookings: Booking[], bookingCount: number}>()
+  private bookingsUpdated = new Subject<{bookings: Booking[], bookingCount: number}>();
 
   constructor(private http: HttpClient, private router: Router) {}
 
-  getBookings(bookingsPerPage: number, currentPage: number){
+  getBookings(bookingsPerPage: number, currentPage: number): void{
     const queryParams = `?pagesize=${bookingsPerPage}&page=${currentPage}`;
     this.http.get<{message: string, bookings: any, maxBookings: number}>('http://localhost:3000/admin/bookings' + queryParams)
       .pipe(map((serverBookings) => {
@@ -44,11 +44,12 @@ export class BookingService{
       });
   }
 
-  addBooking(booking: Booking){
+  addBooking(booking: Booking): void{
+    // in ts we use local time, in js date is in UTC so I added 12 hours to the dates to overlap this difference and make sure it causes no problem
+    booking.from.setHours(12);
+    booking.to.setHours(12);
     this.http.post<{message: string, bookingId: string}>('http://localhost:3000/admin/bookings', booking)
-      .subscribe((responseData)=>{
-        //this.router.navigate(["/admin/bookings"]);
-      });
+      .subscribe((responseData) => { });
   }
 
   sendBookingConfirmationEmail(booking: Booking): void{
@@ -65,10 +66,10 @@ export class BookingService{
     return this.http.delete('http://localhost:3000/admin/bookings/delete/' + bookingId);
   }
 
-  updateBooking(booking: Booking){
+  updateBooking(booking: Booking): void{
     this.http.put('http://localhost:3000/admin/bookings/edit/' + booking.id, booking)
-      .subscribe((responseData)=>{
-        this.router.navigate(["/admin/bookings"]);
+      .subscribe((responseData) => {
+        this.router.navigate(['/admin/bookings']);
       });
   }
 

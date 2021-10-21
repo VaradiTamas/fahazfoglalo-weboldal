@@ -1,22 +1,22 @@
 import { NgModule } from '@angular/core';
 
 import { Routes, RouterModule } from '@angular/router';
-import {PricesComponent} from "./prices/prices.component";
-import {QuestionsComponent} from "./questions/questions.component";
-import {AboutusComponent} from "./aboutus/aboutus.component";
-import {ReservationComponent} from "./reservation/reservation.component";
+import {PricesComponent} from "./public/menu-items/prices/prices.component";
+import {QuestionsComponent} from "./public/menu-items/questions/questions.component";
+import {AboutusComponent} from "./public/menu-items/aboutus/aboutus.component";
+import {ReservationComponent} from "./public/menu-items/reservation/reservation.component";
 import {AppLayoutComponent} from "./layout/app-layout/app-layout.component";
-import {HomeComponent} from "./home/home.component";
-import {SaunaComponent} from "./gallery/sauna/sauna.component";
-import {ParkComponent} from "./gallery/park/park.component";
+import {HomeComponent} from "./public/menu-items/home/home.component";
+import {SaunaComponent} from "./public/menu-items/gallery/sauna/sauna.component";
+import {ParkComponent} from "./public/menu-items/gallery/park/park.component";
 import {GalleryLayoutComponent} from "./layout/gallery-layout/gallery-layout.component";
-import {VoucherReservationComponent} from "./voucher/voucher-reservation/voucher-reservation.component";
-import {VoucherCardComponent} from "./voucher/voucher-card/voucher-card.component";
+import {VoucherReservationComponent} from "./public/menu-items/voucher/voucher-reservation/voucher-reservation.component";
+import {VoucherCardComponent} from "./public/menu-items/voucher/voucher-card/voucher-card.component";
 import {VoucherLayoutComponent} from "./layout/voucher-layout/voucher-layout.component";
 import {OffersLayoutComponent} from "./layout/offers-layout/offers-layout.component";
-import {OfferCardComponent} from "./offers/offer-card/offer-card.component";
-import {OfferReservationComponent} from "./offers/offer-reservation/offer-reservation.component";
-import {HouseComponent} from "./gallery/house/house.component";
+import {OfferCardComponent} from "./public/menu-items/offers/offer-card/offer-card.component";
+import {OfferReservationComponent} from "./public/menu-items/offers/offer-reservation/offer-reservation.component";
+import {HouseComponent} from "./public/menu-items/gallery/house/house.component";
 
 const appRoutes: Routes = [
   { path: '', /*redirectTo: '/gallery' pathMatch: 'full'*/ component: AppLayoutComponent, children:

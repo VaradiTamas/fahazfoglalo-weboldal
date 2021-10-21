@@ -54,8 +54,8 @@ export class NewBookingComponent implements OnInit, OnDestroy{
             comment: bookingData.comment,
             isPaid: bookingData.isPaid,
             voucherId: bookingData.voucherId,
-            from: bookingData.from,
-            to: bookingData.to,
+            from: new Date(bookingData.from),
+            to: new Date(bookingData.to),
             offerName: bookingData.offerName
           };
         });

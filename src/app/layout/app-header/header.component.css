@@ -10,7 +10,8 @@
 }
 
 .navbar{
-  margin-bottom: 26rem;
+  width: 100%;
+  height: 20vh;
   background-image: linear-gradient(to bottom, rgba(0,0,0,0.8) 10%, rgba(0,0,0,0) 100%);
 }
 
@@ -61,4 +62,9 @@ svg{
 
 #telephone{
   margin-left: 20px;
+}
+
+.vh-spacer{
+  width: 100%;
+  height: 10vh;
 }

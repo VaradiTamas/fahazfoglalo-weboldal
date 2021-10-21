@@ -1,45 +1,44 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
+import {MaterialModule} from './material.module';
+import {AppRoutingModule} from './app-routing.module';
+import {AdminModule} from './admin/admin.module';
+import { AgmCoreModule} from '@agm/core';
 
 import { AppComponent } from './app.component';
 import { HeaderComponent } from './layout/app-header/header.component';
-import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
-import {FormsModule, ReactiveFormsModule} from '@angular/forms';
-import { VoucherReservationComponent } from './voucher/voucher-reservation/voucher-reservation.component';
-import { PricesComponent } from './prices/prices.component';
-import { QuestionsComponent } from './questions/questions.component';
-import { AboutusComponent } from './aboutus/aboutus.component';
-import { ReservationComponent } from './reservation/reservation.component';
-import { VoucherManagingComponent } from './reservation/voucher-managing/voucher-managing.component';
-import {MaterialModule} from './material.module';
-import {AppRoutingModule} from './app-routing.module';
-import { HomeComponent } from './home/home.component';
-import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
+import { VoucherReservationComponent } from './public/menu-items/voucher/voucher-reservation/voucher-reservation.component';
+import { PricesComponent } from './public/menu-items/prices/prices.component';
+import { QuestionsComponent } from './public/menu-items/questions/questions.component';
+import { AboutusComponent } from './public/menu-items/aboutus/aboutus.component';
+import { ReservationComponent } from './public/menu-items/reservation/reservation.component';
+import { VoucherManagingComponent } from './public/menu-items/reservation/voucher-managing/voucher-managing.component';
+import { HomeComponent } from './public/menu-items/home/home.component';
+import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import {AuthInterceptor} from './admin/auth/auth-interceptor';
-import {AdminModule} from './admin/admin.module';
+import { AuthInterceptor } from './admin/auth/auth-interceptor';
 import { AppLayoutComponent } from './layout/app-layout/app-layout.component';
 import { ErrorComponent } from './error/error.component';
-import {ErrorInterceptor} from './error/error-interceptor';
+import { ErrorInterceptor } from './error/error-interceptor';
 import { AppPageTitleComponent } from './layout/app-page-title/app-page-title.component';
-import { ImagesLayoutComponent } from './gallery-components/images-layout/images-layout.component';
-import { SaunaComponent } from './gallery/sauna/sauna.component';
-import { ParkComponent } from './gallery/park/park.component';
+import { ImagesLayoutComponent } from './public/components/gallery/images-layout/images-layout.component';
+import { SaunaComponent } from './public/menu-items/gallery/sauna/sauna.component';
+import { ParkComponent } from './public/menu-items/gallery/park/park.component';
 import { GalleryLayoutComponent } from './layout/gallery-layout/gallery-layout.component';
 import { GalleryHeaderComponent } from './layout/gallery-header/gallery-header.component';
-import { VoucherCardComponent } from './voucher/voucher-card/voucher-card.component';
+import { VoucherCardComponent } from './public/menu-items/voucher/voucher-card/voucher-card.component';
 import { VoucherLayoutComponent } from './layout/voucher-layout/voucher-layout.component';
-import { AgmCoreModule} from '@agm/core';
 import { OffersLayoutComponent } from './layout/offers-layout/offers-layout.component';
-import {OfferCardComponent} from './offers/offer-card/offer-card.component';
-import {OfferReservationComponent} from './offers/offer-reservation/offer-reservation.component';
-import { FromCalendarHeaderComponent } from './calendar/from-calendar/from-calendar-header/from-calendar-header.component';
-import {ToCalendarHeaderComponent} from './calendar/to-calendar/to-calendar-header/to-calendar-header.component';
+import { OfferCardComponent } from './public/menu-items/offers/offer-card/offer-card.component';
+import { OfferReservationComponent } from './public/menu-items/offers/offer-reservation/offer-reservation.component';
 import { PopupTelephoneDialogComponent } from './layout/app-header/popup-telephone-dialog/popup-telephone-dialog.component';
-import { ImagesCarouselComponent } from './gallery-components/images-carousel/images-carousel.component';
-import { HouseComponent } from './gallery/house/house.component';
-import { FromCalendarViewComponent } from './calendar/from-calendar/from-calendar-view/from-calendar-view.component';
-import {NgxQRCodeModule} from '@techiediaries/ngx-qrcode';
+import { ImagesCarouselComponent } from './public/components/gallery/images-carousel/images-carousel.component';
+import { HouseComponent } from './public/menu-items/gallery/house/house.component';
+import { FromCalendarHeaderComponent } from './public/components/calendar/headers/first-calendar-header/from-calendar-header.component';
+import { ToCalendarHeaderComponent } from './public/components/calendar/headers/second-calendar-header/to-calendar-header.component';
+import { FromCalendarViewComponent } from './public/components/calendar/body/from-calendar-view.component';
 
 @NgModule({
   imports: [
@@ -52,7 +51,6 @@ import {NgxQRCodeModule} from '@techiediaries/ngx-qrcode';
     HttpClientModule,
     BrowserAnimationsModule,
     AdminModule,
-    NgxQRCodeModule,
     AgmCoreModule.forRoot({
       apiKey: 'AIzaSyApe9j6D7YzsQmdmpPOI5zuMO1NS4KCbCA'
     })
@@ -82,10 +80,10 @@ import {NgxQRCodeModule} from '@techiediaries/ngx-qrcode';
     OfferReservationComponent,
     FromCalendarHeaderComponent,
     ToCalendarHeaderComponent,
+    FromCalendarViewComponent,
     PopupTelephoneDialogComponent,
     ImagesCarouselComponent,
     HouseComponent,
-    FromCalendarViewComponent
   ],
   providers: [
     {provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true},
@@ -95,3 +93,4 @@ import {NgxQRCodeModule} from '@techiediaries/ngx-qrcode';
   entryComponents: [ErrorComponent]
 })
 export class AppModule { }
+
