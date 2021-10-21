@@ -61,8 +61,8 @@ export class OfferReservationComponent implements OnInit {
       comment: value.comment,
       isPaid: false,
       voucherId: null,
-      from: this.fromDate.toDateString(),
-      to: this.toDate.toDateString(),
+      from: this.fromDate,
+      to: this.toDate,
       offerName: "hétköznapi"
     };
     this.bookingService.addBooking(formBooking);

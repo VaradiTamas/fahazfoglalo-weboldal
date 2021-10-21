@@ -77,8 +77,8 @@ export class ReservationComponent implements OnInit {
       comment: value.comment,
       isPaid: false,
       voucherId: this.voucher?.id,
-      from: this.fromDate.toDateString(),
-      to: this.toDate.toDateString(),
+      from: this.fromDate,
+      to: this.toDate,
       offerName: offerName
     };
     this.bookingService.addBooking(formBooking);
