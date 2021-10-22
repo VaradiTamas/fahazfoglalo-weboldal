@@ -171,8 +171,8 @@ export class FromCalendarViewComponent implements OnInit, OnDestroy{
         }
         // selectedStartDate is in the previous month as the newly selected date and current month
       } else if (this.previousMonth === this.selectedStartDate.getMonth() && this.selectedStartDate.getFullYear() === this.previousMonthYear && chosenDate.getMonth() === this.currentMonth && chosenDate.getFullYear() === this.currentYear) {
-        if (!this.fullyReservedDatesCurrentMonth.includes(chosenDate.getDate()) && !this.onlyFirstHalfOfTheDayIsReservedCurrentMonth.includes(chosenDate.getDate())) {
-          if (!this.isThereReservedDateBetween(this.selectedStartDate, chosenDate, 'second')) {
+        if (!this.fullyReservedDatesCurrentMonth.includes(chosenDate.getDate())) {
+          if (!this.onlyFirstHalfOfTheDayIsReservedCurrentMonth.includes(chosenDate.getDate()) && !this.isThereReservedDateBetween(this.selectedStartDate, chosenDate, 'second')) {
             if (this.calendarType === 'first') {
               this.selectedStartDate = chosenDate;
               this.selectedEndDate = null;
@@ -186,11 +186,11 @@ export class FromCalendarViewComponent implements OnInit, OnDestroy{
         }
         // selectedStartDate and the newly selected date is in the previous month as the current month
       } else if (chosenDate.getMonth() === this.previousMonth && chosenDate.getFullYear() === this.previousMonthYear && this.selectedStartDate.getMonth() === this.previousMonth && this.selectedStartDate.getFullYear() === this.previousMonthYear) {
-        if (!this.onlySecondHalfOfTheDayIsReservedPreviousMonth.includes(this.selectedStartDate.getDate()) && !this.fullyReservedDatesPreviousMonth.includes(this.selectedStartDate.getDate())) {
+        if (chosenDate.getDate() > this.selectedStartDate.getDate() && chosenDate.getDate() <= this.getFirstDayOfNextReservedDays(this.selectedStartDate, 'previous')) {
+          this.selectedEndDate = chosenDate;
+        } else if (!this.onlyFirstHalfOfTheDayIsReservedPreviousMonth.includes(chosenDate.getDate()) && !this.fullyReservedDatesPreviousMonth.includes(chosenDate.getDate())) {
           this.selectedStartDate = chosenDate;
           this.selectedEndDate = null;
-        } else if (chosenDate.getDate() > this.selectedStartDate.getDate() && chosenDate.getDate() <= this.getFirstDayOfNextReservedDays(this.selectedStartDate, 'previous')) {
-          this.selectedEndDate = chosenDate;
         }
         // selectedStartDate and the newly selected date is in the next month as the current month
       } else if (chosenDate.getMonth() === this.nextMonth && chosenDate.getFullYear() === this.nextMonthYear && this.selectedStartDate.getMonth() === this.nextMonth && this.selectedStartDate.getFullYear() === this.nextMonthYear) {
@@ -202,8 +202,8 @@ export class FromCalendarViewComponent implements OnInit, OnDestroy{
         }
         // newly chosen date is in the next month as the current month and selectedStartDate
       } else if (chosenDate.getMonth() === this.nextMonth && chosenDate.getFullYear() === this.nextMonthYear && this.selectedStartDate.getMonth() === this.currentMonth && this.selectedStartDate.getFullYear() === this.currentYear) {
-        if (!this.fullyReservedDatesNextMonth.includes(chosenDate.getDate()) && !this.onlyFirstHalfOfTheDayIsReservedNextMonth.includes(chosenDate.getDate())) {
-          if (!this.isThereReservedDateBetween(this.selectedStartDate, chosenDate, 'first')) {
+        if (!this.fullyReservedDatesNextMonth.includes(chosenDate.getDate())) {
+          if (!this.onlyFirstHalfOfTheDayIsReservedNextMonth.includes(chosenDate.getDate()) && !this.isThereReservedDateBetween(this.selectedStartDate, chosenDate, 'first')) {
             this.selectedEndDate = chosenDate;
           } else if (!this.fullyReservedDatesNextMonth.includes(chosenDate.getDate()) && !this.onlySecondHalfOfTheDayIsReservedNextMonth.includes(chosenDate.getDate())) {
             this.selectedStartDate = chosenDate;

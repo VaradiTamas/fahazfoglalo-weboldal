@@ -39,6 +39,7 @@ import { HouseComponent } from './public/menu-items/gallery/house/house.componen
 import { FromCalendarHeaderComponent } from './public/components/calendar/headers/first-calendar-header/from-calendar-header.component';
 import { ToCalendarHeaderComponent } from './public/components/calendar/headers/second-calendar-header/to-calendar-header.component';
 import { FromCalendarViewComponent } from './public/components/calendar/body/from-calendar-view.component';
+import {ReservationFormComponent} from './public/components/reservation-form/reservation-form.component';
 
 @NgModule({
   imports: [
@@ -84,6 +85,7 @@ import { FromCalendarViewComponent } from './public/components/calendar/body/fro
     PopupTelephoneDialogComponent,
     ImagesCarouselComponent,
     HouseComponent,
+    ReservationFormComponent
   ],
   providers: [
     {provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true},
@@ -93,4 +95,3 @@ import { FromCalendarViewComponent } from './public/components/calendar/body/fro
   entryComponents: [ErrorComponent]
 })
 export class AppModule { }
-

@@ -1,10 +1,14 @@
+.marg{
+  margin-bottom: 50vh;
+}
+
 .animation-container{
   display: inline-block;
   position: absolute;
   top: 0;
   left: 0;
   text-align: center;
-  height: 40rem;
+  height: 80vh;
   width: 100%;
   overflow: hidden;
   vertical-align: middle;
