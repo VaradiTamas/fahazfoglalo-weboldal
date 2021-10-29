@@ -3,10 +3,6 @@
   height: 70vh;
 }
 
-::ng-deep.mat-tab-labels{
-  height: 5vh;
-}
-
 .container-fluid{
   width: 80%;
   height: 64vh;
@@ -14,7 +10,7 @@
 
 .one-row-tabs{
   width: 100%;
-  height: 62vh;
+  height: 60vh;
 }
 
 .next-button{
