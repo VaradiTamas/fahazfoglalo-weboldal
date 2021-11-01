@@ -53,6 +53,7 @@ export class FromCalendarViewComponent implements OnInit, OnDestroy{
     } else if (this.calendarType === 'second'){
       this.header = ToCalendarHeaderComponent;
       this.initialDate.setMonth(this.initialDate.getMonth() + 1);
+      console.log(this.initialDate);
       this.toDateService.getReservedDays(this.initialDate.getFullYear(), this.initialDate.getMonth());
       this.setSecondMonthView();
     }
