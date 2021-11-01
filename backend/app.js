@@ -5,6 +5,7 @@ const cors = require("cors");
 
 const bookingsRoutes = require("./routes/bookings");
 const vouchersRoutes = require("./routes/vouchers");
+const emailsRoutes = require("./routes/emails");
 const userRoutes = require("./routes/user");
 
 const app = express();
@@ -36,6 +37,7 @@ app.use((req, res, next) => {
 
 app.use("/admin/bookings", bookingsRoutes);
 app.use("/admin/vouchers", vouchersRoutes);
+app.use("/admin/emails", emailsRoutes);
 app.use("/admin/user", userRoutes);
 
 module.exports = app;

@@ -53,12 +53,12 @@ export class BookingService{
   }
 
   sendBookingConfirmationEmail(booking: Booking): void{
-    this.http.post('http://localhost:3000/admin/bookings/sendBookingConfirmationEmail', booking)
+    this.http.post('http://localhost:3000/admin/emails/sendBookingConfirmationEmail', booking)
       .subscribe((responseData) => {});
   }
 
   sendPaymentConfirmationEmail(booking: Booking): void{
-    this.http.post('http://localhost:3000/admin/bookings/sendPaymentConfirmationEmail', booking)
+    this.http.post('http://localhost:3000/admin/emails/sendPaymentConfirmationEmail', booking)
       .subscribe((responseData) => {});
   }
 

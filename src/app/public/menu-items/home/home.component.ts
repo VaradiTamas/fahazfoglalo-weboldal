@@ -214,10 +214,10 @@ export class HomeComponent implements OnInit {
   counter = 0;
   currentImageSource = '';
   previousImageSource = '';
-  imgSrc1 = 'assets/icon/fah.jpg';
-  imgSrc2 = 'assets/images/headerpic2.jpg';
-  imgSrc3 = 'assets/icon/fah.jpg';
-  imgBlack = 'assets/images/black.jpg';
+  imgSrc1 = 'assets/home-page-animation-pictures/fah.jpg';
+  imgSrc2 = 'assets/home-page-animation-pictures/fah2.jpg';
+  imgSrc3 = 'assets/home-page-animation-pictures/fah3.jpg';
+  imgBlack = 'assets/home-page-animation-pictures/black.png';
 
   ngOnInit() {
     this.currentImageSource = this.imgSrc1;

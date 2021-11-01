@@ -1,0 +1,257 @@
+<form (ngSubmit)="onSubmit(f)" #f="ngForm">
+  <mat-tab-group [selectedIndex]="selectedTabIndex" mat-align-tabs="center" animationDuration="1500ms">
+    <!--selecting the date of reservation-->
+    <mat-tab class="m-0" label="Időpont választása">
+      <div class="container-fluid pt-3">
+        <div class="row one-row-tabs">
+          <div class="col-2"></div>
+          <div class="col-4">
+            <app-from-calendar [calendarType]="'first'" (selectedStartDateChange)="onSelectedStartDateChanged($event)" (selectedEndDateChange)="onSelectedEndDateChanged($event)"></app-from-calendar>
+          </div>
+          <div class="col-4">
+            <app-from-calendar [calendarType]="'second'" (selectedStartDateChange)="onSelectedStartDateChanged($event)" (selectedEndDateChange)="onSelectedEndDateChanged($event)"></app-from-calendar>
+          </div>
+          <!--forward navigation button-->
+          <div class="col-2">
+            <button mat-raised-button color="accent" (click)="onNavigationButtonClicked(1)" class="next-button" [disabled]="fromDate == null || toDate == null">
+              <span>Tovább</span>
+              <img *ngIf="fromDate != null && toDate != null" class="pl-2" src="../../../../assets/icon/next.svg">
+            </button>
+          </div>
+        </div>
+      </div>
+      <button class="submit-btn" mat-raised-button color="primary" type="submit" [disabled]="!f.valid || fromDate == null || toDate == null">Foglalás megerősítése</button>
+    </mat-tab>
+    <!--selecting the number of bedrooms-->
+    <mat-tab label="Hálószobák száma" [disabled]="fromDate == null || toDate == null">
+      <div class="container-fluid pt-3">
+        <div class="row one-row-tabs">
+          <!--back navigation button-->
+          <div class="col-2">
+            <button mat-raised-button color="accent" (click)="onNavigationButtonClicked(0)">
+              <img class="pr-2" src="../../../../assets/icon/previous.svg">
+              <span>Vissza</span>
+            </button>
+          </div>
+          <!--one bedroom-->
+          <div class="col-4 card-container">
+            <button class="bedroom-button" mat-raised-button (click)="onRadioButtonSelected(1)">
+              <div class="image-container">
+                <img class="image" src="../../../../assets/house/house3.jpg">
+              </div>
+              <div>
+                <input
+                  class="radio-btn mr-2"
+                  type="radio"
+                  name="numOfBedrooms"
+                  id="oneBedroom"
+                  [checked]="isRadioButtonSelected(1)"
+                  value="1">
+                <label class="radio-label" for="oneBedroom">
+                  Egy hálószobával kérem
+                </label>
+              </div>
+            </button>
+          </div>
+          <!--two bedrooms-->
+          <div class="col-4 card-container">
+            <button class="bedroom-button" mat-raised-button (click)="onRadioButtonSelected(2)">
+              <div class="image-container">
+                <img class="image" src="../../../../assets/house/house1.png">
+              </div>
+              <div>
+                <input
+                  class="radio-btn mr-2"
+                  type="radio"
+                  name="numOfBedrooms"
+                  id="twoBedrooms"
+                  value="2"
+                  [checked]="isRadioButtonSelected(2)">
+                <label class="radio-label" for="twoBedrooms">
+                  Két hálószobával kérem
+                </label>
+              </div>
+            </button>
+          </div>
+          <!--forward navigation button-->
+          <div class="col-2">
+            <button mat-raised-button color="accent" (click)="onNavigationButtonClicked(2)" class="next-button">
+              <span>Tovább</span>
+              <img class="pl-2" src="../../../../assets/icon/next.svg">
+            </button>
+          </div>
+        </div>
+      </div>
+      <button class="submit-btn" mat-raised-button color="primary" type="submit" [disabled]="!f.valid || fromDate == null || toDate == null">Foglalás megerősítése</button>
+    </mat-tab>
+    <!--selecting the number of guests-->
+    <mat-tab label="Vendégek száma" [disabled]="fromDate == null || toDate == null">
+      <div class="container-fluid pt-3">
+        <div class="row one-row-tabs">
+          <!--back navigation button-->
+          <div class="col-2">
+            <button mat-raised-button color="accent" (click)="onNavigationButtonClicked(1)">
+              <img class="pr-2" src="../../../../assets/icon/previous.svg">
+              <span>Vissza</span>
+            </button>
+          </div>
+          <!--selecting the number of children-->
+          <div class="col-4 card-container">
+            <div class="num-of-people-container">
+              <div class="image-container">
+                <img class="image" src="../../../../assets/images/children.png">
+              </div>
+              <div class="row pt-3">
+                <div class="col-7">
+                  <label class="pt-2 num-of-people-label" for="numOfChildren">Gyerekek száma:</label>
+                </div>
+                <div class="col-3">
+                  <input
+                    name="numOfChildren"
+                    type="number"
+                    min="0"
+                    step="1"
+                    max="4"
+                    class="form-control"
+                    id="numOfChildren"
+                    [ngModel]="booking == null ? 0 : booking.numOfChildren"
+                    required>
+                </div>
+                <div class="col-2"></div>
+              </div>
+            </div>
+          </div>
+          <!--selecting the number of adults-->
+          <div class="col-4 card-container">
+            <div class="num-of-people-container">
+              <div class="image-container">
+                <img class="image" src="../../../../assets/images/adults.png">
+              </div>
+              <div class="row pt-3">
+                <div class="col-7">
+                  <label class="pt-2 num-of-people-label" for="numOfAdults">Felnőttek száma:</label>
+                </div>
+                <div class="col-3">
+                  <input
+                    name="numOfAdults"
+                    type="number"
+                    min="1"
+                    max="6"
+                    step="1"
+                    class="form-control"
+                    id="numOfAdults"
+                    [ngModel]="booking == null ? 2 : booking.numOfAdults"
+                    required>
+                </div>
+                <div class="col-2"></div>
+              </div>
+            </div>
+          </div>
+          <!--forward navigation button-->
+          <div class="col-2">
+            <button mat-raised-button color="accent" (click)="onNavigationButtonClicked(3)" class="next-button">
+              <span>Tovább</span>
+              <img class="pl-2" src="../../../../assets/icon/next.svg">
+            </button>
+          </div>
+        </div>
+      </div>
+      <button class="submit-btn" mat-raised-button color="primary" type="submit" [disabled]="!f.valid || fromDate == null || toDate == null">Foglalás megerősítése</button>
+    </mat-tab>
+    <!--adding personal information-->
+    <mat-tab label="Személyes adatok" [disabled]="fromDate == null || toDate == null">
+      <div class="container-fluid pt-3">
+        <div class="row one-row-tabs">
+          <!--back navigation button-->
+          <div class="col-2">
+            <button mat-raised-button color="accent" (click)="onNavigationButtonClicked(2)">
+              <img class="pr-2" src="../../../../assets/icon/previous.svg">
+              <span>Vissza</span>
+            </button>
+          </div>
+          <!--main part-->
+          <div class="col-8 pt-5">
+            <!--getting personal data-->
+            <div class="form-group row">
+              <label class="col-sm-2 col-form-label" for="lastName">Vezetéknév: </label>
+              <div class="col-4">
+                <input type="text"
+                       name="lastName"
+                       class="form-control"
+                       id="lastName"
+                       [ngModel] = "booking?.lastName"
+                       required>
+              </div>
+              <label class="col-sm-2 col-form-label" for="firstName">Keresztnév: </label>
+              <div class="col-4">
+                <input
+                  name="firstName"
+                  type="text"
+                  class="form-control"
+                  id="firstName"
+                  [ngModel]="booking?.firstName"
+                  required>
+              </div>
+            </div>
+            <div class="form-group row mb-5">
+              <label class="col-sm-2 col-form-label" for="tel">Telefonszám: </label>
+              <div class="col-4">
+                <input
+                  name="tel"
+                  type="text"
+                  class="form-control"
+                  id="tel"
+                  [ngModel]="booking?.tel"
+                  required>
+              </div>
+              <label class="col-sm-2 col-form-label" for="email">E-mail cím: </label>
+              <div class="col-4">
+                <input
+                  name="email"
+                  type="email"
+                  class="form-control"
+                  id="email"
+                  [ngModel]="booking?.email"
+                  required>
+              </div>
+            </div>
+            <div class="form-group row mb-5">
+              <label for="comment" class="col-sm-2 col-form-label">Megjegyzés:</label>
+              <textarea
+                name="comment"
+                id="comment"
+                class="form-control col-10"
+                [ngModel]="booking?.comment"
+                rows="4">
+              </textarea>
+            </div>
+            <!--checking voucher-->
+            <div class="row">
+              <input class="voucher-checkbox" type="checkbox" (click)="onVoucherClick()" id="voucher" name="voucher">
+              <label class="label ml-3" for="voucher">Van utalványom</label>
+            </div>
+            <div *ngIf="possessVoucher" class="row mb-5">
+              <label class="col-2 label pl-1" for="voucherId">Sorszám:</label>
+              <div class="col-6">
+                <input
+                  name="voucherId"
+                  id="voucherId"
+                  class="form-control"
+                  type="text"
+                  [ngModel]="booking?.voucherId">
+              </div>
+              <span *ngIf="alreadyCheckedVoucher && isVoucherValid">
+                <img src="../../../../assets/icon/done.svg">
+              </span>
+              <span *ngIf="alreadyCheckedVoucher && !isVoucherValid">
+                <img src="../../../../assets/icon/wrong.svg">
+              </span>
+              <a mat-raised-button color="primary" class="ml-4" (click)="onCheckVoucher(f)">Ellenőrzés</a>
+            </div>
+          </div>
+        </div>
+      </div>
+      <button class="submit-btn" mat-raised-button color="primary" type="submit" [disabled]="!f.valid || fromDate == null || toDate == null">Foglalás megerősítése</button>
+    </mat-tab>
+  </mat-tab-group>
+</form>
