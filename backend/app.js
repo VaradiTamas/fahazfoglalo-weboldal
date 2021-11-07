@@ -10,7 +10,7 @@ const userRoutes = require("./routes/user");
 
 const app = express();
 
-mongoose.connect("mongodb+srv://fahazfoglalo:ChsgicCcXqDvda26@cluster0.vyq6f.mongodb.net/firstDatabase?w=majority", {useNewUrlParser: true, useUnifiedTopology: true})
+mongoose.connect("mongodb+srv://fahazfoglalo:" + process.env.MONGO_ATLAS_PW + "@cluster0.vyq6f.mongodb.net/firstDatabase?w=majority", {useNewUrlParser: true, useUnifiedTopology: true})
   .then(()=>{
     console.log('Connected to database!');
   })

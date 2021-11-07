@@ -4,6 +4,9 @@ import {HttpClient} from '@angular/common/http';
 import {Subject} from 'rxjs';
 import {map} from 'rxjs/operators';
 import {Router} from '@angular/router';
+import {environment} from '../../environments/environment';
+
+const BACKEND_URL = environment.apiUrl;
 
 @Injectable({providedIn: 'root'})
 export class BookingService{
@@ -14,7 +17,7 @@ export class BookingService{
 
   getBookings(bookingsPerPage: number, currentPage: number): void{
     const queryParams = `?pagesize=${bookingsPerPage}&page=${currentPage}`;
-    this.http.get<{message: string, bookings: any, maxBookings: number}>('http://localhost:3000/admin/bookings' + queryParams)
+    this.http.get<{message: string, bookings: any, maxBookings: number}>(BACKEND_URL + '/bookings' + queryParams)
       .pipe(map((serverBookings) => {
         return { bookings: serverBookings.bookings.map(booking => {
           return {
@@ -35,7 +38,7 @@ export class BookingService{
           };
         }), maxBookings: serverBookings.maxBookings};
       }))
-      .subscribe((transformedBookingsData)=>{
+      .subscribe((transformedBookingsData) => {
         this.bookings = transformedBookingsData.bookings;
         this.bookingsUpdated.next({
           bookings: [...this.bookings],
@@ -48,26 +51,26 @@ export class BookingService{
     // in ts we use local time, in js date is in UTC so I added 12 hours to the dates to overlap this difference and make sure it causes no problem
     booking.from.setHours(12);
     booking.to.setHours(12);
-    this.http.post<{message: string, bookingId: string}>('http://localhost:3000/admin/bookings', booking)
+    this.http.post<{message: string, bookingId: string}>(BACKEND_URL + '/bookings', booking)
       .subscribe((responseData) => { });
   }
 
   sendBookingConfirmationEmail(booking: Booking): void{
-    this.http.post('http://localhost:3000/admin/emails/sendBookingConfirmationEmail', booking)
+    this.http.post(BACKEND_URL + '/emails/sendBookingConfirmationEmail', booking)
       .subscribe((responseData) => {});
   }
 
   sendPaymentConfirmationEmail(booking: Booking): void{
-    this.http.post('http://localhost:3000/admin/emails/sendPaymentConfirmationEmail', booking)
+    this.http.post(BACKEND_URL + '/emails/sendPaymentConfirmationEmail', booking)
       .subscribe((responseData) => {});
   }
 
   deleteBooking(bookingId: string){
-    return this.http.delete('http://localhost:3000/admin/bookings/delete/' + bookingId);
+    return this.http.delete(BACKEND_URL + '/bookings/delete/' + bookingId);
   }
 
   updateBooking(booking: Booking): void{
-    this.http.put('http://localhost:3000/admin/bookings/edit/' + booking.id, booking)
+    this.http.put(BACKEND_URL + '/bookings/edit/' + booking.id, booking)
       .subscribe((responseData) => {
         this.router.navigate(['/admin/bookings']);
       });
@@ -89,7 +92,7 @@ export class BookingService{
       numOfBedrooms: number,
       comment: string,
       isPaid: boolean
-    }>('http://localhost:3000/admin/bookings/' + id);
+    }>(BACKEND_URL + '/bookings/' + id);
   }
 
   getBookingUpdateListener(){

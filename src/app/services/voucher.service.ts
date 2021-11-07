@@ -4,6 +4,9 @@ import {Subject} from "rxjs";
 import {map} from "rxjs/operators";
 import {Router} from "@angular/router";
 import {Voucher} from "../model/voucher.model";
+import {environment} from '../../environments/environment';
+
+const BACKEND_URL = environment.apiUrl + '/vouchers/';
 
 @Injectable({providedIn: 'root'})
 export class VoucherService{
@@ -14,7 +17,7 @@ export class VoucherService{
 
   getVouchers(vouchersPerPage: number, currentPage: number){
     const queryParams = `?pagesize=${vouchersPerPage}&page=${currentPage}`;
-    this.http.get<{message: string, vouchers: any, maxVouchers: number}>('http://localhost:3000/admin/vouchers' + queryParams)
+    this.http.get<{message: string, vouchers: any, maxVouchers: number}>(BACKEND_URL + queryParams)
       .pipe(
         map((serverVouchers) => {
           return {vouchers: serverVouchers.vouchers.map(voucher => {
@@ -36,7 +39,7 @@ export class VoucherService{
             };
           }), maxVouchers: serverVouchers.maxVouchers};
       }))
-      .subscribe((transformedVouchers)=>{
+      .subscribe((transformedVouchers) => {
         this.vouchers = transformedVouchers.vouchers;
         this.vouchersUpdated.next({
           vouchers: [...this.vouchers],
@@ -46,8 +49,8 @@ export class VoucherService{
   }
 
   addVoucher(voucher: Voucher){
-    this.http.post<{message: string, voucherId: string}>('http://localhost:3000/admin/vouchers', voucher)
-      .subscribe((responseData)=>{
+    this.http.post<{message: string, voucherId: string}>(BACKEND_URL, voucher)
+      .subscribe((responseData) => {
         //this.router.navigate(["/admin/vouchers"]);
       });
   }
@@ -57,9 +60,9 @@ export class VoucherService{
   }
 
   updateVoucher(voucher: Voucher){
-    this.http.put('http://localhost:3000/admin/vouchers/edit/' + voucher.id, voucher)
-      .subscribe((responseData)=>{
-        this.router.navigate(["/admin/vouchers"]);
+    this.http.put(BACKEND_URL + '/edit/' + voucher.id, voucher)
+      .subscribe((responseData) => {
+        this.router.navigate(['/admin/vouchers']);
       });
   }
 
@@ -79,7 +82,7 @@ export class VoucherService{
       city: string,
       address: string,
       isPaid: boolean,
-    }>('http://localhost:3000/admin/vouchers/' + id);
+    }>(BACKEND_URL + id);
   }
 
   getVoucherUpdateListener(){
