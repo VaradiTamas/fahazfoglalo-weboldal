@@ -1,10 +1,10 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
-import {ActivatedRoute, ParamMap, Router} from "@angular/router";
-import {NgForm} from "@angular/forms";
-import {Voucher} from "../../../model/voucher.model";
-import {VoucherService} from "../../../services/voucher.service";
-import {Subscription} from "rxjs";
-import {AuthService} from "../../auth/auth.service";
+import {ActivatedRoute, ParamMap, Router} from '@angular/router';
+import {NgForm} from '@angular/forms';
+import {Voucher} from '../../../models/voucher.model';
+import {VoucherService} from '../../../services/voucher.service';
+import {Subscription} from 'rxjs';
+import {AuthService} from '../../auth/auth.service';
 
 @Component({
   selector: 'app-new-coupon',
@@ -87,7 +87,7 @@ export class NewCouponComponent implements OnInit, OnDestroy {
       this.voucherService.updateVoucher(formVoucher);
     }
     form.reset();
-    this.router.navigate(["/admin/vouchers"]);
+    this.router.navigate(['/admin/vouchers']);
   }
 
   ngOnDestroy() {

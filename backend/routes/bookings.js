@@ -16,17 +16,17 @@ router.post('',
 );
 
 router.get('',
-  checkAuthMW,
+  //checkAuthMW,
   getBookingsMW
 );
 
 router.use('/delete/:id',
-  checkAuthMW,
+  // checkAuthMW,
   deleteBookingMW
 );
 
 router.put('/edit/:id',
-  checkAuthMW,
+  // checkAuthMW,
   editBookingMW
 );
 
@@ -35,7 +35,7 @@ router.get('/reserved-days',
 );
 
 router.get('/:id',
-  checkAuthMW,
+  // checkAuthMW,
   getBookingByIdMW
 );
 

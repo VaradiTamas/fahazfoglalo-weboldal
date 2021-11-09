@@ -1,12 +1,12 @@
-import {Injectable} from "@angular/core";
-import {HttpClient} from "@angular/common/http";
-import {Subject} from "rxjs";
-import {map} from "rxjs/operators";
-import {Router} from "@angular/router";
-import {Voucher} from "../model/voucher.model";
+import {Injectable} from '@angular/core';
+import {HttpClient} from '@angular/common/http';
+import {Subject} from 'rxjs';
+import {map} from 'rxjs/operators';
+import {Router} from '@angular/router';
+import {Voucher} from '../models/voucher.model';
 import {environment} from '../../environments/environment';
 
-const BACKEND_URL = environment.apiUrl + '/vouchers/';
+const BACKEND_URL = environment.apiUrl + 'vouchers/';
 
 @Injectable({providedIn: 'root'})
 export class VoucherService{
@@ -51,16 +51,16 @@ export class VoucherService{
   addVoucher(voucher: Voucher){
     this.http.post<{message: string, voucherId: string}>(BACKEND_URL, voucher)
       .subscribe((responseData) => {
-        //this.router.navigate(["/admin/vouchers"]);
+        //this.router.navigate(['/admin/vouchers']);
       });
   }
 
   deleteVoucher(voucherId: string){
-    return this.http.delete('http://localhost:3000/admin/vouchers/delete/' + voucherId);
+    return this.http.delete(BACKEND_URL + 'delete/' + voucherId);
   }
 
   updateVoucher(voucher: Voucher){
-    this.http.put(BACKEND_URL + '/edit/' + voucher.id, voucher)
+    this.http.put(BACKEND_URL + 'edit/' + voucher.id, voucher)
       .subscribe((responseData) => {
         this.router.navigate(['/admin/vouchers']);
       });

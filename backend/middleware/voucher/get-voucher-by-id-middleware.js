@@ -12,7 +12,7 @@ module.exports = (req, res, next) => {
     })
     .catch(error => {
       res.status(500).json({
-        message: "Fetching booking failed!"
+        message: "Fetching voucher failed!"
       });
     });
 }

@@ -1,8 +1,8 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
-import {Subscription} from "rxjs";
-import {Voucher} from "../../model/voucher.model";
-import {VoucherService} from "../../services/voucher.service";
-import {PageEvent} from "@angular/material/paginator";
+import {Subscription} from 'rxjs';
+import {Voucher} from '../../models/voucher.model';
+import {VoucherService} from '../../services/voucher.service';
+import {PageEvent} from '@angular/material/paginator';
 
 @Component({
   selector: 'app-coupons',
@@ -32,14 +32,14 @@ export class CouponsComponent implements OnInit, OnDestroy {
       });
   }
 
-  onChangedPage(pageData: PageEvent){
+  onChangedPage(pageData: PageEvent): void{
     this.isLoading = true;
     this.currentPage = pageData.pageIndex + 1;
     this.vouchersPerPage = pageData.pageSize;
     this.voucherService.getVouchers(this.vouchersPerPage, this.currentPage);
   }
 
-  onDelete(voucherId: string){
+  onDelete(voucherId: string): void{
     this.isLoading = true;
     this.voucherService.deleteVoucher(voucherId).subscribe(() => {
       this.voucherService.getVouchers(this.vouchersPerPage, this.currentPage);
@@ -49,12 +49,12 @@ export class CouponsComponent implements OnInit, OnDestroy {
   }
 
   Search(){
-    if(this.serialNum == ""){
+    if (this.serialNum == ''){
       this.ngOnInit();
     }else{
-      this.vouchers =this.vouchers.filter(res => {
+      this.vouchers = this.vouchers.filter(res => {
         return res.id.toLocaleLowerCase().match(this.serialNum.toLocaleLowerCase());
-      })
+      });
     }
   }
 

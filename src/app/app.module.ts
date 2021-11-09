@@ -12,7 +12,7 @@ import { HeaderComponent } from './layout/app-header/header.component';
 import { VoucherReservationComponent } from './public/menu-items/voucher/voucher-reservation/voucher-reservation.component';
 import { PricesComponent } from './public/menu-items/prices/prices.component';
 import { QuestionsComponent } from './public/menu-items/questions/questions.component';
-import { AboutusComponent } from './public/menu-items/aboutus/aboutus.component';
+import { AboutUsComponent } from './public/menu-items/about-us/about-us.component';
 import { ReservationComponent } from './public/menu-items/reservation/reservation.component';
 import { VoucherManagingComponent } from './public/menu-items/reservation/voucher-managing/voucher-managing.component';
 import { HomeComponent } from './public/menu-items/home/home.component';
@@ -20,8 +20,8 @@ import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AuthInterceptor } from './admin/auth/auth-interceptor';
 import { AppLayoutComponent } from './layout/app-layout/app-layout.component';
-import { ErrorComponent } from './error/error.component';
-import { ErrorInterceptor } from './error/error-interceptor';
+import { ErrorDialogComponent } from './error-handling/error-dialog/error-dialog.component';
+import { ErrorInterceptor } from './error-handling/error-interceptor';
 import { AppPageTitleComponent } from './layout/app-page-title/app-page-title.component';
 import { ImagesLayoutComponent } from './public/components/gallery/images-layout/images-layout.component';
 import { SaunaComponent } from './public/menu-items/gallery/sauna/sauna.component';
@@ -38,7 +38,7 @@ import { ImagesCarouselComponent } from './public/components/gallery/images-caro
 import { HouseComponent } from './public/menu-items/gallery/house/house.component';
 import { FromCalendarHeaderComponent } from './public/components/calendar/headers/first-calendar-header/from-calendar-header.component';
 import { ToCalendarHeaderComponent } from './public/components/calendar/headers/second-calendar-header/to-calendar-header.component';
-import { FromCalendarViewComponent } from './public/components/calendar/body/from-calendar-view.component';
+import { CalendarBodyComponent } from './public/components/calendar/body/calendar-body.component';
 import {ReservationFormComponent} from './public/components/reservation-form/reservation-form.component';
 
 @NgModule({
@@ -62,12 +62,12 @@ import {ReservationFormComponent} from './public/components/reservation-form/res
     VoucherReservationComponent,
     PricesComponent,
     QuestionsComponent,
-    AboutusComponent,
+    AboutUsComponent,
     ReservationComponent,
     VoucherManagingComponent,
     HomeComponent,
     AppLayoutComponent,
-    ErrorComponent,
+    ErrorDialogComponent,
     AppPageTitleComponent,
     ImagesLayoutComponent,
     SaunaComponent,
@@ -81,7 +81,7 @@ import {ReservationFormComponent} from './public/components/reservation-form/res
     OfferReservationComponent,
     FromCalendarHeaderComponent,
     ToCalendarHeaderComponent,
-    FromCalendarViewComponent,
+    CalendarBodyComponent,
     PopupTelephoneDialogComponent,
     ImagesCarouselComponent,
     HouseComponent,
@@ -92,6 +92,6 @@ import {ReservationFormComponent} from './public/components/reservation-form/res
     { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true }
   ],
   bootstrap: [AppComponent],
-  entryComponents: [ErrorComponent]
+  entryComponents: [ErrorDialogComponent]
 })
 export class AppModule { }

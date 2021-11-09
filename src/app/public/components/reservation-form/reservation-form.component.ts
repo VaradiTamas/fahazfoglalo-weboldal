@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import {Voucher} from '../../../model/voucher.model';
+import {Voucher} from '../../../models/voucher.model';
 import {BookingService} from '../../../services/booking.service';
 import {VoucherService} from '../../../services/voucher.service';
 import {ActivatedRoute, Router} from '@angular/router';
 import {NgForm} from '@angular/forms';
-import {Booking} from '../../../model/booking.model';
+import {Booking} from '../../../models/booking.model';
 
 @Component({
   selector: 'app-reservation-form',

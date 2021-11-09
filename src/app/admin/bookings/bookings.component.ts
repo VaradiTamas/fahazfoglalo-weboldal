@@ -1,6 +1,6 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
 import {BookingService} from '../../services/booking.service';
-import {Booking} from '../../model/booking.model';
+import {Booking} from '../../models/booking.model';
 import {Subscription} from 'rxjs';
 import {PageEvent} from '@angular/material/paginator';
 

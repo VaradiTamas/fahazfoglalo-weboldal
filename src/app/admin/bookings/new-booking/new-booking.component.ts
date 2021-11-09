@@ -1,12 +1,12 @@
-import {Component, OnDestroy, OnInit, ViewChild} from '@angular/core';
-import {NgForm} from "@angular/forms";
-import {BookingService} from "../../../services/booking.service";
-import {Booking} from "../../../model/booking.model";
-import {ActivatedRoute, ParamMap, Router} from "@angular/router";
-import {Voucher} from "../../../model/voucher.model";
-import {VoucherService} from "../../../services/voucher.service";
-import {AuthService} from "../../auth/auth.service";
-import {Subscription} from "rxjs";
+import {Component, OnDestroy, OnInit} from '@angular/core';
+import {NgForm} from '@angular/forms';
+import {BookingService} from '../../../services/booking.service';
+import {Booking} from '../../../models/booking.model';
+import {ActivatedRoute, ParamMap, Router} from '@angular/router';
+import {Voucher} from '../../../models/voucher.model';
+import {VoucherService} from '../../../services/voucher.service';
+import {AuthService} from '../../auth/auth.service';
+import {Subscription} from 'rxjs';
 
 @Component({
   selector: 'app-new-booking',
@@ -74,8 +74,8 @@ export class NewBookingComponent implements OnInit, OnDestroy{
     this.isLoading = true;
     const value = form.value;
     var offerName: string;
-    if(value.offerName == null){
-      offerName = "általános";
+    if (value.offerName == null){
+      offerName = 'általános';
     }else{
       offerName = value.offerName;
     }
@@ -102,10 +102,10 @@ export class NewBookingComponent implements OnInit, OnDestroy{
       this.bookingService.updateBooking(formBooking);
     }
     form.reset();
-    this.router.navigate(["/admin/bookings"]);
+    this.router.navigate(['/admin/bookings']);
   }
 
-  onCheckVoucher(form : NgForm){
+  onCheckVoucher(form: NgForm){
     const value = form.value;
     this.voucherService.getVoucher(value.voucherId).subscribe(voucherData => {
       this.voucher = {
@@ -124,7 +124,7 @@ export class NewBookingComponent implements OnInit, OnDestroy{
         address: voucherData.address,
         isPaid: voucherData.isPaid
       };
-      if(this.voucher.id == value.voucherId){
+      if (this.voucher.id == value.voucherId){
         this.isVoucherValid = true;
       }
       else{

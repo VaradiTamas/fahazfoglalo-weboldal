@@ -10,11 +10,13 @@
 
     <div class="dark-div" [@darkImageAnimation]="state"></div>
 
-    <div class="title-div" [@titleAnimation]="state">
-    <span *ngIf="!isLogoVisible">
-      {{headerText}}
-    </span>
-      <img class="logo" *ngIf="isLogoVisible" src="../../../../assets/logo.png">
+    <div class="inner-container">
+      <div class="title-div" [@titleAnimation]="state">
+        <span *ngIf="!isLogoVisible">
+          {{headerText}}
+        </span>
+        <img class="logo" *ngIf="isLogoVisible" src="../../../../assets/logo.png">
+      </div>
     </div>
 
     <div class="dark-div" [@darkTitleAnimation]="state"></div>

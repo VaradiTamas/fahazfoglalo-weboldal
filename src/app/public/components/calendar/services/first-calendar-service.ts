@@ -1,6 +1,9 @@
 import {Injectable} from '@angular/core';
-import {Observable, Subject} from 'rxjs';
+import {Subject} from 'rxjs';
 import {HttpClient} from '@angular/common/http';
+import {environment} from '../../../../../environments/environment';
+
+const BACKEND_URL = environment.apiUrl;
 
 @Injectable({providedIn: 'root'})
 export class FirstCalendarService {
@@ -39,7 +42,7 @@ export class FirstCalendarService {
 
   getReservedDays(year: number, month: number): void {
     const queryParams = `?year=${year}&month=${month}`;
-    this.http.get<{ from: {year: number, month: number, day: number}, to: {year: number, month: number, day: number} }[]>('http://localhost:3000/admin/bookings/reserved-days' + queryParams)
+    this.http.get<{ from: {year: number, month: number, day: number}, to: {year: number, month: number, day: number} }[]>(BACKEND_URL + 'bookings/reserved-days' + queryParams)
      .subscribe((reservedDates) => {
         this.currentYear = year;
         this.currentMonth = month;

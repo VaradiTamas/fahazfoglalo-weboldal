@@ -8,10 +8,10 @@ import {ToCalendarHeaderComponent} from '../headers/second-calendar-header/to-ca
 
 @Component({
   selector: 'app-from-calendar',
-  templateUrl: './from-calendar-view.component.html',
-  styleUrls: ['./from-calendar-view.component.css']
+  templateUrl: './calendar-body.component.html',
+  styleUrls: ['./calendar-body.component.css']
 })
-export class FromCalendarViewComponent implements OnInit, OnDestroy{
+export class CalendarBodyComponent implements OnInit, OnDestroy{
   @Output() selectedStartDateChange = new EventEmitter<{date: Date}>();
   @Output() selectedEndDateChange = new EventEmitter<{date: Date}>();
   @Input() calendarType: string;

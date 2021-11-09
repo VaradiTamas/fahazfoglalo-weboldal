@@ -1,10 +1,10 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
-import {Subscription} from "rxjs";
-import {Voucher} from "../../../../model/voucher.model";
-import {VoucherService} from "../../../../services/voucher.service";
-import {ActivatedRoute, ParamMap, Router} from "@angular/router";
-import {AuthService} from "../../../../admin/auth/auth.service";
-import {NgForm} from "@angular/forms";
+import {Subscription} from 'rxjs';
+import {Voucher} from '../../../../models/voucher.model';
+import {VoucherService} from '../../../../services/voucher.service';
+import {ActivatedRoute, ParamMap, Router} from '@angular/router';
+import {AuthService} from '../../../../admin/auth/auth.service';
+import {NgForm} from '@angular/forms';
 
 @Component({
   selector: 'app-voucher-reservation',
@@ -44,7 +44,7 @@ export class VoucherReservationComponent implements OnInit {
     };
 
     this.voucherService.addVoucher(formVoucher);
-    this.router.navigate(["/voucher/information"]);
+    this.router.navigate(['/voucher/information']);
     form.reset();
   }
 }

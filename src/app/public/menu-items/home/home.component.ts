@@ -1,11 +1,12 @@
 import { Component, OnInit } from '@angular/core';
-import {state, style, trigger, transition, animate, keyframes, group} from "@angular/animations";
+import {state, style, trigger, transition, animate} from '@angular/animations';
 
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.css'],
   animations: [
+    // image animation
     trigger('imageAnimation', [
       state('first', style({ })),
       state('second', style({ })),
@@ -104,6 +105,7 @@ import {state, style, trigger, transition, animate, keyframes, group} from "@ang
         }))
       ]),
     ]),
+    // titles animation
     trigger('titleAnimation', [
       state('first', style({ })),
       state('second', style({ })),
@@ -120,7 +122,7 @@ import {state, style, trigger, transition, animate, keyframes, group} from "@ang
         animate(600, style({
           transform: 'scale(1.2)',
         })),
-        animate(1198, style({
+        animate(1200, style({
           transform: 'scale(1.2)'
         }))
       ]),
@@ -135,7 +137,7 @@ import {state, style, trigger, transition, animate, keyframes, group} from "@ang
         animate(600, style({
           transform: 'scale(1.2)',
         })),
-        animate(1198, style({
+        animate(1200, style({
           transform: 'scale(1.2)'
         }))
       ]),
@@ -161,7 +163,7 @@ import {state, style, trigger, transition, animate, keyframes, group} from "@ang
         animate(3000, style({
           transform: 'scale(1.6)',
         })),
-        animate(1498, style({
+        animate(1500, style({
           transform: 'scale(1.8)',
         })),
       ]),
@@ -176,7 +178,7 @@ import {state, style, trigger, transition, animate, keyframes, group} from "@ang
         animate(600, style({
           transform: 'scale(1.2)',
         })),
-        animate(1198, style({
+        animate(1200, style({
           transform: 'scale(1.2)'
         }))
       ])
@@ -225,7 +227,7 @@ export class HomeComponent implements OnInit {
   }
 
   toggleState() {
-    switch(this.counter){
+    switch (this.counter){
       case 0: {
         this.isLogoVisible = false;
         this.currentImageSource = this.imgSrc1;
@@ -257,7 +259,7 @@ export class HomeComponent implements OnInit {
   }
 
   onDone($event) {
-    if(this.counter === 3){
+    if (this.counter === 3){
       this.counter = 0;
     } else {
       this.counter++;

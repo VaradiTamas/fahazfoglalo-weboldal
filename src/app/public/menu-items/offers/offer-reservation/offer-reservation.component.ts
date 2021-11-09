@@ -1,12 +1,12 @@
 import { Component, OnInit } from '@angular/core';
-import {Booking} from "../../../../model/booking.model";
-import {Voucher} from "../../../../model/voucher.model";
-import {BookingService} from "../../../../services/booking.service";
-import {VoucherService} from "../../../../services/voucher.service";
-import {ActivatedRoute, Router} from "@angular/router";
-import {NgForm} from "@angular/forms";
-import {SecondCalendarService} from "../../../components/calendar/services/second-calendar-service";
-import {FirstCalendarService} from "../../../components/calendar/services/first-calendar-service";
+import {Booking} from '../../../../models/booking.model';
+import {Voucher} from '../../../../models/voucher.model';
+import {BookingService} from '../../../../services/booking.service';
+import {VoucherService} from '../../../../services/voucher.service';
+import {ActivatedRoute, Router} from '@angular/router';
+import {NgForm} from '@angular/forms';
+import {SecondCalendarService} from '../../../components/calendar/services/second-calendar-service';
+import {FirstCalendarService} from '../../../components/calendar/services/first-calendar-service';
 
 @Component({
   selector: 'app-offer-reservation',
@@ -43,8 +43,8 @@ export class OfferReservationComponent implements OnInit {
     this.toDate = chosenDate.date;
   }
 
-  onSubmit(form : NgForm){
-    if(form.invalid) {
+  onSubmit(form: NgForm){
+    if (form.invalid) {
       return;
     }
     const value = form.value;
@@ -63,10 +63,10 @@ export class OfferReservationComponent implements OnInit {
       voucherId: null,
       from: this.fromDate,
       to: this.toDate,
-      offerName: "hétköznapi"
+      offerName: 'hétköznapi'
     };
     this.bookingService.addBooking(formBooking);
     form.reset();
-    this.router.navigate(["/home"]);
+    this.router.navigate(['/home']);
   }
 }
