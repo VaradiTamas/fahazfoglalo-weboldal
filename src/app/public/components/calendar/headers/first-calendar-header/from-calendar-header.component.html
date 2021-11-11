@@ -4,4 +4,7 @@
   </button>
   <button *ngIf="isPreviousArrowDisabled" mat-icon-button></button>
   <span class="example-header-label">{{periodLabel}}</span>
+  <button *ngIf="!isNextArrowDisabled" mat-icon-button (click)="nextClicked()">
+    <mat-icon>keyboard_arrow_right</mat-icon>
+  </button>
 </div>

@@ -7,7 +7,7 @@ import {FromCalendarHeaderComponent} from '../headers/first-calendar-header/from
 import {ToCalendarHeaderComponent} from '../headers/second-calendar-header/to-calendar-header.component';
 
 @Component({
-  selector: 'app-from-calendar',
+  selector: 'app-calendar',
   templateUrl: './calendar-body.component.html',
   styleUrls: ['./calendar-body.component.css']
 })
@@ -43,18 +43,18 @@ export class CalendarBodyComponent implements OnInit, OnDestroy{
   dateFilter = (d: Date | null): boolean => true;
   dateClass: MatCalendarCellClassFunction<Date> = (cellDate, view) => '';
 
-  constructor(public fromDateService: FirstCalendarService, public toDateService: SecondCalendarService) { }
+  constructor(public firstCalendarService: FirstCalendarService, public secondCalendarService: SecondCalendarService) { }
 
   ngOnInit(): void {
     if (this.calendarType === 'first'){
       this.header = FromCalendarHeaderComponent;
-      this.fromDateService.getReservedDays(this.initialDate.getFullYear(), this.initialDate.getMonth());
+      this.firstCalendarService.getReservedDays(this.initialDate.getFullYear(), this.initialDate.getMonth());
       this.setFirstMonthView();
     } else if (this.calendarType === 'second'){
       this.header = ToCalendarHeaderComponent;
       this.initialDate.setMonth(this.initialDate.getMonth() + 1);
       console.log(this.initialDate);
-      this.toDateService.getReservedDays(this.initialDate.getFullYear(), this.initialDate.getMonth());
+      this.secondCalendarService.getReservedDays(this.initialDate.getFullYear(), this.initialDate.getMonth());
       this.setSecondMonthView();
     }
   }
@@ -264,11 +264,11 @@ export class CalendarBodyComponent implements OnInit, OnDestroy{
   addEvent(chosenDate: Date): void {
     this.setSelectedDates(chosenDate);
     if (this.calendarType === 'first'){
-      this.fromDateService.getReservedDays(chosenDate.getFullYear(), chosenDate.getMonth());
-      this.toDateService.selectedDateChanged(chosenDate);
+      this.firstCalendarService.getReservedDays(chosenDate.getFullYear(), chosenDate.getMonth());
+      this.secondCalendarService.selectedDateChanged(chosenDate);
     } else if (this.calendarType === 'second'){
-      this.toDateService.getReservedDays(chosenDate.getFullYear(), chosenDate.getMonth());
-      this.fromDateService.selectedDateChanged(chosenDate);
+      this.secondCalendarService.getReservedDays(chosenDate.getFullYear(), chosenDate.getMonth());
+      this.firstCalendarService.selectedDateChanged(chosenDate);
     }
     this.selectedStartDateChange.emit({date: this.selectedStartDate});
     this.selectedEndDateChange.emit({date: this.selectedEndDate});
@@ -565,24 +565,24 @@ export class CalendarBodyComponent implements OnInit, OnDestroy{
   }
 
   setFirstMonthView(): void{
-    this.selectedDateSubscription = this.fromDateService.getSelectedDateUpdateListener()
+    this.selectedDateSubscription = this.firstCalendarService.getSelectedDateUpdateListener()
       .subscribe((subData) => {
         this.setSelectedDates(subData.selectedDate);
-        this.fromDateService.getReservedDays(this.currentYear, this.currentMonth);
+        this.firstCalendarService.getReservedDays(this.currentYear, this.currentMonth);
       });
-    this.reservedDaysSubscription = this.fromDateService.getReservedDaysUpdateListener()
+    this.reservedDaysSubscription = this.firstCalendarService.getReservedDaysUpdateListener()
       .subscribe((subData) => {
         this.initSubscription(subData);
       });
   }
 
   setSecondMonthView(): void{
-    this.selectedDateSubscription = this.toDateService.getSelectedDateUpdateListener()
+    this.selectedDateSubscription = this.secondCalendarService.getSelectedDateUpdateListener()
       .subscribe((subData) => {
         this.setSelectedDates(subData.selectedDate);
-        this.toDateService.getReservedDays(this.currentYear, this.currentMonth);
+        this.secondCalendarService.getReservedDays(this.currentYear, this.currentMonth);
       });
-    this.reservedDaysSubscription = this.toDateService.getReservedDaysUpdateListener()
+    this.reservedDaysSubscription = this.secondCalendarService.getReservedDaysUpdateListener()
       .subscribe((subData) => {
         this.initSubscription(subData);
       });

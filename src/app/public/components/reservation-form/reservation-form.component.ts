@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, HostListener, OnInit, AfterViewInit} from '@angular/core';
 import {Voucher} from '../../../models/voucher.model';
 import {BookingService} from '../../../services/booking.service';
 import {VoucherService} from '../../../services/voucher.service';
@@ -11,7 +11,7 @@ import {Booking} from '../../../models/booking.model';
   templateUrl: './reservation-form.component.html',
   styleUrls: ['./reservation-form.component.css']
 })
-export class ReservationFormComponent implements OnInit {
+export class ReservationFormComponent implements OnInit, AfterViewInit {
   booking: Booking;
   voucher: Voucher;
   possessVoucher = false;
@@ -22,13 +22,49 @@ export class ReservationFormComponent implements OnInit {
   toDate: Date = null;
   public selectedTabIndex = 0;
   private numberOfRadioButtonThatIsSelected = 1;
+  mobileScreen = true;
+  personalDataLabel: string;
+  dateLabel: string;
+  guestsLabel: string;
+  bedroomsLabel: string;
 
   constructor(private bookingService: BookingService,
               private voucherService: VoucherService,
               public route: ActivatedRoute,
               public router: Router) {}
 
-  ngOnInit() {}
+  ngOnInit(): void {}
+
+  ngAfterViewInit(): void{
+    this.isMobileScreen();
+  }
+
+  @HostListener('window:resize', ['$event'])
+  onResize(event?): void {
+    this.isMobileScreen();
+  }
+
+  isMobileScreen(): void{
+    if (window.innerWidth <= 768){
+      if (this.selectedTabIndex === 0){
+        document.getElementById('secondCalendar').style.display = 'none';
+      }
+      this.personalDataLabel = '4';
+      this.dateLabel = '1';
+      this.guestsLabel = '3';
+      this.bedroomsLabel = '2';
+      this.mobileScreen = true;
+    } else {
+      if (this.selectedTabIndex === 0 ){
+        document.getElementById('secondCalendar').style.display = 'block';
+      }
+      this.personalDataLabel = 'Személyes adatok';
+      this.dateLabel = 'Időpont választása';
+      this.guestsLabel = 'Vendégek száma';
+      this.bedroomsLabel = 'Hálószobák száma';
+      this.mobileScreen = false;
+    }
+  }
 
   onRadioButtonSelected(numOfRadioButton: number): void{
     this.numberOfRadioButtonThatIsSelected = numOfRadioButton;
@@ -46,12 +82,12 @@ export class ReservationFormComponent implements OnInit {
     this.toDate = chosenDate.date;
   }
 
-  onNavigationButtonClicked(index: number): void{
-    this.selectedTabIndex = index;
-  }
-
   onVoucherClick(): void{
     this.possessVoucher = !this.possessVoucher;
+  }
+
+  onSelectedIndexChange(index: number): void{
+    this.selectedTabIndex = index;
   }
 
   onSubmit(form: NgForm): void{
