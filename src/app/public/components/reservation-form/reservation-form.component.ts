@@ -5,6 +5,7 @@ import {VoucherService} from '../../../services/voucher.service';
 import {ActivatedRoute, Router} from '@angular/router';
 import {NgForm} from '@angular/forms';
 import {Booking} from '../../../models/booking.model';
+import {formatDate} from '@angular/common';
 
 @Component({
   selector: 'app-reservation-form',
@@ -20,6 +21,8 @@ export class ReservationFormComponent implements OnInit, AfterViewInit {
   private bookingId: string = null;
   fromDate: Date = null;
   toDate: Date = null;
+  fromDateText = 'Mettől';
+  toDateText = 'Meddig';
   public selectedTabIndex = 0;
   private numberOfRadioButtonThatIsSelected = 1;
   mobileScreen = true;
@@ -76,10 +79,28 @@ export class ReservationFormComponent implements OnInit, AfterViewInit {
 
   onSelectedStartDateChanged(chosenDate: {date: Date}): void{
     this.fromDate = chosenDate.date;
+    this.setFromDateText();
   }
 
   onSelectedEndDateChanged(chosenDate: {date: Date}): void{
     this.toDate = chosenDate.date;
+    this.setToDateText();
+  }
+
+  setFromDateText(): void{
+    if (this.fromDate != null){
+      this.fromDateText = String(this.fromDate.getFullYear()) + '.' + String(this.fromDate.getMonth() + 1) + '.' + String(this.fromDate.getDate() + '.');
+    } else {
+      this.fromDateText = 'Mettől';
+    }
+  }
+
+  setToDateText(): void{
+    if (this.toDate != null){
+      this.toDateText = String(this.toDate.getFullYear()) + '.' + String(this.toDate.getMonth() + 1) + '.' + String(this.toDate.getDate() + '.');
+    } else {
+      this.toDateText = 'Meddig';
+    }
   }
 
   onVoucherClick(): void{
