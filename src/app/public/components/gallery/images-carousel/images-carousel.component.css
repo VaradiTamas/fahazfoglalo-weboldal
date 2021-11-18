@@ -1,4 +1,4 @@
-.gallery-carousel {
+.carousel {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -7,62 +7,56 @@
   left: 0;
   height: 100vh;
   width: 100vw;
-  background-color: rgba(100, 100, 100, 0.5);
-  backdrop-filter: blur(5px);
+  background-color: rgba(100, 100, 100, 0.7);
+  backdrop-filter: blur(10px);
+  margin: 0;
+  padding: 0;
 }
-.gallery-carousel .carousel-image {
-  background-color: #fff;
-  padding: 1.5rem;
+
+.carousel-image-container {
   position: relative;
   overflow: hidden;
+  height: 100%;
+  width: 100%;
+  margin: 0;
+  padding: 0;
 }
-@media (max-width: 576px) {
-  .gallery-carousel .carousel-image {
-    padding: 0.5rem;
-  }
+
+.row{
+  height: 100%;
 }
-.gallery-carousel .carousel-image img {
-  max-width: 50vw;
-  max-height: 70vh;
+
+.col-1, .col-10{
+  height: 100%;
+  text-align: center;
 }
-.gallery-carousel .carousel-image .carousel-button {
-  padding: 1.5rem;
-  position: absolute;
-  display: flex;
-  top: 0;
-  bottom: 0;
-  left: 0;
-  right: 0;
+
+.helper {
+  display: inline-block;
+  height: 100%;
+  vertical-align: middle;
 }
-.gallery-carousel .carousel-image .carousel-button span {
-  color: transparent;
-  display: flex;
-  align-items: center;
-  font-size: 3rem;
-  padding: 0.5rem;
-  flex-grow: 1;
+
+img {
+  vertical-align: middle;
+  object-fit: cover;
 }
-.gallery-carousel .carousel-image .carousel-button span:nth-child(3) {
-  justify-content: flex-end;
-}
-.gallery-carousel .carousel-image .carousel-button span:not(:nth-child(2)) {
+
+.navigation-button{
   cursor: pointer;
 }
-.gallery-carousel .carousel-image .carousel-button span:not(:nth-child(2)):focus, .gallery-carousel .carousel-image .carousel-button span:not(:nth-child(2)):hover {
-  border: none;
-  outline: none;
-  color: #fff;
-}
-.gallery-carousel .carousel-close {
-  position: absolute;
+
+.carousel-close {
+  position: fixed;
   top: 0;
-  left: 0;
+  right: 0;
   font-size: 1rem;
   padding: 1rem;
   margin: 1rem;
   cursor: pointer;
 }
-.gallery-carousel .carousel-close:focus, .gallery-carousel .carousel-close:hover {
+
+.carousel-close:focus, .carousel-close:hover {
   border: none;
   outline: none;
   color: #fff;

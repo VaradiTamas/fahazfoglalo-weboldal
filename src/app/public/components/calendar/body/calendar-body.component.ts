@@ -396,17 +396,17 @@ export class CalendarBodyComponent implements OnInit, OnDestroy{
         const date = cellDate.getDate();
 
         let isFullyReserved = false;
+        let isFullyChosen = false;
         let isFirstHalfReservedSecondHalfChosen = false;
         let isFirstHalfChosenSecondHalfReserved = false;
-        let isFullyChosen = false;
         let isFirstHalfFreeSecondHalfChosen = false;
         let isFirstHalfFreeSecondHalfReserved = false;
         let isFirstHalfReservedSecondHalfFree = false;
         let isFirstHalfChosenSecondHalfFree = false;
 
+        const fullyChosenDates: number[] = [];
         const firstHalfReservedSecondHalfChosen: number[] = [];
         const firstHalfChosenSecondHalfReserved: number[] = [];
-        const fullyChosenDates: number[] = [];
         const firstHalfFreeSecondHalfChosen: number[] = [];
         const firstHalfFreeSecondHalfReserved: number[] = [];
         const firstHalfReservedSecondHalfFree: number[] = [];

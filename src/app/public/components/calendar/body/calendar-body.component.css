@@ -55,6 +55,6 @@
   border-radius: 100%;
 }
 
-::ng-deep mat-calendar div.mat-calendar-content mat-month-view table tbody tr td div.mat-calendar-body-cell-content:hover {
-  background-color: yellow !important;
-}
+/*::ng-deep mat-calendar div.mat-calendar-content mat-month-view table tbody tr td div.mat-calendar-body-cell-content:hover {*/
+/*  background-color: yellow !important;*/
+/*}*/

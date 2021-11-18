@@ -1,10 +1,15 @@
-<div class="gallery-carousel" (click)="close()">
-  <div class="carousel-image" (click)="onEvent($event)">
-    <img [@slide-in]="animState" (@slide-in.done)="animDone()" [src]="images[animImage].path">
-    <div class="carousel-button">
-      <span tabindex="1" (keyup.enter)="previous()" (click)="previous()">&lt;</span>
-      <span></span>
-      <span tabindex="2" (keyup.enter)="next()" (click)="next()">&gt;</span>
+<div class="carousel" (click)="close()">
+  <div class="carousel-image-container" (click)="close()">
+    <div class="row justify-content-between align-items-center" (click)="close()">
+      <div class="col-1">
+        <span class="helper"></span><img class="navigation-button" src="./assets/icon/arrow_back.svg" tabindex="1" (keyup.enter)="previous($event)" (click)="previous($event)">
+      </div>
+      <div class="col-10">
+        <span class="helper"></span><img [@slide-in]="animState" (@slide-in.done)="animDone()" [src]="images[animImage].path">
+      </div>
+      <div class="col-1">
+        <span class="helper"></span><img class="navigation-button" src="./assets/icon/arrow_forward.svg" tabindex="2" (keyup.enter)="next($event)" (click)="next($event)">
+      </div>
     </div>
   </div>
   <span class="carousel-close" tabindex="3" (click)="close()">close</span>

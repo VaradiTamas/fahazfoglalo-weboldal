@@ -1,11 +1,11 @@
-@media (max-width: 768px){
+@media (max-width: 767px){
   .gallery {
     display: grid;
     grid-template-columns: 1fr;
     margin: 0 auto;
   }
 }
-@media (min-width: 769px){
+@media (min-width: 768px){
   .gallery {
     display: grid;
     grid-template-columns: 1fr 1fr;

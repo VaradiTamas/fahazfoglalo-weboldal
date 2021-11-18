@@ -57,13 +57,15 @@ export class ImagesCarouselComponent implements OnInit {
     this.closeCarousel.emit();
   }
 
-  public previous(): void{
+  public previous(event: Event): void{
+    event.stopPropagation();
     this.animState = 'left';
     this.selectedImage = this.selectedImage > 0 ? this.selectedImage - 1 : this.images.length - 1;
     this.blur();
   }
 
-  public next(): void{
+  public next(event: Event): void{
+    event.stopPropagation();
     this.animState = 'right';
     this.selectedImage = this.selectedImage < this.images.length - 1 ? this.selectedImage + 1 : 0;
     this.blur();
@@ -72,10 +74,6 @@ export class ImagesCarouselComponent implements OnInit {
   public animDone(): void{
     this.animImage = this.selectedImage;
     this.animState = 'middle';
-  }
-
-  public onEvent(event: Event): void{
-    event.stopPropagation();
   }
 
   private blur(): void{
