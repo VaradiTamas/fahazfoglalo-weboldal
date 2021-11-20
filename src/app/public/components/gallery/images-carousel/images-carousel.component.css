@@ -11,6 +11,7 @@
   backdrop-filter: blur(10px);
   margin: 0;
   padding: 0;
+  z-index: 1020;
 }
 
 .carousel-image-container {
@@ -47,18 +48,18 @@ img {
 }
 
 .carousel-close {
+  width: 5rem;
+  height: 5rem;
   position: fixed;
   top: 0;
   right: 0;
-  font-size: 1rem;
   padding: 1rem;
-  margin: 1rem;
+  margin: 2rem;
   cursor: pointer;
 }
 
 .carousel-close:focus, .carousel-close:hover {
   border: none;
   outline: none;
-  color: #fff;
-  transform: scale(1.2);
+  transform: scale(1.3);
 }

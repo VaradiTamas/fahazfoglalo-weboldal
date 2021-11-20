@@ -2,6 +2,10 @@
   flex: 1 1 auto;
 }
 
+.sticky-top{
+  z-index: 3!important;
+}
+
 .logo{
   width: 9rem;
   height: 6rem;
