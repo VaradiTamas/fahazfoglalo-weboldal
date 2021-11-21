@@ -1,14 +1,10 @@
-button{
-  float: left;
-}
-
 .container{
-  margin: 10px;
+  max-width: 100%;
+  position: relative;
 }
 
-.btn-save{
-  position: fixed;
-  bottom: 0;
+.button{
+  position: absolute;
   right: 0;
-  margin: 30px;
+  bottom: 0;
 }

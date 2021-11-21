@@ -1,4 +1,4 @@
-import {Component, HostListener, OnInit, AfterViewInit} from '@angular/core';
+import {Component, HostListener, OnInit, AfterViewInit, Input} from '@angular/core';
 import {Voucher} from '../../../models/voucher.model';
 import {BookingService} from '../../../services/booking.service';
 import {VoucherService} from '../../../services/voucher.service';
@@ -13,6 +13,7 @@ import {formatDate} from '@angular/common';
   styleUrls: ['./reservation-form.component.css']
 })
 export class ReservationFormComponent implements OnInit, AfterViewInit {
+  @Input() packageType: string;
   booking: Booking;
   voucher: Voucher;
   possessVoucher = false;
@@ -120,7 +121,7 @@ export class ReservationFormComponent implements OnInit, AfterViewInit {
     if (this.isVoucherValid){
       offerName = 'voucher';
     }else{
-      offerName = 'általános';
+      offerName = this.packageType;
     }
     const formBooking = {
       id: this.bookingId,
