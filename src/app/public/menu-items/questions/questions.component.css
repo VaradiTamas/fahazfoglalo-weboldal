@@ -6,9 +6,8 @@ p{
   margin-left: 30px;
 }
 
-div{
+.mat-expansion-panel{
   border: black;
   border-style: solid;
   border-radius: 15px;
-  margin: 10px 200px 10px 200px;
 }
