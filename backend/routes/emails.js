@@ -5,11 +5,11 @@ const generateQRCodeMW = require("../middleware/email/generate-qr-code-middlewar
 const sendBookingConfirmationEmailMW = require('../middleware/email/send-booking-confirmation-email-middleware');
 const sendPaymentConfirmationEmailMW = require('../middleware/email/send-payment-confirmation-email-middleware');
 
-router.post('/sendBookingConfirmationEmail',
+router.post('/send-booking-confirmation-email',
   sendBookingConfirmationEmailMW
 );
 
-router.post('/sendPaymentConfirmationEmail',
+router.post('/send-payment-confirmation-email',
   generateQRCodeMW,
   sendPaymentConfirmationEmailMW
 );

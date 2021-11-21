@@ -56,12 +56,12 @@ export class BookingService{
   }
 
   sendBookingConfirmationEmail(booking: Booking): void{
-    this.http.post(BACKEND_URL + 'emails/sendBookingConfirmationEmail', booking)
+    this.http.post(BACKEND_URL + 'emails/send-booking-confirmation-email', booking)
       .subscribe((responseData) => {});
   }
 
   sendPaymentConfirmationEmail(booking: Booking): void{
-    this.http.post(BACKEND_URL + 'emails/sendPaymentConfirmationEmail', booking)
+    this.http.post(BACKEND_URL + 'emails/send-payment-confirmation-email', booking)
       .subscribe((responseData) => {});
   }
 
