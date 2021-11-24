@@ -92,7 +92,7 @@ export class BookingService{
       numOfBedrooms: number,
       comment: string,
       isPaid: boolean
-    }>(BACKEND_URL + '/bookings/' + id);
+    }>(BACKEND_URL + 'bookings/' + id);
   }
 
   getBookingUpdateListener(){

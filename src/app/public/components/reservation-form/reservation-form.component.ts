@@ -5,7 +5,6 @@ import {VoucherService} from '../../../services/voucher.service';
 import {ActivatedRoute, Router} from '@angular/router';
 import {NgForm} from '@angular/forms';
 import {Booking} from '../../../models/booking.model';
-import {formatDate} from '@angular/common';
 
 @Component({
   selector: 'app-reservation-form',
@@ -117,11 +116,11 @@ export class ReservationFormComponent implements OnInit, AfterViewInit {
       return;
     }
     const value = form.value;
-    let offerName: string;
+    let offerType: string;
     if (this.isVoucherValid){
-      offerName = 'voucher';
+      offerType = 'voucher';
     }else{
-      offerName = this.packageType;
+      offerType = this.packageType;
     }
     const formBooking = {
       id: this.bookingId,
@@ -137,7 +136,7 @@ export class ReservationFormComponent implements OnInit, AfterViewInit {
       voucherId: this.voucher?.id,
       from: this.fromDate,
       to: this.toDate,
-      offerName: offerName
+      offerName: offerType
     };
     this.bookingService.addBooking(formBooking);
     this.bookingService.sendBookingConfirmationEmail(formBooking);
