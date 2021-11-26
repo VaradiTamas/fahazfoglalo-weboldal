@@ -1,11 +1,10 @@
-import {Component, HostListener, OnInit, AfterViewInit} from '@angular/core';
+import {Component, HostListener, OnInit, AfterViewInit, Input} from '@angular/core';
 import {Voucher} from '../../../models/voucher.model';
 import {BookingService} from '../../../services/booking.service';
 import {VoucherService} from '../../../services/voucher.service';
 import {ActivatedRoute, Router} from '@angular/router';
 import {NgForm} from '@angular/forms';
 import {Booking} from '../../../models/booking.model';
-import {formatDate} from '@angular/common';
 
 @Component({
   selector: 'app-reservation-form',
@@ -13,6 +12,7 @@ import {formatDate} from '@angular/common';
   styleUrls: ['./reservation-form.component.css']
 })
 export class ReservationFormComponent implements OnInit, AfterViewInit {
+  @Input() packageType: string;
   booking: Booking;
   voucher: Voucher;
   possessVoucher = false;
@@ -116,11 +116,11 @@ export class ReservationFormComponent implements OnInit, AfterViewInit {
       return;
     }
     const value = form.value;
-    let offerName: string;
+    let offerType: string;
     if (this.isVoucherValid){
-      offerName = 'voucher';
+      offerType = 'voucher';
     }else{
-      offerName = 'általános';
+      offerType = this.packageType;
     }
     const formBooking = {
       id: this.bookingId,
@@ -136,7 +136,7 @@ export class ReservationFormComponent implements OnInit, AfterViewInit {
       voucherId: this.voucher?.id,
       from: this.fromDate,
       to: this.toDate,
-      offerName: offerName
+      offerName: offerType
     };
     this.bookingService.addBooking(formBooking);
     this.bookingService.sendBookingConfirmationEmail(formBooking);

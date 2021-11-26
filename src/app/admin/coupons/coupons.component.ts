@@ -1,4 +1,4 @@
-import {Component, OnDestroy, OnInit} from '@angular/core';
+import {AfterViewInit, Component, HostListener, OnDestroy, OnInit} from '@angular/core';
 import {Subscription} from 'rxjs';
 import {Voucher} from '../../models/voucher.model';
 import {VoucherService} from '../../services/voucher.service';
@@ -9,7 +9,7 @@ import {PageEvent} from '@angular/material/paginator';
   templateUrl: './coupons.component.html',
   styleUrls: ['./coupons.component.css']
 })
-export class CouponsComponent implements OnInit, OnDestroy {
+export class CouponsComponent implements OnInit, OnDestroy, AfterViewInit {
   vouchers: Voucher[] = [];
   isLoading = false;
   totalVouchers = 0;
@@ -17,7 +17,10 @@ export class CouponsComponent implements OnInit, OnDestroy {
   currentPage = 1;
   pageSizeOptions = [1, 2, 5, 10];
   serialNum: any;
-  private vouchersSubscription: Subscription;
+  vouchersSubscription: Subscription;
+  biggerThanMediumScreen = false;
+  biggerThanLargeScreen = false;
+  biggerThanXLargeScreen = false;
 
   constructor(public voucherService: VoucherService) { }
 
@@ -30,6 +33,35 @@ export class CouponsComponent implements OnInit, OnDestroy {
         this.totalVouchers = voucherData.voucherCount;
         this.vouchers = voucherData.vouchers;
       });
+  }
+
+  ngAfterViewInit(): void{
+    this.isMobileScreen();
+  }
+
+  @HostListener('window:resize', ['$event'])
+  onResize(event?): void {
+    this.isMobileScreen();
+  }
+
+  isMobileScreen(): void{
+    if (window.innerWidth > 1550){
+      this.biggerThanXLargeScreen = true;
+      this.biggerThanMediumScreen = true;
+      this.biggerThanLargeScreen = true;
+    } else if (window.innerWidth > 1200){
+      this.biggerThanXLargeScreen = false;
+      this.biggerThanMediumScreen = true;
+      this.biggerThanLargeScreen = true;
+    } else if (window.innerWidth > 992) {
+      this.biggerThanXLargeScreen = false;
+      this.biggerThanMediumScreen = true;
+      this.biggerThanLargeScreen = false;
+    } else {
+      this.biggerThanXLargeScreen = false;
+      this.biggerThanMediumScreen = false;
+      this.biggerThanLargeScreen = false;
+    }
   }
 
   onChangedPage(pageData: PageEvent): void{

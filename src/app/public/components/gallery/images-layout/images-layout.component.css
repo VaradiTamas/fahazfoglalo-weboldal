@@ -72,3 +72,7 @@
 .gallery span:hover {
   opacity: 1;
 }
+
+app-images-carousel{
+  z-index: 4;
+}

@@ -1,7 +1,7 @@
 <mat-spinner *ngIf="isLoading"></mat-spinner>
 
 <div *ngIf="!isLoading">
-  <nav class="navbar">
+  <nav class="navbar pt-4">
     <input
       name="serialNum"
       class="form-control"
@@ -11,86 +11,57 @@
       placeholder="Írd be a sorszámot a kereséshez...">
   </nav>
 
-  <div class="container" *ngFor="let voucher of vouchers">
-    <div class="row mt-4 ml-2">
-      <div class="col-11">
+  <div class="container-fluid pt-5" *ngFor="let voucher of vouchers">
+    <div class="row justify-content-center mb-4">
+      <div class="col-10 col-md-11 col-lg-10 col-xl-9">
         <mat-expansion-panel>
           <mat-expansion-panel-header>
-            <div class="col-3">
-              <b>Sorszám:</b>
-              {{voucher.id}}
-            </div>
-            <div class="col-2">
-              <b>Név:</b>
-              {{voucher.firstName}} {{voucher.lastName}}
-            </div>
-            <div class="col-2">
-              <b>Tel:</b>
-              {{voucher.tel}}
-            </div>
-            <div class="col-3">
-              <b>E-mail:</b>
-              {{voucher.email}}
-            </div>
-            <div class="col-1">
-              <div *ngIf="voucher.isPaid" class="paid">Fizetve</div>
-              <div *ngIf="!voucher.isPaid" class="notPaid">Nincs fizetve</div>
+            <div class="container-fluid">
+              <div class="row">
+                <div class="col-12 col-lg-6 col-xl-5">
+                  <b>Sorszám:</b> &nbsp; {{voucher.id}}
+                </div>
+                <div *ngIf="biggerThanMediumScreen" class="col-lg-6 col-xl-3">
+                  <b>Név:</b> &nbsp; {{voucher.firstName}} {{voucher.lastName}}
+                </div>
+                <div *ngIf="biggerThanLargeScreen" class="col-xl-4">
+                  <b>E-mail:</b> &nbsp; {{voucher.email}}
+                </div>
+              </div>
             </div>
           </mat-expansion-panel-header>
-          <div class="row">
-            <div class="col-1 address">
-              Cím:
-            </div>
-            <div class="col-4">
-              <div class="row">
-                <div class="col-12">
-                  {{voucher.country}}
-                </div>
-                <div class="col-12">
-                  {{voucher.postcode}} {{voucher.city}}, {{voucher.address}}
-                </div>
+          <div class="container-fluid">
+            <div class="row">
+              <div class="col-12 col-md-6 col-xl-4">
+                <b>Cím:</b> &nbsp; {{voucher.country}}, {{voucher.postcode}} {{voucher.city}}, {{voucher.address}}
               </div>
-            </div>
-            <div class="col-1 details">
-              Adatok:
-            </div>
-            <div class="col-2">
-              <div class="row">
-                <div class="col-8 pl-4">
-                  Éjszakák száma:
-                </div>
-                <div class="col-4 pl-2">
-                  {{voucher.numOfNights}}
-                </div>
-                <div class="col-8 pl-4">
-                  Hálószobák száma:
-                </div>
-                <div class="col-4 pl-2">
-                  {{voucher.numOfBedrooms}}
-                </div>
+              <div class="col-12 col-md-6 col-xl-4">
+                <b>Tel:</b> &nbsp; {{voucher.tel}}
               </div>
-            </div>
-            <div class="col-2">
-              <div class="row">
-                <div class="col-8 pl-4">
-                  Felnőttek száma:
-                </div>
-                <div class="col-4 pl-2">
-                  {{voucher.numOfAdults}}
-                </div>
-                <div class="col-8 pl-4">
-                  Gyerekek száma:
-                </div>
-                <div class="col-4 pl-2">
-                  {{voucher.numOfChildren}}
-                </div>
+              <div *ngIf="!biggerThanMediumScreen" class="col-12 col-md-6 col-xl-4">
+                <b>Név:</b> &nbsp; {{voucher.firstName}} {{voucher.lastName}}
+              </div>
+              <div *ngIf="!biggerThanLargeScreen" class="col-12 col-md-6 col-xl-4">
+                <b>E-mail:</b> &nbsp; {{voucher.email}}
+              </div>
+              <div class="col-12 col-md-6 col-xl-4">
+                <b>Éjszakák száma:</b> &nbsp; {{voucher.numOfNights}}
+              </div>
+              <div class="col-12 col-md-6 col-xl-4">
+                <b>Hálószobák száma:</b> &nbsp; {{voucher.numOfBedrooms}}
+              </div>
+              <div class="col-12 col-md-6 col-xl-4">
+                <b>Felnőttek száma:</b> &nbsp; {{voucher.numOfAdults}}
+              </div>
+              <div class="col-12 col-md-6 col-xl-4">
+                <b>Gyerekek száma:</b> &nbsp; {{voucher.numOfChildren}}
               </div>
             </div>
           </div>
         </mat-expansion-panel>
       </div>
 
-      <div class="col-1 d-flex justify-content-center align-items-center justify-content-around">
+      <div class="col-2 col-md-1 d-flex justify-content-center align-items-center justify-content-around">
         <a [routerLink]="['/admin/vouchers/edit', voucher.id]">
           <img src="assets/icon/edit.svg">
         </a>

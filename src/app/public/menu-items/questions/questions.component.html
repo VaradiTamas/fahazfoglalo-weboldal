@@ -1,11 +1,17 @@
-<app-app-page-title [title]="'Gyakori kérdések'" [imgPath]="'assets/icon/fah.jpg'"></app-app-page-title>
+<app-app-page-title [title]="'GYIK'" [imgPath]="'assets/icon/fah.jpg'"></app-app-page-title>
 
-<div *ngFor="let faq of FAQs">
-  <mat-expansion-panel>
-    <mat-expansion-panel-header>
-      {{faq.question}}
-    </mat-expansion-panel-header>
-      {{faq.answer}}
-  </mat-expansion-panel>
+<div class="container-fluid pt-5">
+  <div *ngFor="let faq of FAQs">
+    <div class="row justify-content-center">
+      <div class="col-11 col-sm-10 col-md-9 col-lg-8 col-xl-7 p-2">
+        <mat-expansion-panel>
+          <mat-expansion-panel-header>
+            {{faq.question}}
+          </mat-expansion-panel-header>
+          {{faq.answer}}
+        </mat-expansion-panel>
+      </div>
+    </div>
+  </div>
 </div>
-<br>
+

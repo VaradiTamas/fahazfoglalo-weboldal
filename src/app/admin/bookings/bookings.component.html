@@ -1,76 +1,66 @@
 <mat-spinner *ngIf="isLoading"></mat-spinner>
-<div *ngIf="!isLoading">
-  <br>
-  <br>
-  <div *ngFor="let booking of bookings">
-    <div class="container">
-      <div class="row mb-4 ml-2">
-        <div class="col-1">
-          <button class="btn-light" (click)="onConfirmBooking(booking)">Megerősítés</button>
-        </div>
-        <div class="col-10">
-          <mat-expansion-panel>
-            <mat-expansion-panel-header>
-              <div class="col-1 date">
-                {{booking.from.substring(0,10)}}
+
+<div class="pt-5" *ngIf="!isLoading">
+  <div class="container-fluid" *ngFor="let booking of bookings">
+    <div class="row justify-content-center mb-4">
+      <div class="col-2 col-xl-1">
+        <button *ngIf="!biggerThanXLargeScreen" class="btn btn-outline-primary" (click)="onConfirmBooking(booking)">Ok</button>
+        <button *ngIf="biggerThanXLargeScreen" class="btn btn-outline-primary" (click)="onConfirmBooking(booking)">Megerősítés</button>
+      </div>
+
+      <div class="col-8 col-md-9 col-xl-8">
+        <mat-expansion-panel>
+          <mat-expansion-panel-header>
+            <div class="container-fluid">
+              <div class="row">
+                <div class="col-12 col-lg-6 col-xl-4">
+                  {{booking.from.substring(0,10)}} &nbsp; - &nbsp; {{booking.to.substring(0,10)}}
+                </div>
+                <div *ngIf="biggerThanMediumScreen" class="col-lg-6 col-xl-4">
+                  <b>Név:</b> &nbsp; {{booking.lastName}} {{booking.firstName}}
+                </div>
+                <div *ngIf="biggerThanLargeScreen" class="col-xl-4">
+                  <b>Tel:</b> {{booking.tel}}
+                </div>
               </div>
-              <div>-</div>
-              <div class="col-1 date">
-                {{booking.to.substring(0,10)}}
+            </div>
+          </mat-expansion-panel-header>
+          <div class="container-fluid">
+            <div class="row pt-3">
+              <div class="col-12 col-md-6 col-xl-4">
+                <b>Felnőttek száma:</b> {{booking.numOfAdults}}
               </div>
-              <div class="col-3">
-                <b>Név:</b>
-                {{booking.lastName}} {{booking.firstName}}
+              <div class="col-12 col-md-6 col-xl-4">
+                <b>Gyerekek száma:</b> {{booking.numOfChildren}}
               </div>
-              <div class="col-2">
-                <b>E-mail:</b>
-                {{booking.email}}
+              <div class="col-12 col-md-6 col-xl-4">
+                <b>Hálószobák száma:</b> {{booking.numOfBedrooms}}
               </div>
-              <div class="col-2">
-                <b>Tel:</b>
-                {{booking.tel}}
-              </div>
-              <div class="col-2">
-                {{booking.offerName}}
+              <div class="col-12 col-md-6 col-xl-4">
+                <b>Csomag típusa:</b> {{booking.offerName}}
                 <div *ngIf="booking.offerName == 'voucher'">
                   <b>Id:</b>
                   {{booking.voucherId}}
                 </div>
               </div>
-              <div class="col-1">
-                <div *ngIf="booking.isPaid" class="paid">Fizetve</div>
-                <div *ngIf="!booking.isPaid" class="notPaid">Nincs fizetve</div>
+              <div class="col-12 col-md-6 col-xl-4">
+                <b>E-mail:</b> {{booking.email}}
               </div>
-            </mat-expansion-panel-header>
-            <div class="row mt-3">
-              <div class="col-2">
-                <b>Felnőttek száma:</b>
-                {{booking.numOfAdults}}
-              </div>
-              <div class="col-2">
-                <b>Gyerekek száma:</b>
-                {{booking.numOfChildren}}
-              </div>
-              <div class="col-2">
-                <b>Hálószobák száma:</b>
-                {{booking.numOfBedrooms}}
-              </div>
-              <div class="col-5">
-                <b>Megjegyzés:</b>
-                {{booking.comment}}
+              <div class="col-12 col-md-6 col-xl-4">
+                <b>Megjegyzés:</b> {{booking.comment}}
               </div>
             </div>
-          </mat-expansion-panel>
-        </div>
+          </div>
+        </mat-expansion-panel>
+      </div>
 
-        <div class="col-1 d-flex justify-content-center align-items-center justify-content-around">
-          <a [routerLink]="['/admin/bookings/edit', booking.id]">
-            <img class="edit_icon" src="assets/icon/edit.svg">
-          </a>
-          <a (click)="onDelete(booking.id)" class="icon">
-            <img class="delete_icon" src="assets/icon/delete.svg">
-          </a>
-        </div>
+      <div class="col-2 col-md-1 d-flex justify-content-center align-items-center justify-content-around">
+        <a [routerLink]="['/admin/bookings/edit', booking.id]">
+          <img class="edit_icon" src="assets/icon/edit.svg">
+        </a>
+        <a (click)="onDelete(booking.id)" class="icon">
+          <img class="delete_icon" src="assets/icon/delete.svg">
+        </a>
       </div>
     </div>
   </div>
