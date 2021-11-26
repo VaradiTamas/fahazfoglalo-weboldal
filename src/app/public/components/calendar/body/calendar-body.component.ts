@@ -261,7 +261,7 @@ export class CalendarBodyComponent implements OnInit, OnDestroy{
     return isThere;
   }
 
-  addEvent(chosenDate: Date): void {
+  onSelectedDateChange(chosenDate: Date): void {
     this.setSelectedDates(chosenDate);
     if (this.calendarType === 'first'){
       this.firstCalendarService.getReservedDays(chosenDate.getFullYear(), chosenDate.getMonth());
