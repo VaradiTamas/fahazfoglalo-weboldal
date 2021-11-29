@@ -36,13 +36,14 @@ import {AdminLayoutComponent} from '../layout/admin-layout/admin-layout.componen
     LoginComponent,
     AdminLayoutComponent,
   ],
-  exports: [
-    BookingsComponent,
-    NavbarComponent,
-    CouponsComponent,
-    NewBookingComponent,
-    NewCouponComponent,
-    LoginComponent
-  ]
+    exports: [
+        BookingsComponent,
+        NavbarComponent,
+        CouponsComponent,
+        NewBookingComponent,
+        NewCouponComponent,
+        LoginComponent,
+        AdminLayoutComponent
+    ]
 })
 export class AdminModule { }

@@ -39,6 +39,7 @@
     "express": "^4.17.1",
     "express-handlebars": "^5.3.4",
     "font-awesome": "^4.7.0",
+    "googleapis": "^91.0.0",
     "hammerjs": "^2.0.8",
     "handlebars": "^4.7.7",
     "jquery": "^3.6.0",

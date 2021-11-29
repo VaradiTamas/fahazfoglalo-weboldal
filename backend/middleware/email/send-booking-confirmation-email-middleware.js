@@ -21,13 +21,13 @@ const sendBookingConfirmationEmail = (bookingData, callback) => {
     port: 587,
     secure: false,
     auth: {
-      user: "varadi.thomas@gmail.com",
-      pass: "98Ujjelszo89"
+      user: process.env.NODEMAILER_USER,
+      pass: process.env.NODEMAILER_PASS
     }
   });
 
   const mailOptions = {
-    from: `"Tamas Varadi", "varadi.thomas@gmail.com"`,
+    from: `"Sweet Farm", "sweetfarmeger@gmail.com"`,
     to: bookingData.email,
     subject: "Foglalás visszaigazolás",
     html: "<h1>Kedves foglalas megerositese</h1>"

@@ -1,7 +1,16 @@
 const nodemailer = require("nodemailer");
+const { google } = require('googleapis');
 const hbs = require("nodemailer-express-handlebars");
 const fs = require("fs");
 const {PDFDocument} = require("pdf-lib");
+
+const CLIENT_ID = '619501356972-9qti0t3jpr7rnqvi85rk0o1e10qb9qah.apps.googleusercontent.com';
+const CLIENT_SECRET = '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';
+const REFRESH_TOKEN = '1//042_hW6uPCrErCgYIARAAGAQSNwF-L9IrMwTGLJjBAjryXLljLDICZXl9U6emlcAZZ7ZZh-bMmZgzTSoCB2XEXW2uiYHDHNPRiQE';
+const REDIRECT_URI = 'https://developers.google.com/oauthplayground';
+
+const oAuth2Client = new google.auth.OAuth2(CLIENT_ID, CLIENT_SECRET, REDIRECT_URI);
+oAuth2Client.setCredentials({refresh_token: REFRESH_TOKEN});
 
 module.exports = (req, res, next) => {
   console.log('email sending request came');
@@ -21,14 +30,17 @@ module.exports = (req, res, next) => {
   });
 };
 
-const sendPaymentConfirmationEmail = (bookingData, callback) => {
+const sendPaymentConfirmationEmail = async (bookingData, callback) => {
+  const accessToken = await oAuth2Client.getAccessToken();
   const transporter = nodemailer.createTransport({
-    host: "smtp.gmail.com",
-    port: 587,
-    secure: false,
+    service: 'gmail',
     auth: {
-      user: "varadi.thomas@gmail.com",
-      pass: "98Ujjelszo89"
+      type: 'OAuth2',
+      user: 'sweetfarmeger@gmail.com',
+      clientId: CLIENT_ID,
+      clientSecret: CLIENT_SECRET,
+      refreshToken: REFRESH_TOKEN,
+      accessToken: accessToken
     }
   });
 
@@ -41,7 +53,7 @@ const sendPaymentConfirmationEmail = (bookingData, callback) => {
   );
 
   const mailOptions = {
-    from: `"Tamas Varadi", "varadi.thomas@gmail.com"`,
+    from: `"Sweet Farm", "sweetfarmeger@gmail.com"`,
     to: bookingData.email,
     subject: "Foglalás visszaigazolás",
     attachments: [
@@ -67,8 +79,8 @@ async function modifyPdf() {
     const pages = pdfDoc.getPages()
 
     pages[0].drawImage(pngImage, {
-      x: pages[0].getWidth() / 2 - pngDims.width / 2 + 75,
-      y: pages[0].getHeight() / 2 - pngDims.height + 250,
+      x: pages[0].getWidth() - pngDims.width -50,
+      y: pages[0].getHeight() - pngDims.height - 50,
       width: pngDims.width,
       height: pngDims.height,
     })

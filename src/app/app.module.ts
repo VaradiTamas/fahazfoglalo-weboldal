@@ -14,7 +14,6 @@ import { PricesComponent } from './public/menu-items/prices/prices.component';
 import { QuestionsComponent } from './public/menu-items/questions/questions.component';
 import { AboutUsComponent } from './public/menu-items/about-us/about-us.component';
 import { ReservationComponent } from './public/menu-items/reservation/reservation.component';
-import { VoucherManagingComponent } from './public/menu-items/reservation/voucher-managing/voucher-managing.component';
 import { HomeComponent } from './public/menu-items/home/home.component';
 import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -40,6 +39,11 @@ import { FromCalendarHeaderComponent } from './public/components/calendar/header
 import { ToCalendarHeaderComponent } from './public/components/calendar/headers/second-calendar-header/to-calendar-header.component';
 import { CalendarBodyComponent } from './public/components/calendar/body/calendar-body.component';
 import {ReservationFormComponent} from './public/components/reservation-form/reservation-form.component';
+import { ReservationFormStepperComponent } from './public/components/reservation-form/reservation-form-stepper/reservation-form-stepper.component';
+import { ReservationFormDateComponent } from './public/components/reservation-form/reservation-form-steps/reservation-form-date/reservation-form-date.component';
+import { ReservationFormBedroomsComponent } from './public/components/reservation-form/reservation-form-steps/reservation-form-bedrooms/reservation-form-bedrooms.component';
+import { ReservationFormGuestsComponent } from './public/components/reservation-form/reservation-form-steps/reservation-form-guests/reservation-form-guests.component';
+import { ReservationFormDataComponent } from './public/components/reservation-form/reservation-form-steps/reservation-form-data/reservation-form-data.component';
 
 @NgModule({
   imports: [
@@ -64,7 +68,6 @@ import {ReservationFormComponent} from './public/components/reservation-form/res
     QuestionsComponent,
     AboutUsComponent,
     ReservationComponent,
-    VoucherManagingComponent,
     HomeComponent,
     AppLayoutComponent,
     ErrorDialogComponent,
@@ -85,7 +88,12 @@ import {ReservationFormComponent} from './public/components/reservation-form/res
     PopupTelephoneDialogComponent,
     ImagesCarouselComponent,
     HouseComponent,
-    ReservationFormComponent
+    ReservationFormComponent,
+    ReservationFormStepperComponent,
+    ReservationFormDateComponent,
+    ReservationFormBedroomsComponent,
+    ReservationFormGuestsComponent,
+    ReservationFormDataComponent,
   ],
   providers: [
     {provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true},
