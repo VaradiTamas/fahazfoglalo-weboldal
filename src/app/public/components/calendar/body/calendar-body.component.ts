@@ -5,6 +5,7 @@ import {FirstCalendarService} from '../services/first-calendar-service';
 import {SecondCalendarService} from '../services/second-calendar-service';
 import {FromCalendarHeaderComponent} from '../headers/first-calendar-header/from-calendar-header.component';
 import {ToCalendarHeaderComponent} from '../headers/second-calendar-header/to-calendar-header.component';
+import {ReservationFormStepsService} from "../../reservation-form/reservation-form-steps/reservation-form-steps.service";
 
 @Component({
   selector: 'app-calendar',
@@ -12,12 +13,11 @@ import {ToCalendarHeaderComponent} from '../headers/second-calendar-header/to-ca
   styleUrls: ['./calendar-body.component.css']
 })
 export class CalendarBodyComponent implements OnInit, OnDestroy{
-  @Output() selectedStartDateChange = new EventEmitter<{date: Date}>();
-  @Output() selectedEndDateChange = new EventEmitter<{date: Date}>();
   @Input() calendarType: string;
+  @Input() selectedStartDate: Date;
+  @Input() selectedEndDate: Date;
+  initialDate = new Date();
   isLoaded = false;
-  selectedStartDate: Date = null;
-  selectedEndDate: Date = null;
   private onlySecondHalfOfTheDayIsReservedPreviousMonth: number[] = [];
   private fullyReservedDatesPreviousMonth: number[] = [];
   private onlyFirstHalfOfTheDayIsReservedPreviousMonth: number[] = [];
@@ -30,7 +30,6 @@ export class CalendarBodyComponent implements OnInit, OnDestroy{
   private lastDayOfPreviousMonth: number;
   private lastDayOfCurrentMonth: number;
   private lastDayOfNextMonth: number;
-  private initialDate = new Date();
   private header;
   private currentYear: number;
   private previousMonthYear: number;
@@ -43,7 +42,9 @@ export class CalendarBodyComponent implements OnInit, OnDestroy{
   dateFilter = (d: Date | null): boolean => true;
   dateClass: MatCalendarCellClassFunction<Date> = (cellDate, view) => '';
 
-  constructor(public firstCalendarService: FirstCalendarService, public secondCalendarService: SecondCalendarService) { }
+  constructor(public firstCalendarService: FirstCalendarService,
+              public secondCalendarService: SecondCalendarService,
+              public reservationFormStepsService: ReservationFormStepsService) { }
 
   ngOnInit(): void {
     if (this.calendarType === 'first'){
@@ -270,8 +271,8 @@ export class CalendarBodyComponent implements OnInit, OnDestroy{
       this.secondCalendarService.getReservedDays(chosenDate.getFullYear(), chosenDate.getMonth());
       this.firstCalendarService.selectedDateChanged(chosenDate);
     }
-    this.selectedStartDateChange.emit({date: this.selectedStartDate});
-    this.selectedEndDateChange.emit({date: this.selectedEndDate});
+    this.reservationFormStepsService.fromDateIsChanged(this.selectedStartDate);
+    this.reservationFormStepsService.toDateIsChanged(this.selectedEndDate);
   }
 
   private setReservedDates(reservedDates: number[], month: string): void{

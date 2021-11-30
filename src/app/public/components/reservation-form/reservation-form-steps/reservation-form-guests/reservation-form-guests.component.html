@@ -12,6 +12,7 @@
           </div>
           <div class="col-3">
             <input
+              #numOfChildren
               name="numOfChildren"
               type="number"
               min="0"
@@ -19,7 +20,7 @@
               max="4"
               id="numOfChildren"
               class="form-control"
-              [ngModel]="booking == null ? 0 : booking.numOfChildren"
+              [ngModel]="booking.numOfChildren == null ? 0 : booking.numOfChildren"
               required>
           </div>
           <div class="col-2"></div>
@@ -37,6 +38,7 @@
           </div>
           <div class="col-3">
             <input
+              #numOfAdults
               name="numOfAdults"
               type="number"
               min="1"
@@ -44,7 +46,7 @@
               step="1"
               id="numOfAdults"
               class="form-control"
-              [ngModel]="booking == null ? 2 : booking.numOfAdults"
+              [ngModel]="booking.numOfAdults == null ? 2 : booking.numOfAdults"
               required>
           </div>
           <div class="col-2"></div>
@@ -55,7 +57,7 @@
   <!--forward navigation button-->
   <div class="row justify-content-between">
     <div class="col-2">
-      <button mat-raised-button color="accent" (click)="onReservationPhaseChange(2)" class="next-button">
+      <button (click)="onReservationPhaseChange(2)" mat-raised-button color="accent" class="next-button">
         <span>Tovább</span>
         <img class="pl-2" src="../../../../assets/icon/next.svg">
       </button>

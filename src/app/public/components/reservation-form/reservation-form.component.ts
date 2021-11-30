@@ -7,6 +7,7 @@ import {NgForm} from '@angular/forms';
 import {Booking} from '../../../models/booking.model';
 import {Subscription} from 'rxjs';
 import {ReservationFormStepperService} from './reservation-form-stepper/reservation-form-stepper.service';
+import {ReservationFormStepsService} from "./reservation-form-steps/reservation-form-steps.service";
 
 @Component({
   selector: 'app-reservation-form',
@@ -18,13 +19,14 @@ export class ReservationFormComponent implements OnInit, AfterViewInit {
   phaseValue = 0;
   private phaseValueSubscription: Subscription;
 
-  constructor(public reservationFormStepperService: ReservationFormStepperService) {}
+  constructor(public reservationFormStepperService: ReservationFormStepperService, public reservationFormStepsService: ReservationFormStepsService) {}
 
   ngOnInit(): void {
     this.phaseValueSubscription = this.reservationFormStepperService.getReservationPhaseValueUpdateListener()
       .subscribe((subData) => {
         this.phaseValue = subData.reservationPhaseValue;
       });
+    this.reservationFormStepsService.offerNameChanged(this.packageType);
   }
 
   ngAfterViewInit(): void{

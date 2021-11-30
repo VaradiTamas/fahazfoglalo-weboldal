@@ -8,46 +8,32 @@
       </button>
     </div>
   </div>
-  <div class="row justify-content-center">
-    <!--one bedroom-->
-    <div class="col-12 col-sm-10 col-md-6 col-lg-5 col-xl-4 card-container">
-      <button class="bedroom-button" mat-raised-button><!-- (click)="onRadioButtonSelected(1)"-->
-        <div class="image-container">
-          <img class="image" src="../../../../assets/house/house3.jpg">
-        </div>
-        <div>
-          <input
-            id="oneBedroom"
-            class="radio-btn mr-2"
-            type="radio"
-            name="numOfBedrooms"
-            value="1">
-<!--            [checked]="isRadioButtonSelected(1)"-->
-          <label class="radio-label" for="oneBedroom">
-            Egy hálószobával kérem
-          </label>
-        </div>
-      </button>
+  <div class="row justify-content-center m-0 p-0">
+    <div class="col-5 mr-2 selected-tab tab" (click)="onBedroomClick(1)">
+      <div class="image-container pt-3">
+        <img class="image" src="../../../../assets/house/house3.jpg">
+      </div>
+      <div class="label-container">
+        <b class="label">Egy hálószobával kérem.</b>
+      </div>
+      <div class="radio-button-container">
+        <button class="check-button">
+          <img *ngIf="booking.numOfBedrooms == 1 || booking.numOfBedrooms == null"class="tick-img" src="assets/icon/tick.svg">
+        </button>
+      </div>
     </div>
-    <!--two bedrooms-->
-    <div class="col-12 col-sm-10 col-md-6 col-lg-5 col-xl-4 card-container">
-      <button class="bedroom-button" mat-raised-button><!--(click)="onRadioButtonSelected(2)"-->
-        <div class="image-container">
-          <img class="image" src="../../../../assets/house/house1.png">
-        </div>
-        <div>
-          <input
-            id="twoBedrooms"
-            class="radio-btn mr-2"
-            type="radio"
-            name="numOfBedrooms"
-            value="2">
-<!--            [checked]="isRadioButtonSelected(2)">-->
-          <label class="radio-label" for="twoBedrooms">
-            Két hálószobával kérem
-          </label>
-        </div>
-      </button>
+    <div class="col-5 mr-2 selected-tab tab" (click)="onBedroomClick(2)">
+      <div class="image-container pt-3">
+        <img class="image" src="../../../../assets/house/house3.jpg">
+      </div>
+      <div class="label-container">
+        <b class="label">Két hálószobával kérem.</b>
+      </div>
+      <div class="radio-button-container">
+        <button class="check-button">
+          <img *ngIf="booking.numOfBedrooms == 2" class="tick-img" src="assets/icon/tick.svg">
+        </button>
+      </div>
     </div>
   </div>
 </div>

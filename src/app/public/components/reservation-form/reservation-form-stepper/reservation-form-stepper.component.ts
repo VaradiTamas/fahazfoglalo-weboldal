@@ -9,7 +9,6 @@ import {ReservationFormStepperService} from './reservation-form-stepper.service'
   styleUrls: ['./reservation-form-stepper.component.css']
 })
 export class ReservationFormStepperComponent implements OnInit, AfterViewInit {
-
   phaseValue = 0;
   @ViewChild('dateDiv') dateDiv;
   @ViewChild('guestsDiv') guestsDiv;

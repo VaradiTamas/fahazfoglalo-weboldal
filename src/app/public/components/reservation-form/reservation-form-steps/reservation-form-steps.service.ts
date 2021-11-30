@@ -4,7 +4,22 @@ import {Subject} from 'rxjs';
 
 @Injectable({providedIn: 'root'})
 export class ReservationFormStepsService {
-  private booking: Booking;
+  private booking: Booking = new class implements Booking {
+    comment: string;
+    email: string;
+    firstName: string;
+    from: Date;
+    id: string;
+    isPaid: boolean;
+    lastName: string;
+    numOfAdults: number;
+    numOfBedrooms: number;
+    numOfChildren: number;
+    offerName: string;
+    tel: string;
+    to: Date;
+    voucherId: string;
+  };
   private bookingUpdated = new Subject<{booking: Booking}>();
 
   constructor() {}
@@ -65,6 +80,12 @@ export class ReservationFormStepsService {
 
   voucherIdChanged(voucherId: string): void{
     this.booking.voucherId = voucherId;
+    this.booking.offerName = 'voucher';
+    this.bookingUpdated.next({booking: this.booking});
+  }
+
+  offerNameChanged(offerName: string): void{
+    this.booking.offerName = offerName;
     this.bookingUpdated.next({booking: this.booking});
   }
 

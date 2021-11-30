@@ -1,1 +1,26 @@
-<p>reservation-form-date works!</p>
+<div class="container-fluid pt-3">
+  <div class="row">
+    <div class="col-2"></div>
+    <div class="col-6 col-sm-5 col-md-4 col-lg-3 date-text-area">
+      <b>{{fromDateText}} &nbsp; - &nbsp; {{toDateText}}</b>
+    </div>
+  </div>
+  <div class="row justify-content-center">
+    <div class="col-12 col-sm-10 col-md-6 col-lg-5 col-xl-4">
+      <app-calendar [calendarType]="'first'" [selectedStartDate]="booking.from" [selectedEndDate]="booking.to"></app-calendar>
+    </div>
+    <div class="col-md-6 col-lg-5 col-xl-4" id="secondCalendar">
+      <app-calendar [calendarType]="'second'" [selectedStartDate]="booking.from" [selectedEndDate]="booking.to"></app-calendar>
+    </div>
+  </div>
+  <div class="row justify-content-between">
+    <!--forward navigation button-->
+    <div class="col-2">
+      <button mat-raised-button color="accent" (click)="onReservationPhaseChange(1)" class="next-button">
+        <span>Tovább</span>
+        <img class="pl-2" src="../../../../assets/icon/next.svg">
+      </button>
+    </div>
+  </div>
+</div>
+
