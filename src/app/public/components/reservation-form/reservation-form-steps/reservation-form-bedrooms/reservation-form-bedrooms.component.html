@@ -1,1 +1,53 @@
-<p>reservation-form-bedrooms works!</p>
+<div class="container-fluid pt-3">
+  <div class="row justify-content-between">
+    <!--forward navigation button-->
+    <div class="col-2">
+      <button mat-raised-button color="accent" (click)="onReservationPhaseChange(3)" class="next-button">
+        <span>Tovább</span>
+        <img class="pl-2" src="../../../../assets/icon/next.svg">
+      </button>
+    </div>
+  </div>
+  <div class="row justify-content-center">
+    <!--one bedroom-->
+    <div class="col-12 col-sm-10 col-md-6 col-lg-5 col-xl-4 card-container">
+      <button class="bedroom-button" mat-raised-button><!-- (click)="onRadioButtonSelected(1)"-->
+        <div class="image-container">
+          <img class="image" src="../../../../assets/house/house3.jpg">
+        </div>
+        <div>
+          <input
+            id="oneBedroom"
+            class="radio-btn mr-2"
+            type="radio"
+            name="numOfBedrooms"
+            value="1">
+<!--            [checked]="isRadioButtonSelected(1)"-->
+          <label class="radio-label" for="oneBedroom">
+            Egy hálószobával kérem
+          </label>
+        </div>
+      </button>
+    </div>
+    <!--two bedrooms-->
+    <div class="col-12 col-sm-10 col-md-6 col-lg-5 col-xl-4 card-container">
+      <button class="bedroom-button" mat-raised-button><!--(click)="onRadioButtonSelected(2)"-->
+        <div class="image-container">
+          <img class="image" src="../../../../assets/house/house1.png">
+        </div>
+        <div>
+          <input
+            id="twoBedrooms"
+            class="radio-btn mr-2"
+            type="radio"
+            name="numOfBedrooms"
+            value="2">
+<!--            [checked]="isRadioButtonSelected(2)">-->
+          <label class="radio-label" for="twoBedrooms">
+            Két hálószobával kérem
+          </label>
+        </div>
+      </button>
+    </div>
+  </div>
+</div>

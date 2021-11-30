@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import {Booking} from "../../../../../models/booking.model";
+import {ReservationFormStepperService} from "../../reservation-form-stepper/reservation-form-stepper.service";
 
 @Component({
   selector: 'app-reservation-form-guests',
@@ -6,8 +8,13 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./reservation-form-guests.component.css']
 })
 export class ReservationFormGuestsComponent implements OnInit {
+  booking: Booking;
 
-  constructor() { }
+  constructor(public reservationFormStepperService: ReservationFormStepperService) { }
+
+  onReservationPhaseChange(phaseValue: number): void{
+    this.reservationFormStepperService.reservationPhaseValueChanged(phaseValue);
+  }
 
   ngOnInit(): void {
   }

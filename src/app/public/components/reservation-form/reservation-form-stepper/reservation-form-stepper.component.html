@@ -1,1 +1,21 @@
-<p>reservation-form-stepper works!</p>
+<div #stepperContainer class="container-fluid">
+  <div class="row justify-content-center">
+    <div class="col-9 p-0">
+      <mat-slider class="p-0" min="0" max="3" step="1" [value]="phaseValue" (change)="onStepperValueChange($event)"></mat-slider>
+    </div>
+  </div>
+  <div class="row justify-content-center">
+    <div #dateDiv class="col-3 pl-2 pr-0" (click)="onTabClick(0)">
+      <b>Dátum</b>
+    </div>
+    <div #guestsDiv class="col-3 pl-2 pr-0" (click)="onTabClick(1)">
+      <b>Vendégek</b>
+    </div>
+    <div #bedroomsDiv class="col-3 pl-0 pr-2" (click)="onTabClick(2)">
+      <b>Hálószobák</b>
+    </div>
+    <div #dataDiv class="col-3 pl-0 pr-2" (click)="onTabClick(3)">
+      <b>Befejezés</b>
+    </div>
+  </div>
+</div>

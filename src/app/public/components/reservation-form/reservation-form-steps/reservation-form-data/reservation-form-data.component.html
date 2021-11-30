@@ -1,1 +1,98 @@
-<p>reservation-form-data works!</p>
+<div class="container-fluid pt-3">
+  <!--getting personal data-->
+  <div class="row justify-content-center">
+    <!--last name-->
+    <div class="col-4 col-md-3 col-lg-2 pt-3">
+      <label class="col-sm-2 col-form-label" for="lastName">Vezetéknév: </label>
+    </div>
+    <div class="col-8 col-md-7 col-lg-4 pt-3">
+      <input type="text"
+             name="lastName"
+             class="form-control"
+             id="lastName"
+             [ngModel] = "booking?.lastName"
+             required>
+    </div>
+    <!--first name-->
+    <div class="col-4 col-md-3 col-lg-2 pt-3">
+      <label class="col-sm-2 col-form-label" for="firstName">Keresztnév: </label>
+    </div>
+    <div class="col-8 col-md-7 col-lg-4 pt-3">
+      <input
+        name="firstName"
+        type="text"
+        class="form-control"
+        id="firstName"
+        [ngModel]="booking?.firstName"
+        required>
+    </div>
+    <!--mobile number-->
+    <div class="col-4 col-md-3 col-lg-2 pt-3">
+      <label class="col-sm-2 col-form-label" for="tel">Telefonszám: </label>
+    </div>
+    <div class="col-8 col-md-7 col-lg-4 pt-3">
+      <input
+        name="tel"
+        type="text"
+        class="form-control"
+        id="tel"
+        [ngModel]="booking?.tel"
+        required>
+    </div>
+    <!--email address-->
+    <div class="col-4 col-md-3 col-lg-2 pt-3">
+      <label class="col-sm-2 col-form-label" for="email">Emailcím: </label>
+    </div>
+    <div class="col-8 col-md-7 col-lg-4 pt-3">
+      <input
+        name="email"
+        type="email"
+        class="form-control"
+        id="email"
+        [ngModel]="booking?.email"
+        required>
+    </div>
+  </div>
+  <!--note-->
+  <div class="row justify-content-center justify-content-lg-start">
+    <div class="col-4 col-md-3 col-lg-2 pt-3">
+      <label for="comment" class="col-sm-2 col-form-label">Megjegyzés:</label>
+    </div>
+    <div class="col-8 col-md-7 col-lg-4 pt-3">
+            <textarea
+              name="comment"
+              id="comment"
+              class="form-control col-12"
+              [ngModel]="booking?.comment"
+              rows="4">
+            </textarea>
+    </div>
+  </div>
+  <!--checking voucher-->
+  <div class="row justify-content-start pt-5">
+    <div class="col-1">
+      <input class="voucher-checkbox" type="checkbox" (click)="onVoucherClick()" id="voucher" name="voucher">
+    </div>
+    <div class="col-4 col-lg-2">
+      <label class="label ml-3" for="voucher">Van utalványom</label>
+    </div>
+  </div>
+  <div *ngIf="possessVoucher" class="row mb-5">
+    <label class="col-2 label pl-1" for="voucherId">Sorszám:</label>
+    <div class="col-6">
+      <input
+        name="voucherId"
+        id="voucherId"
+        class="form-control"
+        type="text"
+        [ngModel]="booking?.voucherId">
+    </div>
+    <span *ngIf="alreadyCheckedVoucher && isVoucherValid">
+            <img src="../../../../assets/icon/done.svg">
+          </span>
+    <span *ngIf="alreadyCheckedVoucher && !isVoucherValid">
+            <img src="../../../../assets/icon/wrong.svg">
+          </span>
+    <a mat-raised-button color="primary" class="ml-4" (click)="onCheckVoucher(f)">Ellenőrzés</a>
+  </div>
+</div>

@@ -1,1 +1,64 @@
-<p>reservation-form-guests works!</p>
+<div class="container-fluid pt-3">
+  <!--selecting the number of guests on a bigger device than a mobile-->
+  <div class="row justify-content-center">
+    <div class="col-12 col-sm-10 col-md-6 col-lg-5 col-xl-4 card-container">
+      <div class="num-of-people-container">
+        <div class="image-container">
+          <img class="image" src="../../../../assets/images/children.png">
+        </div>
+        <div class="row pt-3">
+          <div class="col-7">
+            <label class="pt-2 num-of-people-label" for="numOfChildren">Gyerekek száma:</label>
+          </div>
+          <div class="col-3">
+            <input
+              name="numOfChildren"
+              type="number"
+              min="0"
+              step="1"
+              max="4"
+              id="numOfChildren"
+              class="form-control"
+              [ngModel]="booking == null ? 0 : booking.numOfChildren"
+              required>
+          </div>
+          <div class="col-2"></div>
+        </div>
+      </div>
+    </div>
+    <div class="col-12 col-sm-10 col-md-6 col-lg-5 col-xl-4 card-container">
+      <div class="num-of-people-container">
+        <div class="image-container">
+          <img class="image" src="../../../../assets/images/adults.png">
+        </div>
+        <div class="row pt-3">
+          <div class="col-7">
+            <label class="pt-2 num-of-people-label" for="numOfAdults">Felnőttek száma:</label>
+          </div>
+          <div class="col-3">
+            <input
+              name="numOfAdults"
+              type="number"
+              min="1"
+              max="6"
+              step="1"
+              id="numOfAdults"
+              class="form-control"
+              [ngModel]="booking == null ? 2 : booking.numOfAdults"
+              required>
+          </div>
+          <div class="col-2"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!--forward navigation button-->
+  <div class="row justify-content-between">
+    <div class="col-2">
+      <button mat-raised-button color="accent" (click)="onReservationPhaseChange(2)" class="next-button">
+        <span>Tovább</span>
+        <img class="pl-2" src="../../../../assets/icon/next.svg">
+      </button>
+    </div>
+  </div>
+</div>
