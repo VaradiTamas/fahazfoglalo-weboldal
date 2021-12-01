@@ -44,7 +44,8 @@ const sendEmail = async (emailData, callback) => {
     'compile',
     hbs({
       viewEngine: 'express-handlebars',
-      viewPath: './public/email-templates'
+      viewPath: './backend/email-templates'
+      // viewPath: './email-templates' --> prod
     })
   );
 

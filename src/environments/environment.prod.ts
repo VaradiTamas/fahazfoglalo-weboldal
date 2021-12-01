@@ -1,4 +1,4 @@
 export const environment = {
   production: true,
-  apiUrl: 'http://reservationapplication-env.eba-gwtyrhxk.us-east-2.elasticbeanstalk.com/admin/'
+  apiUrl: 'http://nodesweetfarm-env.eba-6s9ryity.eu-central-1.elasticbeanstalk.com/admin/'
 };
