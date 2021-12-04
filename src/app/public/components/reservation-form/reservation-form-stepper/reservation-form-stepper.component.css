@@ -3,11 +3,11 @@
 }
 
 ::ng-deep mat-slider div.mat-slider-wrapper  div.mat-slider-track-wrapper div.mat-slider-track-fill{
-  background-color: #1089FF;
+  background-color: orangered;
 }
 
 ::ng-deep mat-slider div.mat-slider-wrapper  div.mat-slider-thumb-container div.mat-slider-thumb{
-  background-color: #1089FF;
+  background-color: orangered;
 }
 
 .col-3{

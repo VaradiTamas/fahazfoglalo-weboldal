@@ -1,4 +1,10 @@
-<app-reservation-form-stepper></app-reservation-form-stepper>
+<div class="container-fluid m-0 p-0">
+  <div class="row justify-content-center m-0 p-0">
+    <div class="col-12 col-md-10 col-lg-8 col-xl-6 p-0 m-0">
+      <app-reservation-form-stepper></app-reservation-form-stepper>
+    </div>
+  </div>
+</div>
 
 <app-reservation-form-date *ngIf="phaseValue == 0"></app-reservation-form-date>
 <app-reservation-form-guests *ngIf="phaseValue == 1"></app-reservation-form-guests>

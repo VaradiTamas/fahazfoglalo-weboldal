@@ -1,16 +1,16 @@
-<div class="container-fluid pt-3">
-  <!--selecting the number of guests on a bigger device than a mobile-->
-  <div class="row justify-content-center">
-    <div class="col-12 col-sm-10 col-md-6 col-lg-5 col-xl-4 card-container">
-      <div class="num-of-people-container">
+<div class="container-fluid p-0 m-0 pt-4">
+  <div class="row justify-content-center p-0 m-0">
+    <!--selecting the number of children-->
+    <div class="col-12 col-sm-10 col-md-6 col-lg-5 col-xl-4 p-3 m-0">
+      <div class="num-of-people-container p-3">
         <div class="image-container">
           <img class="image" src="../../../../assets/images/children.png">
         </div>
-        <div class="row pt-3">
-          <div class="col-7">
-            <label class="pt-2 num-of-people-label" for="numOfChildren">Gyerekek száma:</label>
+        <div class="row m-0 p-0 pt-3">
+          <div class="col-7 m-0 p-0">
+            <label class="num-of-people-label p-0 m-0 pt-2 pr-2" for="numOfChildren">Gyerekek száma:</label>
           </div>
-          <div class="col-3">
+          <div class="col-3 p-0 m-0 input-container">
             <input
               #numOfChildren
               name="numOfChildren"
@@ -27,16 +27,17 @@
         </div>
       </div>
     </div>
-    <div class="col-12 col-sm-10 col-md-6 col-lg-5 col-xl-4 card-container">
-      <div class="num-of-people-container">
+    <!--selecting the number of adults-->
+    <div class="col-12 col-sm-10 col-md-6 col-lg-5 col-xl-4 p-0 m-0 p-3">
+      <div class="num-of-people-container p-3">
         <div class="image-container">
           <img class="image" src="../../../../assets/images/adults.png">
         </div>
-        <div class="row pt-3">
-          <div class="col-7">
-            <label class="pt-2 num-of-people-label" for="numOfAdults">Felnőttek száma:</label>
+        <div class="row p-0 m-0 pt-3">
+          <div class="col-7 p-0 m-0">
+            <label class="num-of-people-label m-0 p-0 pt-2 pr-2" for="numOfAdults">Felnőttek száma:</label>
           </div>
-          <div class="col-3">
+          <div class="col-3 m-0 p-0 input-container">
             <input
               #numOfAdults
               name="numOfAdults"
@@ -55,11 +56,10 @@
     </div>
   </div>
   <!--forward navigation button-->
-  <div class="row justify-content-between">
-    <div class="col-2">
-      <button (click)="onReservationPhaseChange(2)" mat-raised-button color="accent" class="next-button">
-        <span>Tovább</span>
-        <img class="pl-2" src="../../../../assets/icon/next.svg">
+  <div class="row justify-content-center m-0 p-3 pb-5 pt-5">
+    <div class="col-12 col-md-6 col-lg-5 col-xl-4 p-0 m-0" (click)="onReservationPhaseChange(2)">
+      <button class="next-button p-2">
+        <span class="button-label pl-3 pr-3"><b>Folytatás</b></span>
       </button>
     </div>
   </div>

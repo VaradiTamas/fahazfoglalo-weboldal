@@ -1,25 +1,24 @@
-<div class="container-fluid m-0 p-0 pt-3">
+<div class="container-fluid m-0 p-0 pt-4">
   <!--date text-->
-  <div class="row justify-content-center">
-    <div class="col-auto date-text-container p-2">
+  <div class="row justify-content-center m-0 p-3">
+    <div class="col-12 col-md-6 col-lg-5 col-xl-4 date-text-container m-0 p-2">
       <b class="pl-3 pr-3">{{fromDateText}} &nbsp; - &nbsp; {{toDateText}}</b>
     </div>
   </div>
   <!--calendars-->
-  <div class="row justify-content-center">
-    <div class="col-12 col-sm-10 col-md-6 col-lg-5 col-xl-4">
+  <div class="row justify-content-center m-0 p-0">
+    <div class="col-12 col-sm-10 col-md-6 col-lg-5 col-xl-4 p-3 m-0">
       <app-calendar [calendarType]="'first'" [selectedStartDate]="booking.from" [selectedEndDate]="booking.to"></app-calendar>
     </div>
-    <div class="col-md-6 col-lg-5 col-xl-4" id="secondCalendar">
+    <div #secondCalendar class="col-md-6 col-lg-5 col-xl-4 p-3 m-0">
       <app-calendar [calendarType]="'second'" [selectedStartDate]="booking.from" [selectedEndDate]="booking.to"></app-calendar>
     </div>
   </div>
   <!--forward navigation button-->
-  <div class="row pb-5">
-    <div class="col-10 offset-1 col-md-3 offset-md-9 col-lg-2 button-container" (click)="onReservationPhaseChange(1)">
+  <div class="row justify-content-center m-0 p-3 pb-5 pt-5">
+    <div class="col-12 col-md-6 col-lg-5 col-xl-4 p-0 m-0" (click)="onReservationPhaseChange(1)">
       <button class="next-button p-2">
-        <span class="button-label"><b>Folytatás</b></span>
-        <img class="pl-2" src="../../../../assets/icon/next.svg">
+        <span class="button-label pl-3 pr-3"><b>Folytatás</b></span>
       </button>
     </div>
   </div>

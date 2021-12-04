@@ -1,15 +1,7 @@
-<div class="container-fluid pt-3">
-  <div class="row justify-content-between">
-    <!--forward navigation button-->
-    <div class="col-2">
-      <button mat-raised-button color="accent" (click)="onReservationPhaseChange(3)" class="next-button">
-        <span>Tovább</span>
-        <img class="pl-2" src="../../../../assets/icon/next.svg">
-      </button>
-    </div>
-  </div>
+<div class="container-fluid m-0 p-0 pt-4">
   <div class="row justify-content-center m-0 p-0">
-    <div class="col-5 mr-2 selected-tab tab" (click)="onBedroomClick(1)">
+    <!--selecting one bedroom-->
+    <div class="col-12 col-sm-10 col-md-6 col-lg-5 col-xl-4 p-2 m-3 tab" (click)="onBedroomClick(1)">
       <div class="image-container pt-3">
         <img class="image" src="../../../../assets/house/house3.jpg">
       </div>
@@ -22,7 +14,8 @@
         </button>
       </div>
     </div>
-    <div class="col-5 mr-2 selected-tab tab" (click)="onBedroomClick(2)">
+    <!--selecting two bedrooms-->
+    <div class="col-12 col-sm-10 col-md-6 col-lg-5 col-xl-4 p-2 m-3 tab" (click)="onBedroomClick(2)">
       <div class="image-container pt-3">
         <img class="image" src="../../../../assets/house/house3.jpg">
       </div>
@@ -34,6 +27,14 @@
           <img *ngIf="booking.numOfBedrooms == 2" class="tick-img" src="assets/icon/tick.svg">
         </button>
       </div>
+    </div>
+  </div>
+  <!--forward navigation button-->
+  <div class="row justify-content-center m-0 p-3 pb-5 pt-5">
+    <div class="col-12 col-md-6 col-lg-5 col-xl-4 p-0 m-0" (click)="onReservationPhaseChange(3)">
+      <button class="next-button p-2">
+        <span class="button-label pl-3 pr-3"><b>Folytatás</b></span>
+      </button>
     </div>
   </div>
 </div>

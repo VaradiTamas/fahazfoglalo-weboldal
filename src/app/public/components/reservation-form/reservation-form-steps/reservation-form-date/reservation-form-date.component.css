@@ -6,6 +6,10 @@
   width: 100%;
 }
 
+.col-xl-4{
+  max-width: 30rem;
+}
+
 .date-text-container{
   text-align: center;
   font-size: 20px;
@@ -13,10 +17,6 @@
   border-width: 2px;
   border-color: orangered;
   border-radius: 5px;
-}
-
-.button-container{
-  max-width: 15rem;
 }
 
 .next-button{

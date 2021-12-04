@@ -4,7 +4,7 @@ const hbs = require("nodemailer-express-handlebars");
 
 const CLIENT_ID = '619501356972-9qti0t3jpr7rnqvi85rk0o1e10qb9qah.apps.googleusercontent.com';
 const CLIENT_SECRET = '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';
-const REFRESH_TOKEN = '1//042_hW6uPCrErCgYIARAAGAQSNwF-L9IrMwTGLJjBAjryXLljLDICZXl9U6emlcAZZ7ZZh-bMmZgzTSoCB2XEXW2uiYHDHNPRiQE';
+const REFRESH_TOKEN = '1//04hjvqxUAcxdDCgYIARAAGAQSNwF-L9IrVo0p0seDRxtouNgssW0POg6DwTIfCFHZD3pJeKvdwwQKo68sibkR5TSyrmo4dB9EZ0k';
 const REDIRECT_URI = 'https://developers.google.com/oauthplayground';
 
 const oAuth2Client = new google.auth.OAuth2(CLIENT_ID, CLIENT_SECRET, REDIRECT_URI);

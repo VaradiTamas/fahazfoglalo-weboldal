@@ -1,4 +1,4 @@
-import {AfterViewInit, Component, HostListener, OnInit, ViewChild} from '@angular/core';
+import {AfterViewInit, Component, HostListener, OnDestroy, OnInit, ViewChild} from '@angular/core';
 import {MatSliderChange} from '@angular/material/slider';
 import {Subscription} from 'rxjs';
 import {ReservationFormStepperService} from './reservation-form-stepper.service';
@@ -8,7 +8,7 @@ import {ReservationFormStepperService} from './reservation-form-stepper.service'
   templateUrl: './reservation-form-stepper.component.html',
   styleUrls: ['./reservation-form-stepper.component.css']
 })
-export class ReservationFormStepperComponent implements OnInit, AfterViewInit {
+export class ReservationFormStepperComponent implements OnInit, AfterViewInit, OnDestroy {
   phaseValue = 0;
   @ViewChild('dateDiv') dateDiv;
   @ViewChild('guestsDiv') guestsDiv;
@@ -41,43 +41,34 @@ export class ReservationFormStepperComponent implements OnInit, AfterViewInit {
     }
   }
 
-  @HostListener('window:resize', ['$event'])
-  onResize(event?): void {
-
-  }
-
   setChanges(value: number | null): void{
     switch (value){
       case 0: {
-        this.dateDiv.nativeElement.style.color = '#1089FF';
+        this.dateDiv.nativeElement.style.color = 'orangered';
         this.guestsDiv.nativeElement.style.color = '#B4B4B4';
         this.bedroomsDiv.nativeElement.style.color = '#B4B4B4';
         this.dataDiv.nativeElement.style.color = '#B4B4B4';
-       // this.router.navigate(['/email']);
         break;
       }
       case 1: {
         this.dateDiv.nativeElement.style.color = '#B4B4B4';
-        this.guestsDiv.nativeElement.style.color = '#1089FF';
+        this.guestsDiv.nativeElement.style.color = 'orangered';
         this.bedroomsDiv.nativeElement.style.color = '#B4B4B4';
         this.dataDiv.nativeElement.style.color = '#B4B4B4';
-        //this.router.navigate(['/name']);
         break;
       }
       case 2: {
         this.dateDiv.nativeElement.style.color = '#B4B4B4';
         this.guestsDiv.nativeElement.style.color = '#B4B4B4';
-        this.bedroomsDiv.nativeElement.style.color = '#1089FF';
+        this.bedroomsDiv.nativeElement.style.color = 'orangered';
         this.dataDiv.nativeElement.style.color = '#B4B4B4';
-        //this.router.navigate(['/password']);
         break;
       }
       case 3: {
         this.dateDiv.nativeElement.style.color = '#B4B4B4';
         this.guestsDiv.nativeElement.style.color = '#B4B4B4';
         this.bedroomsDiv.nativeElement.style.color = '#B4B4B4';
-        this.dataDiv.nativeElement.style.color = '#1089FF';
-        //this.router.navigate(['/subscription']);
+        this.dataDiv.nativeElement.style.color = 'orangered';
         break;
       }
     }
