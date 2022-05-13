@@ -21,6 +21,15 @@
   padding-left: 4rem;
 }
 
+.navbar-toggler {
+  border-color: white;
+  border-width: 2px;
+}
+
+.navbar-toggler-icon {
+  background-image: url("data:image/svg+xml;charset=utf8,%3Csvg viewBox='0 0 32 32' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath stroke='rgba(255,255,255, 1)' stroke-width='3' stroke-linecap='round' stroke-miterlimit='10' d='M4 8h24M4 16h24M4 24h24'/%3E%3C/svg%3E");
+}
+
 .spacer{
   flex: 1 1 auto;
 }
@@ -73,6 +82,12 @@ svg{
   }
 }
 
+@media (max-width: 1199px) {
+  .navbar-brand{
+    padding-left: 3rem;
+  }
+}
+
 @media (max-width: 991px) {
   .navbar{
     padding-top: 1vh;
@@ -83,7 +98,7 @@ svg{
   }
 
   .navbar-brand {
-    padding-left: 2rem;
+    padding-left: 1rem;
   }
 
   .logo {
@@ -92,7 +107,7 @@ svg{
 
   .navbar-collapse {
     padding-top: 5vh;
-    background-color: white;
+    background: white;
   }
 
   .nav-item {
@@ -113,6 +128,26 @@ svg{
     padding-left: 1rem;
   }
 
+  .tel {
+    display: none;
+  }
+
+  .face, .insta {
+    filter: invert(37%) sepia(28%) saturate(723%) hue-rotate(40deg) brightness(94%) contrast(92%);
+  }
+
+  .face {
+    margin-left: 1rem;
+    padding-right: 0.5rem;
+    margin-top: 0.5rem;
+    margin-bottom: 0.5rem;
+  }
+
+  .insta {
+    margin-top: 0.5rem;
+    margin-bottom: 0.5rem;
+  }
+
   @media (min-width: 768px) {
     .navbar-toggler {
       margin-right: 8rem;
@@ -126,11 +161,5 @@ svg{
       margin-left: 8rem;
       margin-right: 8rem;
     }
-  }
-}
-
-@media (max-width: 1199px) {
-  .navbar-brand{
-    padding-left: 3rem;
   }
 }
