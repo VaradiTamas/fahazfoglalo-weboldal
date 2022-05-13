@@ -9,12 +9,14 @@ import {Image} from '../../../components/gallery/image.interface';
 export class HouseComponent implements OnInit {
 
   public images = [
-    {path: 'assets/house/house1.png'},
-    {path: 'assets/house/house2.jpg'},
-    {path: 'assets/house/house3.jpg'},
-    {path: 'assets/house/house4.jpg'},
-    {path: 'assets/house/house5.jpg'},
-    {path: 'assets/house/house6.jpg'},
+    {path: 'assets/house/house01.jpg'},
+    {path: 'assets/house/house02.jpg'},
+    {path: 'assets/house/house03.jpg'},
+    {path: 'assets/house/house04.jpg'},
+    {path: 'assets/house/house05.jpg'},
+    {path: 'assets/house/house06.jpg'},
+    {path: 'assets/house/house07.jpg'},
+    {path: 'assets/house/house08.jpg'},
   ] as Array<Image>;
 
   constructor() { }

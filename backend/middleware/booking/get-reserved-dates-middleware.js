@@ -38,12 +38,24 @@ module.exports = (req, res, next) => {
   fromDate.setFullYear(fromYear, fromMonth, 1);
   toDate.setFullYear(toYear, toMonth, 1);
 
-  Booking.find({$and: [{from: {$gte: fromDate}}, {from: {$lt: toDate}}, {isPaid: "true"}]})
+  Booking.find({$and: [
+      {from: {$gte: fromDate}},
+      {from: {$lt: toDate}},
+      {isPaid: "true"}]
+  })
     .then(bookings => {
       if (bookings) {
         res.status(200).json(bookings.map(booking => {
-          fromDates = {year: booking.from.getFullYear(), month: booking.from.getMonth(), day: booking.from.getDate()}
-          toDates = {year: booking.to.getFullYear(), month: booking.to.getMonth(), day: booking.to.getDate()}
+          fromDates = {
+            year: booking.from.getFullYear(),
+            month: booking.from.getMonth(),
+            day: booking.from.getDate()
+          }
+          toDates = {
+            year: booking.to.getFullYear(),
+            month: booking.to.getMonth(),
+            day: booking.to.getDate()
+          }
           return {from: fromDates, to: toDates};
         }));
       } else {

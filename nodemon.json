@@ -1,8 +1,6 @@
 {
   "env": {
     "MONGO_ATLAS_PW": "ChsgicCcXqDvda26",
-    "JWT_KEY": "secret_this_should_be_longer",
-    "NODEMAILER_USER": "sweetfarmeger@gmail.com",
-    "NODEMAILER_PASS": "SweetFarmEger15"
+    "JWT_KEY": "secret_this_should_be_longer"
   }
 }

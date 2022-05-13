@@ -1,40 +1,37 @@
-.spacer{
-  flex: 1 1 auto;
-}
-
 .sticky-top{
   z-index: 3!important;
+}
+
+.navbar{
+  width: 100%;
+  height: 15vh;
+  margin: 0;
+  padding: 8vh 0vh;
+  background-image: linear-gradient(to bottom, rgba(0,0,0,0.8) 10%, rgba(0,0,0,0) 100%);
 }
 
 .logo{
   width: 9rem;
   height: 6rem;
   object-fit: cover;
-  object-position: 0px -10px;
+  object-position: 0px -15px;
 }
 
-.navbar{
-  width: 100%;
-  height: 15vh;
-  margin-bottom: 5vh;
-  background-image: linear-gradient(to bottom, rgba(0,0,0,0.8) 10%, rgba(0,0,0,0) 100%);
+.navbar-brand{
+  padding-left: 4rem;
+}
+
+.spacer{
+  flex: 1 1 auto;
+}
+
+.navbar-nav{
+  position: relative;
+  top: -20px;
 }
 
 .nav-item{
   font-weight: bold;
-}
-
-.res{
-  color: white;
-}
-
-@media (min-width: 992px) {
-  #reservation {
-    background-color: darkolivegreen;
-    border-radius: 25px;
-    margin-left: 25px;
-    margin-right: 50px;
-  }
 }
 
 .active-link{
@@ -42,7 +39,7 @@
   border-radius: 25px;
 }
 
-#gallery, #offers, #voucher, #prices, #faq, #aboutus, #reservation, #name {
+#gallery, #voucher, #prices, #faq, #aboutus, #reservation, #name {
   color: rgba(255, 255, 255, 1);
 }
 
@@ -52,19 +49,6 @@ svg{
   top: 0px;
   width: 100%;
   z-index: -1;
-}
-
-.navbar-brand{
-  padding-left: 6rem;
-}
-
-#collapse_target{
-  height: 6rem;
-}
-
-.navbar-nav{
-  position: relative;
-  top: -20px;
 }
 
 #telephone{
@@ -78,4 +62,75 @@ svg{
 
 #instagram, #facebook{
   display: inline;
+}
+
+@media (min-width: 992px) {
+  #reservation {
+    background-color: darkolivegreen;
+    border-radius: 25px;
+    margin-left: 25px;
+    margin-right: 50px;
+  }
+}
+
+@media (max-width: 991px) {
+  .navbar{
+    padding-top: 1vh;
+  }
+
+  .navbar-toggler {
+    margin-right: 2rem;
+  }
+
+  .navbar-brand {
+    padding-left: 2rem;
+  }
+
+  .logo {
+    object-position: 0px 0px;
+  }
+
+  .navbar-collapse {
+    padding-top: 5vh;
+    background-color: white;
+  }
+
+  .nav-item {
+    border-bottom-style: solid;
+    border-bottom-width: 1px;
+    border-bottom-color: darkolivegreen;
+    margin-left: 2rem;
+    margin-right: 2rem;
+  }
+
+  .nav-link {
+    margin: 4px;
+    width: 12rem;
+  }
+
+  #gallery, #voucher, #prices, #faq, #aboutus, #reservation, #name {
+    color: darkolivegreen;
+    padding-left: 1rem;
+  }
+
+  @media (min-width: 768px) {
+    .navbar-toggler {
+      margin-right: 8rem;
+    }
+
+    .navbar-brand {
+      padding-left: 8rem!important;
+    }
+
+    .nav-item {
+      margin-left: 8rem;
+      margin-right: 8rem;
+    }
+  }
+}
+
+@media (max-width: 1199px) {
+  .navbar-brand{
+    padding-left: 3rem;
+  }
 }

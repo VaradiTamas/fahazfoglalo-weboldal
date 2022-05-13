@@ -38,7 +38,7 @@ import { HouseComponent } from './public/menu-items/gallery/house/house.componen
 import { FromCalendarHeaderComponent } from './public/components/calendar/headers/first-calendar-header/from-calendar-header.component';
 import { ToCalendarHeaderComponent } from './public/components/calendar/headers/second-calendar-header/to-calendar-header.component';
 import { CalendarBodyComponent } from './public/components/calendar/body/calendar-body.component';
-import {ReservationFormComponent} from './public/components/reservation-form/reservation-form.component';
+import { ReservationFormComponent } from './public/components/reservation-form/reservation-form.component';
 import { ReservationFormStepperComponent } from './public/components/reservation-form/reservation-form-stepper/reservation-form-stepper.component';
 import { ReservationFormDateComponent } from './public/components/reservation-form/reservation-form-steps/reservation-form-date/reservation-form-date.component';
 import { ReservationFormBedroomsComponent } from './public/components/reservation-form/reservation-form-steps/reservation-form-bedrooms/reservation-form-bedrooms.component';
