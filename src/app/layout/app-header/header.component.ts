@@ -1,7 +1,6 @@
-import {Component, HostListener, OnInit} from '@angular/core';
-import {MatDialog} from '@angular/material/dialog';
-import {PopupTelephoneDialogComponent} from './popup-telephone-dialog/popup-telephone-dialog.component';
-import {SreenSize} from '../../screen-size-constants';
+import { Component, HostListener, OnInit } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
+import { PopupTelephoneDialogComponent } from './popup-telephone-dialog/popup-telephone-dialog.component';
 
 @Component({
   selector: 'app-header',
@@ -10,26 +9,10 @@ import {SreenSize} from '../../screen-size-constants';
 })
 export class HeaderComponent implements OnInit {
   dialogIsOpened = false;
-  largeScreen = false;
 
   constructor(public dialog: MatDialog) {}
 
-  ngOnInit(): void {
-    this.isLargeScreen();
-  }
-
-  @HostListener('window:resize', ['$event'])
-  onResize(event?): void {
-    this.isLargeScreen();
-  }
-
-  isLargeScreen(): void{
-    if (window.innerWidth >= SreenSize.lg){
-      this.largeScreen = true;
-    } else {
-      this.largeScreen = false;
-    }
-  }
+  ngOnInit(): void {}
 
   openDialog(): void {
     if (!this.dialogIsOpened){
