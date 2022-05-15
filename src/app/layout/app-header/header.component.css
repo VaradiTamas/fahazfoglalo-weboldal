@@ -1,7 +1,7 @@
 .navbar{
   width: 100%;
   height: 15vh;
-  margin: 0;
+  margin: 0 0 15vh 0;
   padding: 8vh 0vh;
   background-image: linear-gradient(to bottom, rgba(0,0,0,0.8) 10%, rgba(0,0,0,0) 100%);
 }
@@ -14,7 +14,8 @@
 }
 
 .navbar-brand{
-  padding-left: 4rem;
+  padding-top: 1rem;
+  padding-left: 2rem;
 }
 
 .navbar-toggler {
@@ -82,6 +83,7 @@
 
   .navbar-brand {
     padding-left: 1rem;
+    padding-top: 2px;
   }
 
   .logo {
@@ -89,7 +91,7 @@
   }
 
   .navbar-collapse {
-    padding-top: 5vh;
+    padding-top: 4vh;
     background: white;
   }
 
@@ -137,7 +139,7 @@
     }
 
     .navbar-brand {
-      padding-left: 8rem!important;
+      padding-left: 7rem;
     }
 
     .nav-item {

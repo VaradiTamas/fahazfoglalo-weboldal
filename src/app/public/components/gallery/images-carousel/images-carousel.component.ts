@@ -59,16 +59,21 @@ export class ImagesCarouselComponent implements OnInit {
 
   public previous(event: Event): void{
     event.stopPropagation();
-    this.animState = 'left';
+    this.animState = 'right';
     this.selectedImage = this.selectedImage > 0 ? this.selectedImage - 1 : this.images.length - 1;
     this.blur();
   }
 
   public next(event: Event): void{
     event.stopPropagation();
-    this.animState = 'right';
+    this.animState = 'left';
     this.selectedImage = this.selectedImage < this.images.length - 1 ? this.selectedImage + 1 : 0;
     this.blur();
+  }
+
+  public doNothing(): void {
+    event.stopPropagation();
+    this.animDone();
   }
 
   public animDone(): void{

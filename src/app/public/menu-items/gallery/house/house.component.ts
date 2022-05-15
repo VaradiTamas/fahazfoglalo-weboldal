@@ -16,7 +16,7 @@ export class HouseComponent implements OnInit {
     {path: 'assets/house/house05.jpg'},
     {path: 'assets/house/house06.jpg'},
     {path: 'assets/house/house07.jpg'},
-    {path: 'assets/house/house08.jpg'},
+    {path: 'assets/house/house08.png'},
   ] as Array<Image>;
 
   constructor() { }
