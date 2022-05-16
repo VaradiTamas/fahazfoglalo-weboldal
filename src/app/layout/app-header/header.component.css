@@ -83,6 +83,7 @@
     padding-left: 1rem;
     padding-top: 0;
     margin: 0;
+    z-index: 1;
   }
 
   .logo {
@@ -92,6 +93,7 @@
   .navbar-collapse {
     background: white;
     padding-bottom: 1rem;
+    z-index: 0;
   }
 
   .nav-item {
@@ -142,6 +144,35 @@
       margin-right: 8rem;
     }
   }
+}
+
+.open-animation {
+  animation-name: open;
+  animation-duration: 0.7s;
+}
+
+@keyframes open {
+  0% {
+    transform: translateY(-350px);
+    opacity: 0;
+  }
+  5% {
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+.close-animation {
+  animation-name: close;
+  animation-duration: 0.7s;
+}
+
+@keyframes close {
+  from {transform: translateY(0);}
+  to {transform: translateY(-350px);}
 }
 
 .margin-for-other-components-below {

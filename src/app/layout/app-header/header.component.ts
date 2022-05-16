@@ -2,6 +2,7 @@ import { AfterViewInit, Component, HostListener, OnInit, ViewChild } from '@angu
 import { MatDialog } from '@angular/material/dialog';
 import { PopupTelephoneDialogComponent } from './popup-telephone-dialog/popup-telephone-dialog.component';
 import { NavbarComponent } from '../admin-header/navbar.component';
+import {sleep} from "../../screen-size-constants";
 
 @Component({
   selector: 'app-header',
@@ -47,12 +48,17 @@ export class HeaderComponent implements OnInit, AfterViewInit {
     }
   }
 
-  onToggleClick(): void {
+  async onToggleClick(): Promise<void> {
     if (this.isNavigationMenuOpened) {
+      this.navbarCollapse.nativeElement.classList.remove('open-animation');
+      this.navbarCollapse.nativeElement.classList.add('close-animation');
+      await sleep(700);
       this.navbarCollapse.nativeElement.style.display = 'none';
       this.isNavigationMenuOpened = false;
     } else {
       this.navbarCollapse.nativeElement.style.display = 'inline-block';
+      this.navbarCollapse.nativeElement.classList.remove('close-animation');
+      this.navbarCollapse.nativeElement.classList.add('open-animation');
       this.isNavigationMenuOpened = true;
     }
   }
@@ -78,8 +84,7 @@ export class HeaderComponent implements OnInit, AfterViewInit {
 
   @HostListener('window:click', ['$event'])
   onClick(event: MouseEvent): void {
-    console.log(this.navbarCollapse.nativeElement.style.height);
-    if (event.y > 500) {
+    if (event.y > this.navbarCollapse.nativeElement.getBoundingClientRect().bottom) {
       this.navbarCollapse.nativeElement.style.display = 'none';
       this.isNavigationMenuOpened = false;
     }
