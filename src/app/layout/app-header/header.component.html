@@ -1,6 +1,6 @@
 <nav class="navbar navbar-expand-lg navbar-dark sticky-top" #navbar>
 
-  <a class="navbar-brand" routerLink="/">
+  <a class="navbar-brand" routerLink="/" (click)="onLogoClick()">
     <img class="logo" src="../../../assets/logo.png"/>
   </a>
 
@@ -11,31 +11,45 @@
   <div #navbar_collapse class="collapse navbar-collapse" id="collapse_target" (click)="onToggleClick()">
     <span class="spacer"></span>
     <ul class="navbar-nav">
-      <li class="nav-item">
-        <a id="gallery" #gallery class="nav-link" routerLink="/gallery" routerLinkActive="active-link" data-toggle="collapse" data-target=".navbar-collapse.show">GALÉRIA</a>
+      <li class="nav-item" [@gallery]="state">
+        <div class="nav-link-container">
+          <a id="gallery" #gallery class="nav-link" routerLink="/gallery" routerLinkActive="active-link" data-toggle="collapse" data-target=".navbar-collapse.show">GALÉRIA</a>
+        </div>
       </li>
-      <li class="nav-item">
-        <a id="voucher" #voucher class="nav-link" routerLink="/voucher" routerLinkActive="active-link" data-toggle="collapse" data-target=".navbar-collapse.show">UTALVÁNY</a>
+      <li class="nav-item" [@voucher]="state">
+        <div class="nav-link-container">
+          <a id="voucher" #voucher class="nav-link" routerLink="/voucher" routerLinkActive="active-link" data-toggle="collapse" data-target=".navbar-collapse.show">UTALVÁNY</a>
+        </div>
       </li>
-      <li class="nav-item">
-        <a id="prices" #price class="nav-link" routerLink="/prices" routerLinkActive="active-link" data-toggle="collapse" data-target=".navbar-collapse.show">ÁRAINK</a>
+      <li class="nav-item" [@price]="state">
+        <div class="nav-link-container">
+          <a id="prices" #price class="nav-link" routerLink="/prices" routerLinkActive="active-link" data-toggle="collapse" data-target=".navbar-collapse.show">ÁRAINK</a>
+        </div>
       </li>
-      <li class="nav-item">
-        <a id="faq" #faq class="nav-link" routerLink="/questions" routerLinkActive="active-link" data-toggle="collapse" data-target=".navbar-collapse.show">GYIK</a>
+      <li class="nav-item" [@faq]="state">
+        <div class="nav-link-container">
+          <a id="faq" #faq class="nav-link" routerLink="/questions" routerLinkActive="active-link" data-toggle="collapse" data-target=".navbar-collapse.show">GYIK</a>
+        </div>
       </li>
-      <li class="nav-item">
-        <a id="contact" #contact class="nav-link" routerLink="/about-us" routerLinkActive="active-link" data-toggle="collapse" data-target=".navbar-collapse.show">KAPCSOLAT</a>
+      <li class="nav-item" [@contact]="state">
+        <div class="nav-link-container">
+          <a id="contact" #contact class="nav-link" routerLink="/about-us" routerLinkActive="active-link" data-toggle="collapse" data-target=".navbar-collapse.show">KAPCSOLAT</a>
+        </div>
       </li>
-      <li class="nav-item reservation">
-        <a id="reservation" #reservation class="nav-link" routerLink="/reservation" routerLinkActive="active-link" data-toggle="collapse" data-target=".navbar-collapse.show">FOGLALÁS</a>
+      <li class="nav-item reservation" [@reservation]="state">
+        <div class="nav-link-container">
+          <a id="reservation" class="nav-link" routerLink="/reservation" routerLinkActive="active-link" data-toggle="collapse" data-target=".navbar-collapse.show">FOGLALÁS</a>
+        </div>
       </li>
-      <li class="nav-item">
-        <a id="facebook" class="nav-link" href="https://www.facebook.com/" target="_blank">
-          <img #facebook_icon class="facebook-icon pt-1" src="assets/icon/facebook.svg">
-        </a>
-        <a id="instagram" class="nav-link" href="https://www.instagram.com/" target="_blank">
-          <img #instagram_icon class="instagram-icon pt-1" src="assets/icon/instagram.svg">
-        </a>
+      <li class="nav-item social-media" [@social-media]="state">
+        <div class="nav-link-container">
+          <a id="facebook" class="nav-link" href="https://www.facebook.com/" target="_blank">
+            <img #facebook_icon class="facebook-icon pt-1" src="assets/icon/facebook.svg">
+          </a>
+          <a id="instagram" class="nav-link" href="https://www.instagram.com/" target="_blank">
+            <img #instagram_icon class="instagram-icon pt-1" src="assets/icon/instagram.svg">
+          </a>
+        </div>
       </li>
       <li class="nav-item telephone-container">
         <a id="telephone" class="nav-link">

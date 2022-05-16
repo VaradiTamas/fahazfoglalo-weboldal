@@ -1,13 +1,82 @@
 import { AfterViewInit, Component, HostListener, OnInit, ViewChild } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { PopupTelephoneDialogComponent } from './popup-telephone-dialog/popup-telephone-dialog.component';
-import { NavbarComponent } from '../admin-header/navbar.component';
-import {sleep} from "../../screen-size-constants";
+import { sleep } from '../../screen-size-constants';
+import { trigger, state, style, transition, animate } from '@angular/animations';
 
 @Component({
   selector: 'app-header',
   templateUrl: './header.component.html',
-  styleUrls: ['./header.component.css']
+  styleUrls: ['./header.component.css'],
+  animations: [
+    trigger('gallery', [
+      state('closed', style({
+        opacity: 0
+      })),
+      state('opened', style({})),
+      transition('opened <=> closed', animate(500)),
+    ]),
+    trigger('voucher', [
+      state('closed', style({
+        transform: 'translateY(-45px)',
+        opacity: 0
+      })),
+      state('opened', style({
+        transform: 'translateY(0px)',
+      })),
+      transition('opened <=> closed', animate(500)),
+    ]),
+    trigger('price', [
+      state('closed', style({
+        transform: 'translateY(-90px)',
+        opacity: 0
+      })),
+      state('opened', style({
+        transform: 'translateY(0px)',
+      })),
+      transition('opened <=> closed', animate(500)),
+    ]),
+    trigger('faq', [
+      state('closed', style({
+        transform: 'translateY(-135px)',
+        opacity: 0
+      })),
+      state('opened', style({
+        transform: 'translateY(0px)',
+      })),
+      transition('opened <=> closed', animate(500)),
+    ]),
+    trigger('contact', [
+      state('closed', style({
+        transform: 'translateY(-180px)',
+        opacity: 0
+      })),
+      state('opened', style({
+        transform: 'translateY(0px)',
+      })),
+      transition('opened <=> closed', animate(500)),
+    ]),
+    trigger('reservation', [
+      state('closed', style({
+        transform: 'translateY(-225px)',
+        opacity: 0
+      })),
+      state('opened', style({
+        transform: 'translateY(0px)',
+      })),
+      transition('opened <=> closed', animate(500)),
+    ]),
+    trigger('social-media', [
+      state('closed', style({
+        transform: 'translateY(-270px)',
+        opacity: 0
+      })),
+      state('opened', style({
+        transform: 'translateY(0px)',
+      })),
+      transition('opened <=> closed', animate(500)),
+    ]),
+  ]
 })
 export class HeaderComponent implements OnInit, AfterViewInit {
   @ViewChild('navbar') navbar;
@@ -25,13 +94,24 @@ export class HeaderComponent implements OnInit, AfterViewInit {
   isDialogOpened = false;
   isNavigationMenuOpened = false;
   previousScrollPosition = window.pageYOffset;
+  state = 'closed';
 
   constructor(public dialog: MatDialog) {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.setAnimationState();
+  }
 
   ngAfterViewInit(): void {
     this.designMenu();
+  }
+
+  setAnimationState(): void {
+    if (window.innerWidth < 992) {
+      this.state = 'closed';
+    } else {
+      this.state = 'opened';
+    }
   }
 
   openDialog(): void {
@@ -49,44 +129,55 @@ export class HeaderComponent implements OnInit, AfterViewInit {
   }
 
   async onToggleClick(): Promise<void> {
+    await this.openOrCloseNavbar();
+  }
+
+  async onLogoClick(): Promise<void> {
     if (this.isNavigationMenuOpened) {
-      this.navbarCollapse.nativeElement.classList.remove('open-animation');
-      this.navbarCollapse.nativeElement.classList.add('close-animation');
-      await sleep(700);
-      this.navbarCollapse.nativeElement.style.display = 'none';
+      await this.openOrCloseNavbar();
+    }
+  }
+
+  async openOrCloseNavbar(): Promise<void> {
+    if (this.isNavigationMenuOpened) {
       this.isNavigationMenuOpened = false;
+      this.state = 'closed';
+      await sleep(500);
+      this.navbarCollapse.nativeElement.style.display = 'none';
     } else {
       this.navbarCollapse.nativeElement.style.display = 'inline-block';
-      this.navbarCollapse.nativeElement.classList.remove('close-animation');
-      this.navbarCollapse.nativeElement.classList.add('open-animation');
       this.isNavigationMenuOpened = true;
+      this.state = 'opened';
     }
   }
 
   @HostListener('window:resize')
   onResize(): void {
     this.designMenu();
+    this.setAnimationState();
   }
 
   @HostListener('window:scroll')
-  onScroll(): void {
+  async onScroll(): Promise<void> {
     this.designMenu();
     const currentScrollPosition = window.pageYOffset;
     if (this.previousScrollPosition > currentScrollPosition) {
       this.navbar.nativeElement.style.top = '0';
     } else if (currentScrollPosition > 120) {
       this.navbar.nativeElement.style.top = '-150px';
-      this.navbarCollapse.nativeElement.style.display = 'none';
-      this.isNavigationMenuOpened = false;
+      if (this.isNavigationMenuOpened) {
+        await this.openOrCloseNavbar();
+      }
     }
     this.previousScrollPosition = currentScrollPosition;
   }
 
   @HostListener('window:click', ['$event'])
-  onClick(event: MouseEvent): void {
+  async onClick(event: MouseEvent): Promise<void> {
     if (event.y > this.navbarCollapse.nativeElement.getBoundingClientRect().bottom) {
-      this.navbarCollapse.nativeElement.style.display = 'none';
-      this.isNavigationMenuOpened = false;
+      if (this.isNavigationMenuOpened) {
+        await this.openOrCloseNavbar();
+      }
     }
   }
 
