@@ -29,9 +29,6 @@ import { GalleryLayoutComponent } from './layout/gallery-layout/gallery-layout.c
 import { GalleryHeaderComponent } from './layout/gallery-header/gallery-header.component';
 import { VoucherCardComponent } from './public/menu-items/voucher/voucher-card/voucher-card.component';
 import { VoucherLayoutComponent } from './layout/voucher-layout/voucher-layout.component';
-import { OffersLayoutComponent } from './layout/offers-layout/offers-layout.component';
-import { OfferCardComponent } from './public/menu-items/offers/offer-card/offer-card.component';
-import { OfferReservationComponent } from './public/menu-items/offers/offer-reservation/offer-reservation.component';
 import { PopupTelephoneDialogComponent } from './layout/app-header/popup-telephone-dialog/popup-telephone-dialog.component';
 import { ImagesCarouselComponent } from './public/components/gallery/images-carousel/images-carousel.component';
 import { HouseComponent } from './public/menu-items/gallery/house/house.component';
@@ -79,9 +76,6 @@ import { ReservationFormDataComponent } from './public/components/reservation-fo
     GalleryHeaderComponent,
     VoucherCardComponent,
     VoucherLayoutComponent,
-    OffersLayoutComponent,
-    OfferCardComponent,
-    OfferReservationComponent,
     FromCalendarHeaderComponent,
     ToCalendarHeaderComponent,
     CalendarBodyComponent,

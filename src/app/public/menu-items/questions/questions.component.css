@@ -1,13 +1,19 @@
-h2{
-  margin:15px;
-}
-
-p{
-  margin-left: 30px;
-}
-
-.mat-expansion-panel{
-  border: black;
+.mat-expansion-panel {
+  border: orangered;
   border-style: solid;
   border-radius: 15px;
+}
+
+.mat-expansion-panel-header {
+  color: black;
+  font-size: large;
+}
+
+.answer {
+  padding-top: 1rem;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: orangered;
+  text-align: justify;
+  text-justify: inter-word;
 }

@@ -1,26 +1,28 @@
-.navbar{
+.navbar {
+  position: fixed;
   width: 100%;
-  height: 15vh;
+  height: 10vh;
   margin: 0 0 15vh 0;
-  padding: 8vh 0vh;
+  padding: 8vh 0vh 5vh;
+  transition: top 0.8s;
   background-image: linear-gradient(to bottom, rgba(0,0,0,0.8) 10%, rgba(0,0,0,0) 100%);
 }
 
-.logo{
+.logo {
   width: 9rem;
   height: 6rem;
   object-fit: cover;
   object-position: 0px -15px;
 }
 
-.navbar-brand{
+.navbar-brand {
   padding-top: 1rem;
   padding-left: 2rem;
 }
 
 .navbar-toggler {
   border-color: white;
-  border-width: 2px;
+  border-width: 3px;
 }
 
 .navbar-toggler-icon {
@@ -29,11 +31,6 @@
 
 .spacer{
   flex: 1 1 auto;
-}
-
-.navbar-nav{
-  position: relative;
-  top: -20px;
 }
 
 .nav-item{
@@ -45,7 +42,7 @@
   border-radius: 25px;
 }
 
-#gallery, #voucher, #prices, #faq, #contact, #reservation, #name {
+#reservation {
   color: rgba(255, 255, 255, 1);
 }
 
@@ -75,6 +72,7 @@
 @media (max-width: 991px) {
   .navbar{
     padding-top: 1vh;
+    height: 16vh;
   }
 
   .navbar-toggler {
@@ -83,16 +81,17 @@
 
   .navbar-brand {
     padding-left: 1rem;
-    padding-top: 2px;
+    padding-top: 0;
+    margin: 0;
   }
 
   .logo {
-    object-position: 0px 0px;
+    object-position: 0px -5px;
   }
 
   .navbar-collapse {
-    padding-top: 4vh;
     background: white;
+    padding-bottom: 1rem;
   }
 
   .nav-item {
@@ -115,10 +114,6 @@
 
   .telephone-container {
     display: none;
-  }
-
-  .facebook-icon, .instagram-icon {
-    filter: invert(37%) sepia(28%) saturate(723%) hue-rotate(40deg) brightness(94%) contrast(92%);
   }
 
   .facebook-icon {
@@ -147,4 +142,9 @@
       margin-right: 8rem;
     }
   }
+}
+
+.margin-for-other-components-below {
+  width: 100%;
+  height: 30vh;
 }

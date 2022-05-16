@@ -1,49 +1,51 @@
-<nav class="navbar navbar-expand-lg navbar-dark sticky-top">
+<nav class="navbar navbar-expand-lg navbar-dark sticky-top" #navbar>
 
   <a class="navbar-brand" routerLink="/">
     <img class="logo" src="../../../assets/logo.png"/>
   </a>
 
-  <button class="navbar-toggler" data-toggle="collapse" data-target="#collapse_target">
-    <span class="navbar-toggler-icon"></span>
+  <button #toggler class="navbar-toggler" (click)="onToggleClick()">
+    <span #toggler_icon class="navbar-toggler-icon"></span>
   </button>
 
-  <div class="collapse navbar-collapse" id="collapse_target">
+  <div #navbar_collapse class="collapse navbar-collapse" id="collapse_target" (click)="onToggleClick()">
     <span class="spacer"></span>
     <ul class="navbar-nav">
       <li class="nav-item">
-        <a id="gallery" class="nav-link" routerLink="/gallery" routerLinkActive="active-link" data-toggle="collapse" data-target=".navbar-collapse.show">GALÉRIA</a>
+        <a id="gallery" #gallery class="nav-link" routerLink="/gallery" routerLinkActive="active-link" data-toggle="collapse" data-target=".navbar-collapse.show">GALÉRIA</a>
       </li>
       <li class="nav-item">
-        <a id="voucher" class="nav-link" routerLink="/voucher" routerLinkActive="active-link" data-toggle="collapse" data-target=".navbar-collapse.show">UTALVÁNY</a>
+        <a id="voucher" #voucher class="nav-link" routerLink="/voucher" routerLinkActive="active-link" data-toggle="collapse" data-target=".navbar-collapse.show">UTALVÁNY</a>
       </li>
       <li class="nav-item">
-        <a id="prices" class="nav-link" routerLink="/prices" routerLinkActive="active-link" data-toggle="collapse" data-target=".navbar-collapse.show">ÁRAINK</a>
+        <a id="prices" #price class="nav-link" routerLink="/prices" routerLinkActive="active-link" data-toggle="collapse" data-target=".navbar-collapse.show">ÁRAINK</a>
       </li>
       <li class="nav-item">
-        <a id="faq" class="nav-link" routerLink="/questions" routerLinkActive="active-link" data-toggle="collapse" data-target=".navbar-collapse.show">GYIK</a>
+        <a id="faq" #faq class="nav-link" routerLink="/questions" routerLinkActive="active-link" data-toggle="collapse" data-target=".navbar-collapse.show">GYIK</a>
       </li>
       <li class="nav-item">
-        <a id="contact" class="nav-link" routerLink="/about-us" routerLinkActive="active-link" data-toggle="collapse" data-target=".navbar-collapse.show">KAPCSOLAT</a>
+        <a id="contact" #contact class="nav-link" routerLink="/about-us" routerLinkActive="active-link" data-toggle="collapse" data-target=".navbar-collapse.show">KAPCSOLAT</a>
       </li>
       <li class="nav-item reservation">
-        <a id="reservation" class="nav-link" routerLink="/reservation" routerLinkActive="active-link" data-toggle="collapse" data-target=".navbar-collapse.show">FOGLALÁS</a>
+        <a id="reservation" #reservation class="nav-link" routerLink="/reservation" routerLinkActive="active-link" data-toggle="collapse" data-target=".navbar-collapse.show">FOGLALÁS</a>
       </li>
       <li class="nav-item">
         <a id="facebook" class="nav-link" href="https://www.facebook.com/" target="_blank">
-          <img class="facebook-icon pt-1" src="assets/icon/facebook.svg">
+          <img #facebook_icon class="facebook-icon pt-1" src="assets/icon/facebook.svg">
         </a>
         <a id="instagram" class="nav-link" href="https://www.instagram.com/" target="_blank">
-          <img class="instagram-icon pt-1" src="assets/icon/instagram.svg">
+          <img #instagram_icon class="instagram-icon pt-1" src="assets/icon/instagram.svg">
         </a>
       </li>
       <li class="nav-item telephone-container">
         <a id="telephone" class="nav-link">
           <button mat-button (click)="openDialog()">
-            <img src="assets/icon/telephone.svg">
+            <img #telephone_icon src="assets/icon/telephone.svg">
           </button>
         </a>
       </li>
     </ul>
   </div>
 </nav>
+
+<div class="margin-for-other-components-below"></div>

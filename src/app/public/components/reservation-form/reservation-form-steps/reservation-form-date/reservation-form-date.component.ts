@@ -1,8 +1,8 @@
-import {AfterViewInit, Component, HostListener, OnDestroy, OnInit, ViewChild} from '@angular/core';
-import {ReservationFormStepperService} from '../../reservation-form-stepper/reservation-form-stepper.service';
-import {Booking} from '../../../../../models/booking.model';
-import {ReservationFormStepsService} from '../reservation-form-steps.service';
-import {Subscription} from 'rxjs';
+import { AfterViewInit, Component, HostListener, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import { ReservationFormStepperService } from '../../reservation-form-stepper/reservation-form-stepper.service';
+import { Booking } from '../../../../../models/booking.model';
+import { ReservationFormStepsService } from '../reservation-form-steps.service';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-reservation-form-date',
@@ -16,7 +16,8 @@ export class ReservationFormDateComponent implements OnInit, AfterViewInit, OnDe
   @ViewChild('secondCalendar') secondCalendar;
   private reservationFormStepsSubscription: Subscription;
 
-  constructor(public reservationFormStepperService: ReservationFormStepperService, public reservationFormStepsService: ReservationFormStepsService) { }
+  constructor(public reservationFormStepperService: ReservationFormStepperService,
+              public reservationFormStepsService: ReservationFormStepsService) { }
 
   ngOnInit(): void {
     this.booking = this.reservationFormStepsService.getBooking()

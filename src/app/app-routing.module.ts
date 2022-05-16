@@ -13,9 +13,6 @@ import {GalleryLayoutComponent} from './layout/gallery-layout/gallery-layout.com
 import {VoucherReservationComponent} from './public/menu-items/voucher/voucher-reservation/voucher-reservation.component';
 import {VoucherCardComponent} from './public/menu-items/voucher/voucher-card/voucher-card.component';
 import {VoucherLayoutComponent} from './layout/voucher-layout/voucher-layout.component';
-import {OffersLayoutComponent} from './layout/offers-layout/offers-layout.component';
-import {OfferCardComponent} from './public/menu-items/offers/offer-card/offer-card.component';
-import {OfferReservationComponent} from './public/menu-items/offers/offer-reservation/offer-reservation.component';
 import {HouseComponent} from './public/menu-items/gallery/house/house.component';
 
 const appRoutes: Routes = [
@@ -29,13 +26,6 @@ const appRoutes: Routes = [
               { path: 'house', component: HouseComponent },
               { path: 'sauna', component: SaunaComponent },
               { path: 'park', component: ParkComponent }
-            ]
-        },
-        { path: 'offers', redirectTo: 'offers/information'},
-        { path: 'offers', component: OffersLayoutComponent, children:
-            [
-              { path: 'information', component: OfferCardComponent },
-              { path: 'reservation', component: OfferReservationComponent }
             ]
         },
         { path: 'voucher', redirectTo: 'voucher/information'},

@@ -1,6 +1,6 @@
-<app-app-page-title [title]="'GYIK'" [imgPath]="'assets/house/pageTitlePic.jpg'"></app-app-page-title>
+<app-app-page-title [title]="'Gyakori kérdések'" [imgPath]="'assets/house/pageTitlePic.jpg'"></app-app-page-title>
 
-<div class="container-fluid pt-5">
+<div class="container-fluid pt-5 pb-5">
   <div *ngFor="let faq of FAQs">
     <div class="row justify-content-center">
       <div class="col-11 col-sm-10 col-md-9 col-lg-8 col-xl-7 p-2">
@@ -8,7 +8,9 @@
           <mat-expansion-panel-header>
             {{faq.question}}
           </mat-expansion-panel-header>
-          {{faq.answer}}
+          <div class="answer">
+            {{faq.answer}}
+          </div>
         </mat-expansion-panel>
       </div>
     </div>
