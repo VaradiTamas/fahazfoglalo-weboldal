@@ -4,6 +4,8 @@ import { PopupTelephoneDialogComponent } from './popup-telephone-dialog/popup-te
 import { sleep } from '../../screen-size-constants';
 import { trigger, state, style, transition, animate } from '@angular/animations';
 
+const animationTime = 180;
+
 @Component({
   selector: 'app-header',
   templateUrl: './header.component.html',
@@ -14,7 +16,7 @@ import { trigger, state, style, transition, animate } from '@angular/animations'
         opacity: 0
       })),
       state('opened', style({})),
-      transition('opened <=> closed', animate(500)),
+      transition('opened <=> closed', animate(animationTime)),
     ]),
     trigger('voucher', [
       state('closed', style({
@@ -24,7 +26,7 @@ import { trigger, state, style, transition, animate } from '@angular/animations'
       state('opened', style({
         transform: 'translateY(0px)',
       })),
-      transition('opened <=> closed', animate(500)),
+      transition('opened <=> closed', animate(animationTime)),
     ]),
     trigger('price', [
       state('closed', style({
@@ -34,7 +36,7 @@ import { trigger, state, style, transition, animate } from '@angular/animations'
       state('opened', style({
         transform: 'translateY(0px)',
       })),
-      transition('opened <=> closed', animate(500)),
+      transition('opened <=> closed', animate(animationTime)),
     ]),
     trigger('faq', [
       state('closed', style({
@@ -44,7 +46,7 @@ import { trigger, state, style, transition, animate } from '@angular/animations'
       state('opened', style({
         transform: 'translateY(0px)',
       })),
-      transition('opened <=> closed', animate(500)),
+      transition('opened <=> closed', animate(animationTime)),
     ]),
     trigger('contact', [
       state('closed', style({
@@ -54,7 +56,7 @@ import { trigger, state, style, transition, animate } from '@angular/animations'
       state('opened', style({
         transform: 'translateY(0px)',
       })),
-      transition('opened <=> closed', animate(500)),
+      transition('opened <=> closed', animate(animationTime)),
     ]),
     trigger('reservation', [
       state('closed', style({
@@ -64,7 +66,7 @@ import { trigger, state, style, transition, animate } from '@angular/animations'
       state('opened', style({
         transform: 'translateY(0px)',
       })),
-      transition('opened <=> closed', animate(500)),
+      transition('opened <=> closed', animate(animationTime)),
     ]),
     trigger('social-media', [
       state('closed', style({
@@ -74,7 +76,7 @@ import { trigger, state, style, transition, animate } from '@angular/animations'
       state('opened', style({
         transform: 'translateY(0px)',
       })),
-      transition('opened <=> closed', animate(500)),
+      transition('opened <=> closed', animate(animationTime)),
     ]),
   ]
 })
@@ -107,7 +109,7 @@ export class HeaderComponent implements OnInit, AfterViewInit {
   }
 
   setAnimationState(): void {
-    if (window.innerWidth < 992) {
+    if (window.innerWidth <= 992) {
       this.state = 'closed';
     } else {
       this.state = 'opened';
@@ -118,11 +120,14 @@ export class HeaderComponent implements OnInit, AfterViewInit {
     if (!this.isDialogOpened){
       const dialogRef = this.dialog.open(PopupTelephoneDialogComponent, { panelClass: 'telephone-dialog-container' });
       this.isDialogOpened = true;
+      this.state = 'closed';
       dialogRef.afterClosed().subscribe(result => {
         this.isDialogOpened = false;
+        this.state = 'opened';
       });
     }
     else {
+      this.state = 'opened';
       this.isDialogOpened = false;
       this.dialog.closeAll();
     }
@@ -139,10 +144,13 @@ export class HeaderComponent implements OnInit, AfterViewInit {
   }
 
   async openOrCloseNavbar(): Promise<void> {
+    if (window.innerWidth > 992) {
+      return;
+    }
     if (this.isNavigationMenuOpened) {
       this.isNavigationMenuOpened = false;
       this.state = 'closed';
-      await sleep(500);
+      await sleep(animationTime);
       this.navbarCollapse.nativeElement.style.display = 'none';
     } else {
       this.navbarCollapse.nativeElement.style.display = 'inline-block';
@@ -154,7 +162,9 @@ export class HeaderComponent implements OnInit, AfterViewInit {
   @HostListener('window:resize')
   onResize(): void {
     this.designMenu();
-    this.setAnimationState();
+    if (!this.isNavigationMenuOpened) {
+      this.setAnimationState();
+    }
   }
 
   @HostListener('window:scroll')
@@ -164,7 +174,7 @@ export class HeaderComponent implements OnInit, AfterViewInit {
     if (this.previousScrollPosition > currentScrollPosition) {
       this.navbar.nativeElement.style.top = '0';
     } else if (currentScrollPosition > 120) {
-      this.navbar.nativeElement.style.top = '-150px';
+      this.navbar.nativeElement.style.top = '-120px';
       if (this.isNavigationMenuOpened) {
         await this.openOrCloseNavbar();
       }
