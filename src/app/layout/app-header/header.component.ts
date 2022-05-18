@@ -11,6 +11,7 @@ const animationTime = 180;
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.css'],
   animations: [
+    // opening and closing effect of the collapsed navbar
     trigger('gallery', [
       state('closed', style({
         opacity: 0
@@ -78,10 +79,23 @@ const animationTime = 180;
       })),
       transition('opened <=> closed', animate(animationTime)),
     ]),
+    // animation between the white and transparent, disappeared menu
+    trigger('navbar', [
+      state('appeared', style({
+        'background-color': 'rgba(255,255,255,1)',
+        'background-image': 'linear-gradient(to bottom, rgba(0,0,0,0) 0%, rgba(0,0,0,0) 100%)',
+      })),
+      state('disappeared', style({
+        'background-color': 'rgba(255,255,255,0)',
+        'background-image': 'linear-gradient(to bottom, rgba(0,0,0,0.8) 10%, rgba(0,0,0,0) 100%)',
+      })),
+      transition('appeared <=> disappeared', animate(animationTime)),
+    ]),
   ]
 })
 export class HeaderComponent implements OnInit, AfterViewInit {
   @ViewChild('navbar') navbar;
+  @ViewChild('logo') logo;
   @ViewChild('navbar_collapse') navbarCollapse;
   @ViewChild('gallery') gallery;
   @ViewChild('voucher') voucher;
@@ -96,7 +110,8 @@ export class HeaderComponent implements OnInit, AfterViewInit {
   isDialogOpened = false;
   isNavigationMenuOpened = false;
   previousScrollPosition = window.pageYOffset;
-  state = 'closed';
+  menuState = 'closed';
+  whiteState = 'disappeared';
 
   constructor(public dialog: MatDialog) {}
 
@@ -110,9 +125,14 @@ export class HeaderComponent implements OnInit, AfterViewInit {
 
   setAnimationState(): void {
     if (window.innerWidth <= 992) {
-      this.state = 'closed';
+      this.menuState = 'closed';
     } else {
-      this.state = 'opened';
+      this.menuState = 'opened';
+    }
+    if (window.pageYOffset === 0) {
+      this.whiteState = 'disappeared';
+    } else {
+      this.whiteState = 'appeared';
     }
   }
 
@@ -120,14 +140,14 @@ export class HeaderComponent implements OnInit, AfterViewInit {
     if (!this.isDialogOpened){
       const dialogRef = this.dialog.open(PopupTelephoneDialogComponent, { panelClass: 'telephone-dialog-container' });
       this.isDialogOpened = true;
-      this.state = 'closed';
+      this.menuState = 'closed';
       dialogRef.afterClosed().subscribe(result => {
         this.isDialogOpened = false;
-        this.state = 'opened';
+        this.menuState = 'opened';
       });
     }
     else {
-      this.state = 'opened';
+      this.menuState = 'opened';
       this.isDialogOpened = false;
       this.dialog.closeAll();
     }
@@ -149,13 +169,13 @@ export class HeaderComponent implements OnInit, AfterViewInit {
     }
     if (this.isNavigationMenuOpened) {
       this.isNavigationMenuOpened = false;
-      this.state = 'closed';
+      this.menuState = 'closed';
       await sleep(animationTime);
       this.navbarCollapse.nativeElement.style.display = 'none';
     } else {
       this.navbarCollapse.nativeElement.style.display = 'inline-block';
       this.isNavigationMenuOpened = true;
-      this.state = 'opened';
+      this.menuState = 'opened';
     }
   }
 
@@ -194,27 +214,27 @@ export class HeaderComponent implements OnInit, AfterViewInit {
   designMenu(): void {
     if (window.pageYOffset === 0 && window.innerWidth >= 992) {
       this.makeMenuItemsWhite();
-      this.navbar.nativeElement.style.backgroundColor = 'transparent';
-      this.navbar.nativeElement.style.backgroundImage = 'linear-gradient(to bottom, rgba(0,0,0,0.8) 10%, rgba(0,0,0,0) 100%)';
+      this.whiteState = 'disappeared';
+      this.logo.nativeElement.src = './assets/white-green-reverse-logo-small.png';
     }
     if (window.pageYOffset === 0 && window.innerWidth < 992) {
       this.makeMenuItemsGreen();
+      this.whiteState = 'disappeared';
       this.toggler.nativeElement.style.borderColor = '#ffffff';
       this.togglerIcon.nativeElement.style.backgroundImage = 'url("data:image/svg+xml;charset=utf8,%3Csvg viewBox=\'0 0 32 32\' xmlns=\'http://www.w3.org/2000/svg\'%3E%3Cpath stroke=\'rgba(255,255,255, 1)\' stroke-width=\'3\' stroke-linecap=\'round\' stroke-miterlimit=\'10\' d=\'M4 8h24M4 16h24M4 24h24\'/%3E%3C/svg%3E")';
-      this.navbar.nativeElement.style.backgroundColor = 'transparent';
-      this.navbar.nativeElement.style.backgroundImage = 'linear-gradient(to bottom, rgba(0,0,0,0.8) 10%, rgba(0,0,0,0) 100%)';
+      this.logo.nativeElement.src = './assets/white-green-reverse-logo-small.png';
     }
     if (window.pageYOffset !== 0 && window.innerWidth >= 992) {
       this.makeMenuItemsGreen();
-      this.navbar.nativeElement.style.backgroundColor = '#ffffff';
-      this.navbar.nativeElement.style.backgroundImage = 'linear-gradient(to bottom, rgba(0,0,0,0) 0%, rgba(0,0,0,0) 100%)';
+      this.whiteState = 'appeared';
+      this.logo.nativeElement.src = './assets/green-logo-small.png';
     }
     if (window.pageYOffset !== 0 && window.innerWidth < 992) {
       this.makeMenuItemsGreen();
+      this.whiteState = 'appeared';
       this.toggler.nativeElement.style.borderColor = 'darkolivegreen';
-      this.togglerIcon.nativeElement.style.backgroundImage = 'url("data:image/svg+xml;charset=utf8,%3Csvg viewBox=\'0 0 32 32\' xmlns=\'http://www.w3.org/2000/svg\'%3E%3Cpath stroke=\'rgba(85,107,47, 1)\' stroke-width=\'3\' stroke-linecap=\'round\' stroke-miterlimit=\'10\' d=\'M4 8h24M4 16h24M4 24h24\'/%3E%3C/svg%3E")';
-      this.navbar.nativeElement.style.backgroundColor = '#ffffff';
-      this.navbar.nativeElement.style.backgroundImage = 'linear-gradient(to bottom, rgba(0,0,0,0) 0%, rgba(0,0,0,0) 100%)';
+      this.togglerIcon.nativeElement.style.backgroundImage = 'url("data:image/svg+xml;charset=utf8,%3Csvg viewBox=\'0 0 32 32\' xmlns=\'http://www.w3.org/2000/svg\'%3E%3Cpath stroke=\'rgba(255,69,0, 1)\' stroke-width=\'3\' stroke-linecap=\'round\' stroke-miterlimit=\'10\' d=\'M4 8h24M4 16h24M4 24h24\'/%3E%3C/svg%3E")';
+      this.logo.nativeElement.src = './assets/green-logo-small.png';
     }
   }
 
