@@ -6,8 +6,8 @@ import {Component, Input, OnInit} from '@angular/core';
   styleUrls: ['./app-page-title.component.css']
 })
 export class AppPageTitleComponent implements OnInit {
-  @Input()title: string;
-  @Input()imgPath: string;
+  @Input() title: string;
+  @Input() imgPath: string;
 
   constructor() { }
 
