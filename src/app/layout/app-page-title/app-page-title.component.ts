@@ -1,4 +1,4 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, HostListener, Input, OnInit, ViewChild} from '@angular/core';
 
 @Component({
   selector: 'app-app-page-title',
@@ -8,10 +8,16 @@ import {Component, Input, OnInit} from '@angular/core';
 export class AppPageTitleComponent implements OnInit {
   @Input() title: string;
   @Input() imgPath: string;
+  @ViewChild('pageTitleContainer') pageTitleContainer;
 
   constructor() { }
 
-  ngOnInit(): void {
+  ngOnInit(): void { }
+
+  @HostListener('window:scroll')
+  async onScroll(): Promise<void> {
+    const currentScrollPosition = window.pageYOffset;
+    this.pageTitleContainer.nativeElement.style.opacity = 1 - currentScrollPosition / 120;
   }
 
 }

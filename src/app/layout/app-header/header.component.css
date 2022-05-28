@@ -65,7 +65,7 @@
   #reservation {
     background-color: darkolivegreen;
     border-radius: 25px;
-    margin-right: 3rem;
+    margin-right: 2rem;
   }
 
   #facebook {
@@ -73,8 +73,13 @@
   }
 
   #telephone {
-    margin-left: 3rem;
+    /*margin-left: 3rem;*/
+    padding-left: 0.9rem;
     margin-right: 2rem;
+  }
+
+  .logo:hover, #voucher:hover, #gallery:hover, #prices:hover, #faq:hover, #contact:hover, #reservation:hover, .instagram-icon:hover, .facebook-icon:hover, .telephone-icon:hover {
+    transform: scale(1.05);
   }
 }
 
