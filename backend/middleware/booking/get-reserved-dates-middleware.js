@@ -38,10 +38,11 @@ module.exports = (req, res, next) => {
   fromDate.setFullYear(fromYear, fromMonth, 1);
   toDate.setFullYear(toYear, toMonth, 1);
 
-  Booking.find({$and: [
+  Booking.find({
+    $and: [
       {from: {$gte: fromDate}},
       {from: {$lt: toDate}},
-      {isPaid: "true"}]
+    ]
   })
     .then(bookings => {
       if (bookings) {

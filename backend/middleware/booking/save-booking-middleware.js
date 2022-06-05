@@ -2,19 +2,17 @@ const Booking = require('../../models/booking');
 
 module.exports = (req, res, next) => {
   const booking = new Booking({
+    voucherId: req.body.voucherId,
+    from: req.body.from,
+    to: req.body.to,
     firstName: req.body.firstName,
     lastName: req.body.lastName,
     email: req.body.email,
     tel: req.body.tel,
     numOfChildren: req.body.numOfChildren,
     numOfAdults: req.body.numOfAdults,
-    numOfBedrooms: req.body.numOfBedrooms,
     comment: req.body.comment,
-    isPaid: req.body.isPaid,
-    voucherId: req.body.voucherId,
-    from: req.body.from,
-    to: req.body.to,
-    offerName: req.body.offerName
+    paidAmount: req.body.paidAmount,
   });
 
   booking

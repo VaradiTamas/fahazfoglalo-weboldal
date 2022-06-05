@@ -1,19 +1,19 @@
-import {Injectable} from '@angular/core';
-import {Subject} from 'rxjs';
+import { Injectable } from '@angular/core';
+import { Observable, Subject } from 'rxjs';
 
-@Injectable({providedIn: 'root'})
+@Injectable({ providedIn: 'root' })
 export class ReservationFormStepperService {
   private reservationPhaseValue = 0;
-  private reservationPhaseValueUpdated = new Subject<{reservationPhaseValue: number}>();
+  private reservationPhaseValueUpdated = new Subject<{ reservationPhaseValue: number }>();
 
   constructor() {}
 
-  reservationPhaseValueChanged(value: number): void{
+  reservationPhaseValueChanged(value: number): void {
     this.reservationPhaseValue = value;
-    this.reservationPhaseValueUpdated.next({reservationPhaseValue: this.reservationPhaseValue});
+    this.reservationPhaseValueUpdated.next({ reservationPhaseValue: this.reservationPhaseValue });
   }
 
-  getReservationPhaseValueUpdateListener(){
+  getReservationPhaseValueUpdateListener(): Observable<{reservationPhaseValue: number}> {
     return this.reservationPhaseValueUpdated.asObservable();
   }
 }

@@ -52,17 +52,6 @@
                required
                placeholder="Nagy">
       </div>
-
-      <label class="col-sm-1 col-form-label ml-4" for="offerName">Csomagnév:</label>
-      <div class="col-2">
-        <input
-          name="offerName"
-          type="text"
-          class="form-control"
-          id="offerName"
-          [ngModel] = "(booking == null && isVoucherValid) ? 'voucher' : booking?.offerName"
-        >
-      </div>
     </div>
 
     <div class="form-group row mb-5">
@@ -131,19 +120,6 @@
           placeholder="example@gmail.com"
           required>
       </div>
-      <label class="col-sm-2 col-form-label ml-4" for="numOfBedrooms">Hálószobák száma:</label>
-      <div class="col-1">
-        <input
-          name="numOfBedrooms"
-          type="number"
-          min="1"
-          max="2"
-          step="1"
-          class="form-control"
-          id="numOfBedRooms"
-          [ngModel]="booking == null ? 1 : booking.numOfBedrooms"
-          required>
-      </div>
     </div>
     <div class="col-6">
       <label for="comment" class="col-form-label">Megjegyzés:</label>
@@ -154,15 +130,6 @@
         rows="4"
         cols="120">
     </textarea>
-    </div>
-    <div class="col-3 form-check mt-3" >
-      <input
-        name="isPaid"
-        class="form-check-input"
-        type="checkbox"
-        [ngModel]="booking?.isPaid"
-        id="isPaid">
-      <label class="form-check-label" for="isPaid">Fizetve</label>
     </div>
     <div class="row mt-4">
       <a mat-raised-button color="primary" class="col-1" [routerLink]="'/admin/bookings'">Vissza</a>

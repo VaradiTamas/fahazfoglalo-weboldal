@@ -1,4 +1,4 @@
-import {AfterViewInit, Component, HostListener, OnDestroy, OnInit, ViewChild} from '@angular/core';
+import {AfterViewInit, Component, OnDestroy, OnInit, ViewChild} from '@angular/core';
 import {MatSliderChange} from '@angular/material/slider';
 import {Subscription} from 'rxjs';
 import {ReservationFormStepperService} from './reservation-form-stepper.service';
@@ -12,7 +12,6 @@ export class ReservationFormStepperComponent implements OnInit, AfterViewInit, O
   phaseValue = 0;
   @ViewChild('dateDiv') dateDiv;
   @ViewChild('guestsDiv') guestsDiv;
-  @ViewChild('bedroomsDiv') bedroomsDiv;
   @ViewChild('dataDiv') dataDiv;
   @ViewChild('stepperContainer') stepperContainer;
   @ViewChild('spacerForStepperContainer') spacerForStepperContainer;
@@ -46,28 +45,18 @@ export class ReservationFormStepperComponent implements OnInit, AfterViewInit, O
       case 0: {
         this.dateDiv.nativeElement.style.color = 'orangered';
         this.guestsDiv.nativeElement.style.color = '#B4B4B4';
-        this.bedroomsDiv.nativeElement.style.color = '#B4B4B4';
         this.dataDiv.nativeElement.style.color = '#B4B4B4';
         break;
       }
       case 1: {
         this.dateDiv.nativeElement.style.color = '#B4B4B4';
         this.guestsDiv.nativeElement.style.color = 'orangered';
-        this.bedroomsDiv.nativeElement.style.color = '#B4B4B4';
         this.dataDiv.nativeElement.style.color = '#B4B4B4';
         break;
       }
       case 2: {
         this.dateDiv.nativeElement.style.color = '#B4B4B4';
         this.guestsDiv.nativeElement.style.color = '#B4B4B4';
-        this.bedroomsDiv.nativeElement.style.color = 'orangered';
-        this.dataDiv.nativeElement.style.color = '#B4B4B4';
-        break;
-      }
-      case 3: {
-        this.dateDiv.nativeElement.style.color = '#B4B4B4';
-        this.guestsDiv.nativeElement.style.color = '#B4B4B4';
-        this.bedroomsDiv.nativeElement.style.color = '#B4B4B4';
         this.dataDiv.nativeElement.style.color = 'orangered';
         break;
       }

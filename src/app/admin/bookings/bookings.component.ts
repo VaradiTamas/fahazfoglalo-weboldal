@@ -63,20 +63,19 @@ export class BookingsComponent implements OnInit, OnDestroy, AfterViewInit {
     }
   }
 
-  onChangedPage(pageData: PageEvent): void{
+  onChangedPage(pageData: PageEvent): void {
     this.isLoading = true;
     this.currentPage = pageData.pageIndex + 1;
     this.bookingsPerPage = pageData.pageSize;
     this.bookingService.getBookings(this.bookingsPerPage, this.currentPage);
   }
 
-  onConfirmBooking(booking: Booking): void{
-    booking.isPaid = true;
+  onConfirmBooking(booking: Booking): void {
     this.bookingService.updateBooking(booking);
     this.bookingService.sendPaymentConfirmationEmail(booking);
   }
 
-  onDelete(bookingId: string): void{
+  onDelete(bookingId: string): void {
     this.isLoading = true;
     this.bookingService.deleteBooking(bookingId).subscribe(() => {
       this.bookingService.getBookings(this.bookingsPerPage, this.currentPage);

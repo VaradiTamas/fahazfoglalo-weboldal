@@ -6,18 +6,16 @@ const bookingSchema = mongoose.Schema({
     type: Schema.Types.ObjectId,
     ref: 'Voucher'
   },
+  from: Date,
+  to: Date,
   firstName: String,
   lastName: String,
   email: String,
   tel: String,
-  from: Date,
-  to: Date,
-  offerName: String,
   numOfChildren: Number,
   numOfAdults: Number,
-  numOfBedrooms: Number,
   comment: String,
-  isPaid: Boolean
+  paidAmount: Number,
 })
 
 module.exports = mongoose.model('Booking', bookingSchema);

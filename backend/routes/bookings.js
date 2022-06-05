@@ -2,7 +2,6 @@ const express = require("express");
 const router = express.Router();
 
 const checkAuthMW = require("../middleware/user/check-auth-middleware");
-const setIsPaidStateMW = require("../middleware/booking/set-isPaid-state-middleware");
 const saveBookingMW = require('../middleware/booking/save-booking-middleware');
 const getBookingsMW = require('../middleware/booking/get-bookings.middleware');
 const deleteBookingMW = require('../middleware/booking/delete-booking-middleware');
@@ -11,7 +10,6 @@ const getBookingByIdMW = require('../middleware/booking/get-booking-by-id-middle
 const getReservedDatesMW = require('../middleware/booking/get-reserved-dates-middleware');
 
 router.post('',
-  setIsPaidStateMW,
   saveBookingMW
 );
 

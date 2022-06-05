@@ -20,7 +20,7 @@ export class ReservationFormDateComponent implements OnInit, AfterViewInit, OnDe
               public reservationFormStepsService: ReservationFormStepsService) { }
 
   ngOnInit(): void {
-    this.booking = this.reservationFormStepsService.getBooking()
+    this.booking = this.reservationFormStepsService.getBooking();
     this.reservationFormStepsSubscription = this.reservationFormStepsService.getBookingUpdateListener()
       .subscribe((subData) => {
         this.booking = subData.booking;
@@ -58,7 +58,7 @@ export class ReservationFormDateComponent implements OnInit, AfterViewInit, OnDe
   }
 
   @HostListener('window:resize', ['$event'])
-  onResize(event?): void {
+  onResize(): void {
     this.setSecondCalendarVisibility();
   }
 

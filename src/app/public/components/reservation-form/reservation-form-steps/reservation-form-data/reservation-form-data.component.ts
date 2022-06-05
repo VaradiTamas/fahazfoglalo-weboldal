@@ -1,12 +1,12 @@
-import {Component, OnDestroy, OnInit, ViewChild} from '@angular/core';
-import {Booking} from '../../../../../models/booking.model';
-import {Voucher} from '../../../../../models/voucher.model';
-import {VoucherService} from '../../../../../services/voucher.service';
-import {NgForm} from '@angular/forms';
-import {ReservationFormStepsService} from '../reservation-form-steps.service';
-import {Subscription} from 'rxjs';
-import {BookingService} from "../../../../../services/booking.service";
-import {Router} from "@angular/router";
+import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import { Booking } from '../../../../../models/booking.model';
+import { Voucher } from '../../../../../models/voucher.model';
+import { VoucherService } from '../../../../../services/voucher.service';
+import { NgForm } from '@angular/forms';
+import { ReservationFormStepsService } from '../reservation-form-steps.service';
+import { Subscription } from 'rxjs';
+import { BookingService } from '../../../../../services/booking.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-reservation-form-data',
@@ -77,23 +77,21 @@ export class ReservationFormDataComponent implements OnInit, OnDestroy {
     const value = form.value;
     const formBooking = {
       id: null,
+      voucherId: this.voucher?.id,
+      from: this.booking.from,
+      to: this.booking.to,
       firstName: value.firstName == null ? this.booking.firstName : value.firstName,
       lastName: value.lastName == null ? this.booking.lastName : value.lastName,
       email: value.email == null ? this.booking.email : value.email,
       tel: value.tel == null ? this.booking.tel : value.tel,
       numOfChildren: this.booking.numOfChildren,
       numOfAdults: this.booking.numOfAdults,
-      numOfBedrooms: this.booking.numOfBedrooms,
       comment: value.comment == null ? this.booking.comment : value.comment,
-      isPaid: false,
-      voucherId: this.voucher?.id,
-      from: this.booking.from,
-      to: this.booking.to,
-      offerName: this.booking.offerName
+      paidAmount: 0,
     };
     this.bookingService.addBooking(formBooking);
     this.bookingService.sendBookingConfirmationEmail(formBooking);
-    this.router.navigate(['/home']);
+    void this.router.navigate(['/home']);
   }
 
   ngOnDestroy(): void {

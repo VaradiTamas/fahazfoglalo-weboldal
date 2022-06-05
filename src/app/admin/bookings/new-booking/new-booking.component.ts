@@ -29,10 +29,10 @@ export class NewBookingComponent implements OnInit, OnDestroy{
               private authService: AuthService,
               private router: Router) {}
 
-  ngOnInit() {
+  ngOnInit(): void {
     this.authSubscription = this.authService
       .getAuthStatusListener()
-      .subscribe(authStatus => {
+      .subscribe(() => {
         this.isLoading = false;
       });
     this.route.paramMap.subscribe((paramMap: ParamMap) => {
@@ -44,19 +44,17 @@ export class NewBookingComponent implements OnInit, OnDestroy{
           this.isLoading = false;
           this.booking = {
             id: bookingData._id,
+            voucherId: bookingData.voucherId,
+            from: new Date(bookingData.from),
+            to: new Date(bookingData.to),
             firstName: bookingData.firstName,
             lastName: bookingData.lastName,
             email: bookingData.email,
             tel: bookingData.tel,
             numOfChildren: bookingData.numOfChildren,
             numOfAdults: bookingData.numOfAdults,
-            numOfBedrooms: bookingData.numOfBedrooms,
             comment: bookingData.comment,
-            isPaid: bookingData.isPaid,
-            voucherId: bookingData.voucherId,
-            from: new Date(bookingData.from),
-            to: new Date(bookingData.to),
-            offerName: bookingData.offerName
+            paidAmount: bookingData.paidAmount,
           };
         });
       }
@@ -67,45 +65,37 @@ export class NewBookingComponent implements OnInit, OnDestroy{
     });
   }
 
-  onSubmit(form: NgForm){
+  onSubmit(form: NgForm): void {
     if (form.invalid) {
       return;
     }
     this.isLoading = true;
     const value = form.value;
-    var offerName: string;
-    if (value.offerName == null){
-      offerName = 'általános';
-    }else{
-      offerName = value.offerName;
-    }
     const formBooking = {
       id: this.bookingId,
+      voucherId: this.voucher?.id,
+      from: value.from,
+      to: value.to,
       firstName: value.firstName,
       lastName: value.lastName,
       email: value.email,
       tel: value.tel,
       numOfChildren: value.numOfChildren,
       numOfAdults: value.numOfAdults,
-      numOfBedrooms: value.numOfBedrooms,
       comment: value.comment,
-      isPaid: value.isPaid,
-      voucherId: this.voucher?.id,
-      from: value.from,
-      to: value.to,
-      offerName: offerName
+      paidAmount: 0
     };
-    if(this.mode === 'create'){
+    if (this.mode === 'create'){
       this.bookingService.addBooking(formBooking);
     }
     else{
       this.bookingService.updateBooking(formBooking);
     }
     form.reset();
-    this.router.navigate(['/admin/bookings']);
+    void this.router.navigate(['/admin/bookings']);
   }
 
-  onCheckVoucher(form: NgForm){
+  onCheckVoucher(form: NgForm): void {
     const value = form.value;
     this.voucherService.getVoucher(value.voucherId).subscribe(voucherData => {
       this.voucher = {
@@ -124,17 +114,12 @@ export class NewBookingComponent implements OnInit, OnDestroy{
         address: voucherData.address,
         isPaid: voucherData.isPaid
       };
-      if (this.voucher.id == value.voucherId){
-        this.isVoucherValid = true;
-      }
-      else{
-        this.isVoucherValid = false;
-      }
+      this.voucher.id === value.voucherId ? this.isVoucherValid = true : this.isVoucherValid = false;
       this.alreadyCheckedVoucher = true;
     });
   }
 
-  ngOnDestroy() {
+  ngOnDestroy(): void {
     this.authSubscription.unsubscribe();
   }
 }
