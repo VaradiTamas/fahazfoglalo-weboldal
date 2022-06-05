@@ -1,42 +1,23 @@
 const Booking = require('../../models/booking');
 
-module.exports = (req, res, next) => {
-  const currentYear = +req.query.year;
-  const currentMonth = +req.query.month;
+module.exports = (req, res) => {
+  // this is the date of the second calendar
+  const requestedDate = new Date();
+  requestedDate.setFullYear(+req.query.year, +req.query.month, 1);
 
-  let fromYear;
-  let fromMonth;
+  // to be able to calculate filter parameters (from - to)
+  // (seconds per hour) * (hours per day) * (max number of days in a month) * (number of months) * (change from sec to millisec)
+  const threeMonths = 3600 * 24 * 31 * 3 * 1000;
 
-  let toYear;
-  let toMonth;
-
-  if (currentMonth == 0) {
-    fromYear = currentYear - 1;
-    fromMonth = 10;
-  } else if (currentMonth == 1) {
-    fromYear = currentYear - 1;
-    fromMonth = 11;
-  } else {
-    fromYear = currentYear;
-    fromMonth = currentMonth - 2;
-  }
-
-  if (currentMonth == 10) {
-    toYear = currentYear + 1;
-    toMonth = 0;
-  } else if (currentMonth == 11) {
-    toYear = currentYear + 1;
-    toMonth = 1;
-  } else {
-    toYear = currentYear;
-    toMonth = currentMonth + 2;
-  }
-
+  // three months before the requested date
+  const fromDateMilliseconds = requestedDate.getMilliseconds() - threeMonths;
   const fromDate = new Date();
-  const toDate = new Date();
+  fromDate.setMilliseconds(fromDateMilliseconds);
 
-  fromDate.setFullYear(fromYear, fromMonth, 1);
-  toDate.setFullYear(toYear, toMonth, 1);
+  // three months after the requested date
+  const toDateMilliseconds = requestedDate.getMilliseconds() + threeMonths;
+  const toDate = new Date();
+  toDate.setMilliseconds(toDateMilliseconds);
 
   Booking.find({
     $and: [
@@ -46,25 +27,38 @@ module.exports = (req, res, next) => {
   })
     .then(bookings => {
       if (bookings) {
-        res.status(200).json(bookings.map(booking => {
-          fromDates = {
-            year: booking.from.getFullYear(),
-            month: booking.from.getMonth(),
-            day: booking.from.getDate()
-          }
-          toDates = {
-            year: booking.to.getFullYear(),
-            month: booking.to.getMonth(),
-            day: booking.to.getDate()
-          }
-          return {from: fromDates, to: toDates};
-        }));
+        res.status(200).json(transformDates(bookings, fromDate, toDate));
       } else {
-        res.status(200).json({from: null, to: null});
+        res.status(200).json(null);
       }
     }).catch(error => {
     res.status(500).json({
       message: "Finding reserved dates failed!"
     });
   });
+}
+
+function transformDates(bookings, fromDate, toDate) {
+  const transformedDates = [];
+  let i = 0;
+  for (let date = fromDate; date <= toDate; date.setDate(date.getDate() + 1)) {
+    transformedDates.push({
+      date: new Date(date),
+      isReserved: isDateReserved(date, bookings),
+      previousDayIsReserved: false,
+      nextDayIsReserved: false,
+    })
+    // prev and next day reserved or not
+    i++;
+  }
+  return transformedDates;
+}
+
+function isDateReserved(date, bookings) {
+  for (let i = 0; i < bookings.length; i++) {
+    if (date > bookings[i].from && date < bookings[i].to) {
+      return true;
+    }
+  }
+  return false;
 }

@@ -1,11 +1,11 @@
-import {Component, EventEmitter, Input, OnDestroy, OnInit, Output} from '@angular/core';
-import {MatCalendarCellClassFunction} from '@angular/material/datepicker';
-import {Subscription} from 'rxjs';
-import {FirstCalendarService} from '../services/first-calendar-service';
-import {SecondCalendarService} from '../services/second-calendar-service';
-import {FromCalendarHeaderComponent} from '../headers/first-calendar-header/from-calendar-header.component';
-import {ToCalendarHeaderComponent} from '../headers/second-calendar-header/to-calendar-header.component';
-import {ReservationFormStepsService} from "../../reservation-form/reservation-form-steps/reservation-form-steps.service";
+import { Component, Input, OnDestroy, OnInit } from '@angular/core';
+import { MatCalendarCellClassFunction } from '@angular/material/datepicker';
+import { Subscription } from 'rxjs';
+import { FirstCalendarService } from '../services/first-calendar-service';
+import { SecondCalendarService } from '../services/second-calendar-service';
+import { FromCalendarHeaderComponent } from '../headers/first-calendar-header/from-calendar-header.component';
+import { ToCalendarHeaderComponent } from '../headers/second-calendar-header/to-calendar-header.component';
+import { ReservationFormStepsService } from '../../reservation-form/reservation-form-steps/reservation-form-steps.service';
 
 @Component({
   selector: 'app-calendar',
