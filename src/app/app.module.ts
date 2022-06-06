@@ -6,7 +6,6 @@ import {MaterialModule} from './material.module';
 import {AppRoutingModule} from './app-routing.module';
 import {AdminModule} from './admin/admin.module';
 import { AgmCoreModule} from '@agm/core';
-
 import { AppComponent } from './app.component';
 import { HeaderComponent } from './layout/app-header/header.component';
 import { VoucherReservationComponent } from './public/menu-items/voucher/voucher-reservation/voucher-reservation.component';
@@ -32,8 +31,9 @@ import { VoucherLayoutComponent } from './layout/voucher-layout/voucher-layout.c
 import { PopupTelephoneDialogComponent } from './layout/app-header/popup-telephone-dialog/popup-telephone-dialog.component';
 import { ImagesCarouselComponent } from './public/components/gallery/images-carousel/images-carousel.component';
 import { HouseComponent } from './public/menu-items/gallery/house/house.component';
-import { FromCalendarHeaderComponent } from './public/components/calendar/headers/first-calendar-header/from-calendar-header.component';
-import { ToCalendarHeaderComponent } from './public/components/calendar/headers/second-calendar-header/to-calendar-header.component';
+import { FirstCalendarHeaderComponent } from './public/components/calendar/headers/first-calendar-header/first-calendar-header.component';
+// tslint:disable-next-line:max-line-length
+import { SecondCalendarHeaderComponent } from './public/components/calendar/headers/second-calendar-header/second-calendar-header.component';
 import { CalendarBodyComponent } from './public/components/calendar/body/calendar-body.component';
 import { ReservationFormComponent } from './public/components/reservation-form/reservation-form.component';
 import { ReservationFormStepperComponent } from './public/components/reservation-form/reservation-form-stepper/reservation-form-stepper.component';
@@ -75,8 +75,8 @@ import { ReservationFormDataComponent } from './public/components/reservation-fo
     GalleryHeaderComponent,
     VoucherCardComponent,
     VoucherLayoutComponent,
-    FromCalendarHeaderComponent,
-    ToCalendarHeaderComponent,
+    FirstCalendarHeaderComponent,
+    SecondCalendarHeaderComponent,
     CalendarBodyComponent,
     PopupTelephoneDialogComponent,
     ImagesCarouselComponent,

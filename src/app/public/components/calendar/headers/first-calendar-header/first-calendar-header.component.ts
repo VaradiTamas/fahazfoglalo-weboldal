@@ -3,16 +3,15 @@ import {Subject, Subscription} from 'rxjs';
 import {MatCalendar} from '@angular/material/datepicker';
 import {DateAdapter, MAT_DATE_FORMATS, MatDateFormats} from '@angular/material/core';
 import {takeUntil} from 'rxjs/operators';
-import {FirstCalendarService} from '../../services/first-calendar-service';
-import {SecondCalendarService} from '../../services/second-calendar-service';
+import {CalendarService} from '../../services/calendar.service';
 import { HostListener } from '@angular/core';
 
 @Component({
   selector: 'app-from-datepicker-header',
-  templateUrl: './from-calendar-header.component.html',
-  styleUrls: ['./from-calendar-header.component.css']
+  templateUrl: './first-calendar-header.component.html',
+  styleUrls: ['./first-calendar-header.component.css']
 })
-export class FromCalendarHeaderComponent<D> implements OnInit, OnDestroy {
+export class FirstCalendarHeaderComponent<D> implements OnInit, OnDestroy {
   private destroyed = new Subject<void>();
   private nextClickedSubscription: Subscription;
   private today = new Date();
@@ -20,8 +19,7 @@ export class FromCalendarHeaderComponent<D> implements OnInit, OnDestroy {
   public isNextArrowDisabled = true;
 
   constructor(
-    private firstCalendarService: FirstCalendarService,
-    private secondCalendarService: SecondCalendarService,
+    private calendarService: CalendarService,
     private calendar: MatCalendar<D>, private dateAdapter: DateAdapter<D>,
     @Inject(MAT_DATE_FORMATS) private dateFormats: MatDateFormats, cdr: ChangeDetectorRef) {
     calendar.stateChanges
@@ -30,10 +28,13 @@ export class FromCalendarHeaderComponent<D> implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
-    this.nextClickedSubscription = this.secondCalendarService.getNextClickedListener()
+    this.nextClickedSubscription = this.calendarService.getNextClickedListener()
       .subscribe(() => {
         this.calendar.activeDate = this.dateAdapter.addCalendarMonths(this.calendar.activeDate, 1);
-        if (this.today.getMonth() === this.dateAdapter.getMonth(this.calendar.activeDate) && this.today.getFullYear() === this.dateAdapter.getYear(this.calendar.activeDate)){
+        if (
+          this.today.getMonth() === this.dateAdapter.getMonth(this.calendar.activeDate) &&
+          this.today.getFullYear() === this.dateAdapter.getYear(this.calendar.activeDate)
+        ) {
           this.isPreviousArrowDisabled = true;
         } else {
           this.isPreviousArrowDisabled = false;
@@ -42,39 +43,51 @@ export class FromCalendarHeaderComponent<D> implements OnInit, OnDestroy {
     this.setNextButton();
   }
 
-  get periodLabel() {
+  get periodLabel(): string {
     return this.dateAdapter
       .format(this.calendar.activeDate, this.dateFormats.display.monthYearLabel)
       .toLocaleUpperCase();
   }
 
   @HostListener('window:resize', ['$event'])
-  onResize(event?): void {
+  onResize(): void {
     this.setNextButton();
   }
 
   previousClicked(): void {
-    this.secondCalendarService.getReservedDays(this.dateAdapter.getYear(this.calendar.activeDate), this.dateAdapter.getMonth(this.calendar.activeDate));
+    this.calendarService.getCalendarDays(
+      this.dateAdapter.getYear(this.calendar.activeDate),
+      this.dateAdapter.getMonth(this.calendar.activeDate)
+    );
     this.calendar.activeDate = this.dateAdapter.addCalendarMonths(this.calendar.activeDate, -1);
-    this.firstCalendarService.getReservedDays(this.dateAdapter.getYear(this.calendar.activeDate), this.dateAdapter.getMonth(this.calendar.activeDate));
-    this.firstCalendarService.onPreviousClicked();
+    this.calendarService.getCalendarDays(
+      this.dateAdapter.getYear(this.calendar.activeDate),
+      this.dateAdapter.getMonth(this.calendar.activeDate)
+    );
+    this.calendarService.onPreviousClicked();
     this.setPreviousButton();
   }
 
   nextClicked(): void {
     this.calendar.activeDate = this.dateAdapter.addCalendarMonths(this.calendar.activeDate, 1);
-    this.firstCalendarService.getReservedDays(this.dateAdapter.getYear(this.calendar.activeDate), this.dateAdapter.getMonth(this.calendar.activeDate));
+    this.calendarService.getCalendarDays(
+      this.dateAdapter.getYear(this.calendar.activeDate),
+      this.dateAdapter.getMonth(this.calendar.activeDate)
+    );
     const activeDateCopy = new Date();
     activeDateCopy.setMonth(this.dateAdapter.getMonth(this.calendar.activeDate));
     activeDateCopy.setFullYear(this.dateAdapter.getYear(this.calendar.activeDate));
     activeDateCopy.setMonth(activeDateCopy.getMonth() + 1);
-    this.secondCalendarService.getReservedDays(activeDateCopy.getFullYear(), activeDateCopy.getMonth());
-    this.firstCalendarService.onNextClicked();
+    this.calendarService.getCalendarDays(activeDateCopy.getFullYear(), activeDateCopy.getMonth());
+    this.calendarService.onNextClicked();
     this.setPreviousButton();
   }
 
   setPreviousButton(): void{
-    if (this.today.getMonth() === this.dateAdapter.getMonth(this.calendar.activeDate) && this.today.getFullYear() === this.dateAdapter.getYear(this.calendar.activeDate)){
+    if (
+      this.today.getMonth() === this.dateAdapter.getMonth(this.calendar.activeDate) &&
+      this.today.getFullYear() === this.dateAdapter.getYear(this.calendar.activeDate)
+    ){
       this.isPreviousArrowDisabled = true;
     } else {
       this.isPreviousArrowDisabled = false;
@@ -82,11 +95,7 @@ export class FromCalendarHeaderComponent<D> implements OnInit, OnDestroy {
   }
 
   setNextButton(): void{
-    if (window.innerWidth <= 768){
-      this.isNextArrowDisabled = false;
-    } else {
-      this.isNextArrowDisabled = true;
-    }
+    window.innerWidth <= 768 ? this.isNextArrowDisabled = false : this.isNextArrowDisabled = true;
   }
 
   ngOnDestroy(): void {

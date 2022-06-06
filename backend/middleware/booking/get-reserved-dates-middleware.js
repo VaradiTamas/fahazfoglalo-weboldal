@@ -48,7 +48,14 @@ function transformDates(bookings, fromDate, toDate) {
       previousDayIsReserved: false,
       nextDayIsReserved: false,
     })
-    // prev and next day reserved or not
+    if (i > 1) {
+      if (transformedDates[i-2].isReserved) {
+        transformedDates[i-1].previousDayIsReserved = true;
+      }
+      if (transformedDates[i].isReserved) {
+        transformedDates[i-1].nextDayIsReserved = true;
+      }
+    }
     i++;
   }
   return transformedDates;

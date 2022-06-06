@@ -1,4 +1,4 @@
-export interface Voucher{
+export interface Voucher {
   id: string;
   firstName: string;
   lastName: string;
