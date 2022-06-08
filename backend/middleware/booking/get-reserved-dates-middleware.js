@@ -45,15 +45,25 @@ function transformDates(bookings, fromDate, toDate) {
     transformedDates.push({
       date: new Date(date),
       isReserved: isDateReserved(date, bookings),
-      previousDayIsReserved: false,
-      nextDayIsReserved: false,
+      state: null,  // to determine its state we have to know if the previous & next dates are reserved or not
     })
+    // determining the state of the previous date (i-1 element of the transformedDates)
     if (i > 1) {
-      if (transformedDates[i-2].isReserved) {
-        transformedDates[i-1].previousDayIsReserved = true;
+      // if the previous day was reserved
+      if (transformedDates[i-1].isReserved) {
+        if (transformedDates[i-2].isReserved) {
+          transformedDates[i - 1].state = 'FULLY_RESERVED';
+        } else {
+          transformedDates[i - 1].state = 'FIRST_HALF_FREE_SECOND_HALF_RESERVED';
+        }
       }
-      if (transformedDates[i].isReserved) {
-        transformedDates[i-1].nextDayIsReserved = true;
+      // if the previous day was not reserved
+      else {
+        if (transformedDates[i-2].isReserved) {
+          transformedDates[i - 1].state = 'FIRST_HALF_RESERVED_SECOND_HALF_FREE';
+        } else {
+          transformedDates[i - 1].state = 'FULLY_FREE';
+        }
       }
     }
     i++;

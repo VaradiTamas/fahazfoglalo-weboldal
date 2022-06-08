@@ -1,11 +1,11 @@
-import { Component, Input, OnDestroy, OnInit } from '@angular/core';
-import { MatCalendarCellClassFunction } from '@angular/material/datepicker';
-import { Subscription } from 'rxjs';
-import { CalendarService } from '../services/calendar.service';
-import { FirstCalendarHeaderComponent } from '../headers/first-calendar-header/first-calendar-header.component';
-import { SecondCalendarHeaderComponent } from '../headers/second-calendar-header/second-calendar-header.component';
-import { ReservationFormStepsService } from '../../reservation-form/reservation-form-steps/reservation-form-steps.service';
-import { CalendarDay } from '../../../../models/calendar-day.model';
+import {Component, Input, OnDestroy, OnInit} from '@angular/core';
+import {MatCalendarCellClassFunction} from '@angular/material/datepicker';
+import {Subscription} from 'rxjs';
+import {CalendarService} from '../services/calendar.service';
+import {FirstCalendarHeaderComponent} from '../headers/first-calendar-header/first-calendar-header.component';
+import {SecondCalendarHeaderComponent} from '../headers/second-calendar-header/second-calendar-header.component';
+import {ReservationFormStepsService} from '../../reservation-form/reservation-form-steps/reservation-form-steps.service';
+import {CalendarDay, CalendarDayState} from '../../../../models/calendar-day.model';
 
 @Component({
   selector: 'app-calendar',
@@ -30,13 +30,12 @@ export class CalendarBodyComponent implements OnInit, OnDestroy{
   ngOnInit(): void {
     if (this.calendarType === 'first'){
       this.header = FirstCalendarHeaderComponent;
+      this.calendarService.getCalendarDays(this.initialDate.getFullYear(), this.initialDate.getMonth());
     } else if (this.calendarType === 'second'){
       this.header = SecondCalendarHeaderComponent;
       this.initialDate.setMonth(this.initialDate.getMonth() + 1);
     }
     this.initSubscriptions();
-    this.calendarService.getCalendarDays(this.initialDate.getFullYear(), this.initialDate.getMonth());
-    this.designCalendar();
   }
 
   initSubscriptions(): void {
@@ -44,11 +43,11 @@ export class CalendarBodyComponent implements OnInit, OnDestroy{
       .subscribe((selectedDates) => {
         this.selectedStartDate = selectedDates.startDate;
         this.selectedEndDate = selectedDates.endDate;
-        this.designCalendar();
       });
     this.calendarDaysSubscription = this.calendarService.getCalendarDaysUpdateListener()
       .subscribe((subData) => {
         this.calendarDays = subData.calendarDays;
+        this.designCalendar();
       });
   }
 
@@ -71,15 +70,43 @@ export class CalendarBodyComponent implements OnInit, OnDestroy{
     this.isLoaded = false;
 
     this.dateClass = (cellDate, view) => {
+      let dateState: CalendarDayState;
       if (view === 'month') {
         this.calendarDays.forEach((calendarDay) => {
-          if (calendarDay.date === cellDate) {
-            if (calendarDay.isReserved) {
-              return 'fully-reserved-dates';
-            }
+          if (this.areDatesOnSameDay(calendarDay.date, cellDate)) {
+            dateState = calendarDay.state;
           }
         });
-        return 'fully-free-dates';
+
+        switch (dateState) {
+          case CalendarDayState.FullyFree: {
+            return 'fully-free-dates';
+          }
+          case CalendarDayState.FullyReserved: {
+            return 'fully-reserved-dates';
+          }
+          case CalendarDayState.FullySelected: {
+            return 'fully-chosen-dates';
+          }
+          case CalendarDayState.FirstHalfFreeSecondHalfReserved: {
+            return 'first-half-free-second-half-reserved';
+          }
+          case CalendarDayState.FirstHalfFreeSecondHalfSelected: {
+            return 'first-half-reserved-second-half-chosen';
+          }
+          case CalendarDayState.FirstHalfReservedSecondHalfFree: {
+            return 'first-half-reserved-second-half-free';
+          }
+          case CalendarDayState.FirstHalfReservedSecondHalfSelected: {
+            return 'first-half-reserved-second-half-chosen';
+          }
+          case CalendarDayState.FirstHalfSelectedSecondHalfFree: {
+            return 'first-half-chosen-second-half-free';
+          }
+          case CalendarDayState.FirstHalfSelectedSecondHalfReserved: {
+            return 'first-half-chosen-second-half-reserved';
+          }
+        }
       }
     };
 
@@ -101,6 +128,13 @@ export class CalendarBodyComponent implements OnInit, OnDestroy{
     };
 
     this.isLoaded = true;
+  }
+
+  areDatesOnSameDay(date: Date, date2: Date): boolean {
+    const date1 = new Date(date);
+    return date1.getFullYear() === date2.getFullYear()
+      && date1.getMonth() === date2.getMonth()
+      && date1.getDate() === date2.getDate();
   }
 
   ngOnDestroy(): void {
