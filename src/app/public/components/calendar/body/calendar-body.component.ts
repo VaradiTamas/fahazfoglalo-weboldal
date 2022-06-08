@@ -19,9 +19,9 @@ export class CalendarBodyComponent implements OnInit, OnDestroy{
   calendarDays: CalendarDay[] = [];
   initialDate = new Date();
   isLoaded = false;
-  private header;
   private calendarDaysSubscription: Subscription;
   private selectedDatesSubscription: Subscription;
+  private header;
   dateFilter = (d: Date | null): boolean => true;
   dateClass: MatCalendarCellClassFunction<Date> = (cellDate, view) => '';
 
@@ -43,12 +43,64 @@ export class CalendarBodyComponent implements OnInit, OnDestroy{
       .subscribe((selectedDates) => {
         this.selectedStartDate = selectedDates.startDate;
         this.selectedEndDate = selectedDates.endDate;
+        this.setCalendarDaysStatuses();
+        this.designCalendar();
       });
     this.calendarDaysSubscription = this.calendarService.getCalendarDaysUpdateListener()
       .subscribe((subData) => {
         this.calendarDays = subData.calendarDays;
+        this.setCalendarDaysStatuses();
         this.designCalendar();
       });
+  }
+
+  private setCalendarDaysStatuses(): void {
+    if (this.selectedStartDate === null) {
+      return;
+    }
+
+    const indexOfSelectedStartDate = this.setCalendarDayStatusForSelectedStartDate();
+
+    if (this.selectedEndDate !== null) {
+      const indexOfSelectedEndDate = this.setCalendarDayStatusForSelectedEndDate();
+      this.setCalendarDayStatusBetweenSelectedDates(indexOfSelectedStartDate, indexOfSelectedEndDate);
+    }
+  }
+
+  private setCalendarDayStatusForSelectedStartDate(): number {
+    for (let i = 0; i < this.calendarDays.length; i++) {
+      if (this.calendarService.areDatesOnSameDay(this.calendarDays[i].date, this.selectedStartDate)) {
+        if (i > 0) {
+          if (this.calendarDays[i - 1].isReserved) {
+            this.calendarDays[i].state = CalendarDayState.FirstHalfReservedSecondHalfSelected;
+          } else {
+            this.calendarDays[i].state = CalendarDayState.FirstHalfFreeSecondHalfSelected;
+          }
+        }
+        return i;
+      }
+    }
+  }
+
+  private setCalendarDayStatusBetweenSelectedDates(from: number, to: number): void {
+    for (let i = from + 1; i < to; i++) {
+      this.calendarDays[i].state = CalendarDayState.FullySelected;
+    }
+  }
+
+  private setCalendarDayStatusForSelectedEndDate(): number {
+    for (let i = 0; i < this.calendarDays.length; i++) {
+      if (this.calendarService.areDatesOnSameDay(this.calendarDays[i].date, this.selectedEndDate)) {
+        if (i > 0) {
+          if (this.calendarDays[i].isReserved) {
+            this.calendarDays[i].state = CalendarDayState.FirstHalfSelectedSecondHalfReserved;
+          } else {
+            this.calendarDays[i].state = CalendarDayState.FirstHalfSelectedSecondHalfFree;
+          }
+        }
+        return i;
+      }
+    }
   }
 
   onSelectedDateChange(chosenDate: Date): void {
@@ -59,7 +111,7 @@ export class CalendarBodyComponent implements OnInit, OnDestroy{
   }
 
   updateSelectedDates(chosenDate: Date): void {
-    if (this.selectedStartDate !== null) {
+    if (this.selectedStartDate) {
       this.selectedEndDate = chosenDate;
     } else {
       this.selectedStartDate = chosenDate;
@@ -69,11 +121,18 @@ export class CalendarBodyComponent implements OnInit, OnDestroy{
   private designCalendar(): void{
     this.isLoaded = false;
 
+    this.paintDates();
+    this.filterDates();
+
+    this.isLoaded = true;
+  }
+
+  private paintDates(): void {
     this.dateClass = (cellDate, view) => {
       let dateState: CalendarDayState;
       if (view === 'month') {
         this.calendarDays.forEach((calendarDay) => {
-          if (this.areDatesOnSameDay(calendarDay.date, cellDate)) {
+          if (this.calendarService.areDatesOnSameDay(calendarDay.date, cellDate)) {
             dateState = calendarDay.state;
           }
         });
@@ -92,7 +151,7 @@ export class CalendarBodyComponent implements OnInit, OnDestroy{
             return 'first-half-free-second-half-reserved';
           }
           case CalendarDayState.FirstHalfFreeSecondHalfSelected: {
-            return 'first-half-reserved-second-half-chosen';
+            return 'first-half-free-second-half-chosen';
           }
           case CalendarDayState.FirstHalfReservedSecondHalfFree: {
             return 'first-half-reserved-second-half-free';
@@ -109,7 +168,9 @@ export class CalendarBodyComponent implements OnInit, OnDestroy{
         }
       }
     };
+  }
 
+  private filterDates(): void {
     this.dateFilter = (d: Date | null): boolean => {
       const calendarDate = d || new Date();
       const today = new Date();
@@ -126,15 +187,6 @@ export class CalendarBodyComponent implements OnInit, OnDestroy{
 
       return isSelectable;
     };
-
-    this.isLoaded = true;
-  }
-
-  areDatesOnSameDay(date: Date, date2: Date): boolean {
-    const date1 = new Date(date);
-    return date1.getFullYear() === date2.getFullYear()
-      && date1.getMonth() === date2.getMonth()
-      && date1.getDate() === date2.getDate();
   }
 
   ngOnDestroy(): void {

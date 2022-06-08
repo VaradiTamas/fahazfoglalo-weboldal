@@ -35,6 +35,23 @@ export class CalendarService {
      });
   }
 
+  public getCalendarDay(searchDate: Date): CalendarDay {
+    this.calendarDays.forEach((calendarDay) => {
+      if (this.areDatesOnSameDay(calendarDay.date, searchDate)) {
+        return calendarDay;
+      }
+    });
+    return null;
+  }
+
+  public areDatesOnSameDay(firstDate: Date, secondDate: Date): boolean {
+    const date1 = new Date(firstDate);
+    const date2 = new Date(secondDate);
+    return date1.getFullYear() === date2.getFullYear()
+      && date1.getMonth() === date2.getMonth()
+      && date1.getDate() === date2.getDate();
+  }
+
   selectedDatesChanged(selectedStartDate: Date, selectedEndDate: Date): void{
     this.startDate = selectedStartDate;
     this.endDate = selectedEndDate;
