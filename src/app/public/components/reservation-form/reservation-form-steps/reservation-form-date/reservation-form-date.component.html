@@ -1,9 +1,13 @@
 <div class="container-fluid m-0 p-0 pt-4">
   <!--date text-->
   <div class="row justify-content-center m-0 p-3">
-    <div class="col-12 col-md-6 col-lg-5 col-xl-4 date-text-container m-0 p-2">
+    <button #tooltip="matTooltip"
+            matTooltip="Kérlek válaszd ki a dátumot az alábbi naptárban!"
+            matTooltipClass="date-text-tooltip"
+            (click)="onDateTextClick()"
+            class="col-12 col-md-6 col-lg-5 col-xl-4 date-text-container m-0 p-2">
       <b class="pl-3 pr-3">{{fromDateText}} &nbsp; - &nbsp; {{toDateText}}</b>
-    </div>
+    </button>
   </div>
   <!--calendars-->
   <div class="row justify-content-center m-0 p-0">

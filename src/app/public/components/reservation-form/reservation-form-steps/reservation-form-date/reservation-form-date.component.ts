@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, HostListener, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, HostListener, OnDestroy, OnInit, ViewChild, ViewEncapsulation } from '@angular/core';
 import { ReservationFormStepperService } from '../../reservation-form-stepper/reservation-form-stepper.service';
 import { Booking } from '../../../../../models/booking.model';
 import { ReservationFormStepsService } from '../reservation-form-steps.service';
@@ -7,13 +7,15 @@ import { Subscription } from 'rxjs';
 @Component({
   selector: 'app-reservation-form-date',
   templateUrl: './reservation-form-date.component.html',
-  styleUrls: ['./reservation-form-date.component.css']
+  styleUrls: ['./reservation-form-date.component.css'],
+  encapsulation: ViewEncapsulation.None,
 })
 export class ReservationFormDateComponent implements OnInit, AfterViewInit, OnDestroy {
   booking: Booking;
   fromDateText = 'Mettől';
   toDateText = 'Meddig';
   @ViewChild('secondCalendar') secondCalendar;
+  @ViewChild('tooltip') tooltip;
   private reservationFormStepsSubscription: Subscription;
 
   constructor(public reservationFormStepperService: ReservationFormStepperService,
@@ -35,9 +37,7 @@ export class ReservationFormDateComponent implements OnInit, AfterViewInit, OnDe
 
   setFromDateText(): void{
     if (this.booking.from != null){
-      this.fromDateText = String(this.booking.from.getFullYear()) + '.'
-        + String(this.booking.from.getMonth() + 1) + '.'
-        + String(this.booking.from.getDate() + '.');
+      this.fromDateText = this.formatDateString(this.booking.from);
     } else {
       this.fromDateText = 'Mettől';
     }
@@ -45,12 +45,27 @@ export class ReservationFormDateComponent implements OnInit, AfterViewInit, OnDe
 
   setToDateText(): void{
     if (this.booking.to != null){
-      this.toDateText = String(this.booking.to.getFullYear()) + '.'
-        + String(this.booking.to.getMonth() + 1) + '.'
-        + String(this.booking.to.getDate() + '.');
+      this.toDateText = this.formatDateString(this.booking.to);
     } else {
       this.toDateText = 'Meddig';
     }
+  }
+
+  private formatDateString(date: Date): string {
+    const yearString = date.getFullYear().toString();
+
+    // for days and months if they are below 10 we have to put a 0 in front of them to make the text look nice
+    // e.g. instead of 2022.1.2. it will be 2022.01.02.
+    const month = date.getMonth() + 1;
+    const monthString = month > 9 ? month.toString() : '0' + month.toString();
+    const day = date.getDate();
+    const dayString = day > 9 ? day.toString() : '0' + day.toString();
+
+    return yearString + '.' + monthString + '.' + dayString + '.';
+  }
+
+  onDateTextClick(): void {
+    this.tooltip.show();
   }
 
   onReservationPhaseChange(phaseValue: number): void{
