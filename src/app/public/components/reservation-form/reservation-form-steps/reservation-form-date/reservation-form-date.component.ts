@@ -14,6 +14,7 @@ export class ReservationFormDateComponent implements OnInit, AfterViewInit, OnDe
   booking: Booking;
   fromDateText = 'Mettől';
   toDateText = 'Meddig';
+  isTooltipDisabled = false;
   @ViewChild('secondCalendar') secondCalendar;
   @ViewChild('tooltip') tooltip;
   private reservationFormStepsSubscription: Subscription;
@@ -22,13 +23,17 @@ export class ReservationFormDateComponent implements OnInit, AfterViewInit, OnDe
               public reservationFormStepsService: ReservationFormStepsService) { }
 
   ngOnInit(): void {
-    this.booking = this.reservationFormStepsService.getBooking();
     this.reservationFormStepsSubscription = this.reservationFormStepsService.getBookingUpdateListener()
       .subscribe((subData) => {
         this.booking = subData.booking;
         this.setFromDateText();
         this.setToDateText();
+        this.setTooltip();
       });
+    this.booking = this.reservationFormStepsService.getBooking();
+    this.setFromDateText();
+    this.setToDateText();
+    this.setTooltip();
   }
 
   ngAfterViewInit(): void{
@@ -66,6 +71,10 @@ export class ReservationFormDateComponent implements OnInit, AfterViewInit, OnDe
 
   onDateTextClick(): void {
     this.tooltip.show();
+  }
+
+  setTooltip(): void {
+    this.isTooltipDisabled = this.booking.from && this.booking.to ? true : false;
   }
 
   onReservationPhaseChange(phaseValue: number): void{

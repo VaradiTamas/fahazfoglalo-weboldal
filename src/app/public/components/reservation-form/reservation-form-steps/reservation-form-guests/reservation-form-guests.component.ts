@@ -1,9 +1,8 @@
-import {Component, OnDestroy, OnInit, ViewChild} from '@angular/core';
-import {Booking} from '../../../../../models/booking.model';
-import {ReservationFormStepperService} from '../../reservation-form-stepper/reservation-form-stepper.service';
-import {ReservationFormStepsService} from '../reservation-form-steps.service';
-import {Subscription} from 'rxjs';
-import {NgForm} from '@angular/forms';
+import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import { Booking } from '../../../../../models/booking.model';
+import { ReservationFormStepperService } from '../../reservation-form-stepper/reservation-form-stepper.service';
+import { ReservationFormStepsService } from '../reservation-form-steps.service';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-reservation-form-guests',
@@ -16,7 +15,8 @@ export class ReservationFormGuestsComponent implements OnInit, OnDestroy {
   booking: Booking;
   private reservationFormStepsSubscription: Subscription;
 
-  constructor(public reservationFormStepperService: ReservationFormStepperService, public reservationFormStepsService: ReservationFormStepsService) { }
+  constructor(public reservationFormStepperService: ReservationFormStepperService,
+              public reservationFormStepsService: ReservationFormStepsService) { }
 
   ngOnInit(): void {
     this.booking = this.reservationFormStepsService.getBooking();

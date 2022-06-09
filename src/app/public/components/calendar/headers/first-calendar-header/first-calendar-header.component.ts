@@ -35,7 +35,7 @@ export class FirstCalendarHeaderComponent<D> implements OnInit, OnDestroy {
     this.previousClickedSubscription = this.calendarService.getPreviousClickedListener()
       .subscribe(() => {
         this.calendar.activeDate = this.dateAdapter.addCalendarMonths(this.calendar.activeDate, -1);
-        this.calendarService.getCalendarDays(
+        this.calendarService.updateCalendarDays(
           this.dateAdapter.getYear(this.calendar.activeDate),
           this.dateAdapter.getMonth(this.calendar.activeDate)
         );
@@ -44,7 +44,7 @@ export class FirstCalendarHeaderComponent<D> implements OnInit, OnDestroy {
     this.nextClickedSubscription = this.calendarService.getNextClickedListener()
       .subscribe(() => {
         this.calendar.activeDate = this.dateAdapter.addCalendarMonths(this.calendar.activeDate, 1);
-        this.calendarService.getCalendarDays(
+        this.calendarService.updateCalendarDays(
           this.dateAdapter.getYear(this.calendar.activeDate),
           this.dateAdapter.getMonth(this.calendar.activeDate)
         );

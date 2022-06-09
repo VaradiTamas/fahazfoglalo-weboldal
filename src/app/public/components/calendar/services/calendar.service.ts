@@ -26,7 +26,19 @@ export class CalendarService {
 
   constructor(private http: HttpClient) {}
 
-  getCalendarDays(year: number, month: number): void {
+  public getCalendarDays(): CalendarDay[] {
+    return this.calendarDays;
+  }
+
+  public getFromDate(): Date {
+    return this.fromDate;
+  }
+
+  public getToDate(): Date {
+    return this.toDate;
+  }
+
+  updateCalendarDays(year: number, month: number): void {
     const queryParams = `?year=${year}&month=${month}`;
     this.http.get<CalendarDay[]>(BACKEND_URL + 'bookings/reserved-days' + queryParams)
      .subscribe((calendarDays) => {
@@ -82,13 +94,14 @@ export class CalendarService {
       && date1.getDate() === date2.getDate();
   }
 
-  selectedDatesChanged(selectedStartDate: Date, selectedEndDate: Date): void{
+  selectedDatesChanged(selectedStartDate: Date, selectedEndDate: Date): void {
     this.fromDate = selectedStartDate;
     this.toDate = selectedEndDate;
     this.selectedDateUpdated.next({
       fromDate: this.fromDate,
       toDate: this.toDate
     });
+    console.log('meghivodott a selected date change');
   }
 
   onPreviousClicked(): void {

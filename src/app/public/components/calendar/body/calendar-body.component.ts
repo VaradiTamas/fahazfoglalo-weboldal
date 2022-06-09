@@ -28,9 +28,12 @@ export class CalendarBodyComponent implements OnInit, OnDestroy{
   constructor(public calendarService: CalendarService, public reservationFormStepsService: ReservationFormStepsService) { }
 
   ngOnInit(): void {
+    this.calendarDays = this.calendarService.getCalendarDays();
+    this.fromDate = this.calendarService.getFromDate();
+    this.toDate = this.calendarService.getToDate();
     if (this.calendarType === 'first'){
       this.header = FirstCalendarHeaderComponent;
-      this.calendarService.getCalendarDays(this.initialDate.getFullYear(), this.initialDate.getMonth());
+      this.calendarService.updateCalendarDays(this.initialDate.getFullYear(), this.initialDate.getMonth());
     } else if (this.calendarType === 'second'){
       this.header = SecondCalendarHeaderComponent;
       this.initialDate.setMonth(this.initialDate.getMonth() + 1);

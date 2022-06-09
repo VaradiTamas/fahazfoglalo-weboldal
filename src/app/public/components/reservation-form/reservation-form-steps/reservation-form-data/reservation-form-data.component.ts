@@ -7,6 +7,9 @@ import { ReservationFormStepsService } from '../reservation-form-steps.service';
 import { Subscription } from 'rxjs';
 import { BookingService } from '../../../../../services/booking.service';
 import { Router } from '@angular/router';
+import { MatDialog } from '@angular/material/dialog';
+import { ErrorDialogComponent } from '../../../../../error-handling/error-dialog/error-dialog.component';
+import { CalendarService } from '../../../calendar/services/calendar.service';
 
 @Component({
   selector: 'app-reservation-form-data',
@@ -29,7 +32,9 @@ export class ReservationFormDataComponent implements OnInit, OnDestroy {
   constructor(private voucherService: VoucherService,
               private bookingService: BookingService,
               public reservationFormStepsService: ReservationFormStepsService,
-              public router: Router) { }
+              public calendarService: CalendarService,
+              public router: Router,
+              private dialog: MatDialog) { }
 
   ngOnInit(): void {
     this.booking = this.reservationFormStepsService.getBooking();
@@ -90,8 +95,9 @@ export class ReservationFormDataComponent implements OnInit, OnDestroy {
       paidAmount: 0,
     };
     this.bookingService.addBooking(formBooking);
-    this.bookingService.sendBookingConfirmationEmail(formBooking);
     void this.router.navigate(['/home']);
+    this.calendarService.selectedDatesChanged(null, null);
+    this.dialog.open(ErrorDialogComponent, {data: {message: 'dialog'}});
   }
 
   ngOnDestroy(): void {
