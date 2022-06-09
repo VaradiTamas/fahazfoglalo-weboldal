@@ -36,12 +36,41 @@ export class CalendarService {
   }
 
   public getCalendarDay(searchDate: Date): CalendarDay {
-    this.calendarDays.forEach((calendarDay) => {
+    for (const calendarDay of this.calendarDays) {
       if (this.areDatesOnSameDay(calendarDay.date, searchDate)) {
         return calendarDay;
       }
-    });
+    }
     return null;
+  }
+
+  public getCalendarDayIndex(searchDate: Date): number {
+    for (let i = 0; i < this.calendarDays.length; i++) {
+      if (this.areDatesOnSameDay(this.calendarDays[i].date, searchDate)) {
+        return i;
+      }
+    }
+    return -1;
+  }
+
+  public isSelectedDateWithinMaximumPeriod(fromDate: Date, selectedDate: Date): boolean {
+    const date1 = new Date(fromDate);
+    const date2 = new Date(selectedDate);
+    // (seconds per hour) * (hours per day) * (max number of days in a month) * (number of months) * (change from sec to millisec)
+    const twoMonths = 3600 * 24 * 31 * 2 * 1000;
+    const millisecondsBetweenDates = date2.getMilliseconds() - date1.getMilliseconds();
+    return millisecondsBetweenDates < twoMonths;
+  }
+
+  public areThereReservedDatesBetween(fromDate: Date, selectedDate: Date): boolean {
+    const indexOfFromDate = this.getCalendarDayIndex(fromDate);
+    const indexOfSelectedDate = this.getCalendarDayIndex(selectedDate);
+    for (let i = indexOfFromDate; i < indexOfSelectedDate; i++) {
+      if (this.calendarDays[i].isReserved) {
+        return true;
+      }
+    }
+    return false;
   }
 
   public areDatesOnSameDay(firstDate: Date, secondDate: Date): boolean {

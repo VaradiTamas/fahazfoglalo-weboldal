@@ -14,8 +14,8 @@ import {CalendarDay, CalendarDayState} from '../../../../models/calendar-day.mod
 })
 export class CalendarBodyComponent implements OnInit, OnDestroy{
   @Input() calendarType: string;
-  @Input() selectedStartDate: Date;
-  @Input() selectedEndDate: Date;
+  @Input() fromDate: Date;
+  @Input() toDate: Date;
   calendarDays: CalendarDay[] = [];
   initialDate = new Date();
   isLoaded = false;
@@ -41,8 +41,8 @@ export class CalendarBodyComponent implements OnInit, OnDestroy{
   initSubscriptions(): void {
     this.selectedDatesSubscription = this.calendarService.getSelectedDatesUpdateListener()
       .subscribe((selectedDates) => {
-        this.selectedStartDate = selectedDates.startDate;
-        this.selectedEndDate = selectedDates.endDate;
+        this.fromDate = selectedDates.startDate;
+        this.toDate = selectedDates.endDate;
         this.setCalendarDaysStatuses();
         this.designCalendar();
       });
@@ -55,31 +55,56 @@ export class CalendarBodyComponent implements OnInit, OnDestroy{
   }
 
   private setCalendarDaysStatuses(): void {
-    if (this.selectedStartDate === null) {
+    this.clearCalendarDaysSelectedStatuses();
+
+    if (this.fromDate === null) {
       return;
     }
 
     const indexOfSelectedStartDate = this.setCalendarDayStatusForSelectedStartDate();
-
-    if (this.selectedEndDate !== null) {
+    if (this.toDate !== null) {
       const indexOfSelectedEndDate = this.setCalendarDayStatusForSelectedEndDate();
       this.setCalendarDayStatusBetweenSelectedDates(indexOfSelectedStartDate, indexOfSelectedEndDate);
     }
   }
 
-  private setCalendarDayStatusForSelectedStartDate(): number {
-    for (let i = 0; i < this.calendarDays.length; i++) {
-      if (this.calendarService.areDatesOnSameDay(this.calendarDays[i].date, this.selectedStartDate)) {
-        if (i > 0) {
-          if (this.calendarDays[i - 1].isReserved) {
-            this.calendarDays[i].state = CalendarDayState.FirstHalfReservedSecondHalfSelected;
-          } else {
-            this.calendarDays[i].state = CalendarDayState.FirstHalfFreeSecondHalfSelected;
-          }
+  private clearCalendarDaysSelectedStatuses(): void {
+    for (const calendarDay of this.calendarDays) {
+      switch (calendarDay.state) {
+        case CalendarDayState.FullySelected: {
+          calendarDay.state = CalendarDayState.FullyFree;
+          break;
         }
-        return i;
+        case CalendarDayState.FirstHalfSelectedSecondHalfFree: {
+          calendarDay.state = CalendarDayState.FullyFree;
+          return;   // as this is the last day of the selection
+        }
+        case CalendarDayState.FirstHalfSelectedSecondHalfReserved: {
+          calendarDay.state = CalendarDayState.FirstHalfFreeSecondHalfReserved;
+          return;   // as this is the last day of the selection
+        }
+        case CalendarDayState.FirstHalfFreeSecondHalfSelected: {
+          calendarDay.state = CalendarDayState.FullyFree;
+          break;
+        }
+        case CalendarDayState.FirstHalfReservedSecondHalfSelected: {
+          calendarDay.state = CalendarDayState.FirstHalfReservedSecondHalfFree;
+          break;
+        }
       }
     }
+  }
+
+  private setCalendarDayStatusForSelectedStartDate(): number {
+    const indexOfSelectedStartDate = this.calendarService.getCalendarDayIndex(this.fromDate);
+    if (indexOfSelectedStartDate > 0) {
+      if (this.calendarDays[indexOfSelectedStartDate - 1].isReserved) {
+        this.calendarDays[indexOfSelectedStartDate].state = CalendarDayState.FirstHalfReservedSecondHalfSelected;
+      } else {
+        this.calendarDays[indexOfSelectedStartDate].state = CalendarDayState.FirstHalfFreeSecondHalfSelected;
+      }
+    }
+    return indexOfSelectedStartDate;
   }
 
   private setCalendarDayStatusBetweenSelectedDates(from: number, to: number): void {
@@ -89,32 +114,69 @@ export class CalendarBodyComponent implements OnInit, OnDestroy{
   }
 
   private setCalendarDayStatusForSelectedEndDate(): number {
-    for (let i = 0; i < this.calendarDays.length; i++) {
-      if (this.calendarService.areDatesOnSameDay(this.calendarDays[i].date, this.selectedEndDate)) {
-        if (i > 0) {
-          if (this.calendarDays[i].isReserved) {
-            this.calendarDays[i].state = CalendarDayState.FirstHalfSelectedSecondHalfReserved;
-          } else {
-            this.calendarDays[i].state = CalendarDayState.FirstHalfSelectedSecondHalfFree;
-          }
-        }
-        return i;
+    const indexOfSelectedEndDate = this.calendarService.getCalendarDayIndex(this.toDate);
+    if (indexOfSelectedEndDate > 0) {
+      if (this.calendarDays[indexOfSelectedEndDate].isReserved) {
+        this.calendarDays[indexOfSelectedEndDate].state = CalendarDayState.FirstHalfSelectedSecondHalfReserved;
+      } else {
+        this.calendarDays[indexOfSelectedEndDate].state = CalendarDayState.FirstHalfSelectedSecondHalfFree;
       }
     }
+    return indexOfSelectedEndDate;
   }
 
-  onSelectedDateChange(chosenDate: Date): void {
-    this.updateSelectedDates(chosenDate);
-    this.calendarService.selectedDatesChanged(this.selectedStartDate, this.selectedEndDate);
-    this.reservationFormStepsService.fromDateIsChanged(this.selectedStartDate);
-    this.reservationFormStepsService.toDateIsChanged(this.selectedEndDate);
+  onSelectedDateChange(selectedDate: Date): void {
+    this.updateSelectedDates(selectedDate);
+    this.calendarService.selectedDatesChanged(this.fromDate, this.toDate);
+    this.reservationFormStepsService.fromDateIsChanged(this.fromDate);
+    this.reservationFormStepsService.toDateIsChanged(this.toDate);
   }
 
-  updateSelectedDates(chosenDate: Date): void {
-    if (this.selectedStartDate) {
-      this.selectedEndDate = chosenDate;
-    } else {
-      this.selectedStartDate = chosenDate;
+  updateSelectedDates(selectedDate: Date): void {
+    const selectedCalendarDay = this.calendarService.getCalendarDay(selectedDate);
+    // fromDate is already selected
+    if (this.fromDate) {
+      // if we click on the start date all the selected dates should disappear
+      if (this.calendarService.areDatesOnSameDay(this.fromDate, selectedDate)) {
+        this.fromDate = null;
+        this.toDate = null;
+      }
+      // if the selected date is before the start date and is not reserved, it should be the new from date
+      else if (selectedDate < this.fromDate && !selectedCalendarDay.isReserved) {
+        this.fromDate = selectedDate;
+        this.toDate = null;
+      }
+      // if the selected date is after the start date
+      else {
+        // maximum reservation period is 2 months
+        if (!this.calendarService.isSelectedDateWithinMaximumPeriod(this.fromDate, selectedDate)) {
+          this.fromDate = selectedDate;
+          this.toDate = null;
+          return;
+        }
+        // if there are no reserved dates between from and selected dates
+        if (!this.calendarService.areThereReservedDatesBetween(this.fromDate, selectedDate)) {
+          // if to date is not selected yet the selected date should be the to date
+          if (!this.toDate) {
+            this.toDate = selectedDate;
+          }
+          // if to date is already selected and the selected date is not reserved, the selected date should be the new from date
+          else if (!selectedCalendarDay.isReserved) {
+            this.fromDate = selectedDate;
+            this.toDate = null;
+          }
+        }
+        // if there are some reserved dates between from and selected dates and the selected date is not reserved
+        else if (!selectedCalendarDay.isReserved) {
+          this.fromDate = selectedDate;
+          this.toDate = null;
+        }
+      }
+    }
+    // fromDate is not selected yet and the selected date is not reserved
+    else if (!selectedCalendarDay.isReserved) {
+      this.fromDate = selectedDate;
+      this.toDate = null;
     }
   }
 
@@ -131,11 +193,8 @@ export class CalendarBodyComponent implements OnInit, OnDestroy{
     this.dateClass = (cellDate, view) => {
       let dateState: CalendarDayState;
       if (view === 'month') {
-        this.calendarDays.forEach((calendarDay) => {
-          if (this.calendarService.areDatesOnSameDay(calendarDay.date, cellDate)) {
-            dateState = calendarDay.state;
-          }
-        });
+        const calendarDay = this.calendarService.getCalendarDay(cellDate);
+        dateState = calendarDay.state;
 
         switch (dateState) {
           case CalendarDayState.FullyFree: {
@@ -170,6 +229,7 @@ export class CalendarBodyComponent implements OnInit, OnDestroy{
     };
   }
 
+  // disabling the dates before today
   private filterDates(): void {
     this.dateFilter = (d: Date | null): boolean => {
       const calendarDate = d || new Date();
