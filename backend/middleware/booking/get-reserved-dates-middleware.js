@@ -4,20 +4,19 @@ module.exports = (req, res) => {
   // this is the date of the second calendar
   const requestedDate = new Date();
   requestedDate.setFullYear(+req.query.year, +req.query.month, 1);
+  const requestedDateMilliseconds = Date.parse(requestedDate.toString());
 
   // to be able to calculate filter parameters (from - to)
   // (seconds per hour) * (hours per day) * (max number of days in a month) * (number of months) * (change from sec to millisec)
   const threeMonths = 3600 * 24 * 31 * 3 * 1000;
 
   // three months before the requested date
-  const fromDateMilliseconds = requestedDate.getMilliseconds() - threeMonths;
-  const fromDate = new Date();
-  fromDate.setMilliseconds(fromDateMilliseconds);
+  const fromDateMilliseconds = requestedDateMilliseconds - threeMonths;
+  const fromDate = new Date(fromDateMilliseconds);
 
   // three months after the requested date
-  const toDateMilliseconds = requestedDate.getMilliseconds() + threeMonths;
-  const toDate = new Date();
-  toDate.setMilliseconds(toDateMilliseconds);
+  const toDateMilliseconds = requestedDateMilliseconds + threeMonths;
+  const toDate = new Date(toDateMilliseconds);
 
   Booking.find({
     $and: [

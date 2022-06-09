@@ -41,8 +41,8 @@ export class CalendarBodyComponent implements OnInit, OnDestroy{
   initSubscriptions(): void {
     this.selectedDatesSubscription = this.calendarService.getSelectedDatesUpdateListener()
       .subscribe((selectedDates) => {
-        this.fromDate = selectedDates.startDate;
-        this.toDate = selectedDates.endDate;
+        this.fromDate = selectedDates.fromDate;
+        this.toDate = selectedDates.toDate;
         this.setCalendarDaysStatuses();
         this.designCalendar();
       });
@@ -136,17 +136,17 @@ export class CalendarBodyComponent implements OnInit, OnDestroy{
     const selectedCalendarDay = this.calendarService.getCalendarDay(selectedDate);
     // fromDate is already selected
     if (this.fromDate) {
-      // if we click on the start date all the selected dates should disappear
+      // if we click on the from date all the selected dates should disappear
       if (this.calendarService.areDatesOnSameDay(this.fromDate, selectedDate)) {
         this.fromDate = null;
         this.toDate = null;
       }
-      // if the selected date is before the start date and is not reserved, it should be the new from date
+      // if the selected date is before the from date and is not reserved, it should be the new from date
       else if (selectedDate < this.fromDate && !selectedCalendarDay.isReserved) {
         this.fromDate = selectedDate;
         this.toDate = null;
       }
-      // if the selected date is after the start date
+      // if the selected date is after the from date
       else {
         // maximum reservation period is 2 months
         if (!this.calendarService.isSelectedDateWithinMaximumPeriod(this.fromDate, selectedDate)) {
@@ -204,25 +204,25 @@ export class CalendarBodyComponent implements OnInit, OnDestroy{
             return 'fully-reserved-dates';
           }
           case CalendarDayState.FullySelected: {
-            return 'fully-chosen-dates';
+            return 'fully-selected-dates';
           }
           case CalendarDayState.FirstHalfFreeSecondHalfReserved: {
             return 'first-half-free-second-half-reserved';
           }
           case CalendarDayState.FirstHalfFreeSecondHalfSelected: {
-            return 'first-half-free-second-half-chosen';
+            return 'first-half-free-second-half-selected';
           }
           case CalendarDayState.FirstHalfReservedSecondHalfFree: {
             return 'first-half-reserved-second-half-free';
           }
           case CalendarDayState.FirstHalfReservedSecondHalfSelected: {
-            return 'first-half-reserved-second-half-chosen';
+            return 'first-half-reserved-second-half-selected';
           }
           case CalendarDayState.FirstHalfSelectedSecondHalfFree: {
-            return 'first-half-chosen-second-half-free';
+            return 'first-half-selected-second-half-free';
           }
           case CalendarDayState.FirstHalfSelectedSecondHalfReserved: {
-            return 'first-half-chosen-second-half-reserved';
+            return 'first-half-selected-second-half-reserved';
           }
         }
       }

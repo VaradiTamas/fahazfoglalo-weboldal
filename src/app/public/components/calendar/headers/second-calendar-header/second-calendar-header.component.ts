@@ -35,23 +35,14 @@ export class SecondCalendarHeaderComponent<D> implements OnInit, OnDestroy {
       });
   }
 
+  nextClicked(): void {
+    this.calendarService.onNextClicked();
+  }
+
   get periodLabel(): string {
     return this.dateAdapter
       .format(this.calendar.activeDate, this.dateFormats.display.monthYearLabel)
       .toLocaleUpperCase();
-  }
-
-  nextClicked(): void {
-    this.calendarService.getCalendarDays(
-      this.dateAdapter.getYear(this.calendar.activeDate),
-      this.dateAdapter.getMonth(this.calendar.activeDate)
-    );
-    this.calendar.activeDate = this.dateAdapter.addCalendarMonths(this.calendar.activeDate, 1);
-    this.calendarService.getCalendarDays(
-      this.dateAdapter.getYear(this.calendar.activeDate),
-      this.dateAdapter.getMonth(this.calendar.activeDate)
-    );
-    this.calendarService.onNextClicked();
   }
 
   ngOnDestroy(): void {

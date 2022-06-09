@@ -4,57 +4,42 @@
 }
 
 ::ng-deep.fully-free-dates {
-  background: green;
+  background: darkolivegreen;
   border-radius: 100%;
 }
 
-::ng-deep.fully-pending-dates {
-  background: green;
-  opacity: 0.7;
-  border-radius: 100%;
-}
-
-::ng-deep.fully-chosen-dates {
+::ng-deep.fully-selected-dates {
   background: rgb(100,50,237);
   opacity: 0.7;
   border-radius: 100%;
 }
 
-::ng-deep.first-half-pending-second-half-reserved {
-  background: linear-gradient(90deg, rgba(0, 128, 0, 0.7) 42%, red 58%);
-  border-radius: 100%;
-}
-
-::ng-deep.first-half-reserved-second-half-chosen {
+::ng-deep.first-half-reserved-second-half-selected {
   background: linear-gradient(90deg, red 42%, purple 58%, rgba(100,50,237,0.7) 98%);
   border-radius: 100%;
 }
 
-::ng-deep.first-half-chosen-second-half-reserved {
+::ng-deep.first-half-selected-second-half-reserved {
   background: linear-gradient(90deg, rgba(100,50,237,0.7) 2%, purple 42%, red 58%);
   border-radius: 100%;
 }
 
-::ng-deep.first-half-free-second-half-chosen {
-  background: linear-gradient(90deg, green 42%, purple 58%, rgba(100,50,237,0.7) 98%);
+::ng-deep.first-half-free-second-half-selected {
+  background: linear-gradient(90deg, darkolivegreen 42%, purple 58%, rgba(100,50,237,0.7) 98%);
   border-radius: 100%;
 }
 
 ::ng-deep.first-half-free-second-half-reserved {
-  background: linear-gradient(90deg, green 42%, red 58%);
+  background: linear-gradient(90deg, darkolivegreen 42%, red 58%);
   border-radius: 100%;
 }
 
 ::ng-deep.first-half-reserved-second-half-free {
-  background: linear-gradient(90deg, red 42%, green 58%);
+  background: linear-gradient(90deg, red 42%, darkolivegreen 58%);
   border-radius: 100%;
 }
 
-::ng-deep.first-half-chosen-second-half-free {
-  background: linear-gradient(90deg, rgba(100,50,237,0.7) 2%, purple 42%, green 58%);
+::ng-deep.first-half-selected-second-half-free {
+  background: linear-gradient(90deg, rgba(100,50,237,0.7) 2%, purple 42%, darkolivegreen 58%);
   border-radius: 100%;
 }
-
-/*::ng-deep mat-calendar div.mat-calendar-content mat-month-view table tbody tr td div.mat-calendar-body-cell-content:hover {*/
-/*  background-color: yellow !important;*/
-/*}*/

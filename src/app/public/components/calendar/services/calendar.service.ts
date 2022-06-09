@@ -9,11 +9,11 @@ const BACKEND_URL = environment.apiUrl;
 @Injectable({ providedIn: 'root' })
 export class CalendarService {
   // indicating if the selected dates are changed in the calendar
-  private startDate: Date = null;
-  private endDate: Date = null;
+  private fromDate: Date = null;
+  private toDate: Date = null;
   private selectedDateUpdated = new Subject<{
-    startDate: Date,
-    endDate: Date
+    fromDate: Date,
+    toDate: Date
   }>();
 
   // all days within 3 months of the currently selected month
@@ -82,11 +82,11 @@ export class CalendarService {
   }
 
   selectedDatesChanged(selectedStartDate: Date, selectedEndDate: Date): void{
-    this.startDate = selectedStartDate;
-    this.endDate = selectedEndDate;
+    this.fromDate = selectedStartDate;
+    this.toDate = selectedEndDate;
     this.selectedDateUpdated.next({
-      startDate: this.startDate,
-      endDate: this.endDate
+      fromDate: this.fromDate,
+      toDate: this.toDate
     });
   }
 
@@ -102,7 +102,7 @@ export class CalendarService {
     return this.calendarDaysUpdated.asObservable();
   }
 
-  getSelectedDatesUpdateListener(): Observable<{ startDate: Date, endDate: Date }> {
+  getSelectedDatesUpdateListener(): Observable<{ fromDate: Date, toDate: Date }> {
     return this.selectedDateUpdated.asObservable();
   }
 

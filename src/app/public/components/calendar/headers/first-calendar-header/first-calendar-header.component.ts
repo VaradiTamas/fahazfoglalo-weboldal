@@ -14,13 +14,15 @@ import { HostListener } from '@angular/core';
 export class FirstCalendarHeaderComponent<D> implements OnInit, OnDestroy {
   private destroyed = new Subject<void>();
   private nextClickedSubscription: Subscription;
+  private previousClickedSubscription: Subscription;
   private today = new Date();
   public isPreviousArrowDisabled = true;
   public isNextArrowDisabled = true;
 
   constructor(
     private calendarService: CalendarService,
-    private calendar: MatCalendar<D>, private dateAdapter: DateAdapter<D>,
+    private calendar: MatCalendar<D>,
+    private dateAdapter: DateAdapter<D>,
     @Inject(MAT_DATE_FORMATS) private dateFormats: MatDateFormats, cdr: ChangeDetectorRef) {
     calendar.stateChanges
       .pipe(takeUntil(this.destroyed))
@@ -28,19 +30,33 @@ export class FirstCalendarHeaderComponent<D> implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
+    this.setPreviousButton();
+    this.setNextButton();
+    this.previousClickedSubscription = this.calendarService.getPreviousClickedListener()
+      .subscribe(() => {
+        this.calendar.activeDate = this.dateAdapter.addCalendarMonths(this.calendar.activeDate, -1);
+        this.calendarService.getCalendarDays(
+          this.dateAdapter.getYear(this.calendar.activeDate),
+          this.dateAdapter.getMonth(this.calendar.activeDate)
+        );
+        this.setPreviousButton();
+      });
     this.nextClickedSubscription = this.calendarService.getNextClickedListener()
       .subscribe(() => {
         this.calendar.activeDate = this.dateAdapter.addCalendarMonths(this.calendar.activeDate, 1);
-        if (
-          this.today.getMonth() === this.dateAdapter.getMonth(this.calendar.activeDate) &&
-          this.today.getFullYear() === this.dateAdapter.getYear(this.calendar.activeDate)
-        ) {
-          this.isPreviousArrowDisabled = true;
-        } else {
-          this.isPreviousArrowDisabled = false;
-        }
+        this.calendarService.getCalendarDays(
+          this.dateAdapter.getYear(this.calendar.activeDate),
+          this.dateAdapter.getMonth(this.calendar.activeDate)
+        );
+        this.setPreviousButton();
       });
-    this.setNextButton();
+  }
+
+  private areDatesOnSameMonth(firstDate: Date, secondDate: DateAdapter<D>): boolean {
+    const date1 = new Date(firstDate);
+    const date2 = secondDate;
+    return date1.getFullYear() === date2.getYear(this.calendar.activeDate)
+      && date1.getMonth() === date2.getMonth(this.calendar.activeDate);
   }
 
   get periodLabel(): string {
@@ -55,39 +71,15 @@ export class FirstCalendarHeaderComponent<D> implements OnInit, OnDestroy {
   }
 
   previousClicked(): void {
-    this.calendarService.getCalendarDays(
-      this.dateAdapter.getYear(this.calendar.activeDate),
-      this.dateAdapter.getMonth(this.calendar.activeDate)
-    );
-    this.calendar.activeDate = this.dateAdapter.addCalendarMonths(this.calendar.activeDate, -1);
-    this.calendarService.getCalendarDays(
-      this.dateAdapter.getYear(this.calendar.activeDate),
-      this.dateAdapter.getMonth(this.calendar.activeDate)
-    );
     this.calendarService.onPreviousClicked();
-    this.setPreviousButton();
   }
 
   nextClicked(): void {
-    this.calendar.activeDate = this.dateAdapter.addCalendarMonths(this.calendar.activeDate, 1);
-    this.calendarService.getCalendarDays(
-      this.dateAdapter.getYear(this.calendar.activeDate),
-      this.dateAdapter.getMonth(this.calendar.activeDate)
-    );
-    const activeDateCopy = new Date();
-    activeDateCopy.setMonth(this.dateAdapter.getMonth(this.calendar.activeDate));
-    activeDateCopy.setFullYear(this.dateAdapter.getYear(this.calendar.activeDate));
-    activeDateCopy.setMonth(activeDateCopy.getMonth() + 1);
-    this.calendarService.getCalendarDays(activeDateCopy.getFullYear(), activeDateCopy.getMonth());
     this.calendarService.onNextClicked();
-    this.setPreviousButton();
   }
 
-  setPreviousButton(): void{
-    if (
-      this.today.getMonth() === this.dateAdapter.getMonth(this.calendar.activeDate) &&
-      this.today.getFullYear() === this.dateAdapter.getYear(this.calendar.activeDate)
-    ){
+  setPreviousButton(): void {
+    if (this.areDatesOnSameMonth(this.today, this.dateAdapter)){
       this.isPreviousArrowDisabled = true;
     } else {
       this.isPreviousArrowDisabled = false;
@@ -99,6 +91,7 @@ export class FirstCalendarHeaderComponent<D> implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
+    this.previousClickedSubscription.unsubscribe();
     this.nextClickedSubscription.unsubscribe();
     this.destroyed.next();
     this.destroyed.complete();
