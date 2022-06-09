@@ -58,7 +58,8 @@ export class CalendarService {
     const date2 = new Date(selectedDate);
     // (seconds per hour) * (hours per day) * (max number of days in a month) * (number of months) * (change from sec to millisec)
     const twoMonths = 3600 * 24 * 31 * 2 * 1000;
-    const millisecondsBetweenDates = date2.getMilliseconds() - date1.getMilliseconds();
+    // parsing the strings of the dates gives us the milliseconds past the date
+    const millisecondsBetweenDates = Date.parse(date2.toString()) - Date.parse(date1.toString());
     return millisecondsBetweenDates < twoMonths;
   }
 
