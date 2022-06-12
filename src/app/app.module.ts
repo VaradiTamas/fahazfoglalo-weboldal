@@ -40,6 +40,7 @@ import { ReservationFormStepperComponent } from './public/components/reservation
 import { ReservationFormDateComponent } from './public/components/reservation-form/reservation-form-steps/reservation-form-date/reservation-form-date.component';
 import { ReservationFormGuestsComponent } from './public/components/reservation-form/reservation-form-steps/reservation-form-guests/reservation-form-guests.component';
 import { ReservationFormDataComponent } from './public/components/reservation-form/reservation-form-steps/reservation-form-data/reservation-form-data.component';
+import { BookingConfirmationDialogComponent } from './public/components/reservation-form/confirmation-dialog/booking-confirmation-dialog.component';
 
 @NgModule({
   imports: [
@@ -86,6 +87,7 @@ import { ReservationFormDataComponent } from './public/components/reservation-fo
     ReservationFormDateComponent,
     ReservationFormGuestsComponent,
     ReservationFormDataComponent,
+    BookingConfirmationDialogComponent,
   ],
   providers: [
     {provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true},

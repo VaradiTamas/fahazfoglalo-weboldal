@@ -1,0 +1,52 @@
+<div class="container-fluid m-0 p-0">
+  <div class="row justify-content-center m-0 p-0 mt-3">
+    <h1 mat-dialog-title><b>Foglalás megerősítve!</b></h1>
+  </div>
+
+  <div mat-dialog-content class="m-0 p-0 mt-2">
+    <div class="row m-0 p-0">
+      <div class="col-4 text-right">Név</div>
+      <div class="col-8 divider">{{ data.booking.lastName + data.booking.firstName }}</div>
+    </div>
+    <div class="row m-0 p-0">
+      <div class="col-4 text-right">Email</div>
+      <div class="col-8 divider">{{ data.booking.email }}</div>
+    </div>
+    <div class="row m-0 p-0">
+      <div class="col-4 text-right">Telefonszám</div>
+      <div class="col-8 divider">{{ data.booking.tel }}</div>
+    </div>
+    <div class="row m-0 p-0">
+      <div class="col-4 text-right">Gyermekek</div>
+      <div class="col-8 divider">{{ data.booking.numOfChildren }}</div>
+    </div>
+    <div class="row m-0 p-0">
+      <div class="col-4 text-right">Felnőttek</div>
+      <div class="col-8 divider">{{ data.booking.numOfAdults }}</div>
+    </div>
+    <div *ngIf="data.booking.voucherId" class="row m-0 p-0">
+      <div class="col-4 text-right">Utalvány</div>
+      <div class="col-8 divider">{{ data.booking.voucherId }}</div>
+    </div>
+    <div *ngIf="data.booking.comment" class="row m-0 p-0">
+      <div class="col-4 text-right">Megjegyzés</div>
+      <div class="col-8 divider">{{ data.booking.comment }}</div>
+    </div>
+  </div>
+
+  <div class="row justify-content-center m-0 p-0 mt-4">
+    <div class="col-10 information-text">
+      Foglalásának részleteit elküldtük a megadott email címre.
+      Kérjük, amennyiben módosítani szeretné foglalását
+      vegye fel velünk a kapcsolatot telefonon vagy emailen keresztül!
+    </div>
+  </div>
+
+  <div mat-dialog-actions class="row justify-content-center m-0 p-0 mt-4 mb-3">
+    <div class="col-8">
+      <button mat-dialog-close class="confirmation-button p-2">
+        <span class="button-label pl-3 pr-3"><b>Rendben</b></span>
+      </button>
+    </div>
+  </div>
+</div>

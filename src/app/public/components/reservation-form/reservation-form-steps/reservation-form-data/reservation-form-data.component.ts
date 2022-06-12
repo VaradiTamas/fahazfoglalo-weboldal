@@ -8,8 +8,9 @@ import { Subscription } from 'rxjs';
 import { BookingService } from '../../../../../services/booking.service';
 import { Router } from '@angular/router';
 import { MatDialog } from '@angular/material/dialog';
-import { ErrorDialogComponent } from '../../../../../error-handling/error-dialog/error-dialog.component';
 import { CalendarService } from '../../../calendar/services/calendar.service';
+import { ReservationFormStepperService } from '../../reservation-form-stepper/reservation-form-stepper.service';
+import { BookingConfirmationDialogComponent } from '../../confirmation-dialog/booking-confirmation-dialog.component';
 
 @Component({
   selector: 'app-reservation-form-data',
@@ -32,6 +33,7 @@ export class ReservationFormDataComponent implements OnInit, OnDestroy {
   constructor(private voucherService: VoucherService,
               private bookingService: BookingService,
               public reservationFormStepsService: ReservationFormStepsService,
+              public reservationFormStepperService: ReservationFormStepperService,
               public calendarService: CalendarService,
               public router: Router,
               private dialog: MatDialog) { }
@@ -42,6 +44,7 @@ export class ReservationFormDataComponent implements OnInit, OnDestroy {
       .subscribe((subData) => {
         this.booking = subData.booking;
       });
+    console.log(this.booking);
   }
 
   onVoucherClick(): void{
@@ -79,6 +82,7 @@ export class ReservationFormDataComponent implements OnInit, OnDestroy {
     if (form.invalid) {
       return;
     }
+
     const value = form.value;
     const formBooking = {
       id: null,
@@ -95,9 +99,19 @@ export class ReservationFormDataComponent implements OnInit, OnDestroy {
       paidAmount: 0,
     };
     this.bookingService.addBooking(formBooking);
+
+    // navigating to the initial state of the webpage
     void this.router.navigate(['/home']);
+    this.reservationFormStepperService.reservationPhaseValueChanged(0);
+
+    // clearing data
     this.calendarService.selectedDatesChanged(null, null);
-    this.dialog.open(ErrorDialogComponent, {data: {message: 'dialog'}});
+    this.calendarService.updateCalendarDays(formBooking.from.getFullYear(), formBooking.from.getMonth());
+    this.reservationFormStepsService.clearBookingData();
+    form.resetForm();
+
+    // showing a dialog if the reservation was successful or not
+    this.dialog.open(BookingConfirmationDialogComponent, { data: { booking: formBooking }});
   }
 
   ngOnDestroy(): void {
