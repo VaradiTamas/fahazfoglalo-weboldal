@@ -136,6 +136,9 @@ export class CalendarBodyComponent implements OnInit, OnDestroy{
   }
 
   updateSelectedDates(selectedDate: Date): void {
+    // to avoid differences between time zones
+    selectedDate.setHours(12, 0, 0);
+
     const selectedCalendarDay = this.calendarService.getCalendarDay(selectedDate);
     // fromDate is already selected
     if (this.fromDate) {

@@ -1,45 +1,62 @@
 ::ng-deep.fully-reserved-dates {
-  background: red;
+  background: orangered;
   border-radius: 100%;
+  font-weight: bold;
+  font-size: large;
 }
 
 ::ng-deep.fully-free-dates {
   background: darkolivegreen;
   border-radius: 100%;
+  font-weight: bold;
+  font-size: large;
 }
 
 ::ng-deep.fully-selected-dates {
   background: rgb(100,50,237);
-  opacity: 0.7;
   border-radius: 100%;
+  font-weight: bold;
+  font-size: large;
 }
 
 ::ng-deep.first-half-reserved-second-half-selected {
-  background: linear-gradient(90deg, red 42%, purple 58%, rgba(100,50,237,0.7) 98%);
+  background: linear-gradient(90deg, orangered 42%, rgb(100,50,237) 58%, rgb(100,50,237) 100%);
   border-radius: 100%;
+  font-weight: bold;
+  font-size: large;
 }
 
 ::ng-deep.first-half-selected-second-half-reserved {
-  background: linear-gradient(90deg, rgba(100,50,237,0.7) 2%, purple 42%, red 58%);
+  background: linear-gradient(90deg, rgb(100,50,237) 0%, rgb(100,50,237) 42%, orangered 58%);
   border-radius: 100%;
+  font-weight: bold;
+  font-size: large;
 }
 
 ::ng-deep.first-half-free-second-half-selected {
-  background: linear-gradient(90deg, darkolivegreen 42%, purple 58%, rgba(100,50,237,0.7) 98%);
+  background: linear-gradient(90deg, darkolivegreen 42%, rgb(100,50,237) 58%, rgb(100,50,237) 100%);
   border-radius: 100%;
+  font-weight: bold;
+  font-size: large;
 }
 
 ::ng-deep.first-half-free-second-half-reserved {
-  background: linear-gradient(90deg, darkolivegreen 42%, red 58%);
+  background: linear-gradient(90deg, darkolivegreen 42%, orangered 58%);
   border-radius: 100%;
+  font-weight: bold;
+  font-size: large;
 }
 
 ::ng-deep.first-half-reserved-second-half-free {
-  background: linear-gradient(90deg, red 42%, darkolivegreen 58%);
+  background: linear-gradient(90deg, orangered 42%, darkolivegreen 58%);
   border-radius: 100%;
+  font-weight: bold;
+  font-size: large;
 }
 
 ::ng-deep.first-half-selected-second-half-free {
-  background: linear-gradient(90deg, rgba(100,50,237,0.7) 2%, purple 42%, darkolivegreen 58%);
+  background: linear-gradient(90deg, rgb(100,50,237) 0%, rgb(100,50,237) 42%, darkolivegreen 58%);
   border-radius: 100%;
+  font-weight: bold;
+  font-size: large;
 }

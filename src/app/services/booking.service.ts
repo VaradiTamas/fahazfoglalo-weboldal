@@ -1,7 +1,7 @@
 import { Booking } from '../models/booking.model';
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Subject } from 'rxjs';
+import { Observable, Subject } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { Router } from '@angular/router';
 import { environment } from '../../environments/environment';
@@ -46,10 +46,6 @@ export class BookingService{
   }
 
   addBooking(booking: Booking): void {
-    // in ts we use local time, in js date is in UTC so I added 12 hours to the dates to overlap this
-    // difference and make sure it causes no problem
-    booking.from.setHours(12);
-    booking.to.setHours(12);
     this.http.post<{message: string, bookingId: string}>(BACKEND_URL + 'bookings', booking)
       .subscribe((responseData) => { });
   }
@@ -92,7 +88,7 @@ export class BookingService{
     }>(BACKEND_URL + 'bookings/' + id);
   }
 
-  getBookingUpdateListener(){
+  getBookingUpdateListener(): Observable<{ bookings: Booking[], bookingCount: number }>{
     return this.bookingsUpdated.asObservable();
   }
 }
