@@ -145,9 +145,11 @@ export class CalendarBodyComponent implements OnInit, OnDestroy{
         this.toDate = null;
       }
       // if the selected date is before the from date and is not reserved, it should be the new from date
-      else if (selectedDate < this.fromDate && !selectedCalendarDay.isReserved) {
-        this.fromDate = selectedDate;
-        this.toDate = null;
+      else if (selectedDate < this.fromDate) {
+        if (!selectedCalendarDay.isReserved) {
+          this.fromDate = selectedDate;
+          this.toDate = null;
+        }
       }
       // if the selected date is after the from date
       else {

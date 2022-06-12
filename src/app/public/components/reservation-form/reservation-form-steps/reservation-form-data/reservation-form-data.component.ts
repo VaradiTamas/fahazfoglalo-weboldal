@@ -44,7 +44,6 @@ export class ReservationFormDataComponent implements OnInit, OnDestroy {
       .subscribe((subData) => {
         this.booking = subData.booking;
       });
-    console.log(this.booking);
   }
 
   onVoucherClick(): void{

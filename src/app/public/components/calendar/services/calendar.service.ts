@@ -101,7 +101,6 @@ export class CalendarService {
       fromDate: this.fromDate,
       toDate: this.toDate
     });
-    console.log('meghivodott a selected date change');
   }
 
   onPreviousClicked(): void {
