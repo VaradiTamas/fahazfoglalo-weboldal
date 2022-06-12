@@ -22,7 +22,8 @@
 .date-text-tooltip {
   font-size: medium;
   color: black!important;
-  background: orangered;
+  font-weight: bold;
+  background: darkolivegreen;
 }
 
 .next-button {
