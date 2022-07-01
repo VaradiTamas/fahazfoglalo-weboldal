@@ -1,0 +1,96 @@
+<!--from date-->
+<div class="row justify-content-center m-0 pb-3 pr-4 pl-4 pt-3 pt-md-5">
+  <div class="col-12 col-md-6 col-lg-5 col-xl-4 p-0 m-0">
+    <div class="row m-0 p-0">
+      <div class="col-4 m-0 p-0">
+        <span class="col-sm-2 col-form-label m-0 p-0">Mettől:</span>
+      </div>
+      <div class="col-8 m-0 p-0 text-right">{{fromDateString}}</div>
+    </div>
+  </div>
+</div>
+<!--to date-->
+<div class="row justify-content-center m-0 pb-3 pr-4 pl-4 pt-0">
+  <div class="col-12 col-md-6 col-lg-5 col-xl-4 p-0 m-0">
+    <div class="row m-0 p-0">
+      <div class="col-4 m-0 p-0">
+        <span class="col-sm-2 col-form-label m-0 p-0">Meddig:</span>
+      </div>
+      <div class="col-8 m-0 p-0 text-right">{{toDateString}}</div>
+    </div>
+  </div>
+</div>
+<!--last name-->
+<div class="row justify-content-center m-0 pb-3 pr-4 pl-4 pt-0">
+  <div class="col-12 col-md-6 col-lg-5 col-xl-4 p-0 m-0">
+    <div class="row m-0 p-0">
+      <div class="col-4 m-0 p-0">
+        <span class="col-sm-2 col-form-label m-0 p-0">Vezetéknév:</span>
+      </div>
+      <div class="col-8 m-0 p-0 text-right">{{booking.lastName}}</div>
+    </div>
+  </div>
+</div>
+<!--first name-->
+<div class="row justify-content-center m-0 pb-3 pr-4 pl-4 pt-0">
+  <div class="col-12 col-md-6 col-lg-5 col-xl-4 p-0 m-0">
+    <div class="row m-0 p-0">
+      <div class="col-4 m-0 p-0">
+        <span class="col-sm-2 col-form-label m-0 p-0">Keresztnév:</span>
+      </div>
+      <div class="col-8 m-0 p-0 text-right">{{booking.firstName}}</div>
+    </div>
+  </div>
+</div>
+<!--mobile number-->
+<div class="row justify-content-center m-0 pb-3 pr-4 pl-4 pt-0">
+  <div class="col-12 col-md-6 col-lg-5 col-xl-4 p-0 m-0">
+    <div class="row m-0 p-0">
+      <div class="col-4 m-0 p-0">
+        <span class="col-sm-2 col-form-label m-0 p-0">Telefonszám:</span>
+      </div>
+      <div class="col-8 m-0 p-0 text-right">{{booking.tel}}</div>
+    </div>
+  </div>
+</div>
+<!--email address-->
+<div class="row justify-content-center m-0 pb-3 pr-4 pl-4 pt-0">
+  <div class="col-12 col-md-6 col-lg-5 col-xl-4 p-0 m-0">
+    <div class="row m-0 p-0">
+      <div class="col-4 m-0 p-0">
+        <span class="col-sm-2 col-form-label m-0 p-0">Email:</span>
+      </div>
+      <div class="col-8 m-0 p-0 text-right">{{booking.email}}</div>
+    </div>
+  </div>
+</div>
+<!--comment-->
+<div class="row justify-content-center m-0 pb-3 pr-4 pl-4 pt-0">
+  <div class="col-12 col-md-6 col-lg-5 col-xl-4 p-0 m-0">
+    <div class="row m-0 p-0">
+      <div class="col-4 m-0 p-0">
+        <span class="col-sm-2 col-form-label m-0 p-0">Megjegyzés:</span>
+      </div>
+      <div class="col-8 m-0 p-0 text-right">{{booking.comment}}</div>
+    </div>
+  </div>
+</div>
+<!--voucher id-->
+<div *ngIf="booking.voucherId" class="row justify-content-center m-0 pb-3 pr-4 pl-4 pt-0">
+  <div class="col-12 col-md-6 col-lg-5 col-xl-4 p-0 m-0">
+    <div class="row m-0 p-0">
+      <div class="col-4 m-0 p-0">
+        <span class="col-sm-2 col-form-label m-0 p-0">Utalvány:</span>
+      </div>
+      <div class="col-8 m-0 p-0 text-right">{{booking.voucherId}}</div>
+    </div>
+  </div>
+</div>
+<!--confirmation button-->
+<div class="row justify-content-center absolute-position m-0 p-3">
+  <div class="col-12 col-md-6 col-lg-5 col-xl-4 p-0 m-0">
+    <button class="confirmation-button p-2" (click)="onSubmit()">
+      <span class="button-label pl-3 pr-3"><b>Megerősítés</b></span>
+    </button>
+  </div>
+</div>

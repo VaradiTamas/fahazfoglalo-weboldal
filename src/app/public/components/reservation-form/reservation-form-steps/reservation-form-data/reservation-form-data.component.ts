@@ -5,12 +5,10 @@ import { VoucherService } from '../../../../../services/voucher.service';
 import { NgForm } from '@angular/forms';
 import { ReservationFormStepsService } from '../reservation-form-steps.service';
 import { Subscription } from 'rxjs';
-import { BookingService } from '../../../../../services/booking.service';
 import { Router } from '@angular/router';
-import { MatDialog } from '@angular/material/dialog';
 import { CalendarService } from '../../../calendar/services/calendar.service';
 import { ReservationFormStepperService } from '../../reservation-form-stepper/reservation-form-stepper.service';
-import { BookingConfirmationDialogComponent } from '../../confirmation-dialog/booking-confirmation-dialog.component';
+import { ThemePalette } from '@angular/material/core';
 
 @Component({
   selector: 'app-reservation-form-data',
@@ -23,6 +21,7 @@ export class ReservationFormDataComponent implements OnInit, OnDestroy {
   @ViewChild('tel') tel;
   @ViewChild('email') email;
   @ViewChild('comment') comment;
+  color: ThemePalette = 'primary';
   booking: Booking;
   voucher: Voucher;
   possessVoucher = false;
@@ -31,12 +30,10 @@ export class ReservationFormDataComponent implements OnInit, OnDestroy {
   private reservationFormStepsSubscription: Subscription;
 
   constructor(private voucherService: VoucherService,
-              private bookingService: BookingService,
               public reservationFormStepsService: ReservationFormStepsService,
               public reservationFormStepperService: ReservationFormStepperService,
               public calendarService: CalendarService,
-              public router: Router,
-              private dialog: MatDialog) { }
+              public router: Router) { }
 
   ngOnInit(): void {
     this.booking = this.reservationFormStepsService.getBooking();
@@ -79,42 +76,6 @@ export class ReservationFormDataComponent implements OnInit, OnDestroy {
         }
         this.alreadyCheckedVoucher = true;
     });
-  }
-
-  onSubmit(form: NgForm): void {
-    if (form.invalid) {
-      return;
-    }
-
-    const value = form.value;
-    const formBooking = {
-      id: null,
-      voucherId: this.voucher?.id,
-      from: this.booking.from,
-      to: this.booking.to,
-      firstName: value.firstName == null ? this.booking.firstName : value.firstName,
-      lastName: value.lastName == null ? this.booking.lastName : value.lastName,
-      email: value.email == null ? this.booking.email : value.email,
-      tel: value.tel == null ? this.booking.tel : value.tel,
-      numOfChildren: this.booking.numOfChildren,
-      numOfAdults: this.booking.numOfAdults,
-      comment: value.comment == null ? this.booking.comment : value.comment,
-      paidAmount: 0,
-    };
-    this.bookingService.addBooking(formBooking);
-
-    // navigating to the initial state of the webpage
-    void this.router.navigate(['/home']);
-    this.reservationFormStepperService.reservationPhaseValueChanged(0);
-
-    // clearing data
-    this.calendarService.selectedDatesChanged(null, null);
-    this.calendarService.updateCalendarDays(formBooking.from.getFullYear(), formBooking.from.getMonth());
-    this.reservationFormStepsService.clearBookingData();
-    form.resetForm();
-
-    // showing a dialog if the reservation was successful or not
-    this.dialog.open(BookingConfirmationDialogComponent, { data: { booking: formBooking }});
   }
 
   ngOnDestroy(): void {
