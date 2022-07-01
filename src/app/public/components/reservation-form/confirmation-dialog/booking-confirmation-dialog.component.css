@@ -1,11 +1,17 @@
 ::ng-deep .mat-dialog-container {
   margin: 0;
   padding: 0;
-  background-color: rgb(140,164,56);
+  background-color: rgb(255,255,255);
 }
 
 .container-fluid {
   max-width: 400px;
+}
+
+img {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 .confirmation-button {
@@ -22,12 +28,6 @@
 
 .button-label {
   font-size: large;
-}
-
-.divider {
-  border-left-style: solid;
-  border-left-color: orangered;
-  border-left-width: 3px;
 }
 
 .information-text {

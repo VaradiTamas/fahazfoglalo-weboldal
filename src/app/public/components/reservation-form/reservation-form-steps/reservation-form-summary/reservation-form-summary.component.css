@@ -29,6 +29,20 @@ label{
   font-size: large;
 }
 
+@media (min-width: 768px) {
+  .price-text {
+    position: absolute;
+    bottom: 115px;
+  }
+}
+
+@media (min-width: 768px) {
+  .terms-text {
+    position: absolute;
+    bottom: 75px;
+  }
+}
+
 .confirmation-button{
   width: 100%;
   height: 100%;

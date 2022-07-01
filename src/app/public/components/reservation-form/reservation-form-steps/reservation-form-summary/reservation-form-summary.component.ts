@@ -1,14 +1,15 @@
-import {Component, OnDestroy, OnInit, ViewChild} from '@angular/core';
-import {Booking} from '../../../../../models/booking.model';
-import {Subscription} from 'rxjs';
-import {VoucherService} from '../../../../../services/voucher.service';
-import {BookingService} from '../../../../../services/booking.service';
-import {ReservationFormStepsService} from '../reservation-form-steps.service';
-import {ReservationFormStepperService} from '../../reservation-form-stepper/reservation-form-stepper.service';
-import {CalendarService} from '../../../calendar/services/calendar.service';
-import {Router} from '@angular/router';
-import {MatDialog} from '@angular/material/dialog';
-import {BookingConfirmationDialogComponent} from '../../confirmation-dialog/booking-confirmation-dialog.component';
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Booking } from '../../../../../models/booking.model';
+import { Subscription } from 'rxjs';
+import { VoucherService } from '../../../../../services/voucher.service';
+import { BookingService } from '../../../../../services/booking.service';
+import { ReservationFormStepsService } from '../reservation-form-steps.service';
+import { ReservationFormStepperService } from '../../reservation-form-stepper/reservation-form-stepper.service';
+import { CalendarService } from '../../../calendar/services/calendar.service';
+import { Router } from '@angular/router';
+import { MatDialog } from '@angular/material/dialog';
+import { BookingConfirmationDialogComponent } from '../../confirmation-dialog/booking-confirmation-dialog.component';
+import { ThemePalette } from '@angular/material/core';
 
 @Component({
   selector: 'app-reservation-form-summary',
@@ -19,6 +20,8 @@ export class ReservationFormSummaryComponent implements OnInit, OnDestroy {
   booking: Booking;
   fromDateString: string;
   toDateString: string;
+  finalPrice: number;
+  checkboxColor: ThemePalette = 'primary';
   private reservationFormStepsSubscription: Subscription;
 
   constructor(private voucherService: VoucherService,
@@ -37,6 +40,7 @@ export class ReservationFormSummaryComponent implements OnInit, OnDestroy {
       });
     this.fromDateString = this.getDateString(this.booking.from);
     this.toDateString = this.getDateString(this.booking.to);
+    this.calculatePrice();
   }
 
   getDateString(date: Date): string {
@@ -46,6 +50,12 @@ export class ReservationFormSummaryComponent implements OnInit, OnDestroy {
     const day = date.getDate();
     const dayString = day < 10 ? `0${day}` : day.toString();
     return `${year}.${monthString}.${dayString}.`;
+  }
+
+  calculatePrice(): void {
+    const diffTime = +this.booking.to - +this.booking.from;
+    const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+    this.finalPrice = diffDays * 50000;
   }
 
   onSubmit(): void {
