@@ -34,9 +34,7 @@ label{
     position: absolute;
     bottom: 115px;
   }
-}
 
-@media (min-width: 768px) {
   .terms-text {
     position: absolute;
     bottom: 75px;

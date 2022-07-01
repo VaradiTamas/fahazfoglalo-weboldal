@@ -5,11 +5,11 @@
       <div class="image-container">
         <img class="image" src="../../../assets/icon/children.svg">
       </div>
-      <div class="row m-0 p-0 pt-3">
-        <div class="col-7 m-0 p-0">
+      <div class="row justify-content-center m-0 p-0 pt-0 pt-md-3">
+        <div class="col-auto m-0 p-0">
           <label class="num-of-people-label p-0 m-0 pt-2 pr-2" for="numOfChildren">Gyerekek száma:</label>
         </div>
-        <div class="col-3 p-0 m-0 input-container">
+        <div class="col-auto p-0 m-0 input-container">
           <input
             #numOfChildren
             name="numOfChildren"
@@ -22,7 +22,6 @@
             [ngModel]="booking.numOfChildren == null ? 0 : booking.numOfChildren"
             required>
         </div>
-        <div class="col-2"></div>
       </div>
     </div>
   </div>
@@ -32,11 +31,11 @@
       <div class="image-container">
         <img class="image" src="../../../../assets/icon/adults.svg">
       </div>
-      <div class="row p-0 m-0 pt-3">
-        <div class="col-7 p-0 m-0">
+      <div class="row justify-content-center p-0 m-0 pt-0 pt-md-3">
+        <div class="col-auto p-0 m-0">
           <label class="num-of-people-label m-0 p-0 pt-2 pr-2" for="numOfAdults">Felnőttek száma:</label>
         </div>
-        <div class="col-3 m-0 p-0 input-container">
+        <div class="col-auto m-0 p-0 input-container">
           <input
             #numOfAdults
             name="numOfAdults"
@@ -49,7 +48,6 @@
             [ngModel]="booking.numOfAdults == null ? 2 : booking.numOfAdults"
             required>
         </div>
-        <div class="col-2"></div>
       </div>
     </div>
   </div>
