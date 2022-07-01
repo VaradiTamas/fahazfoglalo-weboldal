@@ -1,5 +1,5 @@
 ::ng-deep.fully-reserved-dates {
-  background: orangered;
+  background: lightgrey;
   border-radius: 100%;
   font-weight: bold;
   font-size: large;
@@ -13,49 +13,49 @@
 }
 
 ::ng-deep.fully-selected-dates {
-  background: rgb(100,50,237);
+  background: rgba(255,69,00,0.6);
   border-radius: 100%;
   font-weight: bold;
   font-size: large;
 }
 
 ::ng-deep.first-half-reserved-second-half-selected {
-  background: linear-gradient(90deg, orangered 42%, rgb(100,50,237) 58%, rgb(100,50,237) 100%);
+  background: linear-gradient(90deg, lightgrey 42%, rgba(255,69,00,0.6) 58%, rgba(255,69,00,0.6) 100%);
   border-radius: 100%;
   font-weight: bold;
   font-size: large;
 }
 
 ::ng-deep.first-half-selected-second-half-reserved {
-  background: linear-gradient(90deg, rgb(100,50,237) 0%, rgb(100,50,237) 42%, orangered 58%);
+  background: linear-gradient(90deg, rgba(255,69,00,0.6) 0%, rgba(255,69,00,0.6) 42%, lightgrey 58%);
   border-radius: 100%;
   font-weight: bold;
   font-size: large;
 }
 
 ::ng-deep.first-half-free-second-half-selected {
-  background: linear-gradient(90deg, darkolivegreen 42%, rgb(100,50,237) 58%, rgb(100,50,237) 100%);
+  background: linear-gradient(90deg, darkolivegreen 42%, rgba(255,69,00,0.6) 58%, rgba(255,69,00,0.6) 100%);
   border-radius: 100%;
   font-weight: bold;
   font-size: large;
 }
 
 ::ng-deep.first-half-free-second-half-reserved {
-  background: linear-gradient(90deg, darkolivegreen 42%, orangered 58%);
+  background: linear-gradient(90deg, darkolivegreen 42%, lightgrey 58%);
   border-radius: 100%;
   font-weight: bold;
   font-size: large;
 }
 
 ::ng-deep.first-half-reserved-second-half-free {
-  background: linear-gradient(90deg, orangered 42%, darkolivegreen 58%);
+  background: linear-gradient(90deg, lightgrey 42%, darkolivegreen 58%);
   border-radius: 100%;
   font-weight: bold;
   font-size: large;
 }
 
 ::ng-deep.first-half-selected-second-half-free {
-  background: linear-gradient(90deg, rgb(100,50,237) 0%, rgb(100,50,237) 42%, darkolivegreen 58%);
+  background: linear-gradient(90deg, rgba(255,69,00,0.6) 0%, rgba(255,69,00,0.6) 42%, darkolivegreen 58%);
   border-radius: 100%;
   font-weight: bold;
   font-size: large;

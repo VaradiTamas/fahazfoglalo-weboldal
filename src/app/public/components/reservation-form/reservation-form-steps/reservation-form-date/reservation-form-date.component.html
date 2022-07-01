@@ -1,31 +1,28 @@
-<div class="container-fluid m-0 p-0 pt-4">
-  <!--date text-->
-  <div class="row justify-content-center m-0 p-3">
-    <button #tooltip="matTooltip"
-            [matTooltipDisabled]="isTooltipDisabled"
-            matTooltip="Kérlek válassz szabad dátumaink közül az alábbi naptárban!"
-            matTooltipClass="date-text-tooltip"
-            (click)="onDateTextClick()"
-            class="col-12 col-md-6 col-lg-5 col-xl-4 date-text-container m-0 p-2">
-      <b class="pl-3 pr-3">{{fromDateText}} &nbsp; - &nbsp; {{toDateText}}</b>
-    </button>
+<!-- date text (from - to) -->
+<div class="row justify-content-center m-0 p-3">
+  <button #tooltip="matTooltip"
+          [matTooltipDisabled]="isTooltipDisabled"
+          matTooltip="Kérlek válassz szabad dátumaink közül az alábbi naptárban!"
+          matTooltipClass="date-text-tooltip"
+          (click)="onDateTextClick()"
+          class="col-12 col-md-6 col-lg-5 col-xl-4 date-text-container m-0 p-2">
+    <b class="pl-2 pr-2">{{fromDateText}} &nbsp; - &nbsp; {{toDateText}}</b>
+  </button>
+</div>
+<!--calendars dsdsadsad-->
+<div class="row justify-content-center m-0 pr-3 pl-3">
+  <div class="col-12 col-sm-10 col-md-6 col-lg-4 col-xl-3 calendar p-2 m-0">
+    <app-calendar class="calendar" [calendarType]="'first'" [fromDate]="booking?.from" [toDate]="booking?.to"></app-calendar>
   </div>
-  <!--calendars-->
-  <div class="row justify-content-center m-0 p-0">
-    <div class="col-12 col-sm-10 col-md-6 col-lg-5 col-xl-4 p-3 m-0">
-      <app-calendar [calendarType]="'first'" [fromDate]="booking?.from" [toDate]="booking?.to"></app-calendar>
-    </div>
-    <div #secondCalendar class="col-md-6 col-lg-5 col-xl-4 p-3 m-0">
-      <app-calendar [calendarType]="'second'" [fromDate]="booking?.from" [toDate]="booking?.to"></app-calendar>
-    </div>
-  </div>
-  <!--forward navigation button-->
-  <div class="row justify-content-center m-0 p-3 pb-5 pt-5">
-    <div class="col-12 col-md-6 col-lg-5 col-xl-4 p-0 m-0" (click)="onReservationPhaseChange(1)">
-      <button class="next-button p-2">
-        <span class="button-label pl-3 pr-3"><b>Folytatás</b></span>
-      </button>
-    </div>
+  <div #secondCalendar class="col-md-6 col-lg-4 col-xl-3 calendar p-2 m-0">
+    <app-calendar [calendarType]="'second'" [fromDate]="booking?.from" [toDate]="booking?.to"></app-calendar>
   </div>
 </div>
-
+<!--forward navigation button-->
+<div class="row justify-content-center absolute-position m-0 p-3">
+  <div class="col-12 col-md-6 col-lg-5 col-xl-4 p-0 m-0" (click)="onReservationPhaseChange(1)">
+    <button class="next-button p-2">
+      <span class="button-label pl-3 pr-3"><b>Folytatás</b></span>
+    </button>
+  </div>
+</div>

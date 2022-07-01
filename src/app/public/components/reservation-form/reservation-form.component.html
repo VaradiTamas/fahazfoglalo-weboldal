@@ -6,6 +6,9 @@
   </div>
 </div>
 
-<app-reservation-form-date *ngIf="phaseValue == 0"></app-reservation-form-date>
-<app-reservation-form-guests *ngIf="phaseValue == 1"></app-reservation-form-guests>
-<app-reservation-form-data *ngIf="phaseValue == 2"></app-reservation-form-data>
+<div class="container-fluid form-container m-0 p-0 pt-4">
+  <app-reservation-form-date *ngIf="phaseValue == 0"></app-reservation-form-date>
+  <app-reservation-form-guests *ngIf="phaseValue == 1"></app-reservation-form-guests>
+  <app-reservation-form-data *ngIf="phaseValue == 2"></app-reservation-form-data>
+  <app-reservation-form-summary *ngIf="phaseValue == 3"></app-reservation-form-summary>
+</div>

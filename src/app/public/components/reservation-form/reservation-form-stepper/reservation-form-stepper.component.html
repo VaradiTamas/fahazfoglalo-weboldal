@@ -1,10 +1,10 @@
-<div #stepperContainer class="container-fluid">
-  <div class="row justify-content-center">
+<div #stepperContainer class="container-fluid m-0 p-0">
+  <div class="row justify-content-center m-0 p-0">
     <div class="col-9 p-0">
-      <mat-slider class="p-0" min="0" max="2" step="1" [value]="phaseValue" (change)="onStepperValueChange($event)"></mat-slider>
+      <mat-slider class="p-0" min="0" max="3" step="1" [value]="phaseValue" (change)="onStepperValueChange($event)"></mat-slider>
     </div>
   </div>
-  <div class="row justify-content-center">
+  <div class="row justify-content-center m-0 p-0">
     <div #dateDiv class="col-3 pl-2 pr-0" (click)="onTabClick(0)">
       <b>Dátum</b>
     </div>
@@ -12,7 +12,10 @@
       <b>Vendégek</b>
     </div>
     <div #dataDiv class="col-3 pl-0 pr-2" (click)="onTabClick(2)">
-      <b>Befejezés</b>
+      <b>Adatok</b>
+    </div>
+    <div #summaryDiv class="col-3 pl-0 pr-2" (click)="onTabClick(3)">
+      <b>Összegzés</b>
     </div>
   </div>
 </div>

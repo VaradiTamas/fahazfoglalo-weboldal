@@ -46,6 +46,10 @@ export class ReservationFormDataComponent implements OnInit, OnDestroy {
       });
   }
 
+  onReservationPhaseChange(phaseValue: number): void{
+    this.reservationFormStepperService.reservationPhaseValueChanged(phaseValue);
+  }
+
   onVoucherClick(): void{
     this.possessVoucher = !this.possessVoucher;
   }

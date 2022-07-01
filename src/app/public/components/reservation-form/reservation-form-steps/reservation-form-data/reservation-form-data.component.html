@@ -1,146 +1,150 @@
-<div class="container-fluid m-0 p-0 pt-4">
-  <form (ngSubmit)="onSubmit(f)" #f="ngForm">
-    <div class="row justify-content-center m-0 p-0">
-      <!--last name-->
-      <div class="col-12 col-sm-10 col-md-6 col-lg-5 col-xl-4 p-3 m-0">
-        <div class="row m-0 p-0">
-          <div class="col-4 m-0 p-0">
-            <label class="col-sm-2 col-form-label" for="lastName">Vezetéknév: </label>
-          </div>
-          <div class="col-8 m-0 p-0">
-            <input
-              #lastName
-              type="text"
-              name="lastName"
-              class="form-control"
-              id="lastName"
-              [ngModel] = "booking?.lastName"
-              required>
-          </div>
+<form (ngSubmit)="onSubmit(f)" #f="ngForm">
+  <!--last name-->
+  <div class="row justify-content-center m-0 p-3 pt-md-5">
+    <div class="col-12 col-md-6 col-lg-5 col-xl-4 p-0 m-0">
+      <div class="row m-0 p-0">
+        <div class="col-4 m-0 p-0">
+          <label class="col-sm-2 col-form-label m-0 p-0" for="lastName">Vezetéknév:</label>
         </div>
-      </div>
-      <!--first name-->
-      <div class="col-12 col-sm-10 col-md-6 col-lg-5 col-xl-4 p-3 m-0">
-        <div class="row m-0 p-0">
-          <div class="col-4 m-0 p-0">
-            <label class="col-sm-2 col-form-label" for="firstName">Keresztnév: </label>
-          </div>
-          <div class="col-8 m-0 p-0">
-            <input
-              #firstName
-              name="firstName"
-              type="text"
-              class="form-control"
-              id="firstName"
-              [ngModel]="booking?.firstName"
-              required>
-          </div>
+        <div class="col-8 m-0 p-0">
+          <input
+            #lastName
+            type="text"
+            name="lastName"
+            class="form-control"
+            id="lastName"
+            [ngModel] = "booking?.lastName"
+            required>
         </div>
       </div>
     </div>
-    <div class="row justify-content-center m-0 p-0">
-      <!--mobile number-->
-      <div class="col-12 col-sm-10 col-md-6 col-lg-5 col-xl-4 p-3 m-0">
-        <div class="row m-0 p-0">
-          <div class="col-4 m-0 p-0">
-            <label class="col-sm-2 col-form-label" for="tel">Telefonszám: </label>
-          </div>
-          <div class="col-8 m-0 p-0">
-            <input
-              #tel
-              name="tel"
-              type="text"
-              class="form-control"
-              id="tel"
-              [ngModel]="booking?.tel"
-              required>
-          </div>
+  </div>
+  <!--first name-->
+  <div class="row justify-content-center m-0 pb-3 pr-3 pl-3 pt-0">
+    <div class="col-12 col-md-6 col-lg-5 col-xl-4 p-0 m-0">
+      <div class="row m-0 p-0">
+        <div class="col-4 m-0 p-0">
+          <span class="helper"></span><label class="col-sm-2 col-form-label m-0 p-0" for="firstName">Keresztnév:</label>
         </div>
-      </div>
-      <!--email address-->
-      <div class="col-12 col-sm-10 col-md-6 col-lg-5 col-xl-4 p-3 m-0">
-        <div class="row m-0 p-0">
-          <div class="col-4 m-0 p-0">
-            <label class="col-sm-2 col-form-label" for="email">Emailcím: </label>
-          </div>
-          <div class="col-8 m-0 p-0">
-            <input
-              #email
-              name="email"
-              type="email"
-              class="form-control"
-              id="email"
-              [ngModel]="booking?.email"
-              required>
-          </div>
+        <div class="col-8 m-0 p-0">
+          <input
+            #firstName
+            name="firstName"
+            type="text"
+            class="form-control"
+            id="firstName"
+            [ngModel]="booking?.firstName"
+            required>
         </div>
       </div>
     </div>
-    <!--note-->
-    <div class="row justify-content-center m-0 p-0">
-      <div class="col-12 col-sm-10 col-md-12 col-lg-10 col-xl-8 p-3 m-0">
-        <div class="row m-0 p-0">
-          <div class="col-4 col-md-2 m-0 p-0">
-            <label for="comment" class="col-sm-2 col-form-label">Megjegyzés:</label>
-          </div>
-          <div class="col-8 col-md-10 m-0 p-0">
-            <textarea
-              #comment
-              name="comment"
-              id="comment"
-              class="form-control"
-              [ngModel]="booking?.comment"
-              rows="3">
-            </textarea>
-          </div>
+  </div>
+  <!--mobile number-->
+  <div class="row justify-content-center m-0 pb-3 pr-3 pl-3 pt-0">
+    <div class="col-12 col-md-6 col-lg-5 col-xl-4 p-0 m-0">
+      <div class="row m-0 p-0">
+        <div class="col-4 m-0 p-0">
+          <label class="col-sm-2 col-form-label m-0 p-0" for="tel">Telefonszám:</label>
+        </div>
+        <div class="col-8 m-0 p-0">
+          <input
+            #tel
+            name="tel"
+            type="text"
+            class="form-control"
+            id="tel"
+            [ngModel]="booking?.tel"
+            required>
         </div>
       </div>
     </div>
-    <!--check voucher-->
-    <div class="row justify-content-center m-0 pr-3 pl-3 pt-5 pb-0">
-      <div class="col-12 col-md-6 col-lg-5 col-xl-4 p-0 m-0">
-        <div class="row m-0 p-2">
-          <div class="col-3 checkbox-container m-0 p-0">
-            <input class="checkbox" type="checkbox" (click)="onVoucherClick()" id="voucher" name="voucher">
-          </div>
-          <div class="col-auto m-0 p-0">
-            <label for="voucher">Van utalványom</label>
-          </div>
+  </div>
+  <!--email address-->
+  <div class="row justify-content-center m-0 pb-3 pr-3 pl-3 pt-0">
+    <div class="col-12 col-md-6 col-lg-5 col-xl-4 p-0 m-0">
+      <div class="row m-0 p-0">
+        <div class="col-4 m-0 p-0">
+          <label class="col-sm-2 col-form-label m-0 p-0" for="email">Email:</label>
+        </div>
+        <div class="col-8 m-0 p-0">
+          <input
+            #email
+            name="email"
+            type="email"
+            class="form-control"
+            id="email"
+            [ngModel]="booking?.email"
+            required>
         </div>
       </div>
     </div>
-    <!--set voucher id-->
-    <div *ngIf="possessVoucher" class="row justify-content-center m-0 pr-3 pl-3 pb-5 mb-2">
-      <div class="col-12 col-md-6 col-lg-5 col-xl-4 p-0 m-0">
-        <div class="row m-0 p-0">
-          <div class="col-3 m-0 p-0 voucher-id-label-container">
-            <label class="voucher-id-label" for="voucherId">Sorszám:</label>
-          </div>
-          <div class="col-5 m-0 p-0">
-            <input
-              name="voucherId"
-              id="voucherId"
-              class="form-control"
-              type="text"
-              [ngModel]="booking?.voucherId">
-          </div>
-          <div class="col-1 m-0 p-0">
-            <img *ngIf="alreadyCheckedVoucher && isVoucherValid" src="../../../../assets/icon/done.svg">
-            <img *ngIf="alreadyCheckedVoucher && !isVoucherValid" src="../../../../assets/icon/wrong.svg">
-          </div>
-          <div class="col-3 m-0 p-0">
-            <a mat-raised-button color="primary" class="voucher-id-check-button" (click)="onCheckVoucher(f)">Ellenőrzés</a>
-          </div>
+  </div>
+  <!--comment-->
+  <div class="row justify-content-center m-0 pb-3 pr-3 pl-3 pt-0">
+    <div class="col-12 col-md-6 col-lg-5 col-xl-4 p-0 m-0">
+      <div class="row m-0 p-0">
+        <div class="col-4 m-0 p-0">
+          <label for="comment" class="col-sm-2 col-form-label m-0 p-0">Megjegyzés:</label>
+        </div>
+        <div class="col-8 m-0 p-0">
+          <textarea
+            #comment
+            name="comment"
+            id="comment"
+            class="form-control"
+            [ngModel]="booking?.comment"
+            rows="3">
+          </textarea>
         </div>
       </div>
     </div>
-    <!--confirmation button-->
-    <div class="row justify-content-center m-0 pl-3 pr-3 pb-5 pt-0">
-      <div class="col-12 col-md-6 col-lg-5 col-xl-4 p-0 m-0">
-        <button type="submit" class="confirmation-button p-2">
-          <span class="button-label pl-3 pr-3"><b>Megerősítés</b></span>
-        </button>
+  </div>
+  <!--check voucher-->
+  <div class="row justify-content-center m-0 p-3">
+    <div class="col-12 col-md-6 col-lg-5 col-xl-4 p-0 m-0">
+      <div class="row m-0 p-0">
+        <div class="col-1 m-0 pl-1 pt-1">
+          <input class="checkbox" type="checkbox" (click)="onVoucherClick()" id="voucher" name="voucher">
+        </div>
+        <div class="col-auto m-0 pt-1">
+          <label class="m-0 p-0" for="voucher">Van utalványom</label>
+        </div>
       </div>
     </div>
-  </form>
-</div>
+  </div>
+  <!--set voucher id-->
+  <div *ngIf="possessVoucher" class="row justify-content-center m-0 pb-3 pl-3 pr-3 pt-0">
+    <div class="col-12 col-md-6 col-lg-5 col-xl-4 p-0 m-0">
+      <div class="row m-0 p-0">
+        <div class="col-3 m-0 p-0 voucher-id-label-container">
+          <label class="voucher-id-label" for="voucherId">Sorszám:</label>
+        </div>
+        <div class="col-5 m-0 p-0">
+          <input
+            name="voucherId"
+            id="voucherId"
+            class="form-control"
+            type="text"
+            [ngModel]="booking?.voucherId">
+        </div>
+        <div class="col-1 m-0 p-0">
+          <img *ngIf="alreadyCheckedVoucher && isVoucherValid" src="../../../../assets/icon/done.svg">
+          <img *ngIf="alreadyCheckedVoucher && !isVoucherValid" src="../../../../assets/icon/wrong.svg">
+        </div>
+        <div class="col-3 m-0 p-0">
+          <button class="next-button p-md-1" (click)="onCheckVoucher(f)">
+            <span class="button-label"><b>Ellenőrzés</b></span>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!--forward navigation button-->
+  <div class="row justify-content-center absolute-position m-0 p-3">
+    <div class="col-12 col-md-6 col-lg-5 col-xl-4 p-0 m-0" (click)="onReservationPhaseChange(3)">
+      <button class="next-button p-2">
+        <span class="button-label pl-3 pr-3"><b>Folytatás</b></span>
+      </button>
+    </div>
+  </div>
+</form>
