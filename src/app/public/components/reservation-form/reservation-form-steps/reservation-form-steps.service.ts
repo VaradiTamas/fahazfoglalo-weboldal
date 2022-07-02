@@ -63,6 +63,27 @@ export class ReservationFormStepsService {
     this.bookingUpdated.next({ booking: this.booking });
   }
 
+  isDateFormValid(): boolean {
+    if (this.booking.from && this.booking.to) {
+      return true;
+    }
+    return false;
+  }
+
+  isGuestFormValid(): boolean {
+    if (this.booking.numOfAdults && this.booking.numOfChildren) {
+      return true;
+    }
+    return false;
+  }
+
+  isDataFormValid(): boolean {
+    if (this.booking.firstName && this.booking.lastName && this.booking.email && this.booking.tel) {
+      return true;
+    }
+    return false;
+  }
+
   clearBookingData(): void {
     this.booking = { } as Booking;
     this.bookingUpdated.next({ booking: this.booking });

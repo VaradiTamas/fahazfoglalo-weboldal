@@ -18,6 +18,7 @@ export class ReservationFormDateComponent implements OnInit, AfterViewInit, OnDe
   @ViewChild('secondCalendar') secondCalendar;
   @ViewChild('tooltip') tooltip;
   private reservationFormStepsSubscription: Subscription;
+  private reservationFormStepperSubscription: Subscription;
 
   constructor(public reservationFormStepperService: ReservationFormStepperService,
               public reservationFormStepsService: ReservationFormStepsService) { }
@@ -29,6 +30,12 @@ export class ReservationFormDateComponent implements OnInit, AfterViewInit, OnDe
         this.setFromDateText();
         this.setToDateText();
         this.setTooltip();
+      });
+    this.reservationFormStepperSubscription = this.reservationFormStepperService.getReservationPhaseValueUpdateListener()
+      .subscribe((subData) => {
+        if (subData.reservationPhaseValue === -1) {
+          this.tooltip.show();
+        }
       });
     this.booking = this.reservationFormStepsService.getBooking();
     this.setFromDateText();
@@ -77,7 +84,7 @@ export class ReservationFormDateComponent implements OnInit, AfterViewInit, OnDe
     this.isTooltipDisabled = this.booking.from && this.booking.to ? true : false;
   }
 
-  onReservationPhaseChange(phaseValue: number): void{
+  onReservationPhaseChange(phaseValue: number): void {
     this.reservationFormStepperService.reservationPhaseValueChanged(phaseValue);
   }
 
@@ -96,5 +103,6 @@ export class ReservationFormDateComponent implements OnInit, AfterViewInit, OnDe
 
   ngOnDestroy(): void {
     this.reservationFormStepsSubscription.unsubscribe();
+    this.reservationFormStepperSubscription.unsubscribe();
   }
 }

@@ -16,7 +16,9 @@ export class ReservationFormComponent implements OnInit {
   ngOnInit(): void {
     this.phaseValueSubscription = this.reservationFormStepperService.getReservationPhaseValueUpdateListener()
       .subscribe((subData) => {
-        this.phaseValue = subData.reservationPhaseValue;
+        if (subData.reservationPhaseValue >= 0) {
+          this.phaseValue = subData.reservationPhaseValue;
+        }
       });
   }
 }
