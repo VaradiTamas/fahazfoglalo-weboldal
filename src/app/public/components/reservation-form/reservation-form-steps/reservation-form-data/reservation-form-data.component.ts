@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Booking } from '../../../../../models/booking.model';
 import { Voucher } from '../../../../../models/voucher.model';
 import { VoucherService } from '../../../../../services/voucher.service';
@@ -16,18 +16,15 @@ import { ThemePalette } from '@angular/material/core';
   styleUrls: ['./reservation-form-data.component.css']
 })
 export class ReservationFormDataComponent implements OnInit, OnDestroy {
-  @ViewChild('firstName') firstName;
-  @ViewChild('lastName') lastName;
-  @ViewChild('tel') tel;
-  @ViewChild('email') email;
-  @ViewChild('comment') comment;
-  color: ThemePalette = 'primary';
   booking: Booking;
   voucher: Voucher;
   possessVoucher = false;
   isVoucherValid = false;
   alreadyCheckedVoucher = false;
+  formInvalid = false;
   private reservationFormStepsSubscription: Subscription;
+  private reservationFormStepperSubscription: Subscription;
+  color: ThemePalette = 'primary';
 
   constructor(private voucherService: VoucherService,
               public reservationFormStepsService: ReservationFormStepsService,
@@ -40,6 +37,10 @@ export class ReservationFormDataComponent implements OnInit, OnDestroy {
     this.reservationFormStepsSubscription = this.reservationFormStepsService.getBookingUpdateListener()
       .subscribe((subData) => {
         this.booking = subData.booking;
+      });
+    this.reservationFormStepperSubscription = this.reservationFormStepperService.getReservationPhaseValueUpdateListener()
+      .subscribe((subData) => {
+        subData.reservationPhaseValue === -1 ? this.formInvalid = true : this.formInvalid = false;
       });
   }
 
@@ -79,11 +80,12 @@ export class ReservationFormDataComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    this.reservationFormStepsService.firstNameChanged(this.firstName.nativeElement.value);
-    this.reservationFormStepsService.lastNameChanged(this.lastName.nativeElement.value);
-    this.reservationFormStepsService.telephoneNumberChanged(this.tel.nativeElement.value);
-    this.reservationFormStepsService.emailChanged(this.email.nativeElement.value);
-    this.reservationFormStepsService.commentChanged(this.comment.nativeElement.value);
+    this.reservationFormStepsService.lastNameChanged(this.booking.lastName);
+    this.reservationFormStepsService.firstNameChanged(this.booking.firstName);
+    this.reservationFormStepsService.telephoneNumberChanged(this.booking.tel);
+    this.reservationFormStepsService.emailChanged(this.booking.email);
+    this.reservationFormStepsService.commentChanged(this.booking.comment);
     this.reservationFormStepsSubscription.unsubscribe();
+    this.reservationFormStepperSubscription.unsubscribe();
   }
 }

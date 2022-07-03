@@ -71,7 +71,7 @@ export class ReservationFormStepsService {
   }
 
   isGuestFormValid(): boolean {
-    if (this.booking.numOfAdults && this.booking.numOfChildren) {
+    if (this.booking.numOfAdults !== null && this.booking.numOfChildren !== null) {
       return true;
     }
     return false;

@@ -37,3 +37,7 @@ label {
 .button-label {
   font-size: large;
 }
+
+.error-message {
+  color: red;
+}

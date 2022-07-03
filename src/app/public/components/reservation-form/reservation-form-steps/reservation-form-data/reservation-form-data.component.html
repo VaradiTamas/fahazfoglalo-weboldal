@@ -7,13 +7,16 @@
       </div>
       <div class="col-8 m-0 p-0">
         <input
-          #lastName
+          #lastName="ngModel"
           type="text"
           name="lastName"
           class="form-control"
           id="lastName"
-          [ngModel] = "booking?.lastName"
+          [(ngModel)] = "booking.lastName"
           required>
+        <div class="error-message" *ngIf="lastName.invalid && (lastName.dirty || lastName.touched || formInvalid)">
+            A vezetéknév megadása kötelező!
+        </div>
       </div>
     </div>
   </div>
@@ -27,13 +30,16 @@
       </div>
       <div class="col-8 m-0 p-0">
         <input
-          #firstName
+          #firstName="ngModel"
           name="firstName"
           type="text"
           class="form-control"
           id="firstName"
-          [ngModel]="booking?.firstName"
+          [(ngModel)]="booking.firstName"
           required>
+        <div class="error-message" *ngIf="firstName.invalid && (firstName.dirty || firstName.touched || formInvalid)">
+          A keresztnév megadása kötelező!
+        </div>
       </div>
     </div>
   </div>
@@ -47,13 +53,16 @@
       </div>
       <div class="col-8 m-0 p-0">
         <input
-          #tel
+          #tel="ngModel"
           name="tel"
           type="text"
           class="form-control"
           id="tel"
-          [ngModel]="booking?.tel"
+          [(ngModel)]="booking.tel"
           required>
+        <div class="error-message" *ngIf="tel.invalid && (tel.dirty || tel.touched || formInvalid)">
+          A telefonszám megadása kötelező!
+        </div>
       </div>
     </div>
   </div>
@@ -67,13 +76,16 @@
       </div>
       <div class="col-8 m-0 p-0">
         <input
-          #email
+          #email="ngModel"
           name="email"
           type="email"
           class="form-control"
           id="email"
-          [ngModel]="booking?.email"
+          [(ngModel)]="booking.email"
           required>
+        <div class="error-message" *ngIf="email.invalid && (email.dirty || email.touched || formInvalid)">
+          Az e-mail cím megadása kötelező!
+        </div>
       </div>
     </div>
   </div>
@@ -91,7 +103,7 @@
           name="comment"
           id="comment"
           class="form-control"
-          [ngModel]="booking?.comment"
+          [(ngModel)]="booking.comment"
           rows="3">
         </textarea>
       </div>

@@ -26,8 +26,10 @@ export class ReservationFormStepperComponent implements OnInit, AfterViewInit, O
     this.setChanges(this.phaseValue);
     this.phaseValueSubscription = this.reservationFormStepperService.getReservationPhaseValueUpdateListener()
       .subscribe((subData) => {
-        this.phaseValue = subData.reservationPhaseValue;
-        this.setChanges(subData.reservationPhaseValue);
+        if (subData.reservationPhaseValue >= 0) {
+          this.phaseValue = subData.reservationPhaseValue;
+          this.setChanges(subData.reservationPhaseValue);
+        }
       });
   }
 
