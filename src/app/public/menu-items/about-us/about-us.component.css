@@ -17,4 +17,11 @@ agm-map {
 .label {
   font-family: "Arial Rounded MT Bold";
   font-size: large;
+  text-align: justify;
+  text-justify: inter-word;
+}
+
+.orange {
+  color: orangered;
+  font-weight: bold;
 }

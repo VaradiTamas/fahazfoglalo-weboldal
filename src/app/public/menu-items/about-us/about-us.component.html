@@ -1,37 +1,51 @@
 <app-app-page-title [title]="'Kapcsolat'" [imgPath]="'assets/house/pageTitlePic.jpg'"></app-app-page-title>
 
+<div class="container m-0 p-0">
+  <h1>
+    Elérhetőségeink:
+  </h1>
+
+  <div class="row m-0 p-0">
+    <div class="col-auto pl-2 label">
+      E-mail címünk:
+    </div>
+    <div class="col-auto pl-2">
+      <a href="mailto: sweetfarmeger@gmail.com">sweetfarm@gmail.hu</a>
+    </div>
+  </div>
+  <div class="row m-0 pb-0 pr-0 pl-0 pt-2">
+    <div class="col-auto pl-2 label">
+      Telefonszámunk:
+    </div>
+    <div class="col-auto pl-2">
+      <a href="tel:+36703765751">+3670-376-57-51</a>
+    </div>
+  </div>
+</div>
+
 <h1>
-  Elérhetőségeink:
+  Elhelyezkedés:
 </h1>
+
+<div class="label pr-4 pl-4 pb-3 pt-3">
+  Eger határától körülbelül másfél kilóméterre található egy csendes kis dombocskán, közel a természethez, csodálatos kilátással a városra.
+  A Sweet Farm-ig egész évben és időjárástól függetlenül járható aszfaltozott "tipikus" rossz minőségű magyar út vezet az utolsó egy kilóméteren.
+</div>
 
 <div class="container m-0">
   <ul>
     <li>
       <div class="row">
         <div class="col-sm-6 col-md-3 col-lg-2 label">
-          E-mail címünk:
+          Pontos helyszín:
         </div>
         <div class="col-sm-6 col-md-3 col-lg-2">
-          <a href="mailto: sweetfarmeger@gmail.com">sweetfarm@gmail.hu</a>
-        </div>
-      </div>
-    </li>
-    <li>
-      <div class="row pt-2">
-        <div class="col-sm-6 col-md-3 col-lg-2 label">
-          Telefonszámunk:
-        </div>
-        <div class="col-sm-6 col-md-3 col-lg-2">
-          <a href="tel:+36703765751">+3670-376-57-51</a>
+          <a href="https://maps.app.goo.gl/dpztkSDJ4AfKVV729" target="_blank" class="orange">ITT</a>
         </div>
       </div>
     </li>
   </ul>
 </div>
-
-<h1>
-  Elhelyezkedés:
-</h1>
 
 <agm-map [latitude]="latitude" [longitude]="longitude">
   <agm-marker [latitude]="latitude" [longitude]="longitude"></agm-marker>
