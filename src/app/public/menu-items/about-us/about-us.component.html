@@ -1,12 +1,12 @@
 <app-app-page-title [title]="'Kapcsolat'" [imgPath]="'assets/house/pageTitlePic.jpg'"></app-app-page-title>
 
-<div class="container m-0 p-0">
-  <h1>
-    Elérhetőségeink:
-  </h1>
+<h1>
+  Elérhetőségeink:
+</h1>
 
+<div class="container m-0 p-0">
   <div class="row m-0 p-0">
-    <div class="col-auto pl-2 label">
+    <div class="col-6 col-sm-4 col-md-3 col-xl-2 pl-3 pl-md-4 pl-lg-5 label">
       E-mail címünk:
     </div>
     <div class="col-auto pl-2">
@@ -14,7 +14,7 @@
     </div>
   </div>
   <div class="row m-0 pb-0 pr-0 pl-0 pt-2">
-    <div class="col-auto pl-2 label">
+    <div class="col-6 col-sm-4 col-md-3 col-xl-2 pl-3 pl-md-4 pl-lg-5 label">
       Telefonszámunk:
     </div>
     <div class="col-auto pl-2">
@@ -27,24 +27,20 @@
   Elhelyezkedés:
 </h1>
 
-<div class="label pr-4 pl-4 pb-3 pt-3">
+<div class="label pl-3 pl-md-4 pl-lg-5 pr-3 pr-md-4 pr-lg-5 pb-3 pt-3">
   Eger határától körülbelül másfél kilóméterre található egy csendes kis dombocskán, közel a természethez, csodálatos kilátással a városra.
   A Sweet Farm-ig egész évben és időjárástól függetlenül járható aszfaltozott "tipikus" rossz minőségű magyar út vezet az utolsó egy kilóméteren.
 </div>
 
-<div class="container m-0">
-  <ul>
-    <li>
-      <div class="row">
-        <div class="col-sm-6 col-md-3 col-lg-2 label">
-          Pontos helyszín:
-        </div>
-        <div class="col-sm-6 col-md-3 col-lg-2">
-          <a href="https://maps.app.goo.gl/dpztkSDJ4AfKVV729" target="_blank" class="orange">ITT</a>
-        </div>
-      </div>
-    </li>
-  </ul>
+<div class="container m-0 p-0 pb-3">
+  <div class="row m-0 p-0">
+    <div class="col-6 col-sm-4 col-md-3 col-xl-2 pl-3 pl-md-4 pl-lg-5 label">
+      Pontos helyszín:
+    </div>
+    <div class="col-auto pl-2">
+      <a href="https://maps.app.goo.gl/dpztkSDJ4AfKVV729" target="_blank" class="orange">ITT</a>
+    </div>
+  </div>
 </div>
 
 <agm-map [latitude]="latitude" [longitude]="longitude">
