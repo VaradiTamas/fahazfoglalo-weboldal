@@ -38,7 +38,6 @@ import { CalendarBodyComponent } from './public/components/calendar/body/calenda
 import { ReservationFormComponent } from './public/components/reservation-form/reservation-form.component';
 import { ReservationFormStepperComponent } from './public/components/reservation-form/reservation-form-stepper/reservation-form-stepper.component';
 import { ReservationFormDateComponent } from './public/components/reservation-form/reservation-form-steps/reservation-form-date/reservation-form-date.component';
-import { ReservationFormGuestsComponent } from './public/components/reservation-form/reservation-form-steps/reservation-form-guests/reservation-form-guests.component';
 import { ReservationFormDataComponent } from './public/components/reservation-form/reservation-form-steps/reservation-form-data/reservation-form-data.component';
 import { BookingConfirmationDialogComponent } from './public/components/reservation-form/confirmation-dialog/booking-confirmation-dialog.component';
 import { ReservationFormSummaryComponent } from './public/components/reservation-form/reservation-form-steps/reservation-form-summary/reservation-form-summary.component';
@@ -88,7 +87,6 @@ import { TemporaryVoucherComponent } from './public/menu-items/voucher/temporary
     ReservationFormComponent,
     ReservationFormStepperComponent,
     ReservationFormDateComponent,
-    ReservationFormGuestsComponent,
     ReservationFormDataComponent,
     BookingConfirmationDialogComponent,
     ReservationFormSummaryComponent,

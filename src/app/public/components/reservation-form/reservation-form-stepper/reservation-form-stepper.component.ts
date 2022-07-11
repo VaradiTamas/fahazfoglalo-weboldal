@@ -11,7 +11,6 @@ import {ReservationFormStepperService} from './reservation-form-stepper.service'
 export class ReservationFormStepperComponent implements OnInit, AfterViewInit, OnDestroy {
   phaseValue = 0;
   @ViewChild('dateDiv') dateDiv;
-  @ViewChild('guestsDiv') guestsDiv;
   @ViewChild('dataDiv') dataDiv;
   @ViewChild('summaryDiv') summaryDiv;
   @ViewChild('stepperContainer') stepperContainer;
@@ -47,28 +46,18 @@ export class ReservationFormStepperComponent implements OnInit, AfterViewInit, O
     switch (value){
       case 0: {
         this.dateDiv.nativeElement.style.color = 'orangered';
-        this.guestsDiv.nativeElement.style.color = '#B4B4B4';
         this.dataDiv.nativeElement.style.color = '#B4B4B4';
         this.summaryDiv.nativeElement.style.color = '#B4B4B4';
         break;
       }
       case 1: {
         this.dateDiv.nativeElement.style.color = '#B4B4B4';
-        this.guestsDiv.nativeElement.style.color = 'orangered';
-        this.dataDiv.nativeElement.style.color = '#B4B4B4';
+        this.dataDiv.nativeElement.style.color = 'orangered';
         this.summaryDiv.nativeElement.style.color = '#B4B4B4';
         break;
       }
       case 2: {
         this.dateDiv.nativeElement.style.color = '#B4B4B4';
-        this.guestsDiv.nativeElement.style.color = '#B4B4B4';
-        this.dataDiv.nativeElement.style.color = 'orangered';
-        this.summaryDiv.nativeElement.style.color = '#B4B4B4';
-        break;
-      }
-      case 3: {
-        this.dateDiv.nativeElement.style.color = '#B4B4B4';
-        this.guestsDiv.nativeElement.style.color = '#B4B4B4';
         this.dataDiv.nativeElement.style.color = '#B4B4B4';
         this.summaryDiv.nativeElement.style.color = 'orangered';
         break;

@@ -80,6 +80,8 @@ export class ReservationFormDataComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
+    this.reservationFormStepsService.numberOfAdultsChanged(this.booking.numOfAdults);
+    this.reservationFormStepsService.numberOfChildrenChanged(this.booking.numOfChildren);
     this.reservationFormStepsService.lastNameChanged(this.booking.lastName);
     this.reservationFormStepsService.firstNameChanged(this.booking.firstName);
     this.reservationFormStepsService.telephoneNumberChanged(this.booking.tel);
