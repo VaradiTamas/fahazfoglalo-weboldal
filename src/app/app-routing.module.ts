@@ -10,11 +10,12 @@ import { HomeComponent } from './public/menu-items/home/home.component';
 import { SaunaComponent } from './public/menu-items/gallery/sauna/sauna.component';
 import { ParkComponent } from './public/menu-items/gallery/park/park.component';
 import { GalleryLayoutComponent } from './layout/gallery-layout/gallery-layout.component';
-import { VoucherReservationComponent } from './public/menu-items/voucher/voucher-reservation/voucher-reservation.component';
-import { VoucherCardComponent } from './public/menu-items/voucher/voucher-card/voucher-card.component';
+// import { VoucherReservationComponent } from './public/menu-items/voucher/voucher-reservation/voucher-reservation.component';
+// import { VoucherCardComponent } from './public/menu-items/voucher/voucher-card/voucher-card.component';
 import { VoucherLayoutComponent } from './layout/voucher-layout/voucher-layout.component';
 import { HouseComponent } from './public/menu-items/gallery/house/house.component';
 import { TermsAndConditionsComponent } from './public/legal-things/terms-and-conditions/terms-and-conditions.component';
+import { TemporaryVoucherComponent } from './public/menu-items/voucher/temporary-voucher/temporary-voucher.component';
 
 const appRoutes: Routes = [
   { path: '', /*redirectTo: '/gallery' pathMatch: 'full'*/ component: AppLayoutComponent, children:
@@ -32,8 +33,8 @@ const appRoutes: Routes = [
         { path: 'voucher', redirectTo: 'voucher/information' },
         { path: 'voucher', component: VoucherLayoutComponent, children:
           [
-            { path: 'information', component: VoucherCardComponent },
-            { path: 'reservation', component: VoucherReservationComponent }
+            { path: 'information', component: TemporaryVoucherComponent },  // VoucherCardComponent
+            { path: 'reservation', component: TemporaryVoucherComponent }   // VoucherReservationComponent
           ]
         },
         { path: 'prices', component: PricesComponent },

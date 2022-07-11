@@ -1,11 +1,11 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
-import {FormsModule, ReactiveFormsModule} from '@angular/forms';
-import {MaterialModule} from './material.module';
-import {AppRoutingModule} from './app-routing.module';
-import {AdminModule} from './admin/admin.module';
-import { AgmCoreModule} from '@agm/core';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { MaterialModule } from './material.module';
+import { AppRoutingModule } from './app-routing.module';
+import { AdminModule } from './admin/admin.module';
+import { AgmCoreModule } from '@agm/core';
 import { AppComponent } from './app.component';
 import { HeaderComponent } from './layout/app-header/header.component';
 import { VoucherReservationComponent } from './public/menu-items/voucher/voucher-reservation/voucher-reservation.component';
@@ -43,6 +43,7 @@ import { ReservationFormDataComponent } from './public/components/reservation-fo
 import { BookingConfirmationDialogComponent } from './public/components/reservation-form/confirmation-dialog/booking-confirmation-dialog.component';
 import { ReservationFormSummaryComponent } from './public/components/reservation-form/reservation-form-steps/reservation-form-summary/reservation-form-summary.component';
 import { TermsAndConditionsComponent } from './public/legal-things/terms-and-conditions/terms-and-conditions.component';
+import { TemporaryVoucherComponent } from './public/menu-items/voucher/temporary-voucher/temporary-voucher.component';
 
 @NgModule({
   imports: [
@@ -92,6 +93,7 @@ import { TermsAndConditionsComponent } from './public/legal-things/terms-and-con
     BookingConfirmationDialogComponent,
     ReservationFormSummaryComponent,
     TermsAndConditionsComponent,
+    TemporaryVoucherComponent,
   ],
   providers: [
     {provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true},
