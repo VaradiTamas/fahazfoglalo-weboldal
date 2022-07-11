@@ -41,17 +41,6 @@
           <a id="reservation" class="nav-link" routerLink="/reservation" routerLinkActive="active-link" (click)="onToggleClick()">FOGLALÁS</a>
         </div>
       </li>
-      <li class="nav-item social-media" [@social-media]="menuState">
-        <span class="helper"></span>
-        <div class="nav-link-container">
-          <a id="facebook" class="nav-link" href="https://www.facebook.com/" target="_blank" (click)="onToggleClick()">
-            <img #facebook_icon class="facebook-icon pt-1" src="assets/icon/facebook.svg">
-          </a>
-          <a id="instagram" class="nav-link" href="https://www.instagram.com/" target="_blank" (click)="onToggleClick()">
-            <img #instagram_icon class="instagram-icon pt-1" src="assets/icon/instagram.svg">
-          </a>
-        </div>
-      </li>
       <li class="nav-item telephone-container">
         <span id="telephone" class="nav-link" (click)="openDialog()">
           <span class="helper"></span><img #telephone_icon class="telephone-icon" src="assets/icon/telephone.svg">

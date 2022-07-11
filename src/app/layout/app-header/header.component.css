@@ -50,15 +50,11 @@
   color: rgba(255, 255, 255, 1);
 }
 
-#instagram, #facebook, #telephone {
+#telephone {
   display: inline;
   cursor: pointer;
   margin: 0;
   padding: 0;
-}
-
-.facebook-icon, .instagram-icon {
-  padding-top: 0!important;
 }
 
 @media (min-width: 992px) {
@@ -68,17 +64,13 @@
     margin-right: 2rem;
   }
 
-  #facebook {
-    padding-right: 0.8rem;
-  }
-
   #telephone {
     /*margin-left: 3rem;*/
     padding-left: 0.9rem;
     margin-right: 2rem;
   }
 
-  .logo:hover, #voucher:hover, #gallery:hover, #prices:hover, #faq:hover, #contact:hover, #reservation:hover, .instagram-icon:hover, .facebook-icon:hover, .telephone-icon:hover {
+  .logo:hover, #voucher:hover, #gallery:hover, #prices:hover, #faq:hover, #contact:hover, #reservation:hover, .telephone-icon:hover {
     transform: scale(1.05);
   }
 }
@@ -129,24 +121,8 @@
     padding-left: 1rem;
   }
 
-  .social-media {
-    padding-bottom: 1rem;
-  }
-
   .telephone-container {
     display: none;
-  }
-
-  .facebook-icon {
-    margin-left: 1rem;
-    padding-right: 0.5rem;
-    margin-top: 0.5rem;
-    margin-bottom: 0.5rem;
-  }
-
-  .instagram-icon {
-    margin-top: 0.5rem;
-    margin-bottom: 0.5rem;
   }
 
   .helper {

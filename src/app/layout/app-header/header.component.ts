@@ -105,8 +105,6 @@ export class HeaderComponent implements OnInit, AfterViewInit {
   @ViewChild('toggler') toggler;
   @ViewChild('toggler_icon') togglerIcon;
   @ViewChild('telephone_icon') telephone;
-  @ViewChild('instagram_icon') instagram;
-  @ViewChild('facebook_icon') facebook;
   isDialogOpened = false;
   isNavigationMenuOpened = false;
   previousScrollPosition = window.pageYOffset;
@@ -244,8 +242,6 @@ export class HeaderComponent implements OnInit, AfterViewInit {
     this.price.nativeElement.style.color = 'darkolivegreen';
     this.faq.nativeElement.style.color = 'darkolivegreen';
     this.contact.nativeElement.style.color = 'darkolivegreen';
-    this.facebook.nativeElement.src = './assets/icon/facebook_green.svg';
-    this.instagram.nativeElement.src = './assets/icon/instagram_green.svg';
     this.telephone.nativeElement.src = './assets/icon/telephone_green.svg';
   }
 
@@ -256,7 +252,5 @@ export class HeaderComponent implements OnInit, AfterViewInit {
     this.faq.nativeElement.style.color = '#ffffff';
     this.contact.nativeElement.style.color = '#ffffff';
     this.telephone.nativeElement.src = './assets/icon/telephone.svg';
-    this.facebook.nativeElement.src = './assets/icon/facebook.svg';
-    this.instagram.nativeElement.src = './assets/icon/instagram.svg';
   }
 }
