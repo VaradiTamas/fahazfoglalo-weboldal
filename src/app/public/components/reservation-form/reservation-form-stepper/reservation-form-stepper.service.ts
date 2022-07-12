@@ -7,7 +7,7 @@ export class ReservationFormStepperService {
   private reservationPhaseValue = 0;
   private reservationPhaseValueUpdated = new Subject<{ reservationPhaseValue: number }>();
 
-  constructor(public reservationFormStepsService: ReservationFormStepsService,) {}
+  constructor(public reservationFormStepsService: ReservationFormStepsService) {}
 
   reservationPhaseValueChanged(value: number): void {
     if (this.canStepTo(value)) {
@@ -28,11 +28,6 @@ export class ReservationFormStepperService {
       }
       case 2: {
         return this.reservationFormStepsService.isDateFormValid()
-          && this.reservationFormStepsService.isGuestFormValid();
-      }
-      case 3: {
-        return this.reservationFormStepsService.isDateFormValid()
-          && this.reservationFormStepsService.isGuestFormValid()
           && this.reservationFormStepsService.isDataFormValid();
       }
     }

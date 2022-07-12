@@ -41,3 +41,7 @@ label {
 .error-message {
   color: red;
 }
+
+input::placeholder {
+  text-align: right;
+}

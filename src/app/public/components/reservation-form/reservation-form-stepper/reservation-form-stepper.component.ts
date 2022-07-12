@@ -36,12 +36,6 @@ export class ReservationFormStepperComponent implements OnInit, AfterViewInit, O
     this.reservationFormStepperService.reservationPhaseValueChanged(value);
   }
 
-  onStepperValueChange(event: MatSliderChange): void{
-    if (event.value != null){
-      this.reservationFormStepperService.reservationPhaseValueChanged(event.value);
-    }
-  }
-
   setChanges(value: number | null): void{
     switch (value){
       case 0: {

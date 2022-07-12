@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import {Component, OnDestroy, OnInit, ViewChild} from '@angular/core';
 import { Booking } from '../../../../../models/booking.model';
 import { Voucher } from '../../../../../models/voucher.model';
 import { VoucherService } from '../../../../../services/voucher.service';
@@ -25,6 +25,10 @@ export class ReservationFormDataComponent implements OnInit, OnDestroy {
   private reservationFormStepsSubscription: Subscription;
   private reservationFormStepperSubscription: Subscription;
   color: ThemePalette = 'primary';
+  @ViewChild('lastName') lastName;
+  @ViewChild('firstName') firstName;
+  @ViewChild('tel') tel;
+  @ViewChild('email') email;
 
   constructor(private voucherService: VoucherService,
               public reservationFormStepsService: ReservationFormStepsService,
@@ -40,8 +44,58 @@ export class ReservationFormDataComponent implements OnInit, OnDestroy {
       });
     this.reservationFormStepperSubscription = this.reservationFormStepperService.getReservationPhaseValueUpdateListener()
       .subscribe((subData) => {
-        subData.reservationPhaseValue === -1 ? this.formInvalid = true : this.formInvalid = false;
+        if (subData.reservationPhaseValue === -1) {
+          this.onInputTextFieldChange('lastName');
+          this.onInputTextFieldChange('firstName');
+          this.onInputTextFieldChange('tel');
+          this.onInputTextFieldChange('email');
+        }
       });
+  }
+
+  onInputTextFieldChange(inputField: string): void {
+    switch (inputField) {
+      case ('lastName'): {
+        if (!this.booking.lastName) {
+          this.lastName.nativeElement.style.borderColor = 'red';
+          this.lastName.nativeElement.style.borderWidth = '2px';
+        } else {
+          this.lastName.nativeElement.style.borderColor = '#ced4da';
+          this.lastName.nativeElement.style.borderWidth = '1px';
+        }
+        break;
+      }
+      case ('firstName'): {
+        if (!this.booking.firstName) {
+          this.firstName.nativeElement.style.borderColor = 'red';
+          this.firstName.nativeElement.style.borderWidth = '2px';
+        } else {
+          this.firstName.nativeElement.style.borderColor = '#ced4da';
+          this.firstName.nativeElement.style.borderWidth = '1px';
+        }
+        break;
+      }
+      case ('tel'): {
+        if (!this.booking.tel) {
+          this.tel.nativeElement.style.borderColor = 'red';
+          this.tel.nativeElement.style.borderWidth = '2px';
+        } else {
+          this.tel.nativeElement.style.borderColor = '#ced4da';
+          this.tel.nativeElement.style.borderWidth = '1px';
+        }
+        break;
+      }
+      case ('email'): {
+        if (!this.booking.email) {
+          this.email.nativeElement.style.borderColor = 'red';
+          this.email.nativeElement.style.borderWidth = '2px';
+        } else {
+          this.email.nativeElement.style.borderColor = '#ced4da';
+          this.email.nativeElement.style.borderWidth = '1px';
+        }
+        break;
+      }
+    }
   }
 
   onReservationPhaseChange(phaseValue: number): void{
