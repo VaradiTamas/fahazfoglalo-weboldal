@@ -12,3 +12,19 @@
 .row {
   width: 100%;
 }
+
+.left-side-flower-container {
+  position: absolute;
+  left: -7%;
+  top: 72%;
+  opacity: 35%;
+  transform: scale(0.6);
+}
+
+.right-side-flower-container {
+  position: absolute;
+  right: -7%;
+  top: 72%;
+  opacity: 35%;
+  transform: scale(0.6);
+}
