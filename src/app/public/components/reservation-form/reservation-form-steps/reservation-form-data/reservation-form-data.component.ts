@@ -38,6 +38,7 @@ export class ReservationFormDataComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.booking = this.reservationFormStepsService.getBooking();
+    this.setNumOfGuests();
     this.reservationFormStepsSubscription = this.reservationFormStepsService.getBookingUpdateListener()
       .subscribe((subData) => {
         this.booking = subData.booking;
@@ -51,6 +52,15 @@ export class ReservationFormDataComponent implements OnInit, OnDestroy {
           this.onInputTextFieldChange('email');
         }
       });
+  }
+
+  setNumOfGuests(): void {
+    if (!this.booking.numOfChildren) {
+      this.booking.numOfChildren = 0;
+    }
+    if (!this.booking.numOfAdults) {
+      this.booking.numOfAdults = 2;
+    }
   }
 
   onInputTextFieldChange(inputField: string): void {
