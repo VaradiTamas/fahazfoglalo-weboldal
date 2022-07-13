@@ -20,7 +20,7 @@ export class ReservationFormSummaryComponent implements OnInit, OnDestroy {
   booking: Booking;
   fromDateString: string;
   toDateString: string;
-  finalPrice: number;
+  finalPrice: string;
   checkboxColor: ThemePalette = 'primary';
   private reservationFormStepsSubscription: Subscription;
 
@@ -55,7 +55,8 @@ export class ReservationFormSummaryComponent implements OnInit, OnDestroy {
   calculatePrice(): void {
     const diffTime = +this.booking.to - +this.booking.from;
     const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
-    this.finalPrice = diffDays * 50000;
+    const price = diffDays * 50000;
+    this.finalPrice = new Intl.NumberFormat('en-us').format(price);
   }
 
   onSubmit(): void {
