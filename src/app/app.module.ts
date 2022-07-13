@@ -22,15 +22,14 @@ import { ErrorDialogComponent } from './error-handling/error-dialog/error-dialog
 import { ErrorInterceptor } from './error-handling/error-interceptor';
 import { AppPageTitleComponent } from './layout/app-page-title/app-page-title.component';
 import { ImagesLayoutComponent } from './public/components/gallery/images-layout/images-layout.component';
-import { SaunaComponent } from './public/menu-items/gallery/sauna/sauna.component';
-import { ParkComponent } from './public/menu-items/gallery/park/park.component';
+import { OutsideGalleryComponent } from './public/menu-items/gallery/outside/outside-gallery.component';
 import { GalleryLayoutComponent } from './layout/gallery-layout/gallery-layout.component';
 import { GalleryHeaderComponent } from './layout/gallery-header/gallery-header.component';
 import { VoucherCardComponent } from './public/menu-items/voucher/voucher-card/voucher-card.component';
 import { VoucherLayoutComponent } from './layout/voucher-layout/voucher-layout.component';
 import { PopupTelephoneDialogComponent } from './layout/app-header/popup-telephone-dialog/popup-telephone-dialog.component';
 import { ImagesCarouselComponent } from './public/components/gallery/images-carousel/images-carousel.component';
-import { HouseComponent } from './public/menu-items/gallery/house/house.component';
+import { InsideGalleryComponent } from './public/menu-items/gallery/inside/inside-gallery.component';
 import { FirstCalendarHeaderComponent } from './public/components/calendar/headers/first-calendar-header/first-calendar-header.component';
 // tslint:disable-next-line:max-line-length
 import { SecondCalendarHeaderComponent } from './public/components/calendar/headers/second-calendar-header/second-calendar-header.component';
@@ -72,8 +71,7 @@ import { TemporaryVoucherComponent } from './public/menu-items/voucher/temporary
     ErrorDialogComponent,
     AppPageTitleComponent,
     ImagesLayoutComponent,
-    SaunaComponent,
-    ParkComponent,
+    OutsideGalleryComponent,
     GalleryLayoutComponent,
     GalleryHeaderComponent,
     VoucherCardComponent,
@@ -83,7 +81,7 @@ import { TemporaryVoucherComponent } from './public/menu-items/voucher/temporary
     CalendarBodyComponent,
     PopupTelephoneDialogComponent,
     ImagesCarouselComponent,
-    HouseComponent,
+    InsideGalleryComponent,
     ReservationFormComponent,
     ReservationFormStepperComponent,
     ReservationFormDateComponent,
