@@ -212,41 +212,41 @@ import {state, style, trigger, transition, animate} from '@angular/animations';
 export class HomeComponent implements OnInit {
   state = 'first';
   isLogoVisible = false;
-  headerText = 'ELSO';
+  headerText = 'TERMÉSZETKÖZELI';
   counter = 0;
   currentImageSource = '';
   previousImageSource = '';
-  imgSrc1 = 'assets/home-page-animation-pictures/fah.jpg';
-  imgSrc2 = 'assets/home-page-animation-pictures/fah2.jpg';
-  imgSrc3 = 'assets/home-page-animation-pictures/fah3.jpg';
+  imgSrc1 = 'assets/inside/6.jpeg';
+  imgSrc2 = 'assets/inside/2.jpg';
+  imgSrc3 = 'assets/outside/1.jpg';
   imgBlack = 'assets/home-page-animation-pictures/black.png';
 
-  ngOnInit() {
+  ngOnInit(): void {
     this.currentImageSource = this.imgSrc1;
     this.previousImageSource = this.imgSrc1;
   }
 
-  toggleState() {
+  toggleState(): void {
     switch (this.counter){
       case 0: {
         this.isLogoVisible = false;
         this.currentImageSource = this.imgSrc1;
         this.state = 'first';
-        this.headerText = 'ELSO';
+        this.headerText = 'TERMÉSZETKÖZELI';
         break;
       }
       case 1: {
         this.previousImageSource = this.imgSrc1;
         this.currentImageSource = this.imgSrc2;
         this.state = 'second';
-        this.headerText = 'MASODIK';
+        this.headerText = 'NYUGALMAS';
         break;
       }
       case 2: {
         this.previousImageSource = this.imgSrc2;
         this.currentImageSource = this.imgSrc3;
         this.state = 'third';
-        this.headerText = 'HARMADIK';
+        this.headerText = 'LIDÉRCES';
         break;
       }
       case 3: {
@@ -258,7 +258,7 @@ export class HomeComponent implements OnInit {
     }
   }
 
-  onDone($event) {
+  onDone($event): void {
     if (this.counter === 3){
       this.counter = 0;
     } else {

@@ -21,7 +21,7 @@ const appRoutes: Routes = [
       [
         { path: '', component: HomeComponent, pathMatch: 'full' },
         { path: 'home', component: HomeComponent },
-        { path: 'gallery', redirectTo: 'gallery/house' },
+        { path: 'gallery', redirectTo: 'gallery/inside' },
         { path: 'gallery', component: GalleryLayoutComponent, children:
             [
               { path: 'inside', component: InsideGalleryComponent },

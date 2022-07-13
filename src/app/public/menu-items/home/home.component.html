@@ -12,10 +12,10 @@
 
     <div class="inner-container">
       <div class="title-div" [@titleAnimation]="state">
-        <span *ngIf="!isLogoVisible">
+        <span class="title-text" *ngIf="!isLogoVisible">
           {{headerText}}
         </span>
-        <img class="logo" *ngIf="isLogoVisible" src="../../../../assets/logo.png">
+        <img class="col-8 col-md-4 logo" *ngIf="isLogoVisible" src="../../../../assets/logo_small.png">
       </div>
     </div>
 

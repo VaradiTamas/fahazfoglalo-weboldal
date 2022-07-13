@@ -56,9 +56,22 @@
   margin-top: 20rem;
   color: aliceblue;
   text-align: center;
-  font-size: 50px;
+  font-size: 30px;
+}
+
+@media (min-width: 600px){
+  .title-div {
+    font-size: 45px;
+  }
+}
+
+.title-text {
+  position: relative;
+  top: -80px;
 }
 
 .logo{
-  height: 100%;
+  position: relative;
+  top: -80px;
+  max-height: 100%;
 }
