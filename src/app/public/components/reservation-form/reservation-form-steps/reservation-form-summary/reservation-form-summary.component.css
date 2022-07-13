@@ -10,6 +10,10 @@
   max-width: 60rem;
 }
 
+.col-form-label {
+  font-size: medium;
+}
+
 .divider {
   border-left-style: solid;
   border-left-color: orangered;

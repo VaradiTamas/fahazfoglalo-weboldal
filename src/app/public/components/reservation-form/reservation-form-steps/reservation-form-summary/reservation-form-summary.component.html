@@ -5,7 +5,7 @@
       <div class="col-4 m-0 p-0">
         <span class="col-sm-2 col-form-label m-0 p-0">Mettől:</span>
       </div>
-      <div class="col-8 m-0 p-0 text-right">{{fromDateString}}</div>
+      <div class="col-8 m-0 p-0 text-right col-form-label">{{fromDateString}}</div>
     </div>
   </div>
 </div>
@@ -16,7 +16,7 @@
       <div class="col-4 m-0 p-0">
         <span class="col-sm-2 col-form-label m-0 p-0">Meddig:</span>
       </div>
-      <div class="col-8 m-0 p-0 text-right">{{toDateString}}</div>
+      <div class="col-8 m-0 p-0 text-right col-form-label">{{toDateString}}</div>
     </div>
   </div>
 </div>
@@ -27,7 +27,7 @@
       <div class="col-4 m-0 p-0">
         <span class="col-sm-2 col-form-label m-0 p-0">Felnőttek száma:</span>
       </div>
-      <div class="col-8 m-0 p-0 text-right">{{booking.numOfAdults}}</div>
+      <div class="col-8 m-0 p-0 text-right col-form-label">{{booking.numOfAdults}}</div>
     </div>
   </div>
 </div>
@@ -38,7 +38,7 @@
       <div class="col-4 m-0 p-0">
         <span class="col-sm-2 col-form-label m-0 p-0">Gyerekek száma:</span>
       </div>
-      <div class="col-8 m-0 p-0 text-right">{{booking.numOfChildren}}</div>
+      <div class="col-8 m-0 p-0 text-right col-form-label">{{booking.numOfChildren}}</div>
     </div>
   </div>
 </div>
@@ -49,7 +49,7 @@
       <div class="col-4 m-0 p-0">
         <span class="col-sm-2 col-form-label m-0 p-0">Vezetéknév:</span>
       </div>
-      <div class="col-8 m-0 p-0 text-right">{{booking.lastName}}</div>
+      <div class="col-8 m-0 p-0 text-right col-form-label">{{booking.lastName}}</div>
     </div>
   </div>
 </div>
@@ -60,7 +60,7 @@
       <div class="col-4 m-0 p-0">
         <span class="col-sm-2 col-form-label m-0 p-0">Keresztnév:</span>
       </div>
-      <div class="col-8 m-0 p-0 text-right">{{booking.firstName}}</div>
+      <div class="col-8 m-0 p-0 text-right col-form-label">{{booking.firstName}}</div>
     </div>
   </div>
 </div>
@@ -71,7 +71,7 @@
       <div class="col-4 m-0 p-0">
         <span class="col-sm-2 col-form-label m-0 p-0">Telefonszám:</span>
       </div>
-      <div class="col-8 m-0 p-0 text-right">{{booking.tel}}</div>
+      <div class="col-8 m-0 p-0 text-right col-form-label">{{booking.tel}}</div>
     </div>
   </div>
 </div>
@@ -82,7 +82,7 @@
       <div class="col-4 m-0 p-0">
         <span class="col-sm-2 col-form-label m-0 p-0">Email:</span>
       </div>
-      <div class="col-8 m-0 p-0 text-right">{{booking.email}}</div>
+      <div class="col-8 m-0 p-0 text-right col-form-label">{{booking.email}}</div>
     </div>
   </div>
 </div>
@@ -93,7 +93,7 @@
       <div class="col-4 m-0 p-0">
         <span class="col-sm-2 col-form-label m-0 p-0">Megjegyzés:</span>
       </div>
-      <div class="col-8 m-0 p-0 text-right">{{booking.comment}}</div>
+      <div class="col-8 m-0 p-0 text-right col-form-label">{{booking.comment}}</div>
     </div>
   </div>
 </div>
@@ -104,14 +104,14 @@
       <div class="col-4 m-0 p-0">
         <span class="col-sm-2 col-form-label m-0 p-0">Utalvány:</span>
       </div>
-      <div class="col-8 m-0 p-0 text-right">{{booking.voucherId}}</div>
+      <div class="col-8 m-0 p-0 text-right col-form-label">{{booking.voucherId}}</div>
     </div>
   </div>
 </div>
 <!--information text about the price-->
 <div class="row justify-content-center price-text m-0 pb-3 pr-4 pl-4 pt-0">
-  <div class="col-12 col-md-6 col-lg-5 col-xl-4 p-0 m-0">
-    A helyszínen fizetendő végösszeg: {{finalPrice}} HUF
+  <div class="col-12 col-md-6 col-lg-5 col-xl-4 col-form-label p-0 m-0">
+    A helyszínen fizetendő végösszeg: <b>{{finalPrice}}</b> HUF
   </div>
 </div>
 <!--accept terms & conditions-->
