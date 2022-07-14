@@ -1,5 +1,5 @@
 ::ng-deep.fully-reserved-dates {
-  background: lightgrey;
+  background: red;
   border-radius: 100%;
   font-weight: bold;
   font-size: large;
@@ -20,14 +20,14 @@
 }
 
 ::ng-deep.first-half-reserved-second-half-selected {
-  background: linear-gradient(90deg, lightgrey 42%, rgba(255,69,00,0.6) 58%, rgba(255,69,00,0.6) 100%);
+  background: linear-gradient(90deg, red 42%, rgba(255,69,00,0.6) 58%, rgba(255,69,00,0.6) 100%);
   border-radius: 100%;
   font-weight: bold;
   font-size: large;
 }
 
 ::ng-deep.first-half-selected-second-half-reserved {
-  background: linear-gradient(90deg, rgba(255,69,00,0.6) 0%, rgba(255,69,00,0.6) 42%, lightgrey 58%);
+  background: linear-gradient(90deg, rgba(255,69,00,0.6) 0%, rgba(255,69,00,0.6) 42%, red 58%);
   border-radius: 100%;
   font-weight: bold;
   font-size: large;
@@ -41,14 +41,14 @@
 }
 
 ::ng-deep.first-half-free-second-half-reserved {
-  background: linear-gradient(90deg, darkolivegreen 42%, lightgrey 58%);
+  background: linear-gradient(90deg, darkolivegreen 42%, red 58%);
   border-radius: 100%;
   font-weight: bold;
   font-size: large;
 }
 
 ::ng-deep.first-half-reserved-second-half-free {
-  background: linear-gradient(90deg, lightgrey 42%, darkolivegreen 58%);
+  background: linear-gradient(90deg, red 42%, darkolivegreen 58%);
   border-radius: 100%;
   font-weight: bold;
   font-size: large;

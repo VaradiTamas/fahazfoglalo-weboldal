@@ -68,18 +68,14 @@
 }
 
 .picture {
-  margin-top: 3vh;
-  max-width: 80%;
-  max-height: 80%;
+  max-width: 100%;
+  max-height: 100%;
   filter: drop-shadow(1px 2px 3px black);
   display: inline-block;
   vertical-align: middle;
 }
 
 @media (max-width: 1000px){
-  .picture {
-    max-height: 70%;
-  }
 
   .left-arrow {
     left: 2rem;
@@ -91,10 +87,6 @@
 }
 
 @media (max-width: 768px){
-  .picture {
-    max-height: 70%;
-    max-width: 100%;
-  }
 
   .left-arrow {
     left: 1rem;

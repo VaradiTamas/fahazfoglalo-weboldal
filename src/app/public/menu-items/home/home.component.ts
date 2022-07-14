@@ -216,8 +216,8 @@ export class HomeComponent implements OnInit {
   counter = 0;
   currentImageSource = '';
   previousImageSource = '';
-  imgSrc1 = 'assets/inside/6.jpeg';
-  imgSrc2 = 'assets/inside/2.jpg';
+  imgSrc1 = 'assets/outside/17.jpg';
+  imgSrc2 = 'assets/inside/5.jpg';
   imgSrc3 = 'assets/outside/1.jpg';
   imgBlack = 'assets/home-page-animation-pictures/black.png';
 
