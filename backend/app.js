@@ -10,7 +10,14 @@ const userRoutes = require("./routes/user");
 
 const app = express();
 
-mongoose.connect("mongodb+srv://fahazfoglalo:ChsgicCcXqDvda26@cluster0.vyq6f.mongodb.net/firstDatabase?w=majority", {useNewUrlParser: true, useUnifiedTopology: true})
+function getDatabaseURI() {
+  if (process.env.NODE_ENV === "production") {
+    return `mongodb+srv://tamasvaradi:${process.env.PROD_DB_PW}@cluster0.k5ycb.mongodb.net/?retryWrites=true&w=majority`;
+  }
+  return `mongodb+srv://fahazfoglalo:${process.env.DEV_DB_PW}@cluster0.vyq6f.mongodb.net/firstDatabase?w=majority`;
+}
+
+mongoose.connect(getDatabaseURI(), { useNewUrlParser: true, useUnifiedTopology: true })
   .then(()=>{
     console.log('Connected to database!');
   })
