@@ -8,6 +8,8 @@ const setPaymentConfirmationEmailParametersMW = require('../middleware/email/set
 const sendEmailMW = require('../middleware/email/send-email-middleware');
 
 router.post('/send-booking-confirmation-email',
+  generateQRCodeMW,
+  modifyPdfMW,
   setBookingConfirmationEmailParametersMW,
   sendEmailMW
 );

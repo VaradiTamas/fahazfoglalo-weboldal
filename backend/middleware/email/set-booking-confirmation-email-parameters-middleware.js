@@ -3,7 +3,9 @@ module.exports = async (req, res, next) => {
   res.locals.to = req.body.email;
   res.locals.subject = 'Foglalás megerősítése';
   res.locals.template = 'booking-confirmation-email';
-  res.locals.attachments = null;
+  res.locals.attachments = {
+    path: 'booking_ticket.pdf'
+  };
   res.locals.variables = {
     name: req.body.firstName
   }

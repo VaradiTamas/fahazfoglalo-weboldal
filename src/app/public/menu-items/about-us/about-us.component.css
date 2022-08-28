@@ -10,7 +10,8 @@ a {
   color: black;
 }
 
-agm-map {
+.googlemaps {
+  width: 100%;
   height: 400px;
 }
 
