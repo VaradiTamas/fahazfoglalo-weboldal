@@ -75,6 +75,7 @@ export class ReservationFormSummaryComponent implements OnInit, OnDestroy {
       paidAmount: 0,
     };
     this.bookingService.addBooking(submitBooking);
+    this.bookingService.sendBookingConfirmationEmail(submitBooking);
 
     // navigating to the initial state of the webpage
     void this.router.navigate(['/home']);
