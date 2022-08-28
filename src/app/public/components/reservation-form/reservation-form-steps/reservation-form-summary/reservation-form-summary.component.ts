@@ -74,7 +74,10 @@ export class ReservationFormSummaryComponent implements OnInit, OnDestroy {
       comment: this.booking.comment,
       paidAmount: 0,
     };
+
+    // add booking and send a confirmation email
     this.bookingService.addBooking(submitBooking);
+    submitBooking.id = this.bookingService.addedBookingId;
     this.bookingService.sendBookingConfirmationEmail(submitBooking);
 
     // navigating to the initial state of the webpage

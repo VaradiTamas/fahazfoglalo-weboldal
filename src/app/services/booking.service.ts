@@ -12,6 +12,7 @@ const BACKEND_URL = environment.apiUrl;
 export class BookingService{
   private bookings: Booking[] = [];
   private bookingsUpdated = new Subject<{bookings: Booking[], bookingCount: number}>();
+  addedBookingId = null;
 
   constructor(private http: HttpClient, private router: Router) {}
 
@@ -47,7 +48,9 @@ export class BookingService{
 
   addBooking(booking: Booking): void {
     this.http.post<{message: string, bookingId: string}>(BACKEND_URL + 'bookings', booking)
-      .subscribe((responseData) => { });
+      .subscribe((responseData) => {
+        this.addedBookingId = responseData.bookingId;
+      });
   }
 
   sendBookingConfirmationEmail(booking: Booking): void {

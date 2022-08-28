@@ -4,11 +4,11 @@ module.exports = async (req, res, next) => {
   try {
     await QRCode.toFile(
       'booking_qr_code.png',
-      'http://www.sweeeeóóótfarm.hu/admin/bookings/' + req.body.id
+      'http://www.sweetfarm.hu/admin/bookings/' + req.body.id
     );
     next();
   } catch (error) {
-    console.log('QR code is not generated!')
+    console.log('QR code was not generated!')
     next();
   }
 };
