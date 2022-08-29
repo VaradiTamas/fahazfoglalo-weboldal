@@ -8,29 +8,71 @@ module.exports = async (req, res, next) => {
     const pdfDoc = await PDFDocument.load(templatePDFBytes);
 
     // constants for styling
-    const fontSize = 24;
+    const fontSize = 12;
+    const fontWeight = 650;
 
     // reading the previously created QR code
     const pngImageBytes = fs.readFileSync('booking_qr_code.png');
     const pngImage = await pdfDoc.embedPng(pngImageBytes)
-    const pngDims = pngImage.scale(0.5)
+    const pngDims = pngImage.scale(0.6)
 
     const pages = pdfDoc.getPages()
 
     // putting the QR code to the PDF file
     pages[0].drawImage(pngImage, {
-      x: pages[0].getWidth() - pngDims.width -50,
-      y: pages[0].getHeight() - pngDims.height - 50,
+      x: pages[0].getWidth() - pngDims.width - 20,
+      y: pages[0].getHeight() - pngDims.height - 20,
       width: pngDims.width,
       height: pngDims.height,
     })
 
     // writing the booking data to the PDF file
-    // name of the person who reserved the accomodation
-    pages[0].drawText(`${req.body.from}`, {
-      x: pages[0].getWidth() - 150,
-      y: pages[0].getHeight() -150,
+    // date
+    pages[0].drawText(`${formatDateString(req.body.from)} - ${formatDateString(req.body.to)}`, {
+      x: 106,
+      y: 504,
       size: fontSize,
+      weight: fontWeight,
+    })
+
+    // name
+    pages[0].drawText(`${req.body.lastName} ${req.body.firstName}`, {
+      x: 390,
+      y: 504,
+      size: fontSize,
+      weight: fontWeight,
+    })
+
+    // number of adults
+    pages[0].drawText(`${req.body.numOfAdults}`, {
+      x: 159,
+      y: 473.5,
+      size: fontSize,
+      weight: fontWeight,
+    })
+
+    // number of children
+    pages[0].drawText(`${req.body.numOfChildren}`, {
+      x: 406,
+      y: 473.5,
+      size: fontSize,
+      weight: fontWeight,
+    })
+
+    // telephone
+    pages[0].drawText(`${req.body.tel}`, {
+      x: 138,
+      y: 444,
+      size: fontSize,
+      weight: fontWeight,
+    })
+
+    // email
+    pages[0].drawText(`${req.body.email}`, {
+      x: 377,
+      y: 444,
+      size: fontSize,
+      weight: fontWeight,
     })
 
     // saving the PDF
@@ -43,3 +85,17 @@ module.exports = async (req, res, next) => {
     next();
   }
 };
+
+function formatDateString(date) {
+  const dateObject = new Date(date);
+  const yearString = dateObject.getFullYear().toString();
+
+  // for days and months if they are below 10 we have to put a 0 in front of them to make the text look nice
+  // e.g. instead of 2022.1.2. it will be 2022.01.02.
+  const month = dateObject.getMonth() + 1;
+  const monthString = month > 9 ? month.toString() : '0' + month.toString();
+  const day = dateObject.getDate();
+  const dayString = day > 9 ? day.toString() : '0' + day.toString();
+
+  return yearString + '.' + monthString + '.' + dayString + '.';
+}
