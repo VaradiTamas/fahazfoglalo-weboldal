@@ -9,7 +9,6 @@ module.exports = async (req, res, next) => {
 
     // constants for styling
     const fontSize = 12;
-    const fontWeight = 650;
 
     // reading the previously created QR code
     const pngImageBytes = fs.readFileSync('booking_qr_code.png');
@@ -32,7 +31,6 @@ module.exports = async (req, res, next) => {
       x: 106,
       y: 504,
       size: fontSize,
-      weight: fontWeight,
     })
 
     // name
@@ -40,7 +38,6 @@ module.exports = async (req, res, next) => {
       x: 390,
       y: 504,
       size: fontSize,
-      weight: fontWeight,
     })
 
     // number of adults
@@ -48,7 +45,6 @@ module.exports = async (req, res, next) => {
       x: 159,
       y: 473.5,
       size: fontSize,
-      weight: fontWeight,
     })
 
     // number of children
@@ -56,7 +52,6 @@ module.exports = async (req, res, next) => {
       x: 406,
       y: 473.5,
       size: fontSize,
-      weight: fontWeight,
     })
 
     // telephone
@@ -64,7 +59,6 @@ module.exports = async (req, res, next) => {
       x: 138,
       y: 444,
       size: fontSize,
-      weight: fontWeight,
     })
 
     // email
@@ -72,7 +66,13 @@ module.exports = async (req, res, next) => {
       x: 377,
       y: 444,
       size: fontSize,
-      weight: fontWeight,
+    })
+
+    // payable amount
+    pages[0].drawText(`${calculatePrice(req.body.from, req.body.to)} HUF`, {
+      x: 255,
+      y: 311,
+      size: fontSize,
     })
 
     // saving the PDF
@@ -98,4 +98,13 @@ function formatDateString(date) {
   const dayString = day > 9 ? day.toString() : '0' + day.toString();
 
   return yearString + '.' + monthString + '.' + dayString + '.';
+}
+
+function calculatePrice(from, to) {
+  const fromDate = new Date(from);
+  const toDate = new Date(to);
+  const diffTime = toDate - fromDate;
+  const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+  const price = diffDays * 50000;
+  return new Intl.NumberFormat('en-us').format(price);
 }
