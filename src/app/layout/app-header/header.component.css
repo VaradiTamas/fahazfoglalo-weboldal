@@ -47,6 +47,14 @@
   text-underline-offset: 3px;
 }
 
+@media (max-width: 992px) {
+  .active-link {
+    text-decoration: none;
+    background-color: lightgrey;
+    border-radius: 20px;
+  }
+}
+
 #reservation {
   color: rgba(255, 255, 255, 1);
 }
