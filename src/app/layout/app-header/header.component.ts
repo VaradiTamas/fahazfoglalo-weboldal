@@ -19,16 +19,6 @@ const animationTime = 180;
       state('opened', style({})),
       transition('opened <=> closed', animate(animationTime)),
     ]),
-    trigger('voucher', [
-      state('closed', style({
-        transform: 'translateY(-45px)',
-        opacity: 0
-      })),
-      state('opened', style({
-        transform: 'translateY(0px)',
-      })),
-      transition('opened <=> closed', animate(animationTime)),
-    ]),
     trigger('price', [
       state('closed', style({
         transform: 'translateY(-90px)',
@@ -98,7 +88,6 @@ export class HeaderComponent implements OnInit, AfterViewInit {
   @ViewChild('logo') logo;
   @ViewChild('navbar_collapse') navbarCollapse;
   @ViewChild('gallery') gallery;
-  @ViewChild('voucher') voucher;
   @ViewChild('price') price;
   @ViewChild('faq') faq;
   @ViewChild('contact') contact;
@@ -238,7 +227,6 @@ export class HeaderComponent implements OnInit, AfterViewInit {
 
   makeMenuItemsGreen(): void {
     this.gallery.nativeElement.style.color = 'darkolivegreen';
-    this.voucher.nativeElement.style.color = 'darkolivegreen';
     this.price.nativeElement.style.color = 'darkolivegreen';
     this.faq.nativeElement.style.color = 'darkolivegreen';
     this.contact.nativeElement.style.color = 'darkolivegreen';
@@ -247,7 +235,6 @@ export class HeaderComponent implements OnInit, AfterViewInit {
 
   makeMenuItemsWhite(): void {
     this.gallery.nativeElement.style.color = '#ffffff';
-    this.voucher.nativeElement.style.color = '#ffffff';
     this.price.nativeElement.style.color = '#ffffff';
     this.faq.nativeElement.style.color = '#ffffff';
     this.contact.nativeElement.style.color = '#ffffff';

@@ -7,9 +7,6 @@
     <li *ngIf="userIsAuthenticated">
       <a mat-button routerLink="/admin/bookings" routerLinkActive="mat-accent">Foglalások</a>
     </li>
-    <li *ngIf="userIsAuthenticated">
-      <a mat-button routerLink="/admin/vouchers" routerLinkActive="mat-accent">Utalványok</a>
-    </li>
     <li *ngIf="!userIsAuthenticated">
       <a mat-button routerLink="/admin/login" routerLinkActive="mat-accent">Bejelentkezés</a>
     </li>

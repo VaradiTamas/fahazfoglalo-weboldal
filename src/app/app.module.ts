@@ -8,7 +8,6 @@ import { AdminModule } from './admin/admin.module';
 import { AgmCoreModule } from '@agm/core';
 import { AppComponent } from './app.component';
 import { HeaderComponent } from './layout/app-header/header.component';
-import { VoucherReservationComponent } from './public/menu-items/voucher/voucher-reservation/voucher-reservation.component';
 import { PricesComponent } from './public/menu-items/prices/prices.component';
 import { QuestionsComponent } from './public/menu-items/questions/questions.component';
 import { AboutUsComponent } from './public/menu-items/about-us/about-us.component';
@@ -25,8 +24,6 @@ import { ImagesLayoutComponent } from './public/components/gallery/images-layout
 import { OutsideGalleryComponent } from './public/menu-items/gallery/outside/outside-gallery.component';
 import { GalleryLayoutComponent } from './layout/gallery-layout/gallery-layout.component';
 import { GalleryHeaderComponent } from './layout/gallery-header/gallery-header.component';
-import { VoucherCardComponent } from './public/menu-items/voucher/voucher-card/voucher-card.component';
-import { VoucherLayoutComponent } from './layout/voucher-layout/voucher-layout.component';
 import { PopupTelephoneDialogComponent } from './layout/app-header/popup-telephone-dialog/popup-telephone-dialog.component';
 import { ImagesCarouselComponent } from './public/components/gallery/images-carousel/images-carousel.component';
 import { InsideGalleryComponent } from './public/menu-items/gallery/inside/inside-gallery.component';
@@ -41,7 +38,6 @@ import { ReservationFormDataComponent } from './public/components/reservation-fo
 import { BookingConfirmationDialogComponent } from './public/components/reservation-form/confirmation-dialog/booking-confirmation-dialog.component';
 import { ReservationFormSummaryComponent } from './public/components/reservation-form/reservation-form-steps/reservation-form-summary/reservation-form-summary.component';
 import { TermsAndConditionsComponent } from './public/legal-things/terms-and-conditions/terms-and-conditions.component';
-import { TemporaryVoucherComponent } from './public/menu-items/voucher/temporary-voucher/temporary-voucher.component';
 
 @NgModule({
   imports: [
@@ -61,7 +57,6 @@ import { TemporaryVoucherComponent } from './public/menu-items/voucher/temporary
   declarations: [
     AppComponent,
     HeaderComponent,
-    VoucherReservationComponent,
     PricesComponent,
     QuestionsComponent,
     AboutUsComponent,
@@ -74,8 +69,6 @@ import { TemporaryVoucherComponent } from './public/menu-items/voucher/temporary
     OutsideGalleryComponent,
     GalleryLayoutComponent,
     GalleryHeaderComponent,
-    VoucherCardComponent,
-    VoucherLayoutComponent,
     FirstCalendarHeaderComponent,
     SecondCalendarHeaderComponent,
     CalendarBodyComponent,
@@ -89,7 +82,6 @@ import { TemporaryVoucherComponent } from './public/menu-items/voucher/temporary
     BookingConfirmationDialogComponent,
     ReservationFormSummaryComponent,
     TermsAndConditionsComponent,
-    TemporaryVoucherComponent,
   ],
   providers: [
     {provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true},

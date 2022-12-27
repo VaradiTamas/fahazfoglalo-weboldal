@@ -1,9 +1,9 @@
-import {Component, OnDestroy, OnInit} from '@angular/core';
-import {AuthService} from "../../admin/auth/auth.service";
-import {Subscription} from "rxjs";
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import { AuthService } from '../../admin/auth/auth.service';
+import { Subscription } from 'rxjs';
 
 @Component({
-  selector: 'admin-header',
+  selector: 'app-admin-header',
   templateUrl: './navbar.component.html',
   styleUrls: ['./navbar.component.css']
 })
@@ -22,7 +22,7 @@ export class NavbarComponent implements OnInit, OnDestroy {
       });
   }
 
-  onLogout() {
+  onLogout(): void {
     this.authService.logout();
   }
 

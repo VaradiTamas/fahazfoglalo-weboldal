@@ -1,8 +1,8 @@
-import {Component, HostListener, OnDestroy, OnInit, AfterViewInit, ViewChild, ElementRef} from '@angular/core';
-import {BookingService} from '../../services/booking.service';
-import {Booking} from '../../models/booking.model';
-import {Subscription} from 'rxjs';
-import {PageEvent} from '@angular/material/paginator';
+import { Component, HostListener, OnDestroy, OnInit, AfterViewInit } from '@angular/core';
+import { BookingService } from '../../services/booking.service';
+import { Booking } from '../../models/booking.model';
+import { Subscription } from 'rxjs';
+import { PageEvent } from '@angular/material/paginator';
 
 @Component({
   selector: 'app-bookings',

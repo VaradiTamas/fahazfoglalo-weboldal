@@ -1,12 +1,10 @@
-import {Component, OnDestroy, OnInit} from '@angular/core';
-import {NgForm} from '@angular/forms';
-import {BookingService} from '../../../services/booking.service';
-import {Booking} from '../../../models/booking.model';
-import {ActivatedRoute, ParamMap, Router} from '@angular/router';
-import {Voucher} from '../../../models/voucher.model';
-import {VoucherService} from '../../../services/voucher.service';
-import {AuthService} from '../../auth/auth.service';
-import {Subscription} from 'rxjs';
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import { NgForm } from '@angular/forms';
+import { BookingService } from '../../../services/booking.service';
+import { Booking } from '../../../models/booking.model';
+import { ActivatedRoute, ParamMap, Router } from '@angular/router';
+import { AuthService } from '../../auth/auth.service';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-new-booking',
@@ -15,7 +13,6 @@ import {Subscription} from 'rxjs';
 })
 export class NewBookingComponent implements OnInit, OnDestroy{
   booking: Booking;
-  voucher: Voucher;
   isLoading = false;
   isVoucherValid = false;
   alreadyCheckedVoucher = false;
@@ -24,7 +21,6 @@ export class NewBookingComponent implements OnInit, OnDestroy{
   private bookingId: string;
 
   constructor(private bookingService: BookingService,
-              private voucherService: VoucherService,
               public route: ActivatedRoute,
               private authService: AuthService,
               private router: Router) {}
@@ -73,7 +69,7 @@ export class NewBookingComponent implements OnInit, OnDestroy{
     const value = form.value;
     const formBooking = {
       id: this.bookingId,
-      voucherId: this.voucher?.id,
+      voucherId: null,
       from: value.from,
       to: value.to,
       firstName: value.firstName,
@@ -93,30 +89,6 @@ export class NewBookingComponent implements OnInit, OnDestroy{
     }
     form.reset();
     void this.router.navigate(['/admin/bookings']);
-  }
-
-  onCheckVoucher(form: NgForm): void {
-    const value = form.value;
-    this.voucherService.getVoucher(value.voucherId).subscribe(voucherData => {
-      this.voucher = {
-        id: voucherData._id,
-        firstName: voucherData.firstName,
-        lastName: voucherData.lastName,
-        tel: voucherData.tel,
-        email: voucherData.email,
-        numOfNights: voucherData.numOfNights,
-        numOfChildren: voucherData.numOfChildren,
-        numOfAdults: voucherData.numOfAdults,
-        numOfBedrooms: voucherData.numOfBedrooms,
-        country: voucherData.country,
-        postcode: voucherData.postcode,
-        city: voucherData.city,
-        address: voucherData.address,
-        isPaid: voucherData.isPaid
-      };
-      this.voucher.id === value.voucherId ? this.isVoucherValid = true : this.isVoucherValid = false;
-      this.alreadyCheckedVoucher = true;
-    });
   }
 
   ngOnDestroy(): void {

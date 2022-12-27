@@ -1,7 +1,6 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Booking } from '../../../../../models/booking.model';
 import { Subscription } from 'rxjs';
-import { VoucherService } from '../../../../../services/voucher.service';
 import { BookingService } from '../../../../../services/booking.service';
 import { ReservationFormStepsService } from '../reservation-form-steps.service';
 import { ReservationFormStepperService } from '../../reservation-form-stepper/reservation-form-stepper.service';
@@ -24,8 +23,7 @@ export class ReservationFormSummaryComponent implements OnInit, OnDestroy {
   checkboxColor: ThemePalette = 'primary';
   private reservationFormStepsSubscription: Subscription;
 
-  constructor(private voucherService: VoucherService,
-              private bookingService: BookingService,
+  constructor(private bookingService: BookingService,
               public reservationFormStepsService: ReservationFormStepsService,
               public reservationFormStepperService: ReservationFormStepperService,
               public calendarService: CalendarService,

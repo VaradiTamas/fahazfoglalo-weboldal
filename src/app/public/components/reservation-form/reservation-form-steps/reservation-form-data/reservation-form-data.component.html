@@ -138,46 +138,6 @@
     </div>
   </div>
 </div>
-<!--check voucher-->
-<div class="row justify-content-center m-0 pb-1 pr-3 pl-3 pt-0">
-  <div class="col-12 col-md-6 col-lg-5 col-xl-4 p-0 m-0">
-    <div class="row m-0 p-0">
-      <div class="col-auto m-0 pl-1 pt-1">
-        <mat-checkbox [color]="color" class="checkbox" id="voucher" name="voucher" (click)="onVoucherClick()"></mat-checkbox>
-      </div>
-      <div class="col-8 m-0 p-0">
-        <label class="m-0 p-0" for="voucher">Van utalványom</label>
-      </div>
-    </div>
-  </div>
-</div>
-<!--set voucher id-->
-<div *ngIf="possessVoucher" class="row justify-content-center m-0 pb-3 pl-3 pr-3 pt-0">
-  <div class="col-12 col-md-6 col-lg-5 col-xl-4 p-0 m-0">
-    <div class="row m-0 p-0">
-      <div class="col-3 m-0 p-0 voucher-id-label-container">
-        <label class="voucher-id-label" for="voucherId">Sorszám:</label>
-      </div>
-      <div class="col-5 m-0 p-0">
-        <input
-          name="voucherId"
-          id="voucherId"
-          class="form-control"
-          type="text"
-          [ngModel]="booking?.voucherId">
-      </div>
-      <div class="col-1 m-0 p-0">
-        <img *ngIf="alreadyCheckedVoucher && isVoucherValid" src="../../../../assets/icon/done.svg">
-        <img *ngIf="alreadyCheckedVoucher && !isVoucherValid" src="../../../../assets/icon/wrong.svg">
-      </div>
-      <div class="col-3 m-0 p-0">
-        <button class="next-button p-md-1" (click)="onCheckVoucher(f)">
-          <span class="button-label"><b>Ellenőrzés</b></span>
-        </button>
-      </div>
-    </div>
-  </div>
-</div>
 <!--forward navigation button-->
 <div class="row justify-content-center absolute-position m-0 p-3">
   <div class="col-12 col-md-6 col-lg-5 col-xl-4 p-0 m-0" (click)="onReservationPhaseChange(2)">
