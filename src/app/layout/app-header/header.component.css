@@ -41,9 +41,10 @@
   display: inline-block;
 }
 
-.active-link{
-  background-color: rgba(137,133,131,0.5);
-  border-radius: 25px;
+.active-link {
+  text-decoration: underline white;
+  text-decoration-thickness: 2px;
+  text-underline-offset: 3px;
 }
 
 #reservation {
