@@ -37,7 +37,7 @@ const sendEmail = async (emailData, callback) => {
     })
   );
 
-  const mailOptions = {
+  const mailOptionsToGuest = {
     from: emailData.from,
     to: emailData.to,
     subject: emailData.subject,
@@ -46,5 +46,9 @@ const sendEmail = async (emailData, callback) => {
     context: emailData.variables
   };
 
-  transporter.sendMail(mailOptions, callback);
+  const mailOptionsToAdmin = mailOptionsToGuest;
+  mailOptionsToAdmin.to = 'greenparkeger@gmail.com';
+
+  await transporter.sendMail(mailOptionsToGuest, callback);
+  await transporter.sendMail(mailOptionsToAdmin, callback);
 }
