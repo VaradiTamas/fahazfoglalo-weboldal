@@ -3,7 +3,6 @@ const Booking = require('../../models/booking');
 module.exports = (req, res, next) => {
   const booking = new Booking({
     _id: req.body.id,
-    voucherId: req.body.voucherId,
     from: req.body.from,
     to: req.body.to,
     firstName: req.body.firstName,

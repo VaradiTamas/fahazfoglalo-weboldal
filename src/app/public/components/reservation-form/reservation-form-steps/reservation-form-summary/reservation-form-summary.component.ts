@@ -60,7 +60,6 @@ export class ReservationFormSummaryComponent implements OnInit, OnDestroy {
   onSubmit(): void {
     const submitBooking = {
       id: null,
-      voucherId: this.booking.voucherId,
       from: this.booking.from,
       to: this.booking.to,
       firstName: this.booking.firstName,

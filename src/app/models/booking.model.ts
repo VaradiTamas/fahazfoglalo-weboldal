@@ -1,6 +1,5 @@
 export interface Booking {
   id: string;
-  voucherId: string;
   from: Date;
   to: Date;
   firstName: string;

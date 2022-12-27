@@ -2,10 +2,6 @@ const mongoose = require('mongoose');
 const Schema = require('mongoose').Schema;
 
 const bookingSchema = mongoose.Schema({
-  voucherId: {
-    type: Schema.Types.ObjectId,
-    ref: 'Voucher'
-  },
   from: Date,
   to: Date,
   firstName: String,

@@ -58,11 +58,6 @@ export class ReservationFormStepsService {
     this.bookingUpdated.next({ booking: this.booking });
   }
 
-  voucherIdChanged(voucherId: string): void {
-    this.booking.voucherId = voucherId;
-    this.bookingUpdated.next({ booking: this.booking });
-  }
-
   isDateFormValid(): boolean {
     if (this.booking.from && this.booking.to) {
       return true;

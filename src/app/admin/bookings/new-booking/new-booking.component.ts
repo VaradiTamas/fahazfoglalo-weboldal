@@ -14,8 +14,6 @@ import { Subscription } from 'rxjs';
 export class NewBookingComponent implements OnInit, OnDestroy{
   booking: Booking;
   isLoading = false;
-  isVoucherValid = false;
-  alreadyCheckedVoucher = false;
   authSubscription: Subscription;
   private mode = 'create';
   private bookingId: string;
@@ -40,7 +38,6 @@ export class NewBookingComponent implements OnInit, OnDestroy{
           this.isLoading = false;
           this.booking = {
             id: bookingData._id,
-            voucherId: bookingData.voucherId,
             from: new Date(bookingData.from),
             to: new Date(bookingData.to),
             firstName: bookingData.firstName,
@@ -69,7 +66,6 @@ export class NewBookingComponent implements OnInit, OnDestroy{
     const value = form.value;
     const formBooking = {
       id: this.bookingId,
-      voucherId: null,
       from: value.from,
       to: value.to,
       firstName: value.firstName,

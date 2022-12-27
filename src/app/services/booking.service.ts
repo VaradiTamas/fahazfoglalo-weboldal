@@ -23,7 +23,6 @@ export class BookingService{
         return { bookings: serverBookings.bookings.map(booking => {
           return {
             id: booking._id,
-            voucherId: booking.voucherId,
             from: booking.from,
             to: booking.to,
             firstName: booking.firstName,
@@ -77,7 +76,6 @@ export class BookingService{
   getBooking(id: string) {
     return this.http.get<{
       _id: string,
-      voucherId: string,
       from: string,
       to: string,
       firstName: string,

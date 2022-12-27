@@ -14,8 +14,6 @@ import { ThemePalette } from '@angular/material/core';
 })
 export class ReservationFormDataComponent implements OnInit, OnDestroy {
   booking: Booking;
-  isVoucherValid = false;
-  alreadyCheckedVoucher = false;
   formInvalid = false;
   private reservationFormStepsSubscription: Subscription;
   private reservationFormStepperSubscription: Subscription;
