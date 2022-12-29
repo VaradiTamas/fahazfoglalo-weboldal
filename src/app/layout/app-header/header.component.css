@@ -62,10 +62,6 @@
   }
 }
 
-html:not([data-scroll='0']) active-link {
-  color: red!important;
-}
-
 #reservation {
   color: rgba(255, 255, 255, 1);
 }
@@ -85,7 +81,6 @@ html:not([data-scroll='0']) active-link {
   }
 
   #telephone {
-    /*margin-left: 3rem;*/
     padding-left: 0.9rem;
     margin-right: 2rem;
   }

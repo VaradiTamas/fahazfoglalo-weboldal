@@ -1,0 +1,39 @@
+.container-fluid {
+  width: 100%;
+  background-color: rgba(85,107,47,0.7);
+  margin: 100px 0px 0px 0px;
+  padding: 0px;
+}
+
+.row {
+  width: 100%;
+  margin: 0px;
+}
+
+.logo {
+  margin-top: 1rem;
+  height: 5rem;
+}
+
+.title {
+  margin-bottom: 1rem;
+  margin-top: 1rem;
+  font-weight: 500;
+}
+
+.description {
+  text-align: justify;
+  color: #212529;
+  text-decoration: none;
+}
+
+.map {
+  height: 80%;
+  width: 100%;
+}
+
+span {
+  margin-right: 5px;
+}
+
+
