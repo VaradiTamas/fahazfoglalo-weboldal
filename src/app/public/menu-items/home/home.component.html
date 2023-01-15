@@ -1,28 +1,30 @@
-<div class="marg">
-  <div class="animation-container">
-    <div class="inner-container">
-      <img class="prev-picture" [src]="previousImageSource"/>
-    </div>
+<div class="animation-container">
+  <div class="inner-container">
+    <img class="prev-picture" [src]="previousImageSource"/>
+  </div>
 
-    <div class="inner-container">
-      <img class="current-picture" [src]="currentImageSource" [@imageAnimation]="state" (@imageAnimation.done)="onDone($event)"/>
-    </div>
+  <div class="inner-container">
+    <img class="current-picture" [src]="currentImageSource" [@imageAnimation]="state" (@imageAnimation.done)="onDone($event)"/>
+  </div>
 
-    <div class="dark-div" [@darkImageAnimation]="state"></div>
+  <div class="dark-div" [@darkImageAnimation]="state"></div>
 
-    <div class="inner-container">
-      <div class="title-div" [@titleAnimation]="state">
-        <span class="title-text" *ngIf="!isLogoVisible">
-          {{headerText}}
-        </span>
-        <img class="col-8 col-md-4 logo" *ngIf="isLogoVisible" src="../../../../assets/logo_small.png">
+  <div class="inner-container">
+    <div class="title-div" [@titleAnimation]="state">
+      <div class="text" *ngIf="!isLogoVisible">
+        {{headerText}}
+      </div>
+      <div class="text">
+        <img class="logo" *ngIf="isLogoVisible" src="../../../../assets/logo_small.png">
       </div>
     </div>
-
-    <div class="dark-div" [@darkTitleAnimation]="state"></div>
   </div>
+
+  <div class="dark-div" [@darkTitleAnimation]="state"></div>
 </div>
 
-<app-reservation-form></app-reservation-form>
+<div class="reservation-form-container">
+  <app-reservation-form></app-reservation-form>
+</div>
 
 <app-footer></app-footer>

@@ -1,20 +1,16 @@
-.marg{
-  margin-bottom: 50vh;
-}
-
-.animation-container{
+.animation-container {
   display: inline-block;
   position: absolute;
   top: 0;
   left: 0;
   text-align: center;
-  height: 80vh;
+  height: 100vh;
   width: 100%;
   overflow: hidden;
   vertical-align: middle;
 }
 
-.prev-picture{
+.prev-picture {
   transform: scale(1.2);
   width: 100%;
   object-fit:cover;
@@ -27,7 +23,7 @@
   height: 100%;
 }
 
-.inner-container{
+.inner-container {
   text-align: center;
   display: inline-block;
   overflow: hidden;
@@ -39,7 +35,7 @@
   height: 100%;
 }
 
-.dark-div{
+.dark-div {
   position: absolute;
   top: 0;
   left: 0;
@@ -48,15 +44,22 @@
 }
 
 .title-div {
-  position: absolute;
-  top: 0;
-  left: 0;
   width: 100%;
-  height: 10rem;
-  margin-top: 20rem;
+  height: 100%;
+  font-size: 30px;
+}
+
+.text {
+  width: 100%;
+  height: 100%;
   color: aliceblue;
   text-align: center;
-  font-size: 30px;
+  line-height: 100vh;
+}
+
+.logo {
+  width: 600px;
+  max-width: 80%;
 }
 
 @media (min-width: 600px){
@@ -65,23 +68,6 @@
   }
 }
 
-.title-text {
-  position: relative;
-  top: -60px;
-}
-
-.logo{
-  position: relative;
-  top: -60px;
-  max-height: 100%;
-}
-
-@media (max-width: 1000px){
-  .title-text {
-    top: -20px;
-  }
-
-  .logo {
-    top: -20px;
-  }
+.reservation-form-container {
+  margin-top: 75vh;
 }

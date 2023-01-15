@@ -107,18 +107,27 @@ import {state, style, trigger, transition, animate} from '@angular/animations';
     ]),
     // titles animation
     trigger('titleAnimation', [
-      state('first', style({ })),
-      state('second', style({ })),
-      state('third', style({ })),
-      state('fourth', style({ })),
+      state('first', style({
+        // transform: 'translateY(-2000px)'
+      })),
+      state('second', style({
+        // transform: 'translateX(2000px)'
+      })),
+      state('third', style({
+        // transform: 'translateX(-2000px)'
+      })),
+      state('fourth', style({
+        // transform: 'translateY(-2000px)'
+      })),
       transition('void => first', [
         style({
-          transform: 'translateY(-2000px)'
+          transform: 'translateY(-2000px)',
         }),
         animate(600, style({
-          transform: 'translateY(0px)'
+          transform: 'translateY(0px)',
         })),
-        animate(600),
+        animate(600, style({
+        })),
         animate(600, style({
           transform: 'scale(1.2)',
         })),
@@ -127,13 +136,13 @@ import {state, style, trigger, transition, animate} from '@angular/animations';
         }))
       ]),
       transition('first => second', [
-        style({
-          transform: 'translateX(-2000px)'
-        }),
-        animate(600, style({
-          transform: 'translateX(0px)'
+        animate(10, style({
+          transform: 'translateX(-2000px)',
         })),
-        animate(600),
+        animate(590, style({
+        })),
+        animate(600, style({
+        })),
         animate(600, style({
           transform: 'scale(1.2)',
         })),
@@ -142,13 +151,13 @@ import {state, style, trigger, transition, animate} from '@angular/animations';
         }))
       ]),
       transition('second => third', [
-        style({
+        animate(10, style({
           transform: 'translateX(2000px)',
-        }),
-        animate(600, style({
-          transform: 'translateX(0px)'
         })),
-        animate(600),
+        animate(590, style({
+        })),
+        animate(600, style({
+        })),
         animate(600, style({
           transform: 'scale(1.2)',
         })),
@@ -166,21 +175,24 @@ import {state, style, trigger, transition, animate} from '@angular/animations';
         animate(1500, style({
           transform: 'scale(1.8)',
         })),
+        animate(10, style({
+          transform: 'translateY(-2000px)',
+        })),
       ]),
       transition('fourth => first', [
-        style({
-          transform: 'translateY(-2000px)'
-        }),
-        animate(600, style({
-          transform: 'translateY(0px)'
+        animate(10, style({
+          transform: 'translateY(-2000px)',
         })),
-        animate(600),
+        animate(590, style({
+        })),
+        animate(600, style({
+        })),
         animate(600, style({
           transform: 'scale(1.2)',
         })),
         animate(1200, style({
           transform: 'scale(1.2)'
-        }))
+        })),
       ])
     ]),
     trigger('darkImageAnimation', [
