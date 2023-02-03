@@ -1,7 +1,7 @@
 .container-fluid {
   width: 100%;
   position: relative;
-  margin-top: 48px!important;
+  padding-top: 48px!important;
 }
 
 .mat-expansion-panel {
@@ -23,17 +23,12 @@
   text-justify: inter-word;
 }
 
-.first-flowers {
-  position: relative;
-  top: -10rem;
-}
-
 .second-flowers {
   position: relative;
-  top: -60rem;
+  bottom: 60rem;
 }
 
 .third-flowers {
   position: relative;
-  top: -30rem;
+  bottom: 28rem;
 }
