@@ -1,48 +1,82 @@
 <app-app-page-title [title]="'Kapcsolat'" [imgPath]="'assets/outside/13.jpeg'"></app-app-page-title>
 
-<h1>
-  Elérhetőségeink:
-</h1>
-
-<div class="container m-0 p-0">
-  <div class="row m-0 p-0">
-    <div class="col-6 col-sm-4 col-md-3 col-xl-2 pl-3 pl-md-4 pl-lg-5 label">
-      E-mail címünk:
-    </div>
-    <div class="col-auto pl-2">
-      <a href="mailto: greenparkeger@gmail.com">greenparkeger@gmail.com</a>
+<div class="container-fluid m-0 p-0">
+  <!--title-->
+  <div class="row first-title justify-content-center m-0 pb-3 pr-3 pl-3 pt-3">
+    <div class="col-12 col-md-6 col-lg-5 col-xl-4 h-center p-0 m-0">
+      <h1 class="title p-2">
+        Elérhetőségeink
+      </h1>
     </div>
   </div>
-  <div class="row m-0 pb-0 pr-0 pl-0 pt-2">
-    <div class="col-6 col-sm-4 col-md-3 col-xl-2 pl-3 pl-md-4 pl-lg-5 label">
-      Telefonszámunk:
-    </div>
-    <div class="col-auto pl-2">
-      <a href="tel:+36703765751">+36-70-376-57-51</a>
+
+  <!--email address-->
+  <div class="row justify-content-center m-0 pb-3 pr-4 pl-4 pt-2">
+    <div class="col-12 col-md-6 col-lg-5 col-xl-4 p-0 m-0">
+      <div class="row m-0 p-0">
+        <div class="col-4 m-0 p-0">
+          <span class="col-sm-2 col-form-label m-0 p-0">E-mail címünk:</span>
+        </div>
+        <div class="col-8 m-0 p-0 text-right col-form-label">
+          <a href="mailto: greenparkeger@gmail.com">greenparkeger@gmail.com</a>
+        </div>
+      </div>
     </div>
   </div>
-</div>
 
-<h1>
-  Elhelyezkedés:
-</h1>
-
-<div class="label pl-3 pl-md-4 pl-lg-5 pr-3 pr-md-4 pr-lg-5 pb-3 pt-3">
-  Eger határától körülbelül másfél kilóméterre található egy csendes kis dombocskán, közel a természethez, csodálatos kilátással a városra.
-  A Sweet Farm-ig egész évben és időjárástól függetlenül járható aszfaltozott "tipikus" rossz minőségű magyar út vezet az utolsó egy kilóméteren.
-</div>
-
-<div class="container m-0 p-0 pb-3">
-  <div class="row m-0 p-0">
-    <div class="col-6 col-sm-4 col-md-3 col-xl-2 pl-3 pl-md-4 pl-lg-5 label">
-      Pontos helyszín:
-    </div>
-    <div class="col-auto pl-2">
-      <a href="https://maps.app.goo.gl/dpztkSDJ4AfKVV729" target="_blank" class="orange">ITT</a>
+  <!--tel number-->
+  <div class="row justify-content-center m-0 pb-3 pr-4 pl-4">
+    <div class="col-12 col-md-6 col-lg-5 col-xl-4 p-0 m-0">
+      <div class="row m-0 p-0">
+        <div class="col-4 m-0 p-0">
+          <span class="col-sm-2 col-form-label m-0 p-0">Telefonszámunk:</span>
+        </div>
+        <div class="col-8 m-0 p-0 text-right col-form-label">
+          <a href="tel:+36703765751">+36-70-376-57-51</a>
+        </div>
+      </div>
     </div>
   </div>
+
+  <!--title-->
+  <div class="row justify-content-center m-0 pb-3 pr-3 pl-3 pt-3">
+    <div class="col-12 col-md-6 col-lg-5 col-xl-4 h-center p-0 m-0">
+      <h1 class="title p-2">
+        Elhelyezkedés
+      </h1>
+    </div>
+  </div>
+
+  <!--how to get to the place description-->
+  <div class="row justify-content-center m-0 pb-3 pr-4 pl-4 pt-2">
+    <div class="col-12 col-md-6 col-lg-5 col-xl-4 p-0 m-0 col-form-label description">
+      Eger határától körülbelül másfél kilóméterre található egy csendes kis dombocskán,
+      közel a természethez, csodálatos kilátással a városra.
+      A Sweet Farm-ig egész évben és időjárástól függetlenül járható aszfaltozott "tipikus"
+      rossz minőségű magyar út vezet az utolsó egy kilóméteren.
+    </div>
+  </div>
+
+  <!--exact location of the place-->
+  <div class="row justify-content-center m-0 pb-3 pr-4 pl-4">
+    <div class="col-12 col-md-6 col-lg-5 col-xl-4 p-0 m-0">
+      <div class="row m-0 p-0">
+        <div class="col-4 m-0 p-0">
+          <span class="col-sm-2 col-form-label m-0 p-0">Pontos helyszín:</span>
+        </div>
+        <div class="col-8 m-0 p-0 text-right col-form-label">
+          <a href="https://maps.app.goo.gl/dpztkSDJ4AfKVV729" target="_blank" class="orange">ITT</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!--flower design to both sides-->
+  <app-flowers-design></app-flowers-design>
 </div>
 
 <div class="label pl-3 pl-md-4 pl-lg-5 pr-3 pr-md-4 pr-lg-5 pb-3 pt-3">
   <iframe class="googlemaps" src="https://maps.google.com/maps?q=47.880152,20.362495&z=12&output=embed" allowfullscreen></iframe>
 </div>
+
+<app-footer></app-footer>
