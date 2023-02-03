@@ -1,6 +1,6 @@
 <app-app-page-title [title]="'Áraink'" [imgPath]="'assets/outside/5.jpg'"></app-app-page-title>
 
-<div class="container-fluid prices-page-container m-0 p-0">
+<div class="container-fluid m-0 p-0">
   <!--information text about the price-->
   <div class="row justify-content-center m-0 pb-3 pr-3 pl-3 pt-5">
     <div class="col-12 col-md-6 col-lg-5 col-xl-4 h-center p-0 m-0">
@@ -57,14 +57,7 @@
   </div>
 
   <!--flower design to both sides-->
-  <div class="row justify-content-between flowers-container m-0 p-0">
-    <div class="col-4 image-container m-0 p-0">
-      <img class="h-left" src="assets/orange-flower-right.png">
-    </div>
-    <div class="col-4 image-container h-right m-0 p-0">
-      <img src="assets/orange-flower-left.png">
-    </div>
-  </div>
+  <app-flowers-design></app-flowers-design>
 </div>
 
 <app-footer></app-footer>

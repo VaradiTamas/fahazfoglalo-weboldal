@@ -39,6 +39,7 @@ import { BookingConfirmationDialogComponent } from './public/components/reservat
 import { ReservationFormSummaryComponent } from './public/components/reservation-form/reservation-form-steps/reservation-form-summary/reservation-form-summary.component';
 import { TermsAndConditionsComponent } from './public/legal-things/terms-and-conditions/terms-and-conditions.component';
 import { FooterComponent } from './layout/app-footer/footer.component';
+import { FlowersDesignComponent } from './public/components/flowers-design/flowers-design.component';
 
 @NgModule({
   imports: [
@@ -84,6 +85,7 @@ import { FooterComponent } from './layout/app-footer/footer.component';
     ReservationFormSummaryComponent,
     TermsAndConditionsComponent,
     FooterComponent,
+    FlowersDesignComponent,
   ],
   providers: [
     {provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true},

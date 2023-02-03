@@ -1,9 +1,9 @@
 <app-app-page-title [title]="'Gyakori kérdések'" [imgPath]="'assets/outside/11.jpeg'"></app-app-page-title>
 
-<div class="container-fluid pt-5 pb-5">
+<div class="container-fluid p-0 m-0">
   <div *ngFor="let faq of FAQs">
     <div class="row justify-content-center p-0 m-0">
-      <div class="col-11 col-sm-10 col-md-9 col-lg-8 col-xl-7 p-2">
+      <div class="col-11 col-sm-10 col-md-9 col-lg-6 p-2">
         <mat-expansion-panel>
           <mat-expansion-panel-header>
             {{faq.question}}
@@ -15,15 +15,19 @@
       </div>
     </div>
   </div>
-</div>
 
-<!--flower design to both sides-->
-<div class="row justify-content-between flowers-container m-0 p-0">
-  <div class="col-4 image-container m-0 p-0">
-    <img class="h-left" src="assets/orange-flower-right.png">
+  <!--first flower design to both sides-->
+  <div class="first-flo"
+  <app-flowers-design></app-flowers-design>
+
+  <!--second flower design to both sides-->
+  <div class="second-flowers">
+    <app-flowers-design></app-flowers-design>
   </div>
-  <div class="col-4 image-container h-right m-0 p-0">
-    <img src="assets/orange-flower-left.png">
+
+  <!--third flower design to both sides-->
+  <div class="third-flowers">
+    <app-flowers-design></app-flowers-design>
   </div>
 </div>
 
