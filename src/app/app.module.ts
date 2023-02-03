@@ -22,8 +22,8 @@ import { ErrorInterceptor } from './error-handling/error-interceptor';
 import { AppPageTitleComponent } from './layout/app-page-title/app-page-title.component';
 import { ImagesLayoutComponent } from './public/components/gallery/images-layout/images-layout.component';
 import { OutsideGalleryComponent } from './public/menu-items/gallery/outside/outside-gallery.component';
-import { GalleryLayoutComponent } from './layout/gallery-layout/gallery-layout.component';
-import { GalleryHeaderComponent } from './layout/gallery-header/gallery-header.component';
+import { GalleryLayoutComponent } from './layout/app-gallery-layout/gallery-layout.component';
+import { GalleryHeaderComponent } from './layout/app-gallery-header/gallery-header.component';
 import { PopupTelephoneDialogComponent } from './layout/app-header/popup-telephone-dialog/popup-telephone-dialog.component';
 import { ImagesCarouselComponent } from './public/components/gallery/images-carousel/images-carousel.component';
 import { InsideGalleryComponent } from './public/menu-items/gallery/inside/inside-gallery.component';
@@ -38,7 +38,7 @@ import { ReservationFormDataComponent } from './public/components/reservation-fo
 import { BookingConfirmationDialogComponent } from './public/components/reservation-form/confirmation-dialog/booking-confirmation-dialog.component';
 import { ReservationFormSummaryComponent } from './public/components/reservation-form/reservation-form-steps/reservation-form-summary/reservation-form-summary.component';
 import { TermsAndConditionsComponent } from './public/legal-things/terms-and-conditions/terms-and-conditions.component';
-import { FooterComponent } from './public/components/footer/footer.component';
+import { FooterComponent } from './layout/app-footer/footer.component';
 
 @NgModule({
   imports: [

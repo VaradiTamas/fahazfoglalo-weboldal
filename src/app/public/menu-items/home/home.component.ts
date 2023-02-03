@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {state, style, trigger, transition, animate} from '@angular/animations';
+import { state, style, trigger, transition, animate } from '@angular/animations';
 
 @Component({
   selector: 'app-home',
@@ -279,5 +279,4 @@ export class HomeComponent implements OnInit {
 
     this.toggleState();
   }
-
 }

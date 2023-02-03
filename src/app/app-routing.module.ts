@@ -7,7 +7,7 @@ import { ReservationComponent } from './public/menu-items/reservation/reservatio
 import { AppLayoutComponent } from './layout/app-layout/app-layout.component';
 import { HomeComponent } from './public/menu-items/home/home.component';
 import { OutsideGalleryComponent } from './public/menu-items/gallery/outside/outside-gallery.component';
-import { GalleryLayoutComponent } from './layout/gallery-layout/gallery-layout.component';
+import { GalleryLayoutComponent } from './layout/app-gallery-layout/gallery-layout.component';
 import { InsideGalleryComponent } from './public/menu-items/gallery/inside/inside-gallery.component';
 import { TermsAndConditionsComponent } from './public/legal-things/terms-and-conditions/terms-and-conditions.component';
 
