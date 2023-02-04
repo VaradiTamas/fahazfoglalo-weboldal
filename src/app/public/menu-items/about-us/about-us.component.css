@@ -62,3 +62,9 @@ a {
 .description {
   text-align: justify;
 }
+
+@media (min-height: 800px) {
+  .googlemaps {
+    margin-top: 50px;
+  }
+}

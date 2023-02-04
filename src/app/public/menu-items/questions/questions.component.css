@@ -25,10 +25,12 @@
 
 .second-flowers {
   position: relative;
-  bottom: 61rem;
+  bottom: 30rem;
 }
 
-.third-flowers {
-  position: relative;
-  bottom: 27rem;
+@media (min-height: 800px) {
+  .second-flowers {
+    position: relative;
+    bottom: 33rem;
+  }
 }
